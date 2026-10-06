@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-primary": "#a9c9f4", "on-tertiary-fixed-variant": "#005046", "surface-tint": "#416086", "on-error-container": "#93000a", "outline-variant": "#c3c6cf", "surface": "#f8f9ff", "tertiary-container": "#004138", "primary-container": "#173a5e", "on-secondary-fixed-variant": "#003ea8", "secondary-fixed-dim": "#b4c5ff", "secondary-container": "#316bf3", "secondary-fixed": "#dbe1ff", "tertiary-fixed-dim": "#65dac4", "on-secondary-fixed": "#00174b", "surface-dim": "#d2dbe9", "surface-container-high": "#e0e9f7", "surface-container-highest": "#dae3f1", "outline": "#73777f", "error": "#ba1a1a", "on-surface": "#131c26", "surface-bright": "#f8f9ff", "error-container": "#ffdad6", "surface-container-low": "#eef4ff", "on-tertiary-container": "#3ab5a1", "on-primary-fixed-variant": "#28486d", "surface-container": "#e5effd", "on-secondary-container": "#fefcff", "primary-fixed-dim": "#a9c9f4", "inverse-on-surface": "#e9f1ff", "on-secondary": "#ffffff", "inverse-surface": "#28313c", "secondary": "#0051d5", "on-surface-variant": "#43474e", "surface-variant": "#dae3f1", "on-primary": "#ffffff", "on-background": "#131c26", "primary-fixed": "#d2e4ff", "on-tertiary-fixed": "#00201b", "primary": "#002444", "tertiary-fixed": "#83f6e0", "tertiary": "#002923", "on-primary-container": "#85a4ce", "on-error": "#ffffff", "background": "#f8f9ff", "on-tertiary": "#ffffff", "on-primary-fixed": "#001c37", "surface-container-lowest": "#ffffff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-lg": "1rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.375rem", "space-xs": "0.25rem", "space-md": "0.75rem" }, "fontFamily": { "telemetry-lg": [ "JetBrains Mono" ], "telemetry-hero": [ "JetBrains Mono" ], "headline-sm": [ "IBM Plex Sans" ], "telemetry-sm": [ "JetBrains Mono" ], "headline-lg": [ "IBM Plex Sans" ], "headline-md": [ "IBM Plex Sans" ], "label-caps": [ "IBM Plex Sans" ], "display": [ "IBM Plex Sans" ], "body-lg": [ "IBM Plex Sans" ], "body-md": [ "IBM Plex Sans" ], "body-sm": [ "IBM Plex Sans" ], "telemetry-md": [ "JetBrains Mono" ], "code-cell": [ "JetBrains Mono" ] }, "fontSize": { "telemetry-lg": [ "20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "telemetry-hero": [ "28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "headline-sm": [ "15px", { "lineHeight": "20px", "fontWeight": "600" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-caps": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "display": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-lg": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "telemetry-md": [ "14px", { "lineHeight": "18px", "fontWeight": "500" } ], "code-cell": [ "11px", { "lineHeight": "16px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm bg-surface-container-low"><img alt="Brand logo. - Primary color: #173a5e
+- Font: ibmPlexSans
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XCmR0Ip4sRmMZDx30Q-r7zfFi89hwErBK1cPFuPdiwXSTm_7lWCjmntfNZOVxilf6KTfV8VfAraBbg1YyH2PMpd6ySLpk73jmTIzy1A0xonxTm9xu7KrvLNU0kHZXvgwBhjtT60VohOtmIltPcfdr3yAohL6L6E4YcdhlzRYU3aiaDxeFM6yjQvRbqmf0cjrj5yPa5JhSbEhN2aJ4n71XhS_ofqCGAVs_UasF3q9HnCbHDKFFdMHWWgtg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none">AeroTwin-X</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-space-xs">AERO-PISTON GCS</span></div></div><div class="p-space-xs"><div class="px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">MAIN</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT shadow-[0_1px_3px_rgba(11,31,51,0.08)]"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-control" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Mission Control</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="digital-twin" href="#"><span class="material-symbols-outlined text-[18px]">model_training</span><span>Digital Twin</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="engine-health" href="#"><span class="material-symbols-outlined text-[18px]">vital_signs</span><span>Engine Health</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="sensor-monitoring" href="#"><span class="material-symbols-outlined text-[18px]">sensors</span><span>Sensor Monitoring</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined text-[18px]">psychology</span><span>AI Diagnostics</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fault-prediction" href="#"><span class="material-symbols-outlined text-[18px]">troubleshoot</span><span>Fault Prediction</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="rul-degradation" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>RUL &amp; Degradation</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">OPERATIONS</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="3d-engine-explorer" href="#"><span class="material-symbols-outlined text-[18px]">view_in_ar</span><span>3D Engine Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-simulator" href="#"><span class="material-symbols-outlined text-[18px]">science</span><span>Mission Simulator</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-replay" href="#"><span class="material-symbols-outlined text-[18px]">replay</span><span>Mission Replay</span></a><a class="flex items-center justify-between px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="alerts" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">warning</span><span>Alerts</span></div><span class="px-space-xs py-[1px] bg-error-container text-on-error-container font-label-caps text-label-caps rounded-DEFAULT">1</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="maintenance" href="#"><span class="material-symbols-outlined text-[18px]">build</span><span>Maintenance</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">ENGINEERING</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="telemetry-can" href="#"><span class="material-symbols-outlined text-[18px]">cable</span><span>Telemetry / CAN</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Data Quality</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality-center" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Data Quality Center</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="edge-ai" href="#"><span class="material-symbols-outlined text-[18px]">memory</span><span>Edge AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="system-architecture" href="#"><span class="material-symbols-outlined text-[18px]">schema</span><span>System Architecture</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">SYSTEM</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fleet" href="#"><span class="material-symbols-outlined text-[18px]">flight</span><span>Fleet</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="about-aerotwin-x" href="#"><span class="material-symbols-outlined text-[18px]">info</span><span>About AeroTwin-X</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="controls" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Controls</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-xs m-space-xs bg-surface-container-low rounded-DEFAULT"><div class="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant mb-space-xs"><span>CAN BUS STATUS</span><span class="text-tertiary font-telemetry-sm text-telemetry-sm font-semibold">HEALTHY</span></div><div class="grid grid-cols-3 gap-space-xs text-center"><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOAD</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">42%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOSS</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">0.00%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LAT</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">14ms</div></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary">flight_takeoff</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">UAV-07 (Hermes MALE)</span></div><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary-container">speed</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">ENGINE-AE-03 (Turbo Piston)</span></div><span class="px-space-sm py-space-xs bg-surface-container font-label-caps text-label-caps text-on-surface-variant rounded-DEFAULT">MISSION: LONG-ENDURANCE ISR</span><div class="flex items-center bg-surface-container-high rounded-DEFAULT p-[2px]"><button class="px-space-sm py-[2px] bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>LIVE</button><button class="px-space-sm py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps">SIMULATION</button></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-tertiary-container text-on-tertiary-container rounded-DEFAULT"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span><span class="font-label-caps text-label-caps uppercase">TELEMETRY: CONNECTED</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-high text-on-surface rounded-DEFAULT"><span class="material-symbols-outlined text-[14px] text-secondary">sync</span><span class="font-label-caps text-label-caps uppercase">TWIN: 99.7% SYNC</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">AI: ONLINE</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">EDGE: ONLINE</span></div><div class="font-code-cell text-code-cell text-on-surface bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT font-semibold">14:28:42 UTC | 2025-05-18</div><button class="relative p-space-xs hover:bg-surface-container-high rounded-DEFAULT text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="text-right hidden xl:block"><div class="font-body-md text-body-md font-semibold leading-none text-on-surface">Maj. K. Vance</div><div class="font-label-caps text-[10px] text-on-surface-variant leading-tight">Lead Flight Eng</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 w-full px-gutter bg-surface min-h-screen"><div class="flex flex-col w-full pb-16">
+<!-- Top KPI Ribbon -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-gutter mb-gutter">
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Data Quality Score</div>
+<div class="flex items-baseline justify-between mt-space-sm">
+<span class="font-telemetry-hero text-telemetry-hero text-on-surface">97.8%</span>
+<span class="font-telemetry-sm text-telemetry-sm text-tertiary font-semibold">+0.4%</span>
+</div>
+<div class="w-full bg-surface-container h-1 rounded-full mt-space-xs overflow-hidden">
+<div class="bg-tertiary h-full w-[97.8%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Integrity Status</div>
+<div class="flex items-center gap-space-xs mt-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
+<span class="font-headline-sm text-headline-sm text-on-surface">VERIFIED</span>
+</div>
+<div class="font-body-sm text-on-surface-variant mt-space-xs">FADEC Dual-Bus OK</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Streams Monitored</div>
+<div class="mt-space-sm">
+<span class="font-telemetry-hero text-telemetry-hero text-on-surface">148</span>
+<span class="font-body-sm text-on-surface-variant ml-1">signals / 7 nodes</span>
+</div>
+<div class="font-body-sm text-tertiary mt-space-xs">CAN Bus Synchronized</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Bit Error Rate</div>
+<div class="mt-space-sm">
+<span class="font-telemetry-hero text-telemetry-hero text-on-surface">0.0001%</span>
+</div>
+<div class="font-body-sm text-on-surface-variant mt-space-xs">Zero drop frames</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Mean Packet Loss</div>
+<div class="mt-space-sm">
+<span class="font-telemetry-hero text-telemetry-hero text-on-surface">0.02%</span>
+</div>
+<div class="font-body-sm text-tertiary mt-space-xs">Within nominal limits</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase">Sync Jitter</div>
+<div class="mt-space-sm">
+<span class="font-telemetry-hero text-telemetry-hero text-on-surface">±0.42</span>
+<span class="font-body-sm text-on-surface-variant ml-1">ms</span>
+</div>
+<div class="font-body-sm text-on-surface-variant mt-space-xs">Atomic GPS locked</div>
+</div>
+</div>
+<!-- Action Toolbar -->
+<div class="bg-surface-container-lowest p-gutter shadow-sm rounded-DEFAULT mb-gutter flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Data Integrity Operations Center</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="px-space-md py-space-sm bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary-container transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+        Re-calibrate Sensor Weights
+      </button>
+<button class="px-space-md py-space-sm bg-surface-container-low text-on-surface font-label-caps text-label-caps rounded-DEFAULT hover:bg-surface-container-high transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">cleaning_services</span>
+        Purge Stale Cache
+      </button>
+<button class="px-space-md py-space-sm bg-surface-container-low text-on-surface font-label-caps text-label-caps rounded-DEFAULT hover:bg-surface-container-high transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+        Reset Kalman Filters
+      </button>
+<button class="px-space-md py-space-sm bg-secondary text-on-secondary font-label-caps text-label-caps rounded-DEFAULT hover:bg-secondary-container transition-colors flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">download</span>
+        Export Audit Report
+      </button>
+</div>
+</div>
+<!-- 8 Reliability & Data Health Telemetry Monitors -->
+<div class="mb-gutter">
+<div class="flex items-center justify-between mb-space-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Reliability &amp; Data Health Monitors</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">8 ACTIVE CHANNELS</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">MISSING VALUES</span>
+<span class="px-space-xs py-[1px] bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">NOMINAL</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">0.01%</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">12 frames dropped in past 24h due to transient buffer overlap.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Buffer Health</span>
+<span class="text-tertiary">99.99%</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SENSOR DROPOUT</span>
+<span class="px-space-xs py-[1px] bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">SECURE</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">0</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">FADEC dual-redundant failover ready and fully synchronized.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Bus Redundancy</span>
+<span class="text-tertiary">ACTIVE A/B</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">STALE PACKETS</span>
+<span class="px-space-xs py-[1px] bg-error-container text-on-error-container font-label-caps text-label-caps rounded-DEFAULT">WARNING</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">3</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">Warnings on aux barometric sensor, last refresh &gt;500ms.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Node ID</span>
+<span class="text-error">AUX-BARO-02</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">OUT-OF-RANGE</span>
+<span class="px-space-xs py-[1px] bg-error-container text-on-error-container font-label-caps text-label-caps rounded-DEFAULT">ALERT</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">2</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">Alerts on CHT Cyl #3 excursion exceeding &gt;720°C threshold.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Peak Temp</span>
+<span class="text-error">724.5°C</span>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SIGNAL NOISE / RIPPLE</span>
+<span class="px-space-xs py-[1px] bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">NOMINAL</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">4.2%</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">On differential CAN-H/CAN-L line, within 10% ISO limit.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>ISO Compliance</span>
+<span class="text-tertiary">PASS</span>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SENSOR DRIFT</span>
+<span class="px-space-xs py-[1px] bg-surface-container text-on-surface-variant font-label-caps text-label-caps rounded-DEFAULT">MONITORED</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">-0.2 b</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">Oil pressure gauge offset over last 100 flight hours.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Compensation</span>
+<span class="text-secondary">KALMAN ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">LATENCY</span>
+<span class="px-space-xs py-[1px] bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">OPTIMAL</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">13.8 ms</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">Round-trip to Edge AI processor, jitter stable.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Jitter Variance</span>
+<span class="text-tertiary">±0.4ms</span>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="bg-surface-container-lowest p-space-md shadow-sm rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TIMESTAMP ERRORS</span>
+<span class="px-space-xs py-[1px] bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">PERFECT</span>
+</div>
+<div class="font-telemetry-hero text-telemetry-hero text-on-surface mt-space-xs">0</div>
+<p class="font-body-sm text-on-surface-variant mt-space-xs">Zero synchronization drift against atomic GPS clock source.</p>
+</div>
+<div class="mt-space-md pt-space-sm border-t border-surface-container">
+<div class="flex justify-between font-telemetry-sm text-on-surface-variant">
+<span>Clock Sync</span>
+<span class="text-tertiary">PTP STRATUM 1</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sensor Trust Ranking & Health Matrix -->
+<div class="bg-surface-container-lowest shadow-sm rounded-DEFAULT mb-gutter overflow-hidden">
+<div class="p-gutter flex flex-wrap items-center justify-between border-b border-surface-container">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Sensor Trust Ranking &amp; Health Matrix</h2>
+<p class="font-body-sm text-on-surface-variant mt-0.5">Rotax 915iSc Engine Telemetry Nodes (28 Physical Sensors)</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<input class="h-8 px-space-sm bg-surface-container-low text-body-md text-on-surface rounded-DEFAULT outline-none focus:ring-1 focus:ring-secondary w-48 font-body-md" placeholder="Filter sensors..." type="text"/>
+</div>
+<button class="px-space-sm h-8 bg-surface-container-low text-on-surface font-label-caps text-label-caps rounded-DEFAULT hover:bg-surface-container-high transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+          Filter: All
+        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-caps text-label-caps text-on-surface-variant">
+<th class="py-space-sm px-gutter">SENSOR ID &amp; NAME</th>
+<th class="py-space-sm px-gutter">SUBSYSTEM</th>
+<th class="py-space-sm px-gutter text-right">AVAILABILITY</th>
+<th class="py-space-sm px-gutter text-right">SIGNAL QUAL</th>
+<th class="py-space-sm px-gutter text-right">DRIFT RATE</th>
+<th class="py-space-sm px-gutter text-right">NOISE</th>
+<th class="py-space-sm px-gutter">LAST UPDATE</th>
+<th class="py-space-sm px-gutter text-center">TRUST SCORE</th>
+</tr>
+</thead>
+<tbody class="font-code-cell text-code-cell text-on-surface divide-y divide-surface-container">
+<!-- Highlighted Row: Cyl #3 -->
+<tr class="bg-amber-50/50 hover:bg-amber-50 transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span>EGT_03 (Exh Gas Temp #3)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Thermal Exhaust</td>
+<td class="py-space-sm px-gutter text-right">99.1%</td>
+<td class="py-space-sm px-gutter text-right">92.4%</td>
+<td class="py-space-sm px-gutter text-right text-amber-600">+1.4%/100h</td>
+<td class="py-space-sm px-gutter text-right">6.8%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:41.201</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-amber-100 text-amber-800 border border-amber-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">91.4% (WARN)</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>CRK_PRESS_01 (Crank Pressure)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Crankcase Loop</td>
+<td class="py-space-sm px-gutter text-right">100.0%</td>
+<td class="py-space-sm px-gutter text-right">99.8%</td>
+<td class="py-space-sm px-gutter text-right text-tertiary">0.0%/100h</td>
+<td class="py-space-sm px-gutter text-right">0.4%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:42.012</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">99.8% (OK)</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>MAP_SENSOR_A (Manifold Abs Press)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Induction</td>
+<td class="py-space-sm px-gutter text-right">99.9%</td>
+<td class="py-space-sm px-gutter text-right">98.5%</td>
+<td class="py-space-sm px-gutter text-right text-tertiary">+0.1%/100h</td>
+<td class="py-space-sm px-gutter text-right">1.2%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:41.980</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">98.2% (OK)</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>OIL_TEMP_IN (Oil Inlet Temp)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Lubrication</td>
+<td class="py-space-sm px-gutter text-right">100.0%</td>
+<td class="py-space-sm px-gutter text-right">97.9%</td>
+<td class="py-space-sm px-gutter text-right text-tertiary">-0.05%/100h</td>
+<td class="py-space-sm px-gutter text-right">0.8%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:42.002</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">97.5% (OK)</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span>AUX_BARO_02 (Aux Barometric)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Environment</td>
+<td class="py-space-sm px-gutter text-right">96.4%</td>
+<td class="py-space-sm px-gutter text-right">88.2%</td>
+<td class="py-space-sm px-gutter text-right text-amber-600">+2.1%/100h</td>
+<td class="py-space-sm px-gutter text-right">4.5%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:41.110</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-amber-100 text-amber-800 border border-amber-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">89.1% (WARN)</span>
+</td>
+</tr>
+<!-- Row 6 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-gutter font-semibold flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span>RPM_HALL_01 (Prop Shaft RPM)</span>
+</td>
+<td class="py-space-sm px-gutter font-body-md text-on-surface-variant">Ignition / Drive</td>
+<td class="py-space-sm px-gutter text-right">100.0%</td>
+<td class="py-space-sm px-gutter text-right">99.9%</td>
+<td class="py-space-sm px-gutter text-right text-tertiary">0.0%/100h</td>
+<td class="py-space-sm px-gutter text-right">0.1%</td>
+<td class="py-space-sm px-gutter text-on-surface-variant">14:28:42.015</td>
+<td class="py-space-sm px-gutter text-center">
+<span class="px-space-sm py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-label-caps text-label-caps rounded-DEFAULT inline-block">99.9% (OK)</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex items-center justify-between border-t border-surface-container">
+<span class="font-body-sm text-on-surface-variant">Showing 6 of 28 core engine sensors</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant">Previous</button>
+<button class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT">1</button>
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant">2</button>
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant">3</button>
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant">Next</button>
+</div>
+</div>
+</div>
+<!-- Communication & Data-Quality Timeline / Event Stream -->
+<div class="bg-surface-container-lowest shadow-sm rounded-DEFAULT p-gutter">
+<div class="flex items-center justify-between mb-space-md pb-space-sm border-b border-surface-container">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Communication &amp; Data-Quality Event Stream</h2>
+<p class="font-body-sm text-on-surface-variant mt-0.5">Chronological log tracking dropouts, stale packets, noise spikes, and resync events (Past 24h)</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-1 bg-surface-container-low font-label-caps text-label-caps text-on-surface-variant rounded-DEFAULT">LIVE STREAM</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Event 1: Critical -->
+<div class="bg-error-container/40 p-space-md rounded-DEFAULT flex flex-col md:flex-row md:items-center justify-between gap-space-md border border-error/20">
+<div class="flex items-start gap-space-md">
+<div class="p-2 bg-error text-on-error rounded-DEFAULT mt-0.5">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-[1px] bg-error text-on-error font-label-caps text-label-caps rounded-DEFAULT">CRITICAL</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">14:12:05 UTC</span>
+<span class="font-code-cell text-code-cell text-on-surface font-semibold">CAN_BUS_A_EXCURSION</span>
+</div>
+<div class="font-body-md text-on-surface mt-1">Cylinder #3 Exhaust Gas Temperature (EGT_03) excursion &gt;720°C threshold. Thermal gradient delta detected.</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant hover:bg-surface-container-low transition-colors">Inspect CAN Frames</button>
+<button class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary-container transition-colors">Kalman State</button>
+</div>
+</div>
+<!-- Event 2: Warning -->
+<div class="bg-amber-50 p-space-md rounded-DEFAULT flex flex-col md:flex-row md:items-center justify-between gap-space-md border border-amber-200">
+<div class="flex items-start gap-space-md">
+<div class="p-2 bg-amber-500 text-white rounded-DEFAULT mt-0.5">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-[1px] bg-amber-500 text-white font-label-caps text-label-caps rounded-DEFAULT">WARNING</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">11:45:22 UTC</span>
+<span class="font-code-cell text-code-cell text-on-surface font-semibold">AUX_BARO_STALE</span>
+</div>
+<div class="font-body-md text-on-surface mt-1">Stale packet warning on aux barometric sensor node. Refresh latency exceeded 500ms limit.</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant hover:bg-surface-container-low transition-colors">Inspect CAN Frames</button>
+<button class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary-container transition-colors">Kalman State</button>
+</div>
+</div>
+<!-- Event 3: Info -->
+<div class="bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="p-2 bg-tertiary text-on-tertiary rounded-DEFAULT mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-[1px] bg-tertiary text-on-tertiary font-label-caps text-label-caps rounded-DEFAULT">INFO</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">08:00:00 UTC</span>
+<span class="font-code-cell text-code-cell text-on-surface font-semibold">KALMAN_FILTER_RESET</span>
+</div>
+<div class="font-body-md text-on-surface mt-1">Routine daily Kalman filter state vector re-initialization completed successfully. Zero packet drop during transition.</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant hover:bg-surface-container-low transition-colors">Inspect CAN Frames</button>
+<button class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary-container transition-colors">Kalman State</button>
+</div>
+</div>
+<!-- Event 4: Info -->
+<div class="bg-surface-container-low p-space-md rounded-DEFAULT flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="p-2 bg-tertiary text-on-tertiary rounded-DEFAULT mt-0.5">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</div>
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-[1px] bg-tertiary text-on-tertiary font-label-caps text-label-caps rounded-DEFAULT">INFO</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">02:15:40 UTC</span>
+<span class="font-code-cell text-code-cell text-on-surface font-semibold">GPS_PTP_SYNC_OK</span>
+</div>
+<div class="font-body-md text-on-surface mt-1">Atomic clock PTP Stratum 1 synchronization verified. Offset corrected by +0.02ms.</div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps rounded-DEFAULT border border-outline-variant hover:bg-surface-container-low transition-colors">Inspect CAN Frames</button>
+<button class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary-container transition-colors">Kalman State</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

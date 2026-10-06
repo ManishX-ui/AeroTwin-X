@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>AERO UAV // Tactical Autonomous Systems</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&amp;family=Rajdhani:wght@400;500;600;700&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            display: ['Orbitron', 'sans-serif'],
+            mono: ['Rajdhani', 'monospace'],
+          },
+          colors: {
+            space: {
+              950: '#050709',
+              900: '#090b0e',
+              850: '#0d1117',
+              800: '#141a22'
+            },
+            cyanGlow: '#38bdf8',
+            tacticalBlue: '#1e3a5f'
+          }
+        }
+      }
+    };
+  </script>
+<style data-purpose="custom-layout-and-glow">
+    /* Deep studio vignetting & radial lighting */
+    .hero-vignette {
+      background: radial-gradient(ellipse 65% 55% at 50% 45%, rgba(20, 48, 77, 0.45) 0%, rgba(9, 11, 14, 0.95) 70%, #06080a 100%);
+    }
+
+    /* Dramatic ground spotlight reflection */
+    .ground-reflection {
+      background: radial-gradient(ellipse 70% 30% at 50% 68%, rgba(56, 189, 248, 0.12) 0%, rgba(13, 22, 35, 0.28) 45%, transparent 75%);
+    }
+
+    /* Floor contact shadow under the UAV landing gears */
+    .contact-shadow {
+      background: radial-gradient(ellipse 60% 18% at 50% 50%, rgba(0, 0, 0, 0.88) 10%, rgba(0, 0, 0, 0.45) 50%, transparent 80%);
+      filter: blur(14px);
+    }
+
+    /* Huge typographic backdrop effect matching the reference */
+    .giant-backdrop-text {
+      letter-spacing: 0.12em;
+      background: linear-gradient(180deg, rgba(82, 115, 150, 0.22) 0%, rgba(24, 38, 54, 0.04) 95%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 80px rgba(30, 58, 95, 0.25);
+      user-select: none;
+    }
+
+    /* Outline variation for edge definition */
+    .text-stroke-cyan {
+      -webkit-text-stroke: 1px rgba(56, 189, 248, 0.18);
+    }
+
+    /* Subtle hover transitions & glass effects */
+    .glass-pill {
+      background: rgba(14, 20, 27, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-btn {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .glass-btn:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="bg-space-950 text-slate-200 min-h-screen overflow-x-hidden font-sans selection:bg-cyan-500 selection:text-white flex flex-col justify-between">
+<!-- BEGIN: MainHeroContainer -->
+<main class="relative w-full min-h-screen flex flex-col justify-between hero-vignette overflow-hidden" data-purpose="landing-hero">
+<!-- Atmospheric Grid & Ambient Floor Lights -->
+<div aria-hidden="true" class="pointer-events-none absolute inset-0 ground-reflection z-0"></div>
+<div aria-hidden="true" class="pointer-events-none absolute -bottom-36 left-1/2 -translate-x-1/2 w-[1200px] h-[360px] bg-cyan-900/10 blur-[130px] rounded-full z-0"></div>
+<!-- BEGIN: TopNavigationBar -->
+<header class="relative z-30 w-full px-6 md:px-12 pt-7 flex items-center justify-between text-xs tracking-widest font-mono uppercase" data-purpose="main-navigation">
+<!-- Brand Logo / Monogram -->
+<a aria-label="AERO UAV System Home" class="flex items-center gap-2 group cursor-pointer" href="#">
+<span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_12px_#38bdf8] group-hover:scale-125 transition-transform duration-300"></span>
+<span class="font-display font-black text-sm tracking-wider text-white">AERO<span class="text-cyan-400 font-light">.UAV</span></span>
+</a>
+<!-- Center Primary Navigation Links -->
+<nav aria-label="Primary Navigation" class="hidden md:flex items-center space-x-9 text-slate-400 font-medium">
+<a class="text-white relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-cyan-400" href="#drones">Drones</a>
+<a class="hover:text-slate-200 transition-colors py-1" href="#tactical-uav">Tactical UAV</a>
+<a class="hover:text-slate-200 transition-colors py-1" href="#avionics">Summer Sale</a>
+<a class="hover:text-slate-200 transition-colors py-1" href="#parts-accessories">Parts &amp; Accessories</a>
+</nav>
+<!-- Right Utility Bar: Search & Socials -->
+<div class="flex items-center space-x-5 text-slate-400">
+<!-- Search Input -->
+<div class="relative hidden sm:block w-36 lg:w-44">
+<input class="w-full bg-[#12171f]/80 text-[11px] text-slate-200 placeholder-slate-500 rounded px-2.5 py-1.5 pl-6 border border-slate-700/60 focus:outline-none focus:border-cyan-400/70 transition-all font-sans" data-purpose="nav-search" placeholder="Search..." type="text">
+<svg class="w-3.5 h-3.5 absolute left-1.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M21 21l-4.35-4.35m1.85-5.65a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Social Icons (Twitter / Instagram) matching template -->
+<a aria-label="X / Twitter" class="hover:text-white transition-colors" href="#twitter">
+<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+</svg>
+</a>
+<a aria-label="Instagram" class="hover:text-white transition-colors" href="#instagram">
+<svg class="w-4 h-4 fill-none stroke-currentColor" stroke-width="2" viewBox="0 0 24 24">
+<rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect>
+<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+</svg>
+</a>
+</div>
+</header>
+<!-- END: TopNavigationBar -->
+<!-- BEGIN: RotatedLeftTagline -->
+<!-- Vertical decorative slogan placed identically to the left margin in reference image -->
+<aside aria-hidden="true" class="absolute left-6 top-1/2 -translate-y-1/2 hidden xl:flex items-center z-20 pointer-events-none">
+<div class="rotate-[-90deg] origin-left text-[11px] font-mono tracking-[0.28em] text-slate-500/80 uppercase whitespace-nowrap">
+        aerospace autonomous beats <span class="text-cyan-400/90 font-semibold underline decoration-cyan-400/50 underline-offset-4">resonate</span> within mission
+      </div>
+</aside>
+<!-- END: RotatedLeftTagline -->
+<!-- BEGIN: HeroStage (Center Typographic & Drone Stage) -->
+<section class="relative flex-1 w-full max-w-7xl mx-auto flex flex-col items-center justify-center px-4 pt-4 pb-8 z-10" data-purpose="hero-drone-stage">
+<!-- GIANT BACKGROUND TYPOGRAPHY: "DRONE" -->
+<div aria-hidden="true" class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+<h1 class="giant-backdrop-text text-stroke-cyan text-[14vw] lg:text-[13vw] font-display font-black leading-none tracking-widest uppercase select-none opacity-40 translate-y-2 whitespace-nowrap">MALE UAV</h1>
+</div>
+<!-- Over-Drone Floating Subtitles & Specs Text (Matching Post Template) -->
+<div class="relative z-20 text-center max-w-xl mx-auto mt-2 mb-2">
+<span class="inline-block text-[11px] sm:text-xs tracking-[0.45em] text-slate-300 font-mono font-medium uppercase mb-3">
+          R E V I T A L I Z E
+        </span>
+<p class="text-[11px] sm:text-xs text-slate-400 leading-relaxed font-light max-w-md mx-auto hidden sm:block">
+          Autonomous medium-altitude long-endurance tactical unmanned aerial system designed for integrated day &amp; night persistent reconnaissance and situational superiority.
+        </p>
+</div>
+<!-- Drone Subject Container with Dynamic Perspectives & Shadows -->
+<div class="relative z-10 w-full max-w-4xl flex items-center justify-center my-auto group" data-purpose="drone-showcase">
+<!-- Center Backlight Glow -->
+<div aria-hidden="true" class="absolute w-[450px] h-[220px] bg-cyan-500/15 blur-[90px] rounded-full pointer-events-none -translate-y-6"></div>
+<!-- Contact Ground Shadow Under UAV Landing Gear -->
+<div aria-hidden="true" class="absolute bottom-4 sm:bottom-6 w-[70%] h-12 contact-shadow pointer-events-none"></div>
+<!-- Military UAV Drone Image -->
+<img alt="AERO Tactical Medium-Altitude Long-Endurance Military UAV Drone" class="relative w-full max-w-3xl sm:max-w-4xl object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.9)] transform hover:scale-[1.01] transition-transform duration-700 ease-out z-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgxE4QKncy7aK8-y8G3hScVRyNwmiyh4Q9ONEvCKfPcxBIpx1S8DL9e5RO86WWS2koOSQj_CUjMASuhM7CxkKYsgWm_x8PB-SE0N7gwNQB19nJrm4200O2io9Ei9_T7KxvOPlMB497RNJhAOO9fJB2KfHjiGEqIrDUxwxr43dUUYifmO7AjAt_lkr4QB3Ek86S_w7wbfYwMpCW-wAcywn1erD658UfQQRtvbdl9z3TWjaxS7osBO__ZfuDRz6jVeAn2Q" style="mix-blend-mode: multiply; filter: contrast(1.05);">
+<!-- Optical Flare / HUD Beacon Accents -->
+<div aria-hidden="true" class="absolute left-[36%] top-[38%] w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8] animate-pulse pointer-events-none"></div>
+<div aria-hidden="true" class="absolute right-[22%] top-[30%] w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444] pointer-events-none"></div>
+</div>
+<!-- Hero Bottom Action & Micro-Copy (Matching reference lower layout) -->
+<div class="relative z-20 flex flex-col sm:flex-row items-center justify-center gap-4 mt-1">
+<p class="text-[10px] sm:text-[11px] text-slate-400 font-mono tracking-wide max-w-xs text-center sm:text-right hidden sm:block">
+          MIL-STD-810G Qualified • Rotax 915iSc Turbocharged • 24h Endurance
+        </p>
+<!-- Divider Line -->
+<div class="hidden sm:block w-[1px] h-7 bg-slate-700/80"></div>
+<!-- Glassmorphism CTA Button matching reference "Explore Now" -->
+<a class="glass-btn px-6 py-2.5 rounded text-xs font-mono uppercase tracking-[0.2em] text-white hover:text-cyan-300 transition-all flex items-center gap-2 group cursor-pointer" data-purpose="cta-button" href="#explore">
+<span class="">Explore Now</span>
+<svg class="w-3.5 h-3.5 text-cyan-400 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</section>
+<!-- END: HeroStage -->
+<!-- BEGIN: BottomFeatureHighlights -->
+<footer class="relative z-20 w-full border-t border-slate-800/80 bg-space-950/80 backdrop-blur-md py-4 px-6 md:px-12" data-purpose="feature-footer">
+<div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4 text-slate-400 text-xs font-mono">
+<!-- Feature 1: Airframe -->
+<div class="flex items-center space-x-2.5">
+<div class="p-1.5 rounded bg-slate-800/60 text-cyan-400 border border-slate-700/50">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<div>
+<span class="block text-slate-200 font-semibold text-[11px] tracking-wider uppercase">Composite Airframe</span>
+<span class="text-[10px] text-slate-500">Ultra-light carbon weave</span>
+</div>
+</div>
+<!-- Feature 2: Autonomy & Time -->
+<div class="flex items-center space-x-2.5">
+<div class="p-1.5 rounded bg-slate-800/60 text-cyan-400 border border-slate-700/50">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<div>
+<span class="block text-slate-200 font-semibold text-[11px] tracking-wider uppercase">24h+ Endurance</span>
+<span class="text-[10px] text-slate-500">Autonomous patrol mode</span>
+</div>
+</div>
+<!-- Feature 3: Avionics Standard -->
+<div class="flex items-center space-x-2.5">
+<div class="p-1.5 rounded bg-slate-800/60 text-cyan-400 border border-slate-700/50">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<div>
+<span class="block text-slate-200 font-semibold text-[11px] tracking-wider uppercase">STANAG Compliant</span>
+<span class="text-[10px] text-slate-500">Encrypted LOS / SATCOM</span>
+</div>
+</div>
+<!-- Feature 4: Edge AI Telemetry -->
+<div class="hidden sm:flex items-center space-x-2.5">
+<div class="p-1.5 rounded bg-slate-800/60 text-cyan-400 border border-slate-700/50">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+</svg>
+</div>
+<div>
+<span class="block text-slate-200 font-semibold text-[11px] tracking-wider uppercase">Edge AI Target Track</span>
+<span class="text-[10px] text-slate-500">Dual EO/IR gimbal</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: BottomFeatureHighlights -->
+</main>
+<!-- END: MainHeroContainer -->
+
+
+</body></html>

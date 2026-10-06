@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-primary-fixed": "#001c37", "tertiary-fixed": "#83f6e0", "inverse-primary": "#a9c9f4", "primary-fixed-dim": "#a9c9f4", "primary-fixed": "#d2e4ff", "on-primary": "#ffffff", "error": "#ba1a1a", "on-tertiary-fixed-variant": "#005046", "on-primary-fixed-variant": "#28486d", "secondary": "#0051d5", "on-secondary-fixed": "#00174b", "surface-variant": "#dae3f1", "secondary-container": "#316bf3", "on-error": "#ffffff", "inverse-on-surface": "#e9f1ff", "error-container": "#ffdad6", "surface": "#f8f9ff", "on-error-container": "#93000a", "on-tertiary-container": "#3ab5a1", "secondary-fixed-dim": "#b4c5ff", "surface-container-highest": "#dae3f1", "surface-container": "#e5effd", "surface-tint": "#416086", "surface-container-high": "#e0e9f7", "surface-bright": "#f8f9ff", "primary-container": "#173a5e", "tertiary-fixed-dim": "#65dac4", "inverse-surface": "#28313c", "secondary-fixed": "#dbe1ff", "tertiary": "#002923", "surface-dim": "#d2dbe9", "on-secondary": "#ffffff", "on-tertiary": "#ffffff", "on-surface": "#131c26", "surface-container-low": "#eef4ff", "surface-container-lowest": "#ffffff", "background": "#f8f9ff", "on-tertiary-fixed": "#00201b", "on-background": "#131c26", "primary": "#002444", "tertiary-container": "#004138", "outline-variant": "#c3c6cf", "on-secondary-fixed-variant": "#003ea8", "on-primary-container": "#85a4ce", "on-secondary-container": "#fefcff", "on-surface-variant": "#43474e", "outline": "#73777f" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.375rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-lg": "1rem" }, "fontFamily": { "telemetry-lg": [ "JetBrains Mono" ], "headline-md": [ "IBM Plex Sans" ], "label-caps": [ "IBM Plex Sans" ], "body-sm": [ "IBM Plex Sans" ], "body-lg": [ "IBM Plex Sans" ], "telemetry-hero": [ "JetBrains Mono" ], "display": [ "IBM Plex Sans" ], "code-cell": [ "JetBrains Mono" ], "body-md": [ "IBM Plex Sans" ], "headline-lg": [ "IBM Plex Sans" ], "telemetry-md": [ "JetBrains Mono" ], "headline-sm": [ "IBM Plex Sans" ], "telemetry-sm": [ "JetBrains Mono" ] }, "fontSize": { "telemetry-lg": [ "20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "headline-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-caps": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "body-lg": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "telemetry-hero": [ "28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "display": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "code-cell": [ "11px", { "lineHeight": "16px", "fontWeight": "400" } ], "body-md": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "telemetry-md": [ "14px", { "lineHeight": "18px", "fontWeight": "500" } ], "headline-sm": [ "15px", { "lineHeight": "20px", "fontWeight": "600" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-primary text-on-primary"><span class="material-symbols-outlined text-secondary-fixed">flight_takeoff</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-on-primary leading-none">AeroTwin-X</span><span class="font-label-caps text-label-caps text-on-primary-container tracking-widest uppercase">Propulsion GCS // MALE</span></div></div><div class="px-space-md py-space-sm border-b border-surface-variant bg-surface-container-low"><div class="flex items-center justify-between text-on-surface-variant font-label-caps text-label-caps"><span>SYS ARCHITECTURE</span><span class="font-telemetry-sm text-telemetry-sm text-secondary font-semibold">ACTIVE</span></div></div><nav class="p-space-sm space-y-space-md flex-1" data-active-classes="bg-primary-container text-on-primary font-semibold"><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-caps text-label-caps uppercase text-outline tracking-wider">Main</div><div class="space-y-0.5"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-control" href="#"><span class="material-symbols-outlined text-[18px]">radar</span>Mission Control</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="digital-twin" href="#"><span class="material-symbols-outlined text-[18px]">view_in_ar</span>Digital Twin</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="engine-health" href="#"><span class="material-symbols-outlined text-[18px]">monitor_heart</span>Engine Health</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="sensor-monitoring" href="#"><span class="material-symbols-outlined text-[18px]">sensors</span>Sensor Monitoring</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined text-[18px]">psychology</span>AI Diagnostics</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fault-prediction" href="#"><span class="material-symbols-outlined text-[18px]">warning</span>Fault Prediction</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="rul-and-degradation" href="#"><span class="material-symbols-outlined text-[18px]">hourglass_bottom</span>RUL &amp; Degradation</a></div></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-caps text-label-caps uppercase text-outline tracking-wider">Operations</div><div class="space-y-0.5"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="3d-engine-explorer" href="#"><span class="material-symbols-outlined text-[18px]">deployed_code</span>3D Engine Explorer</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-simulator" href="#"><span class="material-symbols-outlined text-[18px]">flight_class</span>Mission Simulator</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-replay" href="#"><span class="material-symbols-outlined text-[18px]">replay</span>Mission Replay</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="alerts" href="#"><span class="material-symbols-outlined text-[18px]">notifications_active</span>Alerts</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="maintenance" href="#"><span class="material-symbols-outlined text-[18px]">build</span>Maintenance</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span>Reports</a></div></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-caps text-label-caps uppercase text-outline tracking-wider">Engineering</div><div class="space-y-0.5"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="telemetry-can" href="#"><span class="material-symbols-outlined text-[18px]">cable</span>Telemetry / CAN</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span>Data Quality</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="edge-ai" href="#"><span class="material-symbols-outlined text-[18px]">memory</span>Edge AI</a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-1.5 rounded transition-colors bg-primary-container text-on-primary font-semibold" data-path="system-architecture" href="#"><span class="material-symbols-outlined text-[18px]">hub</span>System Architecture</a></div></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-caps text-label-caps uppercase text-outline tracking-wider">System</div><div class="space-y-0.5"><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fleet" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span>Fleet</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="about-aerotwin-x" href="#"><span class="material-symbols-outlined text-[18px]">info</span>About AeroTwin-X</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="controls" href="#"><span class="material-symbols-outlined text-[18px]">tune</span>Controls</a><a class="flex items-center gap-space-sm px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-md text-body-md transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span>Settings</a></div></div></nav></div><div class="p-space-sm border-t border-surface-variant bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-body-md text-on-surface truncate">Maj. K. Vance</span><span class="font-label-caps text-telemetry-sm text-on-surface-variant truncate">Lead Propulsion / Controls Eng</span></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-primary text-on-primary z-40 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-xl"><div class="flex items-center gap-space-md"><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-primary-container uppercase">UAV Platform</span><span class="font-telemetry-md text-telemetry-md font-semibold text-on-primary">UAV-07 (Hermes MALE)</span></div><div class="h-7 w-[1px] bg-primary-container"></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-primary-container uppercase">Propulsion Unit</span><span class="font-telemetry-md text-telemetry-md font-semibold text-on-primary">ENGINE-AE-03 (Turbo Piston)</span></div><div class="h-7 w-[1px] bg-primary-container"></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-primary-container uppercase">Active Mission</span><span class="font-label-caps text-body-sm font-semibold text-tertiary-fixed">LONG-ENDURANCE ISR</span></div></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs px-2 py-0.5 rounded bg-tertiary-container text-tertiary-fixed border border-on-tertiary-container/30"><span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span><span class="font-label-caps text-label-caps uppercase">LIVE TELEMETRY</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-on-primary-container"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">check_circle</span><span>CAN A: 1 Mbps (0% DROP)</span></div><div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-on-primary-container"><span class="material-symbols-outlined text-[16px] text-tertiary-fixed">check_circle</span><span>CAN B: 1 Mbps (0% DROP)</span></div><div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm text-secondary-fixed"><span class="material-symbols-outlined text-[16px]">sync</span><span>50 Hz SYNC</span></div></div><div class="h-7 w-[1px] bg-primary-container"></div><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-Header & Global Architecture Status Banner -->
+<div class="bg-surface-container-lowest px-space-lg py-space-md shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-sm mb-1">
+<span class="font-label-caps text-label-caps uppercase text-secondary tracking-widest bg-secondary-fixed/50 px-2 py-0.5 rounded">GCS-SYS-ARCH // MIL-STD-1760 REV D</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+            SYSML V2.1 SYNCHRONIZED
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">AeroTwin-X End-to-End System Architecture</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-4xl mt-0.5">
+          Hardware-in-the-Loop, Edge Ingestion, Physics-Informed Neural Network (PINN) Pipeline &amp; CBM+ Decision Framework
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center gap-2 bg-tertiary-container text-tertiary-fixed px-3 py-1.5 rounded shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">verified</span>
+<span class="font-label-caps text-label-caps tracking-wider">HEALTH: 100% OPERATIONAL</span>
+</div>
+<button class="flex items-center gap-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface px-3 py-1.5 rounded transition-all duration-150" id="btn-latency-toggle">
+<span class="material-symbols-outlined text-[16px] text-secondary">timer</span>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold">Budget: 42.6 ms</span>
+</button>
+<button class="flex items-center gap-1.5 bg-surface-container hover:bg-surface-container-high text-on-surface px-3 py-1.5 rounded transition-all duration-150">
+<span class="material-symbols-outlined text-[16px] text-primary">lan</span>
+<span class="font-telemetry-sm text-telemetry-sm">Topology: Real-Time Active</span>
+</button>
+<button class="flex items-center gap-1.5 bg-primary text-on-primary hover:bg-secondary-container px-3 py-1.5 rounded shadow-sm transition-all duration-150">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span class="font-label-caps text-label-caps">EXPORT SYSML</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Key Telemetry & Operational KPIs -->
+<div class="px-space-lg py-space-md grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-gutter">
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Pipeline Topology</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-semibold">15</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Nodes</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>4 Tiers In-Sync</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Total E2E Latency</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-secondary font-semibold">42.6</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ms</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-secondary">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+<span>Budget: 50.0 ms max</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Onboard Edge Exec</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-semibold">18.2</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ms</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span>Transducer → RF Uplink</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Ground Digital Twin</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-semibold">24.4</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ms</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span>FEA / PINN / HUD Sink</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Redundancy Arch</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-lg text-telemetry-lg text-primary font-semibold">STANAG 4586</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+<span>Dual-Lane Lockstep</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">CAN Ingestion Rate</span>
+<div class="my-1 flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-semibold">1,418</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">p/s</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span>50 Hz ISO 11898-2</span>
+</div>
+</div>
+</div>
+<!-- Primary Interactive Flow Workspace & Inspection Layout -->
+<div class="px-space-lg pb-space-lg grid grid-cols-1 xl:grid-cols-12 gap-gutter items-start">
+<!-- Left 8 Columns: Visual 4-Tier Pipeline Canvas -->
+<div class="xl:col-span-8 flex flex-col gap-space-md">
+<!-- Tier 1: On-Airframe Physical & Control Layer -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex items-center justify-between pb-space-xs mb-space-sm bg-surface-container-low px-3 py-1.5 rounded">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">TIER 1</span>
+<span class="font-headline-sm text-headline-sm text-primary">On-Airframe Physical &amp; Control Layer</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-outline">LOC: UAV-07 WING/NACELLE // 28V DC</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter relative">
+<!-- Node 1: Engine -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="engine">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">01 // SOURCE</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>ACTIVE
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">engineering</span>
+<span class="font-headline-sm text-headline-sm text-primary">ENGINE CORE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Rotax 915iSc 4-Cyl Turbocharged Aero Piston</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>RPM: 5,420</span>
+<span class="text-primary font-semibold">141 HP</span>
+</div>
+</button>
+<!-- Node 2: Sensors -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="sensors">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">02 // SENSORS</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>28 CH
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">sensors</span>
+<span class="font-headline-sm text-headline-sm text-primary">TRANSDUCERS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">CHT, EGT, MAP, Piezo Knock, Pressure Tranducers</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>LATENCY: 2.0ms</span>
+<span class="text-tertiary-fixed-variant font-semibold">500 Hz S/R</span>
+</div>
+</button>
+<!-- Node 3: ECU / FADEC -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="ecu">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">03 // REAL-TIME</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>LOCKED
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">developer_board</span>
+<span class="font-headline-sm text-headline-sm text-primary">FADEC / ECU</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Dual-lane lockstep Cortex-R5F MCU for closed-loop ignition</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>EXEC: 4.5ms</span>
+<span class="text-secondary font-semibold">DUAL LANE</span>
+</div>
+</button>
+<!-- Node 4: CAN / Telemetry -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="can">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">04 // BUS</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>ISO 11898
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">cable</span>
+<span class="font-headline-sm text-headline-sm text-primary">CAN-FD BUS</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Dual 1M/5M baud CAN-FD + Air-to-Ground C2 transceiver</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>TX: 1.2ms</span>
+<span class="text-tertiary-fixed-variant font-semibold">0% DROPS</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Conduit Connector Visual -->
+<div class="flex items-center justify-center -my-2 z-10">
+<div class="bg-surface-container-highest px-3 py-1 rounded-full text-on-surface-variant font-telemetry-sm text-[11px] flex items-center gap-2 shadow-xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">arrow_downward</span>
+<span>INTERNAL AEROSPACE HIGH-SPEED DATA CONDUIT (PCIE 4.0 / SHM BUS)</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">arrow_downward</span>
+</div>
+</div>
+<!-- Tier 2: Embedded Edge & Telemetry Gateway Layer -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex items-center justify-between pb-space-xs mb-space-sm bg-surface-container-low px-3 py-1.5 rounded">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">TIER 2</span>
+<span class="font-headline-sm text-headline-sm text-primary">Embedded Edge &amp; Telemetry Gateway Layer</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-outline">HARDWARE: NVIDIA JETSON ORIN NX 16GB // 20W TDP</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
+<!-- Node 5: Edge AI (DEFAULT ACTIVE) -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="edge-ai">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">05 // INFERENCE</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>100 TOPS
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-[20px]">memory</span>
+<span class="font-headline-sm text-headline-sm text-primary">EDGE AI GATEWAY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">TensorRT INT8 engine running local anomaly classification</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>LATENCY: 10.5ms</span>
+<span class="text-secondary font-semibold">TENSORRT 8.6</span>
+</div>
+</button>
+<!-- Node 6: Ingestion -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="ingestion">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">06 // BUFFER</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>ZERO COPY
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">sync_alt</span>
+<span class="font-headline-sm text-headline-sm text-primary">DATA INGESTION</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Lock-free ring-buffer FIFO queue socket handler</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>RATE: 1,420 p/s</span>
+<span class="text-tertiary-fixed-variant font-semibold">&lt; 1.0ms LAG</span>
+</div>
+</button>
+<!-- Node 7: Validation -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="validation">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">07 // INTEGRITY</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>CRC-32 PASS
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">fact_check</span>
+<span class="font-headline-sm text-headline-sm text-primary">DATA VALIDATION</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Kalman filter outlier rejection, physical limit envelopes</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>KALMAN RESIDUAL</span>
+<span class="text-tertiary-fixed-variant font-semibold">σ = 0.04</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Conduit Connector Visual -->
+<div class="flex items-center justify-center -my-2 z-10">
+<div class="bg-surface-container-highest px-3 py-1 rounded-full text-on-surface-variant font-telemetry-sm text-[11px] flex items-center gap-2 shadow-xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">wifi</span>
+<span>MIL-STD-188 RF DATALINK STREAM // ENCRYPTED STANAG 4586 PACKETS (8.4 ms)</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">wifi</span>
+</div>
+</div>
+<!-- Tier 3: Core Digital Twin & Physics Engine -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex items-center justify-between pb-space-xs mb-space-sm bg-surface-container-low px-3 py-1.5 rounded">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">TIER 3</span>
+<span class="font-headline-sm text-headline-sm text-primary">Core Digital Twin &amp; Physics Engine</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-outline">CLUSTER: HPC NODE-04 // DUAL RTX 6000 ADA</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Node 8: Physics Model -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="physics-model">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">08 // CALC</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>0D/1D CYC
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">cyclone</span>
+<span class="font-headline-sm text-headline-sm text-primary">PHYSICS MODEL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">0D/1D thermodynamic cycle solver &amp; air-fuel combustion state</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>SOLVER: 4.8ms</span>
+<span class="text-primary font-semibold">ΔT &lt; 0.2K</span>
+</div>
+</button>
+<!-- Node 9: Digital Twin -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="digital-twin">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">09 // TWIN MESH</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>SYNCED
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary text-[20px]">view_in_ar</span>
+<span class="font-headline-sm text-headline-sm text-primary">DIGITAL TWIN</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">FEA thermomechanical mesh, live cylinder wear &amp; thermal sync</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>MESH: 120k NODES</span>
+<span class="text-secondary font-semibold">60 FPS</span>
+</div>
+</button>
+<!-- Node 10: AI / ML PINN -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="pinn">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">10 // PINN</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>RESIDUAL
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">psychology</span>
+<span class="font-headline-sm text-headline-sm text-primary">AI / ML PINN</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Physics-Informed Neural Net for latent thermal drift estimation</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>LOSS: 1.2e-4</span>
+<span class="text-tertiary-fixed-variant font-semibold">99.4% FIT</span>
+</div>
+</button>
+<!-- Node 11: Explainable AI -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="xai">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">11 // XAI</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>SHAP 0.96
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">insights</span>
+<span class="font-headline-sm text-headline-sm text-primary">EXPLAINABLE AI</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">SHAP attribution vector, physics bounding verification</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>TOP: CHT_CYL_2</span>
+<span class="text-primary font-semibold">ATTRIB +34%</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Conduit Connector Visual -->
+<div class="flex items-center justify-center -my-2 z-10">
+<div class="bg-surface-container-highest px-3 py-1 rounded-full text-on-surface-variant font-telemetry-sm text-[11px] flex items-center gap-2 shadow-xs">
+<span class="material-symbols-outlined text-[14px] text-secondary">arrow_downward</span>
+<span>MISSION &amp; PROGNOSTIC DISPATCH DISPATCH PIPELINE (WEBSOCKET / GRPC SINK)</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">arrow_downward</span>
+</div>
+</div>
+<!-- Tier 4: Predictive Prognostics & Mission Execution -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex items-center justify-between pb-space-xs mb-space-sm bg-surface-container-low px-3 py-1.5 rounded">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-1.5 py-0.5 rounded font-bold">TIER 4</span>
+<span class="font-headline-sm text-headline-sm text-primary">Predictive Prognostics &amp; Mission Execution</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-outline">OPERATIONS ROOM // PILOT HUD / CBM+</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Node 12: RUL -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="rul">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">12 // RUL</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>PROGNOSTIC
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">hourglass_bottom</span>
+<span class="font-headline-sm text-headline-sm text-primary">RUL DEGRADATION</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Weibull hazard model, fatigue cycle counting to overhaul</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>TBO REMAINING</span>
+<span class="text-tertiary-fixed-variant font-semibold">412.5 HRS</span>
+</div>
+</button>
+<!-- Node 13: Mission Simulation -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="simulation">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">13 // SIMULATOR</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>MONTE CARLO
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">flight_takeoff</span>
+<span class="font-headline-sm text-headline-sm text-primary">MISSION SIMULATOR</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Emergency loiter, divert routing &amp; max-thrust reserve calculation</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>DIVERT MARGIN</span>
+<span class="text-primary font-semibold">+1.8 HRS</span>
+</div>
+</button>
+<!-- Node 14: Maintenance CBM+ -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="maintenance">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">14 // CBM+</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>AUTO WO
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">build_circle</span>
+<span class="font-headline-sm text-headline-sm text-primary">MAINTENANCE CBM+</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Automated work order creation, optical borescope cross-ref</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>NEXT INSPECTION</span>
+<span class="text-secondary font-semibold">T-48 FLT HRS</span>
+</div>
+</button>
+<!-- Node 15: Ground Control Station -->
+<button class="arch-node-card text-left bg-surface-container-low hover:bg-surface-container p-space-md rounded transition-all duration-150 flex flex-col justify-between h-44 relative group" data-node-id="gcs">
+<div class="flex items-start justify-between">
+<span class="font-label-caps text-label-caps text-outline">15 // GCS DISPLAY</span>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[10px] font-mono px-1.5 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>60 FPS SYNC
+              </span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-primary text-[20px]">radar</span>
+<span class="font-headline-sm text-headline-sm text-primary">GROUND CONTROL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">WebGL cockpit instrument HUD, real-time strip charts &amp; alert stack</p>
+</div>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline pt-2 bg-surface-container-lowest/50 px-2 py-1 rounded">
+<span>RENDER: 4.0ms</span>
+<span class="text-tertiary-fixed-variant font-semibold">0 JITTER</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Right 4 Columns: Interactive Subsystem Detail Inspector Drawer -->
+<div class="xl:col-span-4 sticky top-20 flex flex-col gap-gutter">
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-sm flex flex-col">
+<!-- Inspector Header -->
+<div class="flex items-center justify-between pb-space-sm mb-space-md border-b border-surface-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]" id="drawer-icon">memory</span>
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider block" id="drawer-tier-label">TIER 2 // EMBEDDED GATEWAY</span>
+<h2 class="font-headline-md text-headline-md text-primary" id="drawer-title">Edge AI Gateway</h2>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 bg-tertiary-container text-tertiary-fixed text-[11px] font-mono px-2 py-1 rounded font-semibold" id="drawer-status-badge">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>NOMINAL
+          </span>
+</div>
+<!-- Node Metadata Specifications -->
+<div class="space-y-space-md text-left flex-1">
+<!-- Purpose Section -->
+<div>
+<div class="flex items-center gap-1.5 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+<span>Engineering Functional Purpose</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded font-body-md text-body-md text-on-surface" id="drawer-purpose">
+              Executes deterministic real-time inferencing directly within the airframe bay. Converts multi-channel 50 Hz CAN-FD packets into tensor arrays, calculates combustion efficiency anomalies, and predicts high-frequency knock exceedances in under 18 ms to protect piston valve clearance.
+            </div>
+</div>
+<!-- Inputs & Outputs Grids -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div>
+<div class="flex items-center gap-1 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[14px] text-secondary">input</span>
+<span>Inputs / Data Ingest</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded font-telemetry-sm text-telemetry-sm space-y-1" id="drawer-inputs">
+<div class="text-on-surface truncate">• 28x Analog CAN-FD (1 Mbps)</div>
+<div class="text-on-surface truncate">• FADEC Ignition Maps</div>
+<div class="text-on-surface truncate">• Baro / Dynamic Pitot MAP</div>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-1 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[14px] text-tertiary-fixed-variant">output</span>
+<span>Outputs / Emitted States</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded font-telemetry-sm text-telemetry-sm space-y-1" id="drawer-outputs">
+<div class="text-on-surface truncate">• Latent Anomaly Vector</div>
+<div class="text-on-surface truncate">• Knock Severity Index [0-1]</div>
+<div class="text-on-surface truncate">• Downlink C2 Telemetry Pkt</div>
+</div>
+</div>
+</div>
+<!-- Latency & Tech Spec Bar -->
+<div class="bg-surface-container-low p-space-sm rounded">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-label-caps text-outline uppercase">Latency Profile &amp; Jitter</span>
+<span class="font-telemetry-sm text-telemetry-sm text-secondary font-semibold" id="drawer-latency-val">10.5 ms (Budget: 15.0 ms)</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-300" id="drawer-latency-bar" style="width: 70%;"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-outline mt-1" id="drawer-jitter">
+<span>JITTER: ±0.24 ms</span>
+<span>UTILIZATION: 68%</span>
+</div>
+</div>
+<!-- Technology & Hardware Stack -->
+<div>
+<div class="flex items-center gap-1 mb-1 text-on-surface-variant font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+<span>Silicon &amp; Software Framework</span>
+</div>
+<div class="bg-surface-container-low p-2.5 rounded font-telemetry-sm text-telemetry-sm text-primary font-medium" id="drawer-technology">
+              NVIDIA Jetson Orin NX 16GB, TensorRT 8.6 INT8 Engine, CUDA 12.1, C++20 Core Service, POSIX RT Priority (SCHED_FIFO), Zero-Copy Shared Memory IPC.
+            </div>
+</div>
+<!-- Real-Time Metrics & Operational Check -->
+<div class="p-2.5 rounded bg-surface-container-high/60 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed-variant text-[18px]">health_and_safety</span>
+<div>
+<span class="font-label-caps text-label-caps text-outline block">HARNESS VALIDATION</span>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold text-primary" id="drawer-harness">PASS: TEST-HIL-809</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-outline block">UPTIME CONTINUOUS</span>
+<span class="font-telemetry-sm text-telemetry-sm text-primary font-semibold">08:41:22 UTC</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="pt-2 flex flex-col gap-2">
+<button class="w-full bg-primary hover:bg-secondary text-on-primary py-2 px-3 rounded font-body-sm text-body-sm font-medium flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Inspect Real-Time Signal Stream</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-on-surface py-1.5 px-2 rounded font-telemetry-sm text-telemetry-sm flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-outline">history</span>
+<span>Trace Jitter</span>
+</button>
+<button class="w-full bg-surface-container hover:bg-surface-container-high text-on-surface py-1.5 px-2 rounded font-telemetry-sm text-telemetry-sm flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px] text-secondary">tune</span>
+<span>Inject Fault Test</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Node Status Diagnostic Matrix -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">STANAG 4586 BUS INTEGRITY</span>
+<span class="font-telemetry-sm text-telemetry-sm text-tertiary-fixed-variant font-semibold">LEVEL 4 GCS</span>
+</div>
+<div class="space-y-1.5">
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1 border-b border-surface-variant/20">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>CAN-A Differential Pair
+            </span>
+<span class="font-mono text-primary font-semibold">2.48V / NOMINAL</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1 border-b border-surface-variant/20">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>CAN-B Differential Pair
+            </span>
+<span class="font-mono text-primary font-semibold">2.51V / NOMINAL</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1 border-b border-surface-variant/20">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>C2 Link Downlink Bitrate
+            </span>
+<span class="font-mono text-primary font-semibold">12.4 Mbps</span>
+</div>
+<div class="flex items-center justify-between text-body-sm text-body-sm py-1">
+<span class="text-on-surface-variant flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>Crypto Key Rollover
+            </span>
+<span class="font-mono text-tertiary-fixed-variant font-semibold">VALID (T-51m)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Latency Budget Waterfall Bar at Bottom -->
+<div class="mx-space-lg mb-space-lg bg-surface-container-lowest p-space-md rounded shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">stacked_bar_chart</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Critical Path Latency Budget Waterfall</h3>
+<span class="font-label-caps text-label-caps bg-surface-container text-on-surface px-2 py-0.5 rounded font-mono">Total Measured: 42.6 ms / Target ≤ 50.0 ms</span>
+</div>
+<div class="flex items-center gap-3 font-telemetry-sm text-telemetry-sm text-outline">
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-primary"></span>Airframe Embedded (18.2ms)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-secondary"></span>RF Uplink (8.4ms)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm bg-tertiary-container text-tertiary-fixed"></span>Ground Twin Core (16.0ms)</span>
+</div>
+</div>
+<!-- The Waterfall Gantt Segmented Strip -->
+<div class="w-full bg-surface-container h-8 rounded flex overflow-hidden p-0.5 gap-0.5">
+<!-- 1. Sensor Acq: 2.0 ms (~4.7%) -->
+<div class="bg-primary hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-primary font-semibold cursor-pointer group relative" style="width: 4.7%;" title="Sensor Acquisition: 2.0 ms">
+<span class="hidden sm:inline">2.0</span>
+</div>
+<!-- 2. FADEC Proc: 4.5 ms (~10.5%) -->
+<div class="bg-primary/90 hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-primary font-semibold cursor-pointer group relative" style="width: 10.5%;" title="FADEC Processing: 4.5 ms">
+<span class="truncate px-1">FADEC 4.5m</span>
+</div>
+<!-- 3. CAN-FD: 1.2 ms (~2.8%) -->
+<div class="bg-primary/80 hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-primary font-semibold cursor-pointer group relative" style="width: 2.8%;" title="CAN-FD Bus: 1.2 ms">
+<span class="hidden md:inline">1.2</span>
+</div>
+<!-- 4. Edge AI Inference: 10.5 ms (~24.6%) -->
+<div class="bg-secondary-container hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-secondary font-semibold cursor-pointer group relative" style="width: 24.6%;" title="Edge AI Inference: 10.5 ms">
+<span class="truncate px-1">Edge AI 10.5ms</span>
+</div>
+<!-- 5. RF Datalink: 8.4 ms (~19.7%) -->
+<div class="bg-secondary hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-secondary font-semibold cursor-pointer group relative" style="width: 19.7%;" title="RF Datalink C2: 8.4 ms">
+<span class="truncate px-1">RF Link 8.4ms</span>
+</div>
+<!-- 6. Ingestion & Valid: 3.2 ms (~7.5%) -->
+<div class="bg-primary-container hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-primary font-semibold cursor-pointer group relative" style="width: 7.5%;" title="Ingestion &amp; Filter: 3.2 ms">
+<span class="truncate px-1">Ingest 3.2</span>
+</div>
+<!-- 7. PINN & Digital Twin: 8.8 ms (~20.6%) -->
+<div class="bg-tertiary-container hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-tertiary-fixed font-semibold cursor-pointer group relative" style="width: 20.6%;" title="PINN &amp; Digital Twin FEA: 8.8 ms">
+<span class="truncate px-1">Twin + PINN 8.8ms</span>
+</div>
+<!-- 8. GCS Render: 4.0 ms (~9.4%) -->
+<div class="bg-surface-tint hover:opacity-90 transition-all flex items-center justify-center text-[10px] font-mono text-on-primary font-semibold cursor-pointer group relative" style="width: 9.6%;" title="GCS Cockpit Render: 4.0 ms">
+<span class="truncate px-1">HUD 4.0ms</span>
+</div>
+</div>
+<!-- Timeline Tick Scale -->
+<div class="flex justify-between items-center text-[10px] font-mono text-outline mt-1.5 px-0.5">
+<span>0.0 ms (Transducer Strike)</span>
+<span>10.0 ms</span>
+<span>20.0 ms (RF Egress)</span>
+<span>30.0 ms</span>
+<span>40.0 ms</span>
+<span class="text-secondary font-semibold">42.6 ms (GCS Frame Synchronized)</span>
+</div>
+</div>
+</div>
+<!-- Embedded Interactive Logic for Node Selection -->
+<script>
+  (function initArchitectureWorkspace() {
+    const nodeDatabase = {
+      'engine': {
+        title: 'Rotax 915iSc Engine Core',
+        tier: 'TIER 1 // PHYSICAL & CONTROL LAYER',
+        icon: 'engineering',
+        status: 'NOMINAL',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Direct mechanical powerplant for Hermes MALE UAV. 4-cylinder, 4-stroke turbocharged engine with redundant electronic fuel injection and dual ignition channels operating continuously up to FL230 altitude ceiling.',
+        inputs: ['&bull; High-octane Avgas 100LL fuel stream', '&bull; Forced Ram Induction Charge air', '&bull; 28V DC Starter / Alternator Excitation'],
+        outputs: ['&bull; 141 HP Shaft Output @ 5800 RPM', '&bull; Thermodynamic Exhaust Pulse', '&bull; Mechanical Crank & Cam Sync pulses'],
+        latency: '0.0 ms (Physical Plant)',
+        latencyPercent: '0%',
+        jitter: 'JITTER: N/A (Mechanical)',
+        utilization: 'DUTY: 74% MCR',
+        technology: 'Rotax Aircraft Engines, 1352 cm3 displacement, Liquid-cooled heads, Air-cooled cylinders, Dry sump forced lubrication.',
+        harness: 'PASS: MOT-TEST-CYC-44'
+      },
+      'sensors': {
+        title: 'Physical Transducer Matrix',
+        tier: 'TIER 1 // INSTRUMENTATION & HARNESS',
+        icon: 'sensors',
+        status: 'ALL CALIBRATED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Converts thermal, piezoelectric, and fluid dynamic phenomena across the powerplant into conditioned differential electrical signals with MIL-grade isolation.',
+        inputs: ['&bull; 4x Cylinder Head Temp (Type-K Thermocouple)', '&bull; 4x Exhaust Gas Temp (Inconel probe)', '&bull; 2x Piezo Knock Transducers', '&bull; Oil Pressure & Temp piezoresistive'],
+        outputs: ['&bull; 28 Channel Conditioned Analog Voltages', '&bull; Hall-effect Crank Angle encoder signal', '&bull; Turbo Boost absolute pressure (MAP)'],
+        latency: '2.0 ms (Acquisition Window)',
+        latencyPercent: '12%',
+        jitter: 'JITTER: &plusmn;0.05 ms',
+        utilization: 'SAMPLE: 500 Hz Synchronous',
+        technology: 'Texas Instruments ADS124S08 24-bit delta-sigma ADCs, Cold junction compensation, Galvanically isolated analog front-end.',
+        harness: 'PASS: SENS-CAL-2024'
+      },
+      'ecu': {
+        title: 'FADEC / ECU Lockstep Microcontroller',
+        tier: 'TIER 1 // REAL-TIME EMBEDDED CONTROL',
+        icon: 'developer_board',
+        status: 'LOCKSTEP VALID',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Executes closed-loop control laws for electronic injection maps, dual ignition timing, and turbocharger wastegate servo positioning with zero allowable flight-safety single points of failure.',
+        inputs: ['&bull; Raw sensor analog values from AFE', '&bull; Pilot Throttle Command (STANAG 4586)', '&bull; Altitude Barometric Static Pressure'],
+        outputs: ['&bull; Dual-channel coil discharge triggers', '&bull; Multi-point injector solenoid PWMs', '&bull; CAN-FD broadcast frames (50 Hz)'],
+        latency: '4.5 ms (Control Loop Cycle)',
+        latencyPercent: '28%',
+        jitter: 'JITTER: &plusmn;0.02 ms (Hard RT)',
+        utilization: 'CPU LOAD: 42% @ 300 MHz',
+        technology: 'Dual ARM Cortex-R5F lockstep microcontrollers (SIL 4 ready), FreeRTOS Certified, SafeTI diagnostic library.',
+        harness: 'PASS: HIL-FADEC-V9'
+      },
+      'can': {
+        title: 'Dual CAN-FD Airframe Bus',
+        tier: 'TIER 1 // DETERMINISTIC DATA BUS',
+        icon: 'cable',
+        status: 'BUS A/B BALANCED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Guarantees reliable, deterministic delivery of engine metrics to both onboard avionics and the downstream Edge AI processing gateway over redundant twisted shielded pairs.',
+        inputs: ['&bull; FADEC frame packets (0x180 - 0x188)', '&bull; Power Distribution telemetry', '&bull; Servo feedback states'],
+        outputs: ['&bull; ISO 11898-2 CAN-FD bus payload frames', '&bull; Hardware error counter status', '&bull; Microsecond timestamped frames'],
+        latency: '1.2 ms (Bus Transit Time)',
+        latencyPercent: '10%',
+        jitter: 'JITTER: &plusmn;0.08 ms',
+        utilization: 'BANDWIDTH: 28.4% of 5 Mbps',
+        technology: 'Bosch CAN-FD Controller IP, 1 Mbps arbitration / 5 Mbps data phase, Transceiver ISO 16845 compliant.',
+        harness: 'PASS: BUS-ARB-NOMINAL'
+      },
+      'edge-ai': {
+        title: 'Edge AI Gateway (NVIDIA Jetson)',
+        tier: 'TIER 2 // EMBEDDED GATEWAY',
+        icon: 'memory',
+        status: 'NOMINAL',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Executes deterministic real-time inferencing directly within the airframe bay. Converts multi-channel 50 Hz CAN-FD packets into tensor arrays, calculates combustion efficiency anomalies, and predicts high-frequency knock exceedances in under 18 ms to protect piston valve clearance.',
+        inputs: ['&bull; 28x Analog CAN-FD (1 Mbps)', '&bull; FADEC Ignition Maps', '&bull; Baro / Dynamic Pitot MAP'],
+        outputs: ['&bull; Latent Anomaly Vector', '&bull; Knock Severity Index [0-1]', '&bull; Downlink C2 Telemetry Pkt'],
+        latency: '10.5 ms (Budget: 15.0 ms)',
+        latencyPercent: '70%',
+        jitter: 'JITTER: &plusmn;0.24 ms',
+        utilization: 'GPU LOAD: 68% (INT8 Mode)',
+        technology: 'NVIDIA Jetson Orin NX 16GB, TensorRT 8.6 INT8 Engine, CUDA 12.1, C++20 Core Service, POSIX RT Priority (SCHED_FIFO), Zero-Copy Shared Memory IPC.',
+        harness: 'PASS: TEST-HIL-809'
+      },
+      'ingestion': {
+        title: 'Telemetry Ingestion Microservice',
+        tier: 'TIER 2 // STREAM INGESTION',
+        icon: 'sync_alt',
+        status: 'HIGH-THROUGHPUT',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Consumes real-time datalink packets from the RF transceiver, unmarshals serialized protobuf payloads, and buffers data into zero-copy lock-free ring structures for downstream analytics.',
+        inputs: ['&bull; UDP / STANAG 4586 datalink stream', '&bull; Cryptographic session nonce', '&bull; Frame sequence counters'],
+        outputs: ['&bull; Zero-copy circular memory blocks', '&bull; Raw telemetry stream for replay logger', '&bull; Network jitter statistics'],
+        latency: '1.2 ms (Buffer Ingest)',
+        latencyPercent: '15%',
+        jitter: 'JITTER: &plusmn;0.10 ms',
+        utilization: 'BUFFER USE: 14% of 100MB',
+        technology: 'Rust async actor model, Tokio framework, DPDK zero-copy kernel bypass, Apache Arrow IPC formatting.',
+        harness: 'PASS: NET-INGEST-L2'
+      },
+      'validation': {
+        title: 'Real-Time Data Validation Engine',
+        tier: 'TIER 2 // INTEGRITY & FILTERING',
+        icon: 'fact_check',
+        status: 'KALMAN PASS',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Performs physical bounds verification, rate-of-change validation, and extended Kalman filter state prediction to reject transducer glitches and electromagnetic interference.',
+        inputs: ['&bull; Unmarshaled raw sensor readings', '&bull; Covariance matrix priors', '&bull; Thermodynamic plausible rate limits'],
+        outputs: ['&bull; Cleaned, filtered telemetry vectors', '&bull; Sensor trust confidence scores', '&bull; Rejection flag matrix for faulty probes'],
+        latency: '2.0 ms (Kalman Step)',
+        latencyPercent: '18%',
+        jitter: 'JITTER: &plusmn;0.05 ms',
+        utilization: 'FILTER SIGMA: 0.04 (Stable)',
+        technology: 'Eigen3 C++ linear algebra library, Extended Kalman Filter (EKF), MIL-STD-1553 CRC-32 validation wrappers.',
+        harness: 'PASS: VLD-EKF-STABLE'
+      },
+      'physics-model': {
+        title: '0D/1D Thermodynamic Cycle Engine',
+        tier: 'TIER 3 // CORE DIGITAL TWIN & PHYSICS',
+        icon: 'cyclone',
+        status: 'CONVERGED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Simulates the first-principles Otto cycle gas dynamics, turbocharger compressor maps, intercooler effectiveness, and stoichiometric combustion energy release in lockstep with the running engine.',
+        inputs: ['&bull; Manifold Absolute Pressure (MAP)', '&bull; Engine RPM & Throttle Angle', '&bull; Ambient OAT and barometric pressure'],
+        outputs: ['&bull; Theoretical in-cylinder peak pressures', '&bull; Predicted baseline exhaust enthalpy', '&bull; Air-to-fuel ratio & thermal gradient'],
+        latency: '4.8 ms (Solver Step)',
+        latencyPercent: '34%',
+        jitter: 'JITTER: &plusmn;0.18 ms',
+        utilization: 'ODE CONVERGENCE: < 4 Steps',
+        technology: 'Modelica thermodynamic libraries compiled via LLVM to C++ static library, Runge-Kutta 4th order solver, OpenFOAM baseline validation.',
+        harness: 'PASS: 0D-THERMO-CYCLE'
+      },
+      'digital-twin': {
+        title: 'Core 3D Digital Twin Synchronizer',
+        tier: 'TIER 3 // FEA THERMOMECHANICAL TWIN',
+        icon: 'view_in_ar',
+        status: 'MESH IN SYNC',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Maintains an active digital replica of all 4 engine cylinders, pistons, turbo turbine, and lubrication loops. Computes real-time finite element thermal gradients and mechanical deformation stresses.',
+        inputs: ['&bull; Cleaned EGT & CHT 4-channel telemetry', '&bull; 0D Thermodynamic state outputs', '&bull; Engine total runtime accumulated hours'],
+        outputs: ['&bull; 120,000 vertex displacement matrix', '&bull; Localized von Mises stress tensors', '&bull; Piston crown temperature isotherm map'],
+        latency: '4.0 ms (Mesh Compute)',
+        latencyPercent: '30%',
+        jitter: 'JITTER: &plusmn;0.12 ms',
+        utilization: '60 FPS Continuous Refresh',
+        technology: 'Custom WebGL/Vulkan compute shaders, ANSYS reduced-order model (ROM) integration, GLTF 2.0 streaming pipeline.',
+        harness: 'PASS: TWIN-SYNC-FRAME'
+      },
+      'pinn': {
+        title: 'Physics-Informed Neural Network (PINN)',
+        tier: 'TIER 3 // RESIDUAL ESTIMATOR',
+        icon: 'psychology',
+        status: '99.4% CONVERGENCE',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Bridges the gap between idealized 1D thermodynamic formulas and real degraded flight hardware. Predicts residual thermal deviations caused by micro-fouling, ring wear, or valve leakage.',
+        inputs: ['&bull; Residual &Delta;T (Physical vs 0D Model)', '&bull; Vibrational FFT spectral peaks', '&bull; Historic degradation trends'],
+        outputs: ['&bull; Virtual synthetic sensor predictions', '&bull; Wear parameter latent vector (&theta;)', '&bull; Subsystem health deviation index'],
+        latency: '4.8 ms (Inference)',
+        latencyPercent: '32%',
+        jitter: 'JITTER: &plusmn;0.15 ms',
+        utilization: 'LOSS RESIDUAL: 1.2e-4',
+        technology: 'PyTorch C++ LibTorch API, Physics-loss regularized autoencoders, CUDA Graph optimized batching.',
+        harness: 'PASS: PINN-ACC-VALID'
+      },
+      'xai': {
+        title: 'Explainable AI (XAI) Attribution',
+        tier: 'TIER 3 // INTERPRETABILITY',
+        icon: 'insights',
+        status: 'SHAP CERTIFIED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Prevents black-box AI decisions during critical in-flight events. Quantifies exact physical sensor contributions to any detected anomaly to ensure flight engineer trust and certification compliance.',
+        inputs: ['&bull; PINN layer activations', '&bull; Anomaly confidence triggers', '&bull; Baseline normal flight envelope'],
+        outputs: ['&bull; SHAP feature importance vectors', '&bull; Natural language root-cause summary', '&bull; Physical boundary validation flags'],
+        latency: '2.5 ms (Kernel SHAP)',
+        latencyPercent: '20%',
+        jitter: 'JITTER: &plusmn;0.14 ms',
+        utilization: 'TOP CORRELATION: CHT Cyl 2',
+        technology: 'TreeSHAP C++ implementation, FastSHAP approximation kernels, DO-178C level B explainability compliance.',
+        harness: 'PASS: XAI-SHAP-CORR'
+      },
+      'rul': {
+        title: 'RUL & Prognostic Degradation Model',
+        tier: 'TIER 4 // PREDICTIVE PROGNOSTICS',
+        icon: 'hourglass_bottom',
+        status: 'CONFIDENCE 94%',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Projects the remaining flight hours before component failure using Weibull hazard distributions and rainflow cycle counting across high-stress engine hot-section components.',
+        inputs: ['&bull; Cumulative thermal fatigue cycles', '&bull; Peak cylinder head temperature spikes', '&bull; Oil spectrographic wear particles'],
+        outputs: ['&bull; Remaining Useful Life (RUL in hours)', '&bull; 95% Confidence degradation corridor', '&bull; Risk of in-flight shutdown (IFSD)'],
+        latency: '3.0 ms (Prognostic Loop)',
+        latencyPercent: '22%',
+        jitter: 'JITTER: &plusmn;0.20 ms',
+        utilization: 'TBO PREDICTION: 412.5 Hrs',
+        technology: 'Weibull-Bayesian statistical estimator, Rainflow stress cycle counter, ISO 13374 prognostic model.',
+        harness: 'PASS: RUL-WEIBULL-CAL'
+      },
+      'simulation': {
+        title: 'Monte Carlo Mission Simulator',
+        tier: 'TIER 4 // MISSION TRAJECTORY',
+        icon: 'flight_takeoff',
+        status: 'TRAJECTORY OPTIMAL',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Simulates forward mission feasibility under degraded engine parameters. Runs 1,000 parallel flight profiles to calculate safe divert runways and maximum loiter persistence.',
+        inputs: ['&bull; Current fuel state & burn rate', '&bull; Live RUL wear forecast', '&bull; Flight management navigation waypoints'],
+        outputs: ['&bull; Safe loiter endurance margin (+1.8 hrs)', '&bull; Emergency descent power profile', '&bull; Thermal recovery throttle limits'],
+        latency: '3.5 ms (1k Paths Run)',
+        latencyPercent: '25%',
+        jitter: 'JITTER: &plusmn;0.30 ms',
+        utilization: 'PARALLEL CORES: 16 Thr',
+        technology: 'Multi-threaded C++20 OpenMP physics kinematics solver, NED coordinate flight dynamics integration.',
+        harness: 'PASS: SIM-DIVERT-OK'
+      },
+      'maintenance': {
+        title: 'CBM+ Automated Work Order Framework',
+        tier: 'TIER 4 // MAINTENANCE EXECUTION',
+        icon: 'build_circle',
+        status: 'ERP CONNECTED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'Condition-Based Maintenance Plus (CBM+) integration layer. Translates real-time mechanical wear into pre-emptive maintenance actions, parts staging, and digital aircraft logbooks.',
+        inputs: ['&bull; Component fatigue thresholds', '&bull; Borescope optical inspection records', '&bull; AeroTwin-X prognostic alerts'],
+        outputs: ['&bull; Automated MIL-STD work orders', '&bull; Turnaround inspection checklist', '&bull; Part replacement requisition (Piston #2)'],
+        latency: '5.0 ms (ERP API Loop)',
+        latencyPercent: '35%',
+        jitter: 'JITTER: &plusmn;0.50 ms',
+        utilization: 'NEXT SCHEDULE: T-48 FLT',
+        technology: 'GraphQL API, SAP S/4HANA Aviation MRO connector, S1000D technical documentation mapping.',
+        harness: 'PASS: CBM-WO-SYNC'
+      },
+      'gcs': {
+        title: 'GCS Ground Cockpit HUD & Telemetry',
+        tier: 'TIER 4 // PILOT DISPLAY & C2',
+        icon: 'radar',
+        status: '60 FPS LOCKED',
+        statusBg: 'bg-tertiary-container',
+        statusColor: 'text-tertiary-fixed',
+        purpose: 'The mission-critical graphical user interface presented to the UAV flight commander and propulsion engineer. Displays synchronized strip charts, cylinder balance, and emergency controls.',
+        inputs: ['&bull; Full validated digital twin state', '&bull; AI diagnostic warnings & alerts', '&bull; High-speed CAN sparkline arrays'],
+        outputs: ['&bull; WebGL 60 FPS rendered telemetry', '&bull; Pilot audible/visual master caution', '&bull; Pilot uplink throttle command packets'],
+        latency: '4.0 ms (Display Pipeline)',
+        latencyPercent: '28%',
+        jitter: 'JITTER: &plusmn;0.05 ms',
+        utilization: 'GPU RENDER: 16.6 ms vSync',
+        technology: 'WebGL 2.0, HTML5 High-Performance Canvas, Tailwind CSS Aero Instrumentation Tokens, WebSocket binary receiver.',
+        harness: 'PASS: GCS-HUD-VSYNC'
+      }
+    };
+
+    const cards = document.querySelectorAll('.arch-node-card');
+    const drawerTitle = document.getElementById('drawer-title');
+    const drawerTier = document.getElementById('drawer-tier-label');
+    const drawerIcon = document.getElementById('drawer-icon');
+    const drawerStatus = document.getElementById('drawer-status-badge');
+    const drawerPurpose = document.getElementById('drawer-purpose');
+    const drawerInputs = document.getElementById('drawer-inputs');
+    const drawerOutputs = document.getElementById('drawer-outputs');
+    const drawerLatencyVal = document.getElementById('drawer-latency-val');
+    const drawerLatencyBar = document.getElementById('drawer-latency-bar');
+    const drawerJitter = document.getElementById('drawer-jitter');
+    const drawerTech = document.getElementById('drawer-technology');
+    const drawerHarness = document.getElementById('drawer-harness');
+
+    let activeNodeId = 'edge-ai';
+
+    function selectNode(id) {
+      const data = nodeDatabase[id];
+      if (!data) return;
+
+      activeNodeId = id;
+
+      // Update Card Visuals
+      cards.forEach(card => {
+        const isCurrent = card.getAttribute('data-node-id') === id;
+        if (isCurrent) {
+          card.classList.add('bg-surface-container-lowest', 'shadow-md');
+          card.classList.remove('bg-surface-container-low');
+          // Add highlight border via shadow or custom tone
+          card.style.boxShadow = '0 0 0 2px #0051d5, 0 4px 12px rgba(0, 81, 213, 0.15)';
+        } else {
+          card.classList.remove('bg-surface-container-lowest', 'shadow-md');
+          card.classList.add('bg-surface-container-low');
+          card.style.boxShadow = 'none';
+        }
+      });
+
+      // Update Drawer Information
+      drawerTitle.textContent = data.title;
+      drawerTier.textContent = data.tier;
+      drawerIcon.textContent = data.icon;
+      drawerStatus.textContent = data.status;
+      drawerStatus.className = `inline-flex items-center gap-1 ${data.statusBg} ${data.statusColor} text-[11px] font-mono px-2 py-1 rounded font-semibold`;
+      
+      drawerPurpose.textContent = data.purpose;
+
+      drawerInputs.innerHTML = data.inputs.map(item => `<div class="text-on-surface truncate">${item}</div>`).join('');
+      drawerOutputs.innerHTML = data.outputs.map(item => `<div class="text-on-surface truncate">${item}</div>`).join('');
+
+      drawerLatencyVal.textContent = data.latency;
+      drawerLatencyBar.style.width = data.latencyPercent;
+      drawerJitter.innerHTML = `<span>${data.jitter}</span><span>${data.utilization}</span>`;
+      drawerTech.textContent = data.technology;
+      drawerHarness.textContent = data.harness;
+    }
+
+    // Bind click events
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-node-id');
+        selectNode(id);
+      });
+    });
+
+    // Initial activation
+    selectNode('edge-ai');
+
+    // Quick toggle interaction for latency bar button
+    const toggleBtn = document.getElementById('btn-latency-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const waterfall = document.querySelector('.mx-space-lg.mb-space-lg');
+        if (waterfall) {
+          waterfall.scrollIntoView({ behavior: 'smooth' });
+          waterfall.classList.add('ring-2', 'ring-secondary');
+          setTimeout(() => waterfall.classList.remove('ring-2', 'ring-secondary'), 1500);
+        }
+      });
+    }
+  })();
+</script></main></div></body></html>

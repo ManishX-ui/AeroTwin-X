@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AeroTwin-X | Screen 08: Mission Simulator</title>
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Material Symbols Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            aero: {
+              navy: '#173a5e',
+              deep: '#002444',
+              soft: '#eef4ff',
+              container: '#e5effd',
+              border: '#dae3f1',
+              accent: '#0284c7',
+              warning: '#d97706',
+              danger: '#dc2626',
+              success: '#059669',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style data-purpose="base-layout">
+    body {
+      background-color: #f4f7fb;
+      color: #1e293b;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans bg-[#f4f7fb] text-slate-800 antialiased selection:bg-sky-200">
+  <!-- Top Navigation Bar -->
+  <header class="bg-[#002444] text-white border-b border-slate-700/60 sticky top-0 z-50 shadow-md">
+    <div class="px-4 py-2 flex items-center justify-between gap-4">
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2.5">
+          <div class="h-7 w-7 rounded bg-sky-600 flex items-center justify-center font-bold text-white tracking-widest text-sm shadow-inner">
+            AX
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5 leading-none">
+              <span class="font-bold text-base tracking-tight text-white">AeroTwin-X</span>
+              <span class="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700/50">GCS V3.8</span>
+            </div>
+            <p class="text-[10px] text-slate-300 tracking-wider uppercase font-mono mt-0.5">AERO-PISTON PROPULSION TWIN</p>
+          </div>
+        </div>
+        <div class="hidden lg:flex items-center space-x-3 text-xs pl-4 border-l border-slate-700">
+          <div>
+            <span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Vehicle Platform</span>
+            <span class="font-medium text-slate-200 text-xs">UAV-07 (Hermes MALE)</span>
+          </div>
+          <div class="h-4 w-px bg-slate-700"></div>
+          <div>
+            <span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Powerplant Unit</span>
+            <span class="font-medium text-sky-300 text-xs">ENGINE-AE-03 (Turbo Piston)</span>
+          </div>
+          <div class="h-4 w-px bg-slate-700"></div>
+          <div>
+            <span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Flight Mission Profile</span>
+            <span class="font-medium text-slate-200 text-xs">LONG-ENDURANCE ISR</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="hidden xl:flex items-center space-x-2 text-[11px] font-mono bg-slate-900/60 px-3 py-1 rounded border border-slate-700/80">
+          <span class="inline-flex items-center text-emerald-400 font-semibold">
+            <span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
+            SIM CORE ONLINE
+          </span>
+          <span class="text-slate-500">|</span>
+          <span class="text-slate-300">RK4 100Hz</span>
+          <span class="text-slate-500">|</span>
+          <span class="text-sky-400">PINN SYNC 99.8%</span>
+          <span class="text-slate-500">|</span>
+          <span class="text-amber-400 font-mono">120x ACCEL</span>
+          <span class="text-slate-500">|</span>
+          <span class="text-slate-300">14:32:00 UTC</span>
+        </div>
+        <div class="flex items-center space-x-2 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700 text-xs">
+          <div class="w-6 h-6 rounded-full bg-sky-700 text-white flex items-center justify-center font-bold text-[11px]">
+            KV
+          </div>
+          <div class="text-left leading-tight hidden sm:block">
+            <span class="block font-medium text-slate-100 text-xs">Maj. K. Vance</span>
+            <span class="block text-[9px] font-mono text-slate-400">Lead Propulsion Eng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="flex-1 flex overflow-hidden">
+    <!-- Left Navigation Sidebar -->
+    <aside class="w-60 bg-white border-r border-[#dae3f1] flex flex-col justify-between shrink-0 select-none hidden md:flex">
+      <div class="py-3 overflow-y-auto">
+        <div class="px-3 mb-3">
+          <p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">MAIN</p>
+          <nav class="space-y-0.5 text-xs">
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+              Mission Control
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+              Digital Twin (3D State)
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              Engine Health & Matrix
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+              Sensor Monitoring
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+              AI Diagnostics
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              RUL & Degradation
+            </a>
+          </nav>
+        </div>
+        <div class="px-3 mb-3">
+          <p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">OPERATIONS</p>
+          <nav class="space-y-0.5 text-xs">
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+              3D Engine Explorer
+            </a>
+            <!-- Active Mission Simulator link -->
+            <a href="#" class="flex items-center px-2 py-1.5 rounded bg-[#173a5e] text-white font-medium shadow-sm transition-colors">
+              <svg class="w-4 h-4 mr-2 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+              Mission Simulator
+            </a>
+            <a href="#" class="flex items-center justify-between px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors">
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-2 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Alerts & Faults
+              </span>
+              <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded font-mono">1</span>
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              Maintenance (NDI)
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors">
+              <svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              Logbooks & Reports
+            </a>
+          </nav>
+        </div>
+        <div class="px-3 mb-2">
+          <p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">ENGINEERING</p>
+          <nav class="space-y-0.5 text-xs">
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              CAN Bus Telemetry
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              Edge AI Inference Engine
+            </a>
+            <a href="#" class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              System Architecture (FADEC)
+            </a>
+          </nav>
+        </div>
+      </div>
+      <div class="p-3 bg-[#eef4ff] border-t border-[#dae3f1] text-[11px] font-mono">
+        <div class="flex items-center justify-between text-slate-700 font-semibold mb-1">
+          <span>CAN BUS A/B</span>
+          <span class="text-emerald-700">ONLINE</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1 text-[10px] text-slate-500">
+          <div>LOAD: <span class="text-slate-800 font-bold">42%</span></div>
+          <div>LOSS: <span class="text-emerald-600 font-bold">0.00%</span></div>
+          <div>LAT: <span class="text-slate-800 font-bold">14ms</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+      
+      <!-- 1. Header & Quick Controls -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center space-x-2 text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">
+            <span>OPERATIONS</span>
+            <span>/</span>
+            <span class="text-sky-700 font-semibold">MISSION SIMULATOR</span>
+            <span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold text-[10px]">RK4 SOLVER v2.4</span>
+          </div>
+          <h1 class="text-2xl font-bold text-[#002444] tracking-tight">Mission Simulator & Flight Propulsion Emulation</h1>
+          <p class="text-sm text-slate-600 mt-0.5">High-fidelity thermodynamic and aerodynamic twin simulation comparing projected mission stress vs fleet baseline.</p>
+        </div>
+        
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button id="runBtn" class="flex items-center space-x-2 px-5 py-2.5 rounded-lg bg-sky-700 hover:bg-sky-800 active:scale-95 text-white font-medium shadow transition-all">
+            <span class="material-symbols-outlined text-lg">play_arrow</span>
+            <span class="text-xs uppercase tracking-wider font-bold">RUN SIMULATION (50x)</span>
+          </button>
+          <button class="flex items-center space-x-1.5 px-3.5 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200">
+            <span class="material-symbols-outlined text-base">bookmark</span>
+            <span>Save Scenario</span>
+          </button>
+          <button class="flex items-center space-x-1.5 px-3.5 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200">
+            <span class="material-symbols-outlined text-base">ios_share</span>
+            <span>Export Telemetry</span>
+          </button>
+          <button class="flex items-center space-x-1.5 px-3.5 py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200">
+            <span class="material-symbols-outlined text-base">restart_alt</span>
+            <span>Reset Baseline</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Execution Status Alert Bar -->
+      <div class="flex items-center justify-between px-4 py-2.5 rounded-lg bg-sky-50 border border-sky-200 text-sky-900 text-xs">
+        <div class="flex items-center space-x-2">
+          <span class="h-2 w-2 rounded-full bg-sky-600 animate-pulse"></span>
+          <span class="font-mono font-bold uppercase tracking-wider text-sky-950">STATUS:</span>
+          <span class="font-mono">RUN #SIM-2026-089 CONVERGED (Δt=0.02s) • HIGH-ALTITUDE HOT-DAY PROFILE APPLIED</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-3 text-sky-800 font-mono text-[11px]">
+          <span>RESIDUAL PINN ERROR: <strong class="text-sky-950">0.16%</strong></span>
+          <span>•</span>
+          <span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-semibold">THERMAL CAUTION ON CYL #3</span>
+        </div>
+      </div>
+
+      <!-- 2. Simulation Input Parameters Deck -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        
+        <!-- Input Deck A: Mission Profile & Type -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="material-symbols-outlined text-sky-700 text-lg">radar</span>
+                <h3 class="font-bold text-slate-800 text-sm">A. Mission Type & Payload</h3>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 font-medium">INPUT DECK 01</span>
+            </div>
+
+            <label class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block mb-1.5">Mission Type</label>
+            <div class="grid grid-cols-2 gap-1.5 mb-3.5">
+              <button class="px-3 py-2 rounded-md bg-[#173a5e] text-white text-xs font-semibold flex items-center justify-between shadow-sm">
+                <span>ISR</span>
+                <span class="material-symbols-outlined text-xs text-sky-300">check</span>
+              </button>
+              <button class="px-3 py-2 rounded-md bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium text-left">
+                Maritime Surv.
+              </button>
+              <button class="px-3 py-2 rounded-md bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium text-left">
+                Comm Relay
+              </button>
+              <button class="px-3 py-2 rounded-md bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-medium text-left">
+                Long Patrol
+              </button>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="text-slate-600 font-medium">Mission Duration</span>
+                  <span class="font-mono font-bold text-sky-800">14.5 Hours</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
+                  <div class="bg-sky-600 h-full rounded-full" style="width: 72%;"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-xs pt-1 border-t border-slate-100">
+                <span class="text-slate-600">Payload Weight</span>
+                <span class="font-mono font-semibold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">145.0 kg (EO/IR + SIGINT)</span>
+              </div>
+
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-slate-600">Initial Fuel State</span>
+                <span class="font-mono font-semibold text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">118.0 L (Usable: 112.5 L)</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span>Fuel Mass:</span>
+            <span class="text-sky-900 font-bold">85.0 kg @ 0.72 kg/L</span>
+          </div>
+        </div>
+
+        <!-- Input Deck B: Atmospheric & Environmental Conditions -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="material-symbols-outlined text-sky-700 text-lg">cloud</span>
+                <h3 class="font-bold text-slate-800 text-sm">B. Atmospheric Boundaries</h3>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 font-medium">INPUT DECK 02</span>
+            </div>
+
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="text-slate-600 font-medium">Planned Cruising Ceiling</span>
+                  <span class="font-mono font-bold text-sky-800">18,500 ft (FL185)</span>
+                </div>
+                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden border border-slate-200">
+                  <div class="bg-sky-600 h-full rounded-full" style="width: 77%;"></div>
+                </div>
+                <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-1">
+                  <span>Sea Level (0 ft)</span>
+                  <span>ISA -21.8°C</span>
+                  <span>Max: 24,000 ft</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 pt-1">
+                <div class="bg-amber-50/60 p-2 rounded-lg border border-amber-200/60">
+                  <span class="text-[10px] font-mono text-amber-800 block">Ground Temp (OAT)</span>
+                  <span class="text-sm font-mono font-bold text-amber-900">+34.0°C</span>
+                  <span class="text-[9px] font-mono text-amber-700 block">ISA +19°C Hot Day</span>
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200">
+                  <span class="text-[10px] font-mono text-slate-500 block">Relative Humidity</span>
+                  <span class="text-sm font-mono font-bold text-slate-800">68% RH</span>
+                  <span class="text-[9px] font-mono text-slate-400 block">QNH: 1011.2 hPa</span>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-[10px] font-mono text-slate-500 uppercase tracking-wider block mb-1">Active Environmental Stress</span>
+                <div class="flex flex-wrap gap-1 text-[11px]">
+                  <span class="px-2 py-0.5 rounded bg-red-100 text-red-800 font-medium flex items-center space-x-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                    <span>Inversion Layer</span>
+                  </span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                    Wind Shear (±12kt)
+                  </span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                    Dust Aerosol AOD 0.4
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span>Air Density Ratio (σ):</span>
+            <span class="text-sky-900 font-bold">0.578 @ FL185</span>
+          </div>
+        </div>
+
+        <!-- Input Deck C: Powertrain & Throttle Profile -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+              <div class="flex items-center space-x-2">
+                <span class="material-symbols-outlined text-sky-700 text-lg">tune</span>
+                <h3 class="font-bold text-slate-800 text-sm">C. Powertrain & FADEC Schedule</h3>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 font-medium">INPUT DECK 03</span>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <span class="text-[10px] font-mono text-slate-500 uppercase block">Throttle Schedule Preset</span>
+                <span class="text-xs font-bold text-slate-800 block mt-0.5">Max Endurance / Lean-of-Peak Loiter</span>
+                <span class="text-[11px] text-slate-500 block">Auto-biases ignition timing 24.5° BTDC during loiter</span>
+              </div>
+
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <span class="text-[10px] font-mono text-slate-500 uppercase block">Turbo Wastegate Map</span>
+                <span class="text-xs font-mono font-bold text-sky-800 block mt-0.5">High-Alt Normalized (38.5 inHg)</span>
+                <span class="text-[11px] text-slate-500 block">Duty cycle ceiling: 94% at FL185</span>
+              </div>
+
+              <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
+                <span class="text-[10px] font-mono text-slate-500 uppercase block">Lambda Strategy</span>
+                <div class="flex items-center justify-between text-xs mt-0.5">
+                  <span class="text-slate-600">Climb: <strong class="text-slate-800 font-mono">λ 0.98</strong></span>
+                  <span class="text-slate-600">Loiter: <strong class="text-sky-700 font-mono font-bold">λ 1.05 (Eco)</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
+            <span>FADEC Redundancy Channel:</span>
+            <span class="text-sky-900 font-bold">Lane A / Lane B Sync</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Multi-Phase Flight Timeline & Profile -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <h2 class="text-base font-bold text-[#002444]">Multi-Phase Mission Flight Profile Timeline</h2>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-xs font-medium">MET 00:00 → 14:30 (870 min)</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Simulated flight envelope correlating barometric altitude against throttle position (TLP %) and engine RPM.</p>
+          </div>
+          
+          <div class="flex items-center space-x-4 text-xs font-mono bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+            <div class="flex items-center space-x-1.5">
+              <span class="w-3 h-1 bg-sky-600 rounded-full inline-block"></span>
+              <span class="text-slate-700">Altitude Profile (FL185)</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <span class="w-3 h-1 bg-slate-400 rounded-full inline-block"></span>
+              <span class="text-slate-600">Throttle Lever (TLP %)</span>
+            </div>
+            <div class="flex items-center space-x-1.5">
+              <span class="w-2 h-2 rounded-full bg-red-500 inline-block"></span>
+              <span class="text-red-700 font-medium">Thermal Stress Peak</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 Flight Phases Cards Ribbon -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 mb-4">
+          <!-- Phase 1 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">1. TAKEOFF</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">100% TLP</span>
+            <span class="text-[10px] font-mono text-slate-500 block">5,800 RPM • 00:05</span>
+          </div>
+          <!-- Phase 2 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">2. CLIMB</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">92% TLP</span>
+            <span class="text-[10px] font-mono text-slate-500 block">5,500 RPM • 00:45</span>
+          </div>
+          <!-- Phase 3 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">3. CRUISE</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">72% TLP</span>
+            <span class="text-[10px] font-mono text-slate-500 block">4,800 RPM • 02:00</span>
+          </div>
+          <!-- Phase 4 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">4. HIGH ALT</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">78% TLP</span>
+            <span class="text-[10px] font-mono text-slate-500 block">5,000 RPM • 03:30</span>
+          </div>
+          <!-- Phase 5 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">5. TRANSITION</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">Dynamic</span>
+            <span class="text-[10px] font-mono text-slate-500 block">Step Trim • 04:00</span>
+          </div>
+          <!-- Phase 6: Loiter/Endurance (Main operational slice) -->
+          <div class="bg-sky-50 p-2.5 rounded-lg border border-sky-300 text-center shadow-xs">
+            <span class="text-[10px] font-mono font-bold text-sky-900 uppercase block">6. ENDURANCE</span>
+            <span class="text-xs font-mono font-bold text-sky-950 block mt-0.5">64% TLP</span>
+            <span class="text-[10px] font-mono text-sky-700 block">4,600 RPM • 13:00</span>
+          </div>
+          <!-- Phase 7 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">7. DESCENT</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">38% TLP</span>
+            <span class="text-[10px] font-mono text-slate-500 block">Ramp-Down • 14:00</span>
+          </div>
+          <!-- Phase 8 -->
+          <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-center">
+            <span class="text-[10px] font-mono font-bold text-sky-800 uppercase block">8. RECOVERY</span>
+            <span class="text-xs font-mono font-bold text-slate-800 block mt-0.5">Pattern</span>
+            <span class="text-[10px] font-mono text-slate-500 block">Touchdown • 14:30</span>
+          </div>
+        </div>
+
+        <!-- Integrated SVG Flight Profile Curve -->
+        <div class="w-full bg-slate-50 rounded-lg p-2.5 border border-slate-200 overflow-x-auto">
+          <svg class="w-full min-w-[760px] h-44 select-none" viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="simAltGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#0284c7" stop-opacity="0.3"></stop>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.02"></stop>
+              </linearGradient>
+            </defs>
+            <!-- Grid Lines -->
+            <line x1="45" y1="25" x2="980" y2="25" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+            <text x="40" y="28" fill="#64748b" font-size="9" font-family="JetBrains Mono" text-anchor="end">FL185</text>
+            
+            <line x1="45" y1="75" x2="980" y2="75" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+            <text x="40" y="78" fill="#64748b" font-size="9" font-family="JetBrains Mono" text-anchor="end">12,000</text>
+            
+            <line x1="45" y1="125" x2="980" y2="125" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+            <text x="40" y="128" fill="#64748b" font-size="9" font-family="JetBrains Mono" text-anchor="end">6,000</text>
+
+            <line x1="45" y1="165" x2="980" y2="165" stroke="#cbd5e1" stroke-width="1"></line>
+            <text x="40" y="168" fill="#64748b" font-size="9" font-family="JetBrains Mono" text-anchor="end">SL 0ft</text>
+
+            <!-- Vertical Phase Dividers -->
+            <line x1="70" y1="15" x2="70" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="160" y1="15" x2="160" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="250" y1="15" x2="250" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="350" y1="15" x2="350" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="420" y1="15" x2="420" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="820" y1="15" x2="820" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+            <line x1="910" y1="15" x2="910" y2="165" stroke="#e2e8f0" stroke-dasharray="3,3" stroke-width="1"></line>
+
+            <!-- Throttle Position Stepped Line (Grey dashed) -->
+            <polyline points="45,35 70,35 70,48 160,48 160,78 250,78 250,70 350,70 350,90 420,90 420,105 820,105 820,140 910,140 910,155 975,155"
+                      fill="none" stroke="#94a3b8" stroke-dasharray="4,2" stroke-width="1.5"></polyline>
+
+            <!-- Altitude Profile Area & Solid Blue Line -->
+            <polygon points="45,165 55,165 160,25 350,25 420,25 820,25 910,145 975,165 975,165 45,165"
+                     fill="url(#simAltGrad)"></polygon>
+            <polyline points="45,165 55,165 160,25 350,25 420,25 820,25 910,145 975,165"
+                      fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"></polyline>
+
+            <!-- Critical Anomaly Node in Late Loiter -->
+            <circle cx="720" cy="25" r="5" fill="#dc2626"></circle>
+            <circle cx="720" cy="25" r="10" fill="#dc2626" opacity="0.25"></circle>
+            <line x1="720" y1="25" x2="720" y2="60" stroke="#dc2626" stroke-width="1"></line>
+            <rect x="660" y="60" width="120" height="22" rx="3" fill="#fee2e2" stroke="#fca5a5" stroke-width="0.5"></rect>
+            <text x="720" y="75" fill="#991b1b" font-size="9" font-family="JetBrains Mono" font-weight="bold" text-anchor="middle">PEAK CHT 168.4°C</text>
+
+            <!-- Time Ticks -->
+            <text x="45" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono">00:00</text>
+            <text x="160" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono">00:45</text>
+            <text x="350" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono">03:30</text>
+            <text x="600" y="185" fill="#002444" font-size="9" font-family="JetBrains Mono" font-weight="bold">MET 08:30 (EQUILIBRIUM)</text>
+            <text x="820" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono">13:00</text>
+            <text x="910" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono">14:00</text>
+            <text x="975" y="185" fill="#64748b" font-size="9" font-family="JetBrains Mono" text-anchor="end">14:30</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 4. Simulation Output: Predicted Engine Behaviour (Simulated vs Baseline) -->
+      <div class="space-y-4">
+        
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-100 p-3 rounded-xl border border-slate-200">
+          <div class="flex items-center space-x-2">
+            <span class="material-symbols-outlined text-sky-700">compare_arrows</span>
+            <h2 class="text-base font-bold text-[#002444]">Simulation Output: Predicted Engine Behaviour (Simulated vs Baseline)</h2>
+          </div>
+          <div class="px-2.5 py-1 rounded bg-sky-700 text-white font-mono text-xs font-bold flex items-center space-x-1.5 shadow-sm">
+            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+            <span>SIMULATED MISSION (PINN Hot-Day FL185) vs HISTORICAL BASELINE</span>
+          </div>
+        </div>
+
+        <!-- 9 Side-by-Side KPI Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- 1. RPM -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Core Engine Speed</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-mono font-bold">NOMINAL</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-slate-900">4,820</span>
+              <span class="text-xs text-slate-400 font-mono">RPM</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 4,800 RPM</span>
+              <span class="text-sky-700 font-bold">Δ +20 RPM (+0.4%)</span>
+            </div>
+          </div>
+
+          <!-- 2. Peak CHT -->
+          <div class="bg-white p-4 rounded-xl border border-amber-200 shadow-sm bg-amber-50/20">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Peak Cylinder Head Temp (CHT)</span>
+              <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-mono font-bold">ELEVATED</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-amber-700">168.4</span>
+              <span class="text-xs text-slate-400 font-mono">°C (Cyl #3)</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-amber-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 152.0°C</span>
+              <span class="text-amber-700 font-bold">Δ +16.4°C (+10.8%)</span>
+            </div>
+          </div>
+
+          <!-- 3. EGT Cyl #3 -->
+          <div class="bg-white p-4 rounded-xl border border-red-200 shadow-sm bg-red-50/20">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Exhaust Gas Temp (EGT Cyl #3)</span>
+              <span class="px-1.5 py-0.5 rounded bg-red-100 text-red-800 text-[10px] font-mono font-bold">HOT GRADIENT</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-red-700">742.0</span>
+              <span class="text-xs text-slate-400 font-mono">°C</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-red-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 706.0°C</span>
+              <span class="text-red-700 font-bold">Δ +36.0°C [Coking Anomaly]</span>
+            </div>
+          </div>
+
+          <!-- 4. Oil Pressure -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Main Gallery Oil Pressure</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-mono font-bold">STABLE</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-slate-900">4.2</span>
+              <span class="text-xs text-slate-400 font-mono">bar</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 4.4 bar</span>
+              <span class="text-sky-700 font-bold">Δ -0.2 bar (-4.5%)</span>
+            </div>
+          </div>
+
+          <!-- 5. Oil Sump Temp -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Oil Sump Temperature</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-mono font-semibold">ADVISORY</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-slate-900">98.6</span>
+              <span class="text-xs text-slate-400 font-mono">°C (&lt;105°C Limit)</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 88.2°C</span>
+              <span class="text-amber-700 font-bold">Δ +10.4°C (+11.8%)</span>
+            </div>
+          </div>
+
+          <!-- 6. Fuel Flow -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Loiter Fuel Burn Rate</span>
+              <span class="px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 text-[10px] font-mono font-bold">TOTAL 104.2 L</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-sky-900">23.4</span>
+              <span class="text-xs text-slate-400 font-mono">L/h</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 21.8 L/h</span>
+              <span class="text-red-700 font-bold">Δ +1.6 L/h (Req: 104.2/112.5L)</span>
+            </div>
+          </div>
+
+          <!-- 7. Vibration -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Crankcase Vibration (RMS)</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-mono font-semibold">1X/2X PEAK</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-slate-900">2.45</span>
+              <span class="text-xs text-slate-400 font-mono">g</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 1.82 g</span>
+              <span class="text-sky-700 font-bold">Δ +0.63 g (+34.6%)</span>
+            </div>
+          </div>
+
+          <!-- 8. Powertrain Health -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">Powertrain Health Index</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-mono font-semibold">POST-SORTIE</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-sky-900">88.2%</span>
+              <span class="text-xs text-slate-400 font-mono">Score</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-slate-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Baseline: 96.5%</span>
+              <span class="text-amber-700 font-bold">Δ -8.3% Accelerated Deg</span>
+            </div>
+          </div>
+
+          <!-- 9. RUL Consumption -->
+          <div class="bg-white p-4 rounded-xl border border-red-200 shadow-sm bg-red-50/20">
+            <div class="flex justify-between items-start mb-1">
+              <span class="text-xs text-slate-500 font-medium">RUL Wear Consumption</span>
+              <span class="px-1.5 py-0.5 rounded bg-red-100 text-red-800 text-[10px] font-mono font-bold">1.27x WEAR RATE</span>
+            </div>
+            <div class="flex items-baseline space-x-2">
+              <span class="text-2xl font-mono font-bold text-red-700">-18.4</span>
+              <span class="text-xs text-slate-400 font-mono">Eq. Engine Hours</span>
+            </div>
+            <div class="mt-2 pt-2 border-t border-red-100 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-500">Flight Time: 14.5 hrs</span>
+              <span class="text-red-700 font-bold">Δ -3.9 hrs added penalty</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comparative Multi-Trace Waveform Charts (Simulated vs Baseline) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          
+          <!-- Chart 1: Dual Thermal Response (EGT & CHT) -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="font-bold text-slate-800 text-sm">Thermal Profile: Simulated (Dashed Red) vs Baseline (Solid Blue)</h3>
+                <span class="text-xs font-mono font-semibold text-sky-800">EGT & CHT Envelope</span>
+              </div>
+              <p class="text-xs text-slate-500 mb-2">Noticeable thermal excursion during hot-day loiter phase (+36°C residual on Cyl #3).</p>
+              
+              <div class="w-full bg-slate-50 rounded p-2 border border-slate-100">
+                <svg class="w-full h-36 select-none" viewBox="0 0 400 130">
+                  <line x1="30" y1="20" x2="390" y2="20" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="55" x2="390" y2="55" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="90" x2="390" y2="90" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="115" x2="390" y2="115" stroke="#cbd5e1" stroke-width="1"></line>
+                  
+                  <text x="25" y="24" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">750°</text>
+                  <text x="25" y="59" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">500°</text>
+                  <text x="25" y="94" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">200°</text>
+                  <text x="25" y="119" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">0°C</text>
+
+                  <!-- Baseline EGT Solid Blue -->
+                  <polyline points="35,110 55,42 85,45 150,50 280,52 350,95 385,110" fill="none" stroke="#0284c7" stroke-width="2"></polyline>
+                  
+                  <!-- Simulated EGT Dashed Red -->
+                  <polyline points="35,110 55,28 85,30 150,34 280,32 350,85 385,108" fill="none" stroke="#dc2626" stroke-dasharray="4,2" stroke-width="2"></polyline>
+                  
+                  <!-- Warning line -->
+                  <line x1="30" y1="35" x2="390" y2="35" stroke="#dc2626" stroke-dasharray="1,2" stroke-opacity="0.4" stroke-width="1"></line>
+                  <text x="385" y="32" fill="#dc2626" font-size="7" font-family="JetBrains Mono" text-anchor="end">WARN 730°C</text>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+              <span class="flex items-center space-x-1.5">
+                <span class="w-3 h-0.5 bg-sky-600 inline-block"></span>
+                <span class="text-slate-600">Baseline EGT Envelope (706°C)</span>
+              </span>
+              <span class="flex items-center space-x-1.5">
+                <span class="w-3 h-0.5 bg-red-600 inline-block border-b border-dashed"></span>
+                <span class="text-red-700 font-bold">Simulated Hot Excursion (742°C)</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- Chart 2: Specific Fuel Consumption & Boost Pressure -->
+          <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="font-bold text-slate-800 text-sm">Fuel Burn Rate & Manifold Pressure (MAP)</h3>
+                <span class="text-xs font-mono font-semibold text-slate-700">38.5 inHg Boost Ceiling</span>
+              </div>
+              <p class="text-xs text-slate-500 mb-2">Simulated mission requires 104.2 L total, leaving 8.3 L reserve (compliant with 30 min NATO reserve).</p>
+              
+              <div class="w-full bg-slate-50 rounded p-2 border border-slate-100">
+                <svg class="w-full h-36 select-none" viewBox="0 0 400 130">
+                  <line x1="30" y1="20" x2="390" y2="20" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="55" x2="390" y2="55" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="90" x2="390" y2="90" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1"></line>
+                  <line x1="30" y1="115" x2="390" y2="115" stroke="#cbd5e1" stroke-width="1"></line>
+
+                  <text x="25" y="24" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">40"</text>
+                  <text x="25" y="59" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">32"</text>
+                  <text x="25" y="94" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">24"</text>
+                  <text x="25" y="119" fill="#64748b" font-size="8" font-family="JetBrains Mono" text-anchor="end">15"</text>
+
+                  <!-- MAP curve -->
+                  <polyline points="35,30 55,22 85,24 150,45 280,45 350,105 385,112" fill="none" stroke="#002444" stroke-width="2"></polyline>
+                  <!-- Fuel flow line -->
+                  <polyline points="35,60 55,38 85,42 150,75 280,75 350,102 385,108" fill="none" stroke="#0284c7" stroke-dasharray="3,2" stroke-width="1.5"></polyline>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+              <span class="text-slate-600">Avg Burn: <strong class="text-slate-900">23.4 L/h</strong></span>
+              <span class="text-slate-600">Landing Fuel Reserve: <strong class="text-emerald-700 font-bold">8.3 L (34 min)</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Mission Feasibility & Recommendation Dossier -->
+      <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center space-x-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono font-bold text-xs uppercase">FEASIBILITY: PASS WITH OPERATIONAL CONSTRAINTS</span>
+            <span class="text-xs font-mono text-slate-500">Margin: +8.3L Fuel | CHT Headroom 11.6°C</span>
+          </div>
+          <p class="text-xs text-slate-600">
+            <strong>Engineering Recommendation:</strong> Compensate for Cyl #3 EGT hot spot (+36°C) by shifting FADEC fuel trim +2% rich during high-altitude loiter (FL185) to suppress pre-ignition risk.
+          </p>
+        </div>
+        
+        <div class="flex items-center space-x-2 shrink-0">
+          <button class="px-4 py-2 rounded-lg bg-sky-700 hover:bg-sky-800 text-white text-xs font-medium transition-colors shadow-sm">
+            Apply FADEC Mitigation
+          </button>
+          <button class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium transition-colors border border-slate-200">
+            Commit to Mission Log
+          </button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>

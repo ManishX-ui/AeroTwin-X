@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X | Screen 06: Alerts &amp; Events Center</title>
+<!-- Tailwind CSS v3 with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter, JetBrains Mono, IBM Plex Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            aeroblue: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+              950: '#082f49'
+            },
+            status: {
+              crit: '#dc2626',
+              warn: '#ea580c',
+              nominal: '#16a34a',
+              info: '#2563eb'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-layout">
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Subtle custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800 text-xs">
+<!-- BEGIN: TopBar -->
+<header class="h-14 bg-white border-b border-slate-200 px-4 flex items-center justify-between sticky top-0 z-50 shadow-sm" data-purpose="top-navigation-header">
+<div class="flex items-center gap-4">
+<!-- AeroTwin-X Logo / Identifier -->
+<div class="flex items-center gap-2 border-r border-slate-200 pr-4">
+<img alt="AeroTwin-X Logo" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XFeadEZ0jFbqSsoMe0iBd75iYo_FGwBS73R_dtlcwv3WSlpwmQ6dIw9aM1YFQIjxCIJQqxKbhrutR5oODbJ7UYlV_YmNLYslwuy9tmF48kucXiexNPOjrlCuFdj_S0RElV6HWxX47pJjx5z1K7fx6m6BVXFP1IpcFauICFYCn0Hg3RjMb-CyUL481Q6sejIdZpSH-TpJbXnKF6Ch7zzdruYKX5bmNELxzEBl-IzRF0iwtrBbi4xGwM5hM"/>
+<div class="leading-none">
+<div class="text-[13px] font-bold tracking-tight text-slate-900 flex items-center gap-1.5">
+            AeroTwin-X
+            <span class="text-[10px] font-mono-code px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">GCS v3.8</span>
+</div>
+<span class="text-[9px] text-slate-500 uppercase tracking-wider font-semibold">Aero-Piston GCS Integrated</span>
+</div>
+</div>
+<!-- Vehicle & Mission Context Bar -->
+<div class="hidden lg:flex items-center gap-3 text-slate-700">
+<!-- Platform badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200">
+<span class="text-slate-400">✈</span>
+<span class="font-medium text-slate-500">UAV-07 (Hermes MALE)</span>
+</div>
+<!-- Engine badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200 font-mono-code">
+<span class="text-slate-400">⚙</span>
+<span>ENGINE-AE-03 <span class="text-slate-500 text-[10px]">(Rotax 915iSc)</span></span>
+</div>
+<!-- Mission badge -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-50 border border-slate-200">
+<span class="text-slate-400 font-bold">#</span>
+<span>MISSION: LONG-ENDURANCE ISR #842</span>
+</div>
+</div>
+</div>
+<!-- Right Telemetry & Operator Metadata -->
+<div class="flex items-center gap-3">
+<!-- Realtime status pills -->
+<div class="flex items-center gap-2 font-mono-code text-[11px]">
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          LIVE 50Hz
+        </div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">
+<span>99.7% SYNC</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+<span>AI ONLINE</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+<span>EDGE 50Hz</span>
+</div>
+<div class="px-2 py-0.5 text-slate-600 bg-white border border-slate-200 rounded font-semibold">
+          14:28:42 UTC
+        </div>
+</div>
+<!-- User Profile Badge -->
+<div class="flex items-center gap-2 border-l border-slate-200 pl-3">
+<div class="w-8 h-8 rounded-full bg-slate-800 text-white font-semibold flex items-center justify-center text-xs shadow-inner">
+          MV
+        </div>
+<div class="leading-tight text-left hidden sm:block">
+<div class="font-bold text-slate-800 text-[11px]">Maj. K. Vance</div>
+<div class="text-[9px] text-slate-500 uppercase tracking-tight">Propulsion Flight Eng</div>
+</div>
+</div>
+</div>
+</header>
+<!-- END: TopBar -->
+<div class="flex flex-1 overflow-hidden" data-purpose="workspace-wrapper">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-56 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0" data-purpose="main-navigation-sidebar">
+<div class="py-3">
+<!-- Main Operations Section -->
+<div class="px-3 pb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">Main</div>
+<nav class="space-y-0.5 px-2">
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Mission Control</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Digital Twin</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Engine Health</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Sensor Monitoring</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>AI Diagnostics</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Fault Prediction</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>RUL &amp; Degradation</span>
+</a>
+</nav>
+<!-- Operations Section -->
+<div class="px-3 pt-4 pb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">Operations</div>
+<nav class="space-y-0.5 px-2">
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>3D Engine Explorer</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Mission Simulator</span>
+</a>
+<!-- Active Tab: Alerts & Events -->
+<a class="flex items-center justify-between px-2.5 py-1.5 rounded bg-sky-900 text-white font-semibold shadow-sm" href="#">
+<div class="flex items-center gap-2.5">
+<svg class="w-4 h-4 text-amber-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Alerts &amp; Events</span>
+</div>
+<span class="px-1.5 py-0.2 bg-amber-500 text-slate-950 font-bold rounded-full text-[10px]">1</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Maintenance</span>
+</a>
+</nav>
+<!-- Engineering Section -->
+<div class="px-3 pt-4 pb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">Engineering</div>
+<nav class="space-y-0.5 px-2">
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Telemetry / CAN</span>
+</a>
+<a class="flex items-center gap-2.5 px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Edge AI Models</span>
+</a>
+</nav>
+</div>
+<!-- CAN Bus Status Block at Bottom of Sidebar -->
+<div class="p-3 border-t border-slate-200 bg-slate-50 font-mono-code text-[11px]" data-purpose="can-bus-indicator">
+<div class="flex items-center justify-between text-[10px] uppercase text-slate-500 font-bold mb-1.5">
+<span>CAN BUS STATUS</span>
+<span class="text-emerald-600 flex items-center gap-1 font-semibold">● HEALTHY</span>
+</div>
+<div class="grid grid-cols-3 gap-1 bg-white p-2 rounded border border-slate-200 text-center">
+<div>
+<div class="text-[9px] text-slate-400">LOAD</div>
+<div class="font-bold text-slate-800">42%</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-400">LOSS</div>
+<div class="font-bold text-slate-800">0.00%</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-400">LAT</div>
+<div class="font-bold text-slate-800">14ms</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContentArea -->
+<main class="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-100" data-purpose="alerts-dashboard-container">
+<!-- 1. Header & Quick Summary KPI Row -->
+<section class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm" data-purpose="kpi-and-header-section">
+<div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3 mb-3">
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-base font-bold text-slate-900 tracking-tight">ALERTS &amp; EVENTS CENTER</h1>
+<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-mono-code font-bold">STANAG 4586 LEVEL 4</span>
+<span class="px-2 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-mono-code border border-amber-200">1 ADVISORY PENDING</span>
+</div>
+<p class="text-[11px] text-slate-500 mt-0.5">Telemetry arbitration, digital twin state divergence detection &amp; physics-informed fault correlation</p>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1.5 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium flex items-center gap-1.5 shadow-sm">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Export Dossier (CSV/JSON)</span>
+</button>
+<button class="px-2.5 py-1.5 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium flex items-center gap-1.5 shadow-sm">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Silence Non-Critical (15m)</span>
+</button>
+<button class="px-2.5 py-1.5 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-medium flex items-center gap-1.5 shadow-sm">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Batch Acknowledge (3)</span>
+</button>
+<button class="px-2.5 py-1.5 rounded bg-sky-900 hover:bg-sky-800 text-white font-medium flex items-center gap-1.5 shadow-sm">
+<svg class="w-3.5 h-3.5 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Audit Logbook</span>
+</button>
+</div>
+</div>
+<!-- Metric KPI Cards -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 font-mono-code" data-purpose="quick-kpis">
+<!-- Active Alerts Card -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">Active Alerts</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-xs font-bold text-red-600">0 CRIT</span>
+<span class="text-xs font-bold text-amber-600 bg-amber-50 px-1 rounded">2 WARN</span>
+<span class="text-xs font-medium text-slate-600">4 INFO</span>
+</div>
+</div>
+<!-- Sync Frequency -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">Sync Frequency</span>
+<div class="text-xs font-bold text-slate-800 mt-1 flex items-center justify-between">
+<span>99.7%</span>
+<span class="text-[10px] font-normal text-emerald-600">@ 50 Hz</span>
+</div>
+</div>
+<!-- CAN Latency -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">CAN Latency</span>
+<div class="text-xs font-bold text-slate-800 mt-1 flex items-center justify-between">
+<span>14 ms</span>
+<span class="text-[10px] font-normal text-slate-500">NOMINAL</span>
+</div>
+</div>
+<!-- Platform ID -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">Platform</span>
+<div class="text-xs font-bold text-slate-800 mt-1 truncate">
+              UAV-07 (Hermes)
+            </div>
+</div>
+<!-- Powerplant -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">Powerplant</span>
+<div class="text-xs font-bold text-slate-800 mt-1 truncate">
+              AE-03 Rotax 915iSc
+            </div>
+</div>
+<!-- Arbitration Mode -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+<span class="text-[10px] text-slate-500 uppercase font-sans font-semibold">Arbitration Mode</span>
+<div class="text-xs font-bold text-sky-700 mt-1 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+              AI Co-Pilot (PINN)
+            </div>
+</div>
+</div>
+</section>
+<!-- 2. Event Chronology & Alert Timeline -->
+<section class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm space-y-2.5" data-purpose="chronology-timeline">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-bold text-slate-800 tracking-tight uppercase text-[11px]">Mission Event Chronology &amp; Anomaly Track</span>
+<span class="text-slate-400 font-mono-code text-[10px]">T-12h 00m → NOW (14:28:42 UTC)</span>
+</div>
+<div class="flex items-center gap-1.5 font-mono-code text-[10px]">
+<span class="text-slate-400">JUMP TO EVENT:</span>
+<button class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-300 font-semibold hover:bg-amber-100">
+              ALT-084 (T-14m EGT)
+            </button>
+<button class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">
+              ALT-082 (T-40m FF)
+            </button>
+<button class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200">
+              EVT-098 (T-6h WPT)
+            </button>
+</div>
+</div>
+<!-- Visual Timeline Bar -->
+<div class="relative pt-3 pb-1">
+<!-- Timeline Track Base -->
+<div class="h-2 w-full bg-slate-100 rounded-full relative overflow-hidden border border-slate-200">
+<!-- Heat gradient indication -->
+<div class="absolute inset-y-0 left-[82%] right-0 bg-gradient-to-r from-amber-200 to-amber-400 opacity-60"></div>
+</div>
+<!-- Markers along the timeline -->
+<div class="relative w-full h-7 mt-1 font-mono-code text-[10px] text-slate-400">
+<!-- T-12h -->
+<div class="absolute left-0 -top-4 flex flex-col items-start">
+<span class="w-1 h-3 bg-slate-300"></span>
+<span class="mt-1 text-[9px]">02:28 Takeoff</span>
+</div>
+<!-- T-9h -->
+<div class="absolute left-1/4 -top-4 flex flex-col items-center">
+<span class="w-1 h-2 bg-slate-300"></span>
+<span class="mt-2 text-[9px]">05:28 Clb 10k</span>
+</div>
+<!-- T-6h EVT-098 -->
+<div class="absolute left-1/2 -top-4 flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-sky-500 ring-2 ring-white"></span>
+<span class="mt-2 text-[9px] text-sky-700 font-medium">08:28 WPT #04 (14.5k ft)</span>
+</div>
+<!-- T-40m ALT-082 -->
+<div class="absolute left-[88%] -top-4 flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-amber-500 ring-2 ring-white"></span>
+<span class="mt-2 text-[9px] text-amber-700 font-semibold">13:48 FF Bias</span>
+</div>
+<!-- T-14m ALT-084 -->
+<div class="absolute left-[96%] -top-4 flex flex-col items-center">
+<span class="w-2.5 h-2.5 rounded-full bg-red-500 ring-2 ring-red-200 animate-ping"></span>
+<span class="w-2 h-2 rounded-full bg-red-600 ring-2 ring-white absolute top-0"></span>
+<span class="mt-2 text-[9px] text-red-600 font-bold">14:14 EGT Δ</span>
+</div>
+<!-- NOW -->
+<div class="absolute right-0 -top-4 flex flex-col items-end">
+<span class="w-1.5 h-3 bg-slate-800"></span>
+<span class="mt-1 text-[9px] text-slate-900 font-bold">NOW</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. Tabs Navigation & Search / Filter Toolbar -->
+<section class="bg-white border border-slate-200 rounded-md p-3 shadow-sm space-y-3" data-purpose="filtering-and-tabs-bar">
+<!-- Severity / Subsystem Tabs -->
+<div class="flex items-center justify-between border-b border-slate-200 pb-2">
+<nav class="flex items-center gap-1">
+<button class="px-3 py-1 rounded bg-sky-900 text-white font-semibold text-xs flex items-center gap-1.5">
+<span>ALL</span>
+<span class="px-1.5 py-0.2 rounded-full bg-sky-800 text-[10px]">7</span>
+</button>
+<button class="px-3 py-1 rounded hover:bg-slate-100 text-slate-600 font-medium text-xs flex items-center gap-1.5">
+<span class="text-red-600 font-bold">CRITICAL</span>
+<span class="px-1.5 py-0.2 rounded-full bg-slate-100 text-slate-500 text-[10px]">0</span>
+</button>
+<button class="px-3 py-1 rounded hover:bg-slate-100 text-slate-600 font-medium text-xs flex items-center gap-1.5">
+<span class="text-amber-600 font-bold">WARNING</span>
+<span class="px-1.5 py-0.2 rounded-full bg-amber-100 text-amber-800 text-[10px]">2</span>
+</button>
+<button class="px-3 py-1 rounded hover:bg-slate-100 text-slate-600 font-medium text-xs flex items-center gap-1.5">
+<span class="text-blue-600">INFORMATION</span>
+<span class="px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-700 text-[10px]">4</span>
+</button>
+<div class="h-4 w-px bg-slate-200 mx-1"></div>
+<button class="px-2.5 py-1 rounded hover:bg-slate-100 text-slate-600 text-xs">SENSOR (3)</button>
+<button class="px-2.5 py-1 rounded hover:bg-slate-100 text-slate-600 text-xs">ENGINE (2)</button>
+<button class="px-2.5 py-1 rounded hover:bg-slate-100 text-slate-600 text-xs">AI (3)</button>
+<button class="px-2.5 py-1 rounded hover:bg-slate-100 text-slate-600 text-xs">MISSION (2)</button>
+</nav>
+<!-- Toggle filters -->
+<div class="flex items-center gap-3 text-[11px] text-slate-600">
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="rounded border-slate-300 text-sky-600 focus:ring-sky-500 h-3.5 w-3.5" type="checkbox"/>
+<span>Unacknowledged Only</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input checked="" class="rounded border-slate-300 text-sky-600 focus:ring-sky-500 h-3.5 w-3.5" type="checkbox"/>
+<span>AI Correlated</span>
+</label>
+<label class="flex items-center gap-1.5 cursor-pointer">
+<input class="rounded border-slate-300 text-sky-600 focus:ring-sky-500 h-3.5 w-3.5" type="checkbox"/>
+<span>Show Resolved</span>
+</label>
+</div>
+</div>
+<!-- Filter Selects & Search -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-2">
+<div class="md:col-span-4 relative">
+<input class="w-full pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-200 rounded text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-500 font-sans" placeholder="Search alert ID, subsystem, sensor tag..." type="text"/>
+<svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</div>
+<div class="md:col-span-2">
+<select class="w-full py-1.5 px-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+<option>Time: Last 1 Hour</option>
+<option>Last 4 Hours</option>
+<option>Entire Mission</option>
+</select>
+</div>
+<div class="md:col-span-2">
+<select class="w-full py-1.5 px-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+<option>All Subsystems</option>
+<option>Exhaust / Thermal</option>
+<option>Fuel &amp; Injection</option>
+<option>Propulsion / Gearbox</option>
+<option>Sensors &amp; Wiring</option>
+</select>
+</div>
+<div class="md:col-span-2">
+<select class="w-full py-1.5 px-2 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700">
+<option>Severity: All</option>
+<option>Critical</option>
+<option>Warning</option>
+<option>Information</option>
+</select>
+</div>
+<div class="md:col-span-2 flex items-center justify-end">
+<span class="text-slate-400 text-[10px] font-mono-code">Showing 5 of 7 records</span>
+</div>
+</div>
+</section>
+<!-- 4. Main Split View: Left Alerts Feed + Right Rail Context -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4" data-purpose="main-feed-and-rail">
+<!-- BEGIN: LeftAlertsFeed (Col 8) -->
+<div class="lg:col-span-8 space-y-3.5" data-purpose="alert-feed-list">
+<!-- Alert Card 1: ALT-084 [WARNING - PRIMARY ACTIVE ISSUE] -->
+<article class="bg-white border-2 border-amber-400 rounded-md shadow-sm overflow-hidden" data-purpose="alert-card-primary">
+<!-- Header bar -->
+<div class="bg-amber-50/70 border-b border-amber-200 px-3.5 py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-amber-500 text-white font-mono-code font-bold text-[10px] uppercase tracking-wide">WARNING</span>
+<span class="font-mono-code font-bold text-slate-900 text-xs">ALT-084</span>
+<span class="text-slate-400">•</span>
+<span class="font-mono-code text-slate-600 text-[11px]">14:14:18 UTC (T-14m ago)</span>
+<span class="text-slate-400">•</span>
+<span class="px-1.5 py-0.5 rounded bg-white text-slate-700 border border-amber-200 font-mono-code text-[10px]">SUBSYSTEM: THERMAL / EXHAUST (TC-03)</span>
+</div>
+<div class="flex items-center gap-1.5 font-mono-code text-[10px]">
+<span class="text-amber-800 font-semibold bg-amber-100 px-2 py-0.5 rounded">STATUS: UNACKNOWLEDGED</span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-3.5 space-y-3">
+<!-- Title and Description -->
+<div>
+<h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  THERMAL DEVIATION: CYLINDER #3 EGT RESIDUAL EXCEEDANCE
+                </h3>
+<p class="text-slate-600 text-xs mt-1 leading-relaxed">
+                  Exhaust Gas Temperature for Cylinder #3 differs significantly from the expected physics-based Digital Twin state during stabilized high-altitude cruise conditions. Correlated with mild fuel flow positive offset.
+                </p>
+</div>
+<!-- Bento Box Metrics: Observed vs Expected vs Residual -->
+<div class="grid grid-cols-4 gap-2 font-mono-code text-center">
+<div class="bg-slate-50 p-2 rounded border border-slate-200">
+<div class="text-[10px] text-slate-400">OBSERVED LIVE</div>
+<div class="text-sm font-bold text-red-600 mt-0.5">724.0 °C</div>
+</div>
+<div class="bg-slate-50 p-2 rounded border border-slate-200">
+<div class="text-[10px] text-slate-400">TWIN MODEL EXP</div>
+<div class="text-sm font-bold text-slate-800 mt-0.5">706.0 °C</div>
+</div>
+<div class="bg-amber-50 p-2 rounded border border-amber-200">
+<div class="text-[10px] text-amber-700 font-semibold">RESIDUAL (Δ)</div>
+<div class="text-sm font-bold text-amber-700 mt-0.5">+18.0 °C</div>
+<div class="text-[9px] text-amber-600">+2.55% vs ±15°C tol</div>
+</div>
+<div class="bg-slate-50 p-2 rounded border border-slate-200">
+<div class="text-[10px] text-slate-400">MODEL CONFIDENCE</div>
+<div class="text-sm font-bold text-sky-700 mt-0.5">91%</div>
+<div class="text-[9px] text-slate-500">PINN Surrogate</div>
+</div>
+</div>
+<!-- Sensor Correlation Strip -->
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 space-y-1.5">
+<div class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Correlated Telemetry Signals</div>
+<div class="flex flex-wrap gap-2 text-[11px] font-mono-code">
+<span class="px-2 py-0.5 bg-white rounded border border-slate-200 text-slate-700">Fuel Flow: <strong>+0.50 L/h</strong> (+2.7%)</span>
+<span class="px-2 py-0.5 bg-white rounded border border-slate-200 text-slate-700">Cylinder Head (CHT #3): <strong>178.4 °C</strong> (+3.2°C)</span>
+<span class="px-2 py-0.5 bg-white rounded border border-slate-200 text-slate-700">Manifold Pres: <strong>36.4 inHg</strong> (Nominal)</span>
+<span class="px-2 py-0.5 bg-white rounded border border-slate-200 text-slate-700">Vibration: <strong>1.22g RMS</strong> (Clean)</span>
+</div>
+</div>
+<!-- AI Attribution Box -->
+<div class="flex items-start gap-2 bg-sky-50 border border-sky-200 rounded p-2.5 text-xs text-sky-900">
+<svg class="w-4 h-4 text-sky-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<div class="leading-relaxed">
+<strong class="font-semibold text-sky-950">AI Diagnostic Root Cause Attribution (PINN v1.4):</strong>
+                  Localized EGT elevation with positive fuel bias matches early-stage injector nozzle micro-coking (68.4% probability). Mechanical integrity is safe; flight continue is authorized with Post-Mission Turnaround 14 borescope/flush scheduled.
+                </div>
+</div>
+<!-- Card Action Buttons -->
+<div class="flex items-center justify-between pt-2 border-t border-slate-200">
+<div class="text-[10px] text-slate-500 font-mono-code">
+                  ID: ALT-084-20250518-EGT3 • STANAG Cat II
+                </div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 rounded bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs flex items-center gap-1 shadow-sm">
+<svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>ACKNOWLEDGE</span>
+</button>
+<button class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs flex items-center gap-1">
+<span>INVESTIGATE (SCREEN 04)</span>
+</button>
+<button class="px-3 py-1 rounded bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 font-medium text-xs">
+                    CREATE TASK
+                  </button>
+</div>
+</div>
+</div>
+</article>
+<!-- Alert Card 2: ALT-082 [WARNING - FUEL FLOW OFFSET] -->
+<article class="bg-white border border-slate-200 rounded-md shadow-sm overflow-hidden" data-purpose="alert-card-warning">
+<div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-mono-code font-bold text-[10px]">WARNING</span>
+<span class="font-mono-code font-bold text-slate-800 text-xs">ALT-082</span>
+<span class="text-slate-400">•</span>
+<span class="font-mono-code text-slate-500 text-[11px]">13:48:02 UTC (T-40m ago)</span>
+<span class="text-slate-400">•</span>
+<span class="text-slate-600 font-mono-code text-[10px]">FUEL &amp; INJECTION (FF-01)</span>
+</div>
+<span class="text-emerald-700 font-mono-code text-[10px] bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">ACKNOWLEDGED BY MAJ. VANCE</span>
+</div>
+<div class="p-3.5 space-y-2.5">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-xs font-bold text-slate-900">Fuel Flow Asymmetry / Positive Bias Exceedance</h3>
+<p class="text-slate-600 text-xs mt-0.5">Observed mass flow 18.60 L/h vs 18.10 L/h calculated thermodynamic baseline (+0.50 L/h delta).</p>
+</div>
+<div class="text-right font-mono-code">
+<span class="text-xs font-bold text-slate-800">+2.76% Delta</span>
+<div class="text-[9px] text-slate-400">Confidence: 89%</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px]">
+<span class="text-slate-500 font-mono-code text-[10px]">Correlation: Linked with ALT-084 EGT residual exceedance</span>
+<div class="flex gap-2">
+<button class="px-2.5 py-1 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium">Re-assess</button>
+<button class="px-2.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium">Telemetry Trace</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Alert Card 3: ADV-119 [INFORMATION - AI PROGNOSTICS] -->
+<article class="bg-white border border-slate-200 rounded-md shadow-sm overflow-hidden" data-purpose="alert-card-info">
+<div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono-code font-bold text-[10px]">INFO</span>
+<span class="font-mono-code font-bold text-slate-800 text-xs">ADV-119</span>
+<span class="text-slate-400">•</span>
+<span class="font-mono-code text-slate-500 text-[11px]">12:15:30 UTC (T-2h 13m)</span>
+<span class="text-slate-400">•</span>
+<span class="text-slate-600 font-mono-code text-[10px]">AI PROGNOSTICS / WEIBULL</span>
+</div>
+<span class="text-slate-500 font-mono-code text-[10px]">AUTO-LOGGED</span>
+</div>
+<div class="p-3.5 space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-xs font-bold text-slate-900">Weibull Hazard Rate Recalibration (RUL 1,284 h)</h3>
+<p class="text-slate-600 text-xs mt-0.5">Automated RUL projection updated post 1,842.6 flight hours. High-altitude cold soak temperature derating applied.</p>
+</div>
+<div class="text-right font-mono-code">
+<span class="text-xs font-bold text-emerald-600">Optimal Reserve</span>
+<div class="text-[9px] text-slate-400">94.2% Bayes Conf</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<span class="text-slate-500 text-[10px] font-mono-code">Action: Scheduled inspection remains at Turnaround 14</span>
+<button class="px-2.5 py-1 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs">View RUL Curve</button>
+</div>
+</div>
+</article>
+<!-- Alert Card 4: SENS-044 [SENSOR HEALTH CHECK] -->
+<article class="bg-white border border-slate-200 rounded-md shadow-sm overflow-hidden" data-purpose="alert-card-sensor">
+<div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-mono-code font-bold text-[10px]">SENSOR</span>
+<span class="font-mono-code font-bold text-slate-800 text-xs">SENS-044</span>
+<span class="text-slate-400">•</span>
+<span class="font-mono-code text-slate-500 text-[11px]">10:32:11 UTC (T-3h 56m)</span>
+<span class="text-slate-400">•</span>
+<span class="text-slate-600 font-mono-code text-[10px]">EXHAUST THERMOCOUPLE #3</span>
+</div>
+<span class="text-emerald-700 font-mono-code text-[10px]">PASS / VERIFIED</span>
+</div>
+<div class="p-3.5 space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-xs font-bold text-slate-900">Type-K Thermocouple Drift Check: PASS (+0.14°C)</h3>
+<p class="text-slate-600 text-xs mt-0.5">Cold-junction reference test confirms TC-03 physical sensor drift is negligible. Sensor integrity is validated.</p>
+</div>
+<div class="text-right font-mono-code">
+<span class="text-xs font-bold text-emerald-600">Hardware OK</span>
+<div class="text-[9px] text-slate-400">98% In-Range</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<span class="text-slate-500 text-[10px] font-mono-code">Target: Inconel Sheath (Exhaust Port #3)</span>
+<button class="px-2.5 py-1 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs">Calibration Data</button>
+</div>
+</div>
+</article>
+<!-- Alert Card 5: EVT-098 [MISSION EVENT] -->
+<article class="bg-white border border-slate-200 rounded-md shadow-sm overflow-hidden" data-purpose="alert-card-mission">
+<div class="bg-slate-50 border-b border-slate-200 px-3.5 py-2 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-mono-code font-bold text-[10px]">MISSION</span>
+<span class="font-mono-code font-bold text-slate-800 text-xs">EVT-098</span>
+<span class="text-slate-400">•</span>
+<span class="font-mono-code text-slate-500 text-[11px]">08:12:00 UTC (T-6h 16m)</span>
+<span class="text-slate-400">•</span>
+<span class="text-slate-600 font-mono-code text-[10px]">AUTOPILOT / NAVIGATION</span>
+</div>
+<span class="text-slate-500 font-mono-code text-[10px]">ROUTINE</span>
+</div>
+<div class="p-3.5 space-y-2">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="text-xs font-bold text-slate-900">Waypoint #04 Cruise Ceiling 14,500 ft Reached</h3>
+<p class="text-slate-600 text-xs mt-0.5">Airframe stabilized in level flight at 110 KTAS. Ambient air temp -12°C. MAP regulated to 36.4 inHg.</p>
+</div>
+<div class="text-right font-mono-code">
+<span class="text-xs font-bold text-slate-800">14,500 FT</span>
+<div class="text-[9px] text-slate-400">110 KTAS</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-slate-100">
+<span class="text-slate-500 text-[10px] font-mono-code">Profile: High-Altitude ISR Loiter Grid Alpha</span>
+<button class="px-2.5 py-1 rounded bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs">Flight Log</button>
+</div>
+</div>
+</article>
+</div>
+<!-- END: LeftAlertsFeed -->
+<!-- BEGIN: RightRailContext (Col 4) -->
+<aside class="lg:col-span-4 space-y-3.5" data-purpose="right-sidebar-panel">
+<!-- 1. Severity Breakdown Card -->
+<div class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm space-y-3" data-purpose="severity-breakdown-card">
+<div class="flex items-center justify-between border-b border-slate-200 pb-2">
+<span class="font-bold text-slate-800 text-xs uppercase tracking-tight">Severity Breakdown</span>
+<span class="text-slate-400 font-mono-code text-[10px]">7 Total Events</span>
+</div>
+<!-- Progress distribution bars -->
+<div class="space-y-2 font-mono-code">
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-red-600 font-bold">Critical (Cat I)</span>
+<span class="text-slate-700 font-bold">0</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-red-500 w-0"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-amber-600 font-bold">Warning (Cat II)</span>
+<span class="text-slate-700 font-bold">2 (28%)</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[28%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[11px] mb-1">
+<span class="text-blue-600 font-bold">Information / Advisory</span>
+<span class="text-slate-700 font-bold">5 (72%)</span>
+</div>
+<div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-blue-500 w-[72%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. CAN-FD Bus Arbitration Health -->
+<div class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm space-y-2.5" data-purpose="can-arbitration-health">
+<div class="flex items-center justify-between border-b border-slate-200 pb-2">
+<span class="font-bold text-slate-800 text-xs uppercase tracking-tight">CAN-FD Arbitration Bus</span>
+<span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono-code text-[9px] font-bold">DUAL-REDUNDANT</span>
+</div>
+<div class="grid grid-cols-2 gap-2 font-mono-code text-[11px]">
+<div class="p-2 bg-slate-50 rounded border border-slate-200">
+<span class="text-slate-400 text-[10px]">BUS A LOAD</span>
+<div class="text-sm font-bold text-slate-800">42.4%</div>
+<span class="text-[9px] text-emerald-600">0 Collisions</span>
+</div>
+<div class="p-2 bg-slate-50 rounded border border-slate-200">
+<span class="text-slate-400 text-[10px]">BUS B LOAD</span>
+<div class="text-sm font-bold text-slate-800">41.8%</div>
+<span class="text-[9px] text-emerald-600">0 Collisions</span>
+</div>
+</div>
+<div class="text-[10px] text-slate-500 space-y-1 font-mono-code">
+<div class="flex justify-between">
+<span>Active CAN Nodes:</span>
+<strong class="text-slate-800">24 / 24 Online</strong>
+</div>
+<div class="flex justify-between">
+<span>Packet Drop Rate:</span>
+<strong class="text-slate-800">0.00% (0 pkts)</strong>
+</div>
+<div class="flex justify-between">
+<span>Telemetry Clock:</span>
+<strong class="text-slate-800">50.00 Hz (Synced)</strong>
+</div>
+</div>
+</div>
+<!-- 3. Jump to Event Quick List -->
+<div class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm space-y-2.5" data-purpose="quick-jump-list">
+<div class="flex items-center justify-between border-b border-slate-200 pb-2">
+<span class="font-bold text-slate-800 text-xs uppercase tracking-tight">Active Event Index</span>
+<span class="text-slate-400 text-[10px] font-mono-code">Ranked by Priority</span>
+</div>
+<div class="space-y-1.5 font-mono-code text-xs">
+<a class="block p-2 rounded bg-amber-50/60 border border-amber-200 hover:bg-amber-100 transition" href="#">
+<div class="flex items-center justify-between">
+<span class="font-bold text-amber-900">ALT-084 [EGT Exceed]</span>
+<span class="text-[10px] text-amber-700">T-14m</span>
+</div>
+<div class="text-[10px] text-slate-600 mt-0.5 truncate">Cyl #3 EGT +18°C above Twin Model</div>
+</a>
+<a class="block p-2 rounded bg-slate-50 border border-slate-200 hover:bg-slate-100 transition" href="#">
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-800">ALT-082 [Fuel Bias]</span>
+<span class="text-[10px] text-slate-500">T-40m</span>
+</div>
+<div class="text-[10px] text-slate-600 mt-0.5 truncate">+0.50 L/h positive flow bias</div>
+</a>
+<a class="block p-2 rounded bg-slate-50 border border-slate-200 hover:bg-slate-100 transition" href="#">
+<div class="flex items-center justify-between">
+<span class="font-bold text-slate-800">ADV-119 [Weibull RUL]</span>
+<span class="text-[10px] text-slate-500">T-2h 13m</span>
+</div>
+<div class="text-[10px] text-slate-600 mt-0.5 truncate">Remaining life 1,284 flight hours</div>
+</a>
+</div>
+</div>
+<!-- 4. Escalation Protocol & Turnaround 14 Dispatch Status -->
+<div class="bg-white border border-slate-200 rounded-md p-3.5 shadow-sm space-y-2.5" data-purpose="escalation-protocol-status">
+<div class="flex items-center justify-between border-b border-slate-200 pb-2">
+<span class="font-bold text-slate-800 text-xs uppercase tracking-tight">Turnaround 14 Ground Protocol</span>
+<span class="px-1.5 py-0.5 rounded bg-sky-100 text-sky-800 text-[10px] font-mono-code font-bold">READY</span>
+</div>
+<div class="p-2.5 rounded bg-slate-50 border border-slate-200 space-y-2 text-xs">
+<div class="flex items-center justify-between">
+<span class="text-slate-600">Assigned Crew:</span>
+<span class="font-bold text-slate-800">Propulsion Bay Bravo</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-600">Target Powerplant:</span>
+<span class="font-mono-code font-bold text-slate-800">AE-03 (Rotax 915iSc)</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-600">Action Item:</span>
+<span class="font-medium text-amber-700">Cyl #3 Injector Flush &amp; Scope</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-slate-600">Estimated Ground Time:</span>
+<span class="font-mono-code font-bold text-slate-800">45 minutes</span>
+</div>
+</div>
+<button class="w-full py-1.5 rounded bg-slate-800 hover:bg-slate-900 text-white font-medium text-xs flex items-center justify-center gap-1.5 shadow-sm">
+<svg class="w-3.5 h-3.5 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Transmit Protocol to Crew Bay</span>
+</button>
+</div>
+</aside>
+<!-- END: RightRailContext -->
+</div>
+<!-- 5. Bottom System Status Bar -->
+<footer class="bg-white border border-slate-200 rounded-md px-3.5 py-2 flex flex-wrap items-center justify-between text-[11px] text-slate-500 font-mono-code shadow-sm" data-purpose="bottom-status-strip">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1.5 text-slate-700">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            Telemetry Stream: CAN-FD DUAL A/B NOMINAL
+          </span>
+<span>•</span>
+<span>ARBITRATION: STANAG 4586 LEVEL 4</span>
+<span>•</span>
+<span>AIRFRAME: UAV-07 HERMES</span>
+</div>
+<div class="flex items-center gap-3">
+<span>MODEL SURROGATE: PINN-V1.4</span>
+<span>•</span>
+<span class="text-slate-700 font-semibold">LAST INGEST: 14:28:42.108 UTC</span>
+</div>
+</footer>
+</main>
+<!-- END: MainContentArea -->
+</div>
+</body></html>

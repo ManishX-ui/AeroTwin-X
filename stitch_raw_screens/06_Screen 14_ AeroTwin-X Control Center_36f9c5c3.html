@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-primary": "#a9c9f4", "on-tertiary-fixed-variant": "#005046", "surface-tint": "#416086", "on-error-container": "#93000a", "outline-variant": "#c3c6cf", "surface": "#f8f9ff", "tertiary-container": "#004138", "primary-container": "#173a5e", "on-secondary-fixed-variant": "#003ea8", "secondary-fixed-dim": "#b4c5ff", "secondary-container": "#316bf3", "secondary-fixed": "#dbe1ff", "tertiary-fixed-dim": "#65dac4", "on-secondary-fixed": "#00174b", "surface-dim": "#d2dbe9", "surface-container-high": "#e0e9f7", "surface-container-highest": "#dae3f1", "outline": "#73777f", "error": "#ba1a1a", "on-surface": "#131c26", "surface-bright": "#f8f9ff", "error-container": "#ffdad6", "surface-container-low": "#eef4ff", "on-tertiary-container": "#3ab5a1", "on-primary-fixed-variant": "#28486d", "surface-container": "#e5effd", "on-secondary-container": "#fefcff", "primary-fixed-dim": "#a9c9f4", "inverse-on-surface": "#e9f1ff", "on-secondary": "#ffffff", "inverse-surface": "#28313c", "secondary": "#0051d5", "on-surface-variant": "#43474e", "surface-variant": "#dae3f1", "on-primary": "#ffffff", "on-background": "#131c26", "primary-fixed": "#d2e4ff", "on-tertiary-fixed": "#00201b", "primary": "#002444", "tertiary-fixed": "#83f6e0", "tertiary": "#002923", "on-primary-container": "#85a4ce", "on-error": "#ffffff", "background": "#f8f9ff", "on-tertiary": "#ffffff", "on-primary-fixed": "#001c37", "surface-container-lowest": "#ffffff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-lg": "1rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.375rem", "space-xs": "0.25rem", "space-md": "0.75rem" }, "fontFamily": { "telemetry-lg": [ "JetBrains Mono" ], "telemetry-hero": [ "JetBrains Mono" ], "headline-sm": [ "IBM Plex Sans" ], "telemetry-sm": [ "JetBrains Mono" ], "headline-lg": [ "IBM Plex Sans" ], "headline-md": [ "IBM Plex Sans" ], "label-caps": [ "IBM Plex Sans" ], "display": [ "IBM Plex Sans" ], "body-lg": [ "IBM Plex Sans" ], "body-md": [ "IBM Plex Sans" ], "body-sm": [ "IBM Plex Sans" ], "telemetry-md": [ "JetBrains Mono" ], "code-cell": [ "JetBrains Mono" ] }, "fontSize": { "telemetry-lg": [ "20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "telemetry-hero": [ "28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "headline-sm": [ "15px", { "lineHeight": "20px", "fontWeight": "600" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-caps": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "display": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-lg": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "telemetry-md": [ "14px", { "lineHeight": "18px", "fontWeight": "500" } ], "code-cell": [ "11px", { "lineHeight": "16px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm bg-surface-container-low"><img alt="Brand logo. - Primary color: #173a5e
+- Font: ibmPlexSans
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XCmR0Ip4sRmMZDx30Q-r7zfFi89hwErBK1cPFuPdiwXSTm_7lWCjmntfNZOVxilf6KTfV8VfAraBbg1YyH2PMpd6ySLpk73jmTIzy1A0xonxTm9xu7KrvLNU0kHZXvgwBhjtT60VohOtmIltPcfdr3yAohL6L6E4YcdhlzRYU3aiaDxeFM6yjQvRbqmf0cjrj5yPa5JhSbEhN2aJ4n71XhS_ofqCGAVs_UasF3q9HnCbHDKFFdMHWWgtg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none">AeroTwin-X</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-space-xs">AERO-PISTON GCS</span></div></div><div class="p-space-xs"><div class="px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">MAIN</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT shadow-[0_1px_3px_rgba(11,31,51,0.08)]"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-control" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Mission Control</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="digital-twin" href="#"><span class="material-symbols-outlined text-[18px]">model_training</span><span>Digital Twin</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="engine-health" href="#"><span class="material-symbols-outlined text-[18px]">vital_signs</span><span>Engine Health</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="sensor-monitoring" href="#"><span class="material-symbols-outlined text-[18px]">sensors</span><span>Sensor Monitoring</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined text-[18px]">psychology</span><span>AI Diagnostics</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fault-prediction" href="#"><span class="material-symbols-outlined text-[18px]">troubleshoot</span><span>Fault Prediction</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="rul-degradation" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>RUL &amp; Degradation</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">OPERATIONS</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="3d-engine-explorer" href="#"><span class="material-symbols-outlined text-[18px]">view_in_ar</span><span>3D Engine Explorer</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs transition-colors bg-primary-container text-on-primary font-body-lg rounded-DEFAULT" data-path="control-center" href="#"><span class="material-symbols-outlined text-[18px]">settings_input_component</span><span>Control Center</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-simulator" href="#"><span class="material-symbols-outlined text-[18px]">science</span><span>Mission Simulator</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-replay" href="#"><span class="material-symbols-outlined text-[18px]">replay</span><span>Mission Replay</span></a><a class="flex items-center justify-between px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="alerts" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">warning</span><span>Alerts</span></div><span class="px-space-xs py-[1px] bg-error-container text-on-error-container font-label-caps text-label-caps rounded-DEFAULT">1</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="maintenance" href="#"><span class="material-symbols-outlined text-[18px]">build</span><span>Maintenance</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">ENGINEERING</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="telemetry-can" href="#"><span class="material-symbols-outlined text-[18px]">cable</span><span>Telemetry / CAN</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Data Quality</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality-center" href="#"><span class="material-symbols-outlined text-[18px]">analytics</span><span>Data Quality Center</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="edge-ai" href="#"><span class="material-symbols-outlined text-[18px]">memory</span><span>Edge AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="system-architecture" href="#"><span class="material-symbols-outlined text-[18px]">schema</span><span>System Architecture</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">SYSTEM</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fleet" href="#"><span class="material-symbols-outlined text-[18px]">flight</span><span>Fleet</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="about-aerotwin-x" href="#"><span class="material-symbols-outlined text-[18px]">info</span><span>About AeroTwin-X</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="controls" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Controls</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-xs m-space-xs bg-surface-container-low rounded-DEFAULT"><div class="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant mb-space-xs"><span>CAN BUS STATUS</span><span class="text-tertiary font-telemetry-sm text-telemetry-sm font-semibold">HEALTHY</span></div><div class="grid grid-cols-3 gap-space-xs text-center"><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOAD</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">42%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOSS</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">0.00%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LAT</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">14ms</div></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary">flight_takeoff</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">UAV-07 (Hermes MALE)</span></div><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary-container">speed</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">ENGINE-AE-03 (Turbo Piston)</span></div><span class="px-space-sm py-space-xs bg-surface-container font-label-caps text-label-caps text-on-surface-variant rounded-DEFAULT">MISSION: LONG-ENDURANCE ISR</span><div class="flex items-center bg-surface-container-high rounded-DEFAULT p-[2px]"><button class="px-space-sm py-[2px] bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>LIVE</button><button class="px-space-sm py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps">SIMULATION</button></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-tertiary-container text-on-tertiary-container rounded-DEFAULT"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span><span class="font-label-caps text-label-caps uppercase">TELEMETRY: CONNECTED</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-high text-on-surface rounded-DEFAULT"><span class="material-symbols-outlined text-[14px] text-secondary">sync</span><span class="font-label-caps text-label-caps uppercase">TWIN: 99.7% SYNC</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">AI: ONLINE</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">EDGE: ONLINE</span></div><div class="font-code-cell text-code-cell text-on-surface bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT font-semibold">14:28:42 UTC | 2025-05-18</div><button class="relative p-space-xs hover:bg-surface-container-high rounded-DEFAULT text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="text-right hidden xl:block"><div class="font-body-md text-body-md font-semibold leading-none text-on-surface">Maj. K. Vance</div><div class="font-label-caps text-[10px] text-on-surface-variant leading-tight">Lead Flight Eng</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 w-full px-gutter bg-surface min-h-screen"><div class="flex flex-col w-full gap-gutter pb-space-xl">
+<!-- TOP SAFETY & HIL ENVIRONMENT BANNER -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-error"></div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pl-space-xs">
+<div class="flex items-start gap-space-md">
+<div class="p-space-xs bg-error-container text-on-error-container rounded-DEFAULT flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">precision_manufacturing</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-error tracking-wider uppercase">SIMULATION &amp; HARDWARE-IN-THE-LOOP (HIL) COCKPIT</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-code-cell text-code-cell text-on-surface-variant font-semibold">TEST BENCH 02-BETA</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-semibold tracking-tight mt-0.5">
+            ALL DATA INJECTED AS SYNTHETIC SIMULATION — PHYSICAL PROPULSION INTERLOCKS ENGAGED
+          </p>
+</div>
+</div>
+<!-- HIL Badges Cluster -->
+<div class="flex flex-wrap items-center gap-space-xs shrink-0">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-space-xs bg-secondary-fixed text-on-secondary-fixed rounded-DEFAULT font-label-caps text-label-caps">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+          SIMULATION ACTIVE: YES
+        </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-space-xs bg-tertiary-container text-on-tertiary-container rounded-DEFAULT font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim">lock</span>
+          SAFETY INTERLOCK: ENGAGED
+        </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-space-xs bg-surface-container-high text-on-surface-variant rounded-DEFAULT font-code-cell text-code-cell font-medium">
+<span class="material-symbols-outlined text-[13px] text-primary">memory</span>
+          HIL TARGET: ROTAX 915iSc #02
+        </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-space-xs bg-surface-container-low text-on-surface font-telemetry-sm text-telemetry-sm">
+<span class="material-symbols-outlined text-[13px] text-secondary">timer</span>
+          LATENCY: <strong class="text-secondary font-semibold">2.1ms</strong>
+</span>
+</div>
+</div>
+</div>
+<!-- SECTION 1: DATA SOURCE SELECTION & GLOBAL PARAMS -->
+<div class="bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-space-xs">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">SECTION 01 // TELEMETRY PIPELINE</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Telemetry Source &amp; Physics Generation Engine</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-code-cell text-code-cell text-on-surface-variant">PIPE: CAN-FD ID 0x00..0x7FF</span>
+<span class="px-space-xs py-0.5 bg-surface-container font-label-caps text-[10px] text-on-surface-variant rounded-DEFAULT">SAMPLING @ 100Hz</span>
+</div>
+</div>
+<!-- 4 Selectable Source Modes -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-sm">
+<!-- MODE 1: LIVE (Disabled / Protected) -->
+<div class="p-space-sm bg-surface-container-low rounded-DEFAULT opacity-60 cursor-not-allowed relative">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sensors</span>
+            LIVE
+          </span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-DEFAULT">INTERLOCKED</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+          Direct test cell RF datalink. Read-only lock engaged to prevent synthetic override.
+        </p>
+<div class="mt-space-sm pt-space-xs flex justify-between font-code-cell text-code-cell text-on-surface-variant">
+<span>TX: MUTED</span>
+<span>LINK: SAFE-STANDBY</span>
+</div>
+</div>
+<!-- MODE 2: SIMULATION (Active / Selected) -->
+<div class="p-space-sm bg-primary-container text-on-primary rounded-DEFAULT shadow-md relative cursor-pointer ring-1 ring-secondary">
+<div class="absolute -top-1.5 -right-1 px-1.5 py-0.2 bg-secondary text-on-secondary font-label-caps text-[9px] rounded-DEFAULT">
+          ACTIVE INJECTION
+        </div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">science</span>
+            SIMULATION
+          </span>
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-ping"></span>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary-container leading-snug">
+          Synthetic physics-informed mathematical twin (PINN + Runge-Kutta 4th order ODEs).
+        </p>
+<div class="mt-space-sm pt-space-xs flex justify-between font-code-cell text-code-cell text-tertiary-fixed">
+<span>PINN: CONVERGED</span>
+<span>RK4: Δt 0.001s</span>
+</div>
+</div>
+<!-- MODE 3: REPLAY -->
+<div class="p-space-sm bg-surface-container-low hover:bg-surface-container rounded-DEFAULT cursor-pointer transition-colors group">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+            REPLAY
+          </span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-DEFAULT">STANDBY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+          Archived mission telemetries: Flight 842 Edwards Range anomaly log (14.2 GB sync).
+        </p>
+<div class="mt-space-sm pt-space-xs flex justify-between font-code-cell text-code-cell text-on-surface-variant">
+<span>FRAME: 0 / 148,220</span>
+<span>SYNC: READY</span>
+</div>
+</div>
+<!-- MODE 4: OFFLINE -->
+<div class="p-space-sm bg-surface-container-low hover:bg-surface-container rounded-DEFAULT cursor-pointer transition-colors group">
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">cloud_off</span>
+            OFFLINE
+          </span>
+<span class="font-label-caps text-[10px] px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-DEFAULT">LOCAL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+          Local edge memory sandbox buffer. Zero bus or external transceiver packet emission.
+        </p>
+<div class="mt-space-sm pt-space-xs flex justify-between font-code-cell text-code-cell text-on-surface-variant">
+<span>BUFFER: 512 MB</span>
+<span>RF EMISSION: 0W</span>
+</div>
+</div>
+</div>
+<!-- Telemetry Modifiers: Noise Generator + Time Multiplier -->
+<div class="bg-surface-container p-space-sm rounded-DEFAULT flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Noise Injection Controls -->
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center gap-space-md">
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="material-symbols-outlined text-secondary text-[18px]">noise_control_off</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">Sensor Noise Generator</span>
+<span class="px-space-xs py-0.2 bg-secondary-fixed text-on-secondary-fixed font-code-cell text-[10px] rounded-DEFAULT">GAUSSIAN</span>
+</div>
+<div class="flex items-center gap-space-sm flex-1 max-w-sm">
+<input class="w-full accent-secondary h-1.5 bg-surface-container-highest rounded-lg cursor-pointer" id="noiseSlider" max="50" min="0" oninput="document.getElementById('noiseVal').innerText = '±' + (this.value / 10).toFixed(1) + '%'" type="range" value="15"/>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold text-primary w-14 shrink-0 text-right" id="noiseVal">±1.5%</span>
+</div>
+<div class="hidden xl:flex items-center gap-1 font-label-caps text-[10px] text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
+          WHITE NOISE (σ=0.015) INJECTED ACROSS ANALOG CHANNELS
+        </div>
+</div>
+<!-- Time Multiplier Segment -->
+<div class="flex items-center gap-space-sm shrink-0 self-end md:self-auto">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">ODE RATE:</span>
+<div class="flex items-center bg-surface-container-highest rounded-DEFAULT p-0.5">
+<button class="px-space-sm py-1 font-code-cell text-code-cell font-semibold rounded-DEFAULT text-on-surface-variant hover:text-on-surface">1x</button>
+<button class="px-space-sm py-1 font-code-cell text-code-cell font-bold rounded-DEFAULT bg-primary text-on-primary shadow-sm">2x</button>
+<button class="px-space-sm py-1 font-code-cell text-code-cell font-semibold rounded-DEFAULT text-on-surface-variant hover:text-on-surface">5x</button>
+<button class="px-space-sm py-1 font-code-cell text-code-cell font-semibold rounded-DEFAULT text-on-surface-variant hover:text-on-surface">10x</button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: SCENARIO CATALOG & SELECTION GRID -->
+<div class="bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-space-xs">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">SECTION 02 // FAULT INJECTION LIBRARY</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">Pre-Programmed Propulsion Failure Scenarios</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 9 Rig Test Suites</span>
+<button class="px-space-sm py-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps rounded-DEFAULT flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+          FILTER SUITE
+        </button>
+</div>
+</div>
+<!-- 9 Scenario Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+<!-- Scenario 1: Normal -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+              Nominal Baseline
+            </span>
+<span class="px-space-xs py-0.5 bg-tertiary-container text-on-tertiary-container font-label-caps text-[9px] rounded-DEFAULT">HEALTHY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Standard ISA cruise &amp; climb. Cylinders balanced within ±3°C CHT, continuous stoichiometric combustion.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN FAULT: NONE</span>
+<span class="text-tertiary font-semibold">0% RESIDUAL</span>
+</div>
+</div>
+<!-- Scenario 2: Sensor Drift -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">trending_up</span>
+              Sensor Drift
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">DEGRADATION</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Gradual +1.5% / 100h thermocouple calibration bias on EGT Bank A and Oil Pressure transducer.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x240 (EGT_A)</span>
+<span class="text-secondary font-semibold">BIAS +8.4°C</span>
+</div>
+</div>
+<!-- Scenario 3: Sensor Dropout -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-outline">signal_disconnected</span>
+              Sensor Dropout
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">OPEN-CIRCUIT</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Instantaneous 0-reading and dropped telemetry frames on Aux Barometric sensor and Cyl #3 CHT.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x180 (BARO)</span>
+<span class="text-error font-semibold">NULL PACKET</span>
+</div>
+</div>
+<!-- Scenario 4: Injector Abnormality [ACTIVE SELECTED] -->
+<div class="bg-surface-container-highest p-space-sm rounded-DEFAULT relative shadow-sm ring-2 ring-primary">
+<div class="absolute -top-2 right-2 px-1.5 py-0.5 bg-primary text-on-primary font-label-caps text-[9px] rounded-DEFAULT flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed animate-ping"></span>
+          CURRENTLY INJECTING
+        </div>
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">water_drop</span>
+              Injector Abnormality
+            </span>
+<span class="px-space-xs py-0.5 bg-primary-container text-on-primary font-label-caps text-[9px] rounded-DEFAULT">FUEL SYSTEM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">
+            Pulse width clipping &amp; partial nozzle varnishing on Cylinder #3 fuel injector. Leads to extreme lean spikes.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-primary pt-space-xs font-semibold">
+<span>CAN: 0x312 (INJ_3)</span>
+<span class="text-error">-28.4% PW CLIPPING</span>
+</div>
+</div>
+<!-- Scenario 5: Lubrication Issue -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">opacity</span>
+              Lubrication Issue
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">HYDRAULIC</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Oil scavenge pump cavitation &amp; thermal breakdown. Pressure drops from 4.8 bar to 1.9 bar under load.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x410 (OIL_SYS)</span>
+<span class="text-error font-semibold">1.9 BAR CRITICAL</span>
+</div>
+</div>
+<!-- Scenario 6: Overheating -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-error">thermostat</span>
+              Overheating Exceedance
+            </span>
+<span class="px-space-xs py-0.5 bg-error-container text-on-error-container font-label-caps text-[9px] rounded-DEFAULT">THERMAL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Coolant bypass valve stiction. Cylinder head temps escalate beyond 135°C certified continuous envelope.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x220 (CHT_ALL)</span>
+<span class="text-error font-semibold">+38°C RUNAWAY</span>
+</div>
+</div>
+<!-- Scenario 7: Combustion Instability -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">local_fire_department</span>
+              Combustion Instability
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">IGNITION</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Cyclic knock oscillation, secondary plug timing jitter, high flameout probability at 78% throttle.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x305 (IGN_LANE_B)</span>
+<span class="text-on-surface-variant font-semibold">σ=14.2° JITTER</span>
+</div>
+</div>
+<!-- Scenario 8: Abnormal Vibration -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">vibration</span>
+              Abnormal Vibration
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">STRUCTURAL</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Propeller hub balancing weight loss. 2nd order harmonic crank bearing resonance peak at 5,400 RPM.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: 0x512 (PIEZO_ACC)</span>
+<span class="text-error font-semibold">4.8g RMS TRIP</span>
+</div>
+</div>
+<!-- Scenario 9: Communication Failure -->
+<div class="bg-surface-container-low hover:bg-surface-container p-space-sm rounded-DEFAULT cursor-pointer transition-all flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">cable</span>
+              CAN-FD Bus Drop
+            </span>
+<span class="px-space-xs py-0.5 bg-surface-container-high text-on-surface-variant font-label-caps text-[9px] rounded-DEFAULT">DATALINK</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Bus A termination resistance loss, injected CRC anomalies, forced instantaneous failover to Lane B.
+          </p>
+</div>
+<div class="mt-space-sm flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>CAN: BUS_A DOMINANT</span>
+<span class="text-error font-semibold">BUS-OFF STATE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: ACTIVE SCENARIO DEEP INSPECTION & SIMULATION CONTROLS -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- LEFT 7 COLS: SCENARIO INSPECTION & IMPACT MATRIX -->
+<div class="lg:col-span-7 bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md flex flex-col gap-space-md">
+<!-- Scenario Header & Active State -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-space-xs">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps text-secondary font-bold uppercase tracking-wider">ACTIVE INJECTION AUDIT</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-code-cell text-code-cell text-on-surface-variant">ID: SCENARIO-INJ-04</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-bold mt-0.5">
+            Cylinder #3 Fuel Injector Pulse Width Clipping
+          </h3>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-sm py-1 bg-surface-container-high font-code-cell text-code-cell font-semibold text-primary rounded-DEFAULT">
+            ELAPSED: T+00:04:42.180
+          </span>
+<span class="inline-flex items-center gap-1 px-space-xs py-1 bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded-DEFAULT">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+            RUNNING
+          </span>
+</div>
+</div>
+<!-- Injected Condition Statement Card -->
+<div class="bg-surface-container-low p-space-sm rounded-DEFAULT">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">INJECTED FAULT SIGNATURE</span>
+<p class="font-body-md text-body-md text-on-surface font-medium mt-1 leading-relaxed">
+          Cylinder #3 fuel injector pulse width clipped by <strong class="text-error font-semibold">-28.4%</strong> starting at T+00:03:15, generating local lean combustion, delayed flame front propagation, and extreme localized exhaust manifold thermal gradient.
+        </p>
+<div class="flex flex-wrap items-center gap-space-sm mt-space-xs pt-space-xs font-code-cell text-code-cell text-on-surface-variant">
+<span>TARGET NODE: <strong class="text-on-surface">ECU_INJ_03</strong></span>
+<span>CAN BUS FRAME: <strong class="text-secondary font-semibold">0x312 [8 BYTES]</strong></span>
+<span>CYCLE: <strong class="text-on-surface">4-STROKE COMPRESSION</strong></span>
+</div>
+</div>
+<!-- Affected Sensors Table -->
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider block mb-space-xs">AFFECTED SENSORS &amp; TELEMETRY NODES</span>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container text-on-surface-variant font-label-caps text-[10px]">
+<tr>
+<th class="py-space-xs px-space-sm">PARAMETER</th>
+<th class="py-space-xs px-space-sm">CAN ID</th>
+<th class="py-space-xs px-space-sm">BASELINE</th>
+<th class="py-space-xs px-space-sm">SIMULATED VAL</th>
+<th class="py-space-xs px-space-sm">DELTA</th>
+<th class="py-space-xs px-space-sm text-right">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high font-code-cell text-code-cell">
+<!-- Sensor 1: EGT_03 -->
+<tr class="bg-surface-container-lowest">
+<td class="py-space-xs px-space-sm font-body-sm text-body-sm font-semibold text-primary">Cyl #3 Exhaust Gas Temp</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0x242</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">684.0°C</td>
+<td class="py-space-xs px-space-sm text-error font-bold">742.8°C</td>
+<td class="py-space-xs px-space-sm text-error font-medium">+58.8°C</td>
+<td class="py-space-xs px-space-sm text-right">
+<span class="px-space-xs py-0.2 bg-error-container text-on-error-container rounded-DEFAULT font-label-caps text-[9px] uppercase">EXCEEDANCE</span>
+</td>
+</tr>
+<!-- Sensor 2: AFR Lambda -->
+<tr class="bg-surface-container-lowest">
+<td class="py-space-xs px-space-sm font-body-sm text-body-sm font-semibold text-primary">Air-Fuel Lambda Bank 1</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0x350</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0.98 λ</td>
+<td class="py-space-xs px-space-sm text-error font-bold">1.24 λ</td>
+<td class="py-space-xs px-space-sm text-error font-medium">+0.26 λ</td>
+<td class="py-space-xs px-space-sm text-right">
+<span class="px-space-xs py-0.2 bg-error-container text-on-error-container rounded-DEFAULT font-label-caps text-[9px] uppercase">LEAN TRIP</span>
+</td>
+</tr>
+<!-- Sensor 3: MAP -->
+<tr class="bg-surface-container-lowest">
+<td class="py-space-xs px-space-sm font-body-sm text-body-sm font-semibold text-primary">Manifold Absolute Pressure</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0x190</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">36.2 inHg</td>
+<td class="py-space-xs px-space-sm text-on-surface">36.1 inHg</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">-0.1 inHg</td>
+<td class="py-space-xs px-space-sm text-right">
+<span class="px-space-xs py-0.2 bg-tertiary-container text-on-tertiary-container rounded-DEFAULT font-label-caps text-[9px] uppercase">NOMINAL</span>
+</td>
+</tr>
+<!-- Sensor 4: Knock Sensor -->
+<tr class="bg-surface-container-lowest">
+<td class="py-space-xs px-space-sm font-body-sm text-body-sm font-semibold text-primary">Piezo Knock Sensor Bank 1</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0x520</td>
+<td class="py-space-xs px-space-sm text-on-surface-variant">0.42 g</td>
+<td class="py-space-xs px-space-sm text-error font-bold">1.88 g</td>
+<td class="py-space-xs px-space-sm text-error font-medium">+1.46 g</td>
+<td class="py-space-xs px-space-sm text-right">
+<span class="px-space-xs py-0.2 bg-error-container text-on-error-container rounded-DEFAULT font-label-caps text-[9px] uppercase">DETONATION</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Expected System Response (Digital Twin & AI Layer) -->
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider block mb-space-xs">
+          PREDICTED MULTI-LAYER SYSTEM RESPONSE
+        </span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="p-space-sm bg-surface-container-low rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-secondary font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+                Edge AI Residual Detector
+              </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Jetson Orin NX χ² residual analysis tripped at T+00:03:15.360 (+360ms latency). Confidence score: <strong class="text-on-surface">97.4%</strong>.
+              </p>
+</div>
+<div class="mt-space-xs font-label-caps text-[10px] text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">check</span>
+              ANOMALY CLASSIFIED: INJECTOR_PW_CLIPPED
+            </div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-error font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-[18px]">timer_off</span>
+                Physics-Informed RUL Impact
+              </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                PINN valve face stress model computes exhaust valve thermal fatigue: Remaining Useful Life collapses from <strong class="text-on-surface">1,420 hrs → 18.4 hrs</strong>.
+              </p>
+</div>
+<div class="mt-space-xs font-label-caps text-[10px] text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+              ACCELERATED THERMAL WEAR
+            </div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-primary font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                FADEC Closed-Loop Action
+              </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Lane B controller detects Cylinder #3 knock excursion and increases bank pulse trim by <strong class="text-on-surface">+12.0%</strong> to mitigate burn-through.
+              </p>
+</div>
+<div class="mt-space-xs font-label-caps text-[10px] text-on-surface font-semibold">
+              CLOSED-LOOP COMPENSATION: EXECUTING
+            </div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-DEFAULT flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-1.5 text-primary font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-[18px]">gavel</span>
+                GCS Operator Advisory
+              </div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Yellow Amber Caution raised on main Mission Control HUD. Recommend immediate descent or throttle back to 55% MCP.
+              </p>
+</div>
+<div class="mt-space-xs font-label-caps text-[10px] text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">flight_land</span>
+              LEVEL 1 RTB (RETURN-TO-BASE) READY
+            </div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT 5 COLS: EXECUTION CONTROLS & REAL-TIME OSCILLOSCOPE -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- Primary Scenario Execution Control Dock -->
+<div class="bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">SCENARIO EXECUTION DOCK</span>
+<span class="font-code-cell text-code-cell text-primary font-semibold">CAN: 0x312 // HIL RIG #02</span>
+</div>
+<!-- Severity Slider -->
+<div class="bg-surface-container p-space-sm rounded-DEFAULT flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">Injection Severity Intensity</span>
+<span class="font-telemetry-sm text-telemetry-sm text-error font-bold" id="severityLabel">75% (SEVERE)</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container-highest rounded-lg cursor-pointer" max="100" min="10" oninput="
+            const v = this.value;
+            let tag = 'LOW';
+            if (v &gt; 30) tag = 'MODERATE';
+            if (v &gt; 65) tag = 'SEVERE';
+            if (v &gt; 90) tag = 'CATASTROPHIC';
+            document.getElementById('severityLabel').innerText = v + '% (' + tag + ')';
+          " type="range" value="75"/>
+<div class="flex justify-between font-label-caps text-[9px] text-on-surface-variant">
+<span>10% (Trace)</span>
+<span>50% (Nominal Test)</span>
+<span>75% (Exceedance)</span>
+<span>100% (Trip)</span>
+</div>
+</div>
+<!-- Action Control Buttons Matrix -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-primary hover:bg-secondary text-on-primary font-headline-sm text-headline-sm rounded-DEFAULT transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">play_arrow</span>
+<span>RUN SCENARIO</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-space-sm px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface font-headline-sm text-headline-sm rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">pause</span>
+<span>PAUSE ODE</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-space-xs px-space-sm bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">restart_alt</span>
+<span>RESET TO 100%</span>
+</button>
+<button class="flex items-center justify-center gap-space-xs py-space-xs px-space-sm bg-surface-container-low hover:bg-surface-container text-on-surface font-body-md text-body-md rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined text-[16px] text-secondary">redo</span>
+<span>STEP +1.0s (RK4)</span>
+</button>
+</div>
+<!-- Export YAML / Bench Script -->
+<div class="pt-space-xs">
+<button class="w-full flex items-center justify-center gap-space-xs py-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined text-[16px] text-primary">terminal</span>
+<span>EXPORT AUTOMATED REGRESSION SCRIPT (.YAML)</span>
+</button>
+</div>
+</div>
+<!-- Real-Time Telemetry Residual Preview Oscilloscope -->
+<div class="bg-surface-container-lowest rounded-DEFAULT shadow-sm p-space-md flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[16px]">show_chart</span>
+<span class="font-headline-sm text-headline-sm text-primary">Telemetry Residual Oscilloscope</span>
+</div>
+<span class="px-space-xs py-0.5 bg-surface-container font-code-cell text-[10px] text-on-surface-variant rounded-DEFAULT">
+              [SIMULATED DATA]
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Live comparison: Cylinder #3 EGT (°C) vs. Baseline Model vs. FADEC fuel trim injection compensation (%).
+          </p>
+</div>
+<!-- Inline SVG Oscilloscope Chart -->
+<div class="relative bg-surface-container-lowest p-space-xs rounded-DEFAULT my-space-sm">
+<div class="absolute top-2 right-2 flex items-center gap-space-sm font-code-cell text-[10px]">
+<span class="flex items-center gap-1 text-error font-semibold">
+<span class="w-2.5 h-0.5 bg-error inline-block"></span> EGT_03 (°C)
+            </span>
+<span class="flex items-center gap-1 text-on-surface-variant font-normal">
+<span class="w-2.5 h-0.5 bg-outline inline-block"></span> BASELINE
+            </span>
+<span class="flex items-center gap-1 text-secondary font-semibold">
+<span class="w-2.5 h-0.5 bg-secondary inline-block"></span> FADEC TRIM (%)
+            </span>
+</div>
+<svg class="w-full h-36" preserveaspectratio="none" viewbox="0 0 460 160">
+<!-- Gridlines -->
+<line stroke="#dae3f1" stroke-dasharray="3,3" stroke-width="0.75" x1="40" x2="450" y1="20" y2="20"></line>
+<line stroke="#dae3f1" stroke-dasharray="3,3" stroke-width="0.75" x1="40" x2="450" y1="55" y2="55"></line>
+<line stroke="#dae3f1" stroke-dasharray="3,3" stroke-width="0.75" x1="40" x2="450" y1="90" y2="90"></line>
+<line stroke="#dae3f1" stroke-dasharray="3,3" stroke-width="0.75" x1="40" x2="450" y1="125" y2="125"></line>
+<!-- Exceedance Warning Zone (Shaded pink/error) -->
+<rect fill="#ffdad6" fill-opacity="0.4" height="35" width="230" x="220" y="20"></rect>
+<text fill="#ba1a1a" font-family="JetBrains Mono" font-size="8" font-weight="600" x="335" y="32">EXCEEDANCE &gt; 720°C</text>
+<!-- Fault Injection Marker T+00:03:15 -->
+<line stroke="#ba1a1a" stroke-dasharray="2,2" stroke-width="1.5" x1="170" x2="170" y1="15" y2="135"></line>
+<text fill="#ba1a1a" font-family="JetBrains Mono" font-size="8" x="175" y="130">INJECTION TRIGGER T+03:15</text>
+<!-- Baseline Trajectory (Grey dashed) -->
+<path d="M 40,88 Q 120,86 170,87 T 280,87 T 450,88" fill="none" stroke="#73777f" stroke-dasharray="4,2" stroke-width="1.5"></path>
+<!-- Fault Injected EGT Curve (Rising red curve) -->
+<path d="M 40,88 Q 120,86 170,87 C 190,87 210,60 250,42 C 300,28 380,24 450,22" fill="none" stroke="#ba1a1a" stroke-width="2.5"></path>
+<!-- FADEC Compensating Fuel Trim (Secondary Blue curve stepping up) -->
+<path d="M 40,125 L 170,125 C 185,125 190,105 210,102 C 260,98 340,95 450,94" fill="none" stroke="#0051d5" stroke-width="2"></path>
+<!-- Y-Axis Labels -->
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="5" y="24">750°C</text>
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="5" y="59">720°C</text>
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="5" y="94">680°C</text>
+<text fill="#0051d5" font-family="JetBrains Mono" font-size="8" x="5" y="129">TRIM</text>
+<!-- X-Axis Labels -->
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="40" y="148">T+02:00</text>
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="160" y="148">T+03:15</text>
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="300" y="148">T+04:00</text>
+<text fill="#73777f" font-family="JetBrains Mono" font-size="8" x="420" y="148">T+04:42</text>
+</svg>
+</div>
+<!-- Telemetry Graph Summary Footer -->
+<div class="flex items-center justify-between font-code-cell text-code-cell text-on-surface-variant pt-space-xs">
+<span>RESIDUAL ERROR: <strong class="text-error font-semibold">+58.8°C (8.6σ)</strong></span>
+<span>FADEC CLOSED LOOP: <strong class="text-secondary font-semibold">+12.0% TRIM</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- BOTTOM STRIP: PHYSICAL RIG SAFETY PROTOCOL STATUS -->
+<div class="bg-surface-container-high rounded-DEFAULT p-space-sm flex flex-col md:flex-row items-center justify-between gap-space-sm text-on-surface">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
+<span class="font-body-sm text-body-sm font-semibold">
+        Autonomous Test Rig Safety Daemon Active
+      </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden md:inline">
+        — If mechanical rig CHT exceeds 145°C or vibration exceeds 5.0g, Hardware Interlock automatically initiates 400ms throttle cutoff.
+      </span>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 font-code-cell text-code-cell">
+<span class="px-space-xs py-0.5 bg-surface-container-lowest text-on-surface rounded-DEFAULT">INTERLOCK THRESHOLD: 145.0°C</span>
+<span class="px-space-xs py-0.5 bg-tertiary-container text-on-tertiary-container rounded-DEFAULT font-semibold">DAEMON OK</span>
+</div>
+</div>
+</div></main></div></body></html>

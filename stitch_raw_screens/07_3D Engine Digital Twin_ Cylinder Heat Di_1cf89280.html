@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-error":"#ffffff","on-primary-container":"#85a4ce","on-primary-fixed":"#001c37","surface-container-high":"#e0e9f7","secondary-fixed-dim":"#b4c5ff","surface-container-highest":"#dae3f1","on-primary-fixed-variant":"#28486d","on-surface":"#131c26","error-container":"#ffdad6","surface-container":"#e5effd","primary-fixed-dim":"#a9c9f4","on-secondary":"#ffffff","surface":"#f8f9ff","on-tertiary":"#ffffff","tertiary-container":"#004138","surface-tint":"#416086","on-tertiary-fixed-variant":"#005046","surface-variant":"#dae3f1","outline-variant":"#c3c6cf","primary":"#002444","on-secondary-container":"#fefcff","outline":"#73777f","on-background":"#131c26","surface-dim":"#d2dbe9","on-surface-variant":"#43474e","on-tertiary-container":"#3ab5a1","inverse-primary":"#a9c9f4","inverse-surface":"#28313c","on-tertiary-fixed":"#00201b","surface-container-low":"#eef4ff","secondary":"#0051d5","on-error-container":"#93000a","tertiary-fixed":"#83f6e0","surface-bright":"#f8f9ff","surface-container-lowest":"#ffffff","primary-fixed":"#d2e4ff","error":"#ba1a1a","primary-container":"#173a5e","on-secondary-fixed":"#00174b","background":"#f8f9ff","on-primary":"#ffffff","secondary-fixed":"#dbe1ff","tertiary":"#002923","inverse-on-surface":"#e9f1ff","secondary-container":"#316bf3","tertiary-fixed-dim":"#65dac4","on-secondary-fixed-variant":"#003ea8"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"margin":"1rem","space-lg":"1rem","space-md":"0.75rem","space-xs":"0.25rem","gutter":"0.75rem","space-sm":"0.375rem","space-xl":"1.5rem"},"fontFamily":{"headline-sm":["IBM Plex Sans"],"body-md":["IBM Plex Sans"],"body-lg":["IBM Plex Sans"],"code-cell":["JetBrains Mono"],"body-sm":["IBM Plex Sans"],"telemetry-hero":["JetBrains Mono"],"telemetry-md":["JetBrains Mono"],"label-caps":["IBM Plex Sans"],"telemetry-sm":["JetBrains Mono"],"headline-md":["IBM Plex Sans"],"headline-lg":["IBM Plex Sans"],"telemetry-lg":["JetBrains Mono"],"display":["IBM Plex Sans"]},"fontSize":{"headline-sm":["15px",{"lineHeight":"20px","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"body-lg":["14px",{"lineHeight":"20px","fontWeight":"500"}],"code-cell":["11px",{"lineHeight":"16px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"telemetry-hero":["28px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"600"}],"telemetry-md":["14px",{"lineHeight":"18px","fontWeight":"500"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"600"}],"telemetry-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"telemetry-lg":["20px",{"lineHeight":"24px","letterSpacing":"-0.02em","fontWeight":"500"}],"display":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between select-none"><div class="flex flex-col h-[calc(100vh-140px)]"><div class="h-14 px-4 flex items-center gap-3 border-b border-outline-variant/30 bg-surface-container-lowest"><img alt="Brand logo. - Primary color: #173a5e
+- Font: ibmPlexSans
+- Mode: light
+- Roundness: rounded-sm
+" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XFeadEZ0jFbqSsoMe0iBd75iYo_FGwBS73R_dtlcwv3WSlpwmQ6dIw9aM1YFQIjxCIJQqxKbhrutR5oODbJ7UYlV_YmNLYslwuy9tmF48kucXiexNPOjrlCuFdj_S0RElV6HWxX47pJjx5z1K7fx6m6BVXFP1IpcFauICFYCn0Hg3RjMb-CyUL481Q6sejIdZpSH-TpJbXnKF6Ch7zzdruYKX5bmNELxzEBl-IzRF0iwtrBbi4xGwM5hM"/><div class="flex flex-col"><div class="flex items-center gap-1.5"><span class="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">AEROTWIN-X</span><span class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-code-cell text-code-cell font-semibold">v4.2</span></div><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Aero-Piston Digital Twin</span></div></div><div class="flex-1 overflow-y-auto px-space-xs py-space-sm space-y-4"><nav data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><div class="px-space-sm mb-1.5 flex items-center justify-between"><span class="font-label-caps text-label-caps text-on-surface-variant font-bold uppercase tracking-wider">1. Main Telemetry</span><span class="font-code-cell text-code-cell text-secondary font-medium">CAN-0</span></div><div class="space-y-0.5"><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="mission-control" href="#"><span class="material-symbols-outlined text-[17px]">radar</span><span class="truncate">Mission Control</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="digital-twin" href="#"><span class="material-symbols-outlined text-[17px]">view_in_ar</span><span class="truncate">Digital Twin</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="engine-health" href="#"><span class="material-symbols-outlined text-[17px]">vital_signs</span><span class="truncate">Engine Health</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="sensor-monitoring" href="#"><span class="material-symbols-outlined text-[17px]">speed</span><span class="truncate">Sensor Monitoring</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined text-[17px]">psychology</span><span class="truncate">AI Diagnostics</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="fault-prediction" href="#"><span class="material-symbols-outlined text-[17px]">analytics</span><span class="truncate">Fault Prediction</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="rul-degradation" href="#"><span class="material-symbols-outlined text-[17px]">hourglass_bottom</span><span class="truncate">RUL &amp; Degradation</span></a></div></nav><nav data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><div class="px-space-sm mb-1.5 flex items-center justify-between"><span class="font-label-caps text-label-caps text-on-surface-variant font-bold uppercase tracking-wider">2. Operations</span><span class="font-code-cell text-code-cell text-on-surface-variant">ACTIVE</span></div><div class="space-y-0.5"><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="3d-engine-explorer" href="#"><span class="material-symbols-outlined text-[17px]">deployed_code</span><span class="truncate">3D Engine Explorer</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="control-center" href="#"><span class="material-symbols-outlined text-[17px]">tune</span><span class="truncate">Control Center</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="mission-simulator" href="#"><span class="material-symbols-outlined text-[17px]">flight_takeoff</span><span class="truncate">Mission Simulator</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="mission-replay" href="#"><span class="material-symbols-outlined text-[17px]">replay</span><span class="truncate">Mission Replay</span></a><a class="flex items-center justify-between px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="alerts-events" href="#"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-[17px]">notifications_active</span><span class="truncate">Alerts &amp; Events</span></div><span class="px-1.5 py-0.2 bg-error text-on-error rounded font-code-cell text-code-cell font-bold leading-none">1</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="maintenance-cbm" href="#"><span class="material-symbols-outlined text-[17px]">build_circle</span><span class="truncate">Maintenance &amp; CBM+</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="reports-logbooks" href="#"><span class="material-symbols-outlined text-[17px]">menu_book</span><span class="truncate">Reports &amp; Logbooks</span></a></div></nav><nav data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><div class="px-space-sm mb-1.5"><span class="font-label-caps text-label-caps text-on-surface-variant font-bold uppercase tracking-wider">3. Engineering &amp; Protocols</span></div><div class="space-y-0.5"><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="telemetry-can-bus" href="#"><span class="material-symbols-outlined text-[17px]">lan</span><span class="truncate">Telemetry / CAN Bus</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="data-quality-center" href="#"><span class="material-symbols-outlined text-[17px]">verified</span><span class="truncate">Data Quality Center</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="edge-ai-monitoring" href="#"><span class="material-symbols-outlined text-[17px]">memory</span><span class="truncate">Edge AI Monitoring</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="system-architecture" href="#"><span class="material-symbols-outlined text-[17px]">schema</span><span class="truncate">System Architecture</span></a></div></nav><nav data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><div class="px-space-sm mb-1.5"><span class="font-label-caps text-label-caps text-on-surface-variant font-bold uppercase tracking-wider">4. System</span></div><div class="space-y-0.5"><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="fleet-health" href="#"><span class="material-symbols-outlined text-[17px]">grid_view</span><span class="truncate">Fleet Health</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="controls-injections" href="#"><span class="material-symbols-outlined text-[17px]">bolt</span><span class="truncate">Controls &amp; Injections</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="about-aerotwin" href="#"><span class="material-symbols-outlined text-[17px]">info</span><span class="truncate">About AeroTwin-X</span></a><a class="flex items-center gap-2.5 px-space-sm py-1.5 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-body-sm text-body-sm" data-path="system-settings" href="#"><span class="material-symbols-outlined text-[17px]">settings</span><span class="truncate">Settings</span></a></div></nav></div></div><div class="p-space-sm border-t border-outline-variant/30 bg-surface-container-lowest/80"><div class="p-space-sm rounded bg-surface-container border border-outline-variant/30 space-y-1.5"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps text-primary font-bold uppercase flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>CAN-FD BUS</span><span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-code-cell text-code-cell font-bold">HEALTHY</span></div><div class="flex justify-between font-code-cell text-code-cell text-on-surface-variant"><span>Load: <strong class="text-on-surface font-semibold">42%</strong></span><span>Loss: <strong class="text-on-surface font-semibold">0.00%</strong></span><span>Lat: <strong class="text-on-surface font-semibold">14ms</strong></span></div><div class="pt-1 border-t border-outline-variant/20 flex items-center justify-between font-code-cell text-code-cell"><span class="text-on-surface-variant">SIM INJECT:</span><span class="text-secondary font-medium">NOMINAL BASELINE</span></div></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-14 bg-surface-container-lowest border-b border-outline-variant/30 z-40 px-space-md flex items-center justify-between gap-3 shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-3 overflow-hidden"><div class="flex items-center gap-2 px-space-sm py-1 bg-surface-container-low border border-outline-variant/40 rounded"><span class="material-symbols-outlined text-secondary text-[18px]">airplanemode_active</span><div class="flex flex-col leading-tight"><span class="font-code-cell text-code-cell font-bold text-primary truncate">UAV-07 (Hermes MALE)</span><span class="font-code-cell text-[10px] text-on-surface-variant">Rotax 915iSc · S/N 915-8422</span></div><span class="material-symbols-outlined text-on-surface-variant text-[14px]">arrow_drop_down</span></div><div class="hidden xl:flex items-center gap-1.5 px-2.5 py-1 bg-surface-container-low rounded border border-outline-variant/40 font-code-cell text-code-cell"><span class="w-2 h-2 rounded-full bg-secondary-container"></span><span class="text-on-surface-variant">SIMULATION:</span><span class="text-primary font-bold">ACTIVE</span><span class="text-outline-variant">|</span><span class="text-on-tertiary-container font-semibold">NOMINAL</span><span class="text-outline-variant">|</span><span class="text-on-surface-variant">FAULT READY</span></div><div class="hidden 2xl:flex items-center gap-2 font-code-cell text-code-cell"><div class="px-2 py-0.5 rounded bg-surface border border-outline-variant/30 text-on-surface"><span class="text-on-surface-variant">CAN-FD:</span> 50Hz (0% Drop)</div><div class="px-2 py-0.5 rounded bg-surface border border-outline-variant/30 text-on-surface flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span><span class="text-on-surface-variant">EDGE AI:</span> Orin NX (ONLINE)</div></div></div><div class="flex items-center gap-3"><div class="hidden lg:flex items-center gap-2.5 px-2.5 py-1 rounded bg-surface-container-low border border-outline-variant/30 font-code-cell text-code-cell"><div class="flex flex-col text-right"><span class="text-on-surface font-semibold">14:38:22 UTC</span><span class="text-on-surface-variant text-[10px]">MET +04:22:18</span></div><span class="material-symbols-outlined text-secondary text-[18px]">schedule</span></div><button class="relative p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span></button><div class="h-5 w-[1px] bg-outline-variant/40"></div><div class="flex items-center gap-2.5 pl-1"><div class="flex flex-col items-end"><span class="font-body-sm text-body-sm font-semibold text-primary leading-tight">Maj. K. Vance</span><span class="font-code-cell text-[10px] text-on-surface-variant">Lead Propulsion &amp; Flight Eng</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Operational Sub-Header & FEA Viewport Controller -->
+<div class="flex flex-col bg-surface-container-lowest shadow-sm">
+<!-- Breadcrumb & Critical Telemetry Health Row -->
+<div class="flex flex-wrap items-center justify-between gap-3 px-space-md py-2 bg-surface-container-low">
+<div class="flex items-center gap-2 font-code-cell text-code-cell">
+<span class="text-on-surface-variant font-medium">OPERATIONS</span>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface-variant font-medium">3D ENGINE EXPLORER</span>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-bold bg-surface-container px-2 py-0.5 rounded">CYLINDER HEAT DISTRIBUTION &amp; FEA THERMAL MESH</span>
+</div>
+<div class="flex items-center gap-4 font-code-cell text-code-cell">
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-lowest text-primary shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-ping"></span>
+<span class="font-bold">CAN-FD 50Hz</span>
+<span class="text-on-surface-variant">(0.0ms delay)</span>
+</div>
+<div class="hidden md:flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-lowest text-primary shadow-sm">
+<span class="text-on-surface-variant">PINN SOLVER:</span>
+<span class="font-bold text-on-tertiary-container">RESIDUAL 0.18K</span>
+</div>
+<div class="hidden lg:flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant shadow-sm">
+<span>FEA MESH:</span>
+<span class="font-bold text-primary">142,800 NODES</span>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-error-container text-on-error-container font-bold">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span>ANOMALY ON CYL #3</span>
+</div>
+</div>
+</div>
+<!-- Mode Selector & Visualization Toolstrip -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2 px-space-md py-1.5">
+<!-- FEA Domain Tabs -->
+<div class="flex items-center gap-1 overflow-x-auto pb-1 lg:pb-0">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary text-on-primary font-label-caps text-label-caps tracking-wide uppercase transition-all shadow-sm">
+<span class="material-symbols-outlined text-[15px]">thermostat</span>
+<span>Thermal / Heat Distribution</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps tracking-wide uppercase transition-all">
+<span class="material-symbols-outlined text-[15px]">network_node</span>
+<span>von Mises Stress</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps tracking-wide uppercase transition-all">
+<span class="material-symbols-outlined text-[15px]">waves</span>
+<span>Coolant &amp; Oil Flow</span>
+</button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps tracking-wide uppercase transition-all">
+<span class="material-symbols-outlined text-[15px]">graphic_eq</span>
+<span>Modal / Vibration</span>
+</button>
+<button class="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps tracking-wide uppercase transition-all">
+<span class="material-symbols-outlined text-[15px]">air</span>
+<span>Combustion Gas</span>
+</button>
+</div>
+<!-- Mesh & Shader Manipulation Controls -->
+<div class="flex items-center gap-2 font-code-cell text-code-cell overflow-x-auto">
+<div class="flex items-center rounded bg-surface-container p-0.5">
+<span class="px-2 text-on-surface-variant font-label-caps text-label-caps uppercase">Explode</span>
+<button class="px-2 py-0.5 rounded bg-surface-container-lowest text-primary font-bold shadow-sm">0%</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-on-surface">25%</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-on-surface">50%</button>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-primary font-medium">
+<span class="material-symbols-outlined text-[15px]">content_cut</span>
+<span>Section #1-#3</span>
+</button>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded bg-primary-fixed text-on-primary-fixed font-bold">
+<span class="material-symbols-outlined text-[15px]">grid_4x4</span>
+<span>Mesh Wire: ON</span>
+</button>
+<button class="flex items-center gap-1 px-2 py-1 rounded bg-surface-container text-on-surface-variant hover:text-primary" title="Reset Perspective View">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Viewport + Inspection Split Layout -->
+<div class="grid grid-cols-1 2xl:grid-cols-12 gap-space-md p-space-md">
+<!-- Left & Center: 3D Engine Digital Twin Viewport (8 Columns on 2xl) -->
+<div class="2xl:col-span-8 flex flex-col gap-space-md">
+<!-- Interactive Engine Viewport Card -->
+<div class="relative bg-primary text-on-primary rounded-xl overflow-hidden shadow-md flex flex-col min-h-[580px] lg:min-h-[640px]">
+<!-- Technical HUD Header Overlay -->
+<div class="absolute top-0 inset-x-0 p-space-md flex items-start justify-between z-20 pointer-events-none">
+<div class="flex flex-col gap-1 pointer-events-auto">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-code-cell text-code-cell font-bold uppercase tracking-wider">ROTAX 915iSc B4</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest/15 backdrop-blur font-code-cell text-code-cell text-surface-container-high">FEA-MESH-REV: 4.8.2</span>
+</div>
+<div class="flex items-center gap-3 text-surface-container-high font-code-cell text-code-cell">
+<span>FOV: 42° ORTHOGRAPHIC</span>
+<span>•</span>
+<span>RES: 120 FPS LOCK</span>
+<span>•</span>
+<span class="text-tertiary-fixed font-semibold">TBO LIMIT: 1,200 HRS</span>
+</div>
+</div>
+<!-- Orientation Gizmo & Perspective Switchers -->
+<div class="flex items-center gap-2 pointer-events-auto">
+<div class="flex bg-surface-container-lowest/10 backdrop-blur rounded p-1 gap-1 font-code-cell text-code-cell">
+<button class="px-2 py-0.5 rounded bg-secondary text-on-secondary font-bold">ISO</button>
+<button class="px-2 py-0.5 text-surface-container-high hover:text-on-primary">TOP</button>
+<button class="px-2 py-0.5 text-surface-container-high hover:text-on-primary">FRONT</button>
+<button class="px-2 py-0.5 text-surface-container-high hover:text-on-primary">STARBOARD</button>
+</div>
+<!-- 3D Cube Marker -->
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center font-code-cell text-[10px] font-bold text-tertiary-fixed shadow-inner">
+<span class="tracking-tighter">Z+ / X+</span>
+</div>
+</div>
+</div>
+<!-- 3D Scene Mock Canvas Area with Rich SVG Heatmap Engine Geometry -->
+<div class="relative flex-1 w-full h-full flex items-center justify-center bg-gradient-to-b from-primary via-primary-container to-primary overflow-hidden select-none cursor-grab active:cursor-grabbing">
+<!-- Finite Element Wireframe Background Grid Overlay -->
+<svg class="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="32" id="feaGrid" patternunits="userSpaceOnUse" width="32">
+<path d="M 32 0 L 0 0 0 32" fill="none" stroke="#a9c9f4" stroke-width="0.75"></path>
+<path d="M 0 0 L 32 32" fill="none" stroke="#a9c9f4" stroke-dasharray="2,2" stroke-width="0.35"></path>
+</pattern>
+</defs>
+<rect fill="url(#feaGrid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Core Engine Render / Boxer Configuration Thermomechanical Mesh -->
+<div class="relative w-full max-w-[820px] aspect-[16/10] px-4 flex items-center justify-center">
+<svg class="w-full h-full drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)]" fill="none" viewbox="0 0 880 540" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Thermal Gradients -->
+<!-- Cyl 1: Starboard Front - Nominal Low -->
+<lineargradient id="cyl1Grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0051d5"></stop>
+<stop offset="45%" stop-color="#002444"></stop>
+<stop offset="80%" stop-color="#004138"></stop>
+<stop offset="100%" stop-color="#3ab5a1"></stop>
+</lineargradient>
+<!-- Cyl 2: Starboard Rear - Nominal Mid -->
+<lineargradient id="cyl2Grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#0051d5"></stop>
+<stop offset="60%" stop-color="#004138"></stop>
+<stop offset="100%" stop-color="#3ab5a1"></stop>
+</lineargradient>
+<!-- Cyl 3: Port Front - CRITICAL EXCEEDANCE HOTSPOT -->
+<radialgradient cx="42%" cy="38%" id="cyl3Hotspot" r="65%">
+<stop offset="0%" stop-color="#ffffff"></stop>
+<stop offset="25%" stop-color="#ba1a1a"></stop>
+<stop offset="55%" stop-color="#ff6b00"></stop>
+<stop offset="85%" stop-color="#e0a100"></stop>
+<stop offset="100%" stop-color="#173a5e"></stop>
+</radialgradient>
+<!-- Cyl 4: Port Rear - Nominal Low -->
+<lineargradient id="cyl4Grad" x1="0%" x2="100%" y1="100%" y2="0%">
+<stop offset="0%" stop-color="#0051d5"></stop>
+<stop offset="50%" stop-color="#004138"></stop>
+<stop offset="100%" stop-color="#65dac4"></stop>
+</lineargradient>
+<!-- Crankcase & Plenum Block -->
+<lineargradient id="crankcaseGrad" x1="0%" x2="100%" y1="50%" y2="50%">
+<stop offset="0%" stop-color="#112233"></stop>
+<stop offset="50%" stop-color="#173a5e"></stop>
+<stop offset="100%" stop-color="#0d1b2a"></stop>
+</lineargradient>
+<!-- Turbo Housing Hot Plume -->
+<radialgradient cx="50%" cy="50%" id="turboHotGrad" r="50%">
+<stop offset="0%" stop-color="#ff7b00"></stop>
+<stop offset="40%" stop-color="#ba1a1a"></stop>
+<stop offset="85%" stop-color="#4a1010"></stop>
+<stop offset="100%" stop-color="#1a2530"></stop>
+</radialgradient>
+</defs>
+<!-- Central Crankcase / Gearbox / Prop Hub Shaft -->
+<g id="crankcase">
+<rect fill="url(#crankcaseGrad)" height="230" rx="8" stroke="#416086" stroke-width="1.5" width="160" x="360" y="160"></rect>
+<!-- Prop Shaft & Reduction Drive Box -->
+<path d="M405 160 L405 90 L475 90 L475 160 Z" fill="#0d1b2a" stroke="#85a4ce" stroke-width="1"></path>
+<circle cx="440" cy="90" fill="#173a5e" r="28" stroke="#65dac4" stroke-dasharray="4,2" stroke-width="2"></circle>
+<circle cx="440" cy="90" fill="#e5effd" r="8"></circle>
+<!-- Crankcase Structural Ribs (FEA Isolines) -->
+<path d="M375 200 L505 200 M375 240 L505 240 M375 280 L505 280 M375 320 L505 320 M375 360 L505 360" opacity="0.6" stroke="#416086" stroke-dasharray="3,3" stroke-width="0.75"></path>
+</g>
+<!-- STARBOARD CYLINDER 1 (Front Right: Nominal 112°C) -->
+<g class="transition-transform duration-300 hover:scale-105 cursor-pointer" id="cylinder-1">
+<!-- Cylinder Barrel Fins -->
+<path d="M520 180 L670 150 L710 220 L520 235 Z" fill="url(#cyl1Grad)" stroke="#65dac4" stroke-width="1"></path>
+<!-- Cylinder Head & Valve Cover -->
+<path d="M670 150 L750 135 L780 205 L710 220 Z" fill="#004138" stroke="#83f6e0" stroke-width="1.5"></path>
+<!-- Spark Plug Lead -->
+<circle cx="725" cy="175" fill="#83f6e0" r="5"></circle>
+<line stroke="#83f6e0" stroke-dasharray="2,2" stroke-width="1" x1="725" x2="680" y1="175" y2="110"></line>
+<!-- FEA Triangular Elements Overlay -->
+<path d="M540 180 L580 210 L550 230 Z M580 210 L630 170 L640 215 Z M630 170 L680 155 L690 195 Z" fill="none" opacity="0.4" stroke="#dae3f1" stroke-width="0.5"></path>
+<!-- Label Pin -->
+<text fill="#a9c9f4" font-family="JetBrains Mono" font-size="11" font-weight="600" x="740" y="125">CYL #1: 112°C</text>
+</g>
+<!-- STARBOARD CYLINDER 2 (Rear Right: Nominal 114°C) -->
+<g class="transition-transform duration-300 hover:scale-105 cursor-pointer" id="cylinder-2">
+<path d="M520 280 L670 270 L710 340 L520 345 Z" fill="url(#cyl2Grad)" stroke="#3ab5a1" stroke-width="1"></path>
+<path d="M670 270 L750 260 L780 330 L710 340 Z" fill="#00352e" stroke="#3ab5a1" stroke-width="1.5"></path>
+<circle cx="725" cy="300" fill="#3ab5a1" r="5"></circle>
+<!-- Label Pin -->
+<text fill="#a9c9f4" font-family="JetBrains Mono" font-size="11" font-weight="600" x="740" y="365">CYL #2: 114°C</text>
+</g>
+<!-- PORT CYLINDER 4 (Rear Left: Nominal 110°C) -->
+<g class="transition-transform duration-300 hover:scale-105 cursor-pointer" id="cylinder-4">
+<path d="M360 280 L210 270 L170 340 L360 345 Z" fill="url(#cyl4Grad)" stroke="#65dac4" stroke-width="1"></path>
+<path d="M210 270 L130 260 L100 330 L170 340 Z" fill="#003932" stroke="#65dac4" stroke-width="1.5"></path>
+<circle cx="155" cy="300" fill="#65dac4" r="5"></circle>
+<text fill="#a9c9f4" font-family="JetBrains Mono" font-size="11" font-weight="600" x="60" y="365">CYL #4: 110°C</text>
+</g>
+<!-- PORT CYLINDER 3 (Front Left: CRITICAL THERMAL EXCEEDANCE) -->
+<g class="transition-transform duration-300 hover:scale-105 cursor-pointer" id="cylinder-3">
+<!-- Heat Hazard Aura -->
+<ellipse class="animate-pulse" cx="200" cy="185" fill="#ba1a1a" opacity="0.25" rx="85" ry="60"></ellipse>
+<!-- Cylinder Barrel with Intense Heatmap Shader -->
+<path d="M360 180 L210 150 L170 220 L360 235 Z" fill="url(#cyl3Hotspot)" stroke="#ff7b00" stroke-width="2"></path>
+<!-- Cylinder Head & Valve Bridge Peak Stress -->
+<path d="M210 150 L130 135 L100 205 L170 220 Z" fill="#ba1a1a" stroke="#ffffff" stroke-width="2"></path>
+<!-- Exhaust Valve Seat Anomaly Marker -->
+<circle cx="160" cy="175" fill="#ffffff" r="9" stroke="#ba1a1a" stroke-width="2.5"></circle>
+<circle class="animate-ping" cx="160" cy="175" fill="#ba1a1a" r="4"></circle>
+<!-- Dense FEA Mesh Lines on Anomaly Zone -->
+<path d="M330 185 L280 170 L290 225 Z M280 170 L230 160 L240 215 Z M230 160 L180 145 L190 205 Z" fill="none" opacity="0.8" stroke="#ffffff" stroke-width="0.8"></path>
+<path d="M180 145 L140 140 L150 190 Z M140 140 L110 175 L150 190 Z" fill="none" opacity="0.85" stroke="#ffdad6" stroke-width="0.8"></path>
+<!-- Isothermal Heat Gradient Rings -->
+<path d="M195 160 Q215 185 190 210" fill="none" stroke="#ffffff" stroke-dasharray="3,2" stroke-width="1.5"></path>
+<path d="M225 165 Q245 190 220 220" fill="none" stroke="#fecdca" stroke-width="1"></path>
+<path d="M260 170 Q280 195 255 225" fill="none" stroke="#fcd34d" stroke-width="1"></path>
+</g>
+<!-- Exhaust Manifold & Turbocharger System (Bottom Center to Port) -->
+<g id="turbocharger">
+<!-- Dual Runner Pipes -->
+<path d="M175 220 C220 260 280 380 380 430" fill="none" opacity="0.9" stroke="#ba1a1a" stroke-linecap="round" stroke-width="10"></path>
+<path d="M710 220 C660 270 580 380 470 430" fill="none" opacity="0.85" stroke="#e0a100" stroke-linecap="round" stroke-width="8"></path>
+<!-- Turbocharger Turbine Casing -->
+<circle cx="425" cy="445" fill="url(#turboHotGrad)" r="38" stroke="#ff7b00" stroke-width="2"></circle>
+<circle cx="425" cy="445" fill="#131c26" r="16" stroke="#ffffff" stroke-width="1"></circle>
+<!-- Wastegate Actuator Arm -->
+<rect fill="#d2e4ff" height="8" rx="2" width="34" x="460" y="440"></rect>
+<!-- Intercooler Ducting -->
+<path d="M390 455 C330 465 240 450 220 400" fill="none" stroke="#0051d5" stroke-dasharray="6,2" stroke-width="6"></path>
+</g>
+<!-- Real-time HUD Callout 1: Hotspot Pin on Cyl #3 -->
+<g class="cursor-pointer" id="hud-pin-cyl3">
+<line stroke="#ba1a1a" stroke-width="1.5" x1="160" x2="110" y1="175" y2="75"></line>
+<circle cx="160" cy="175" fill="#ba1a1a" r="3"></circle>
+<rect fill="#ba1a1a" fill-opacity="0.95" height="42" rx="4" width="200" x="30" y="42"></rect>
+<text fill="#ffffff" font-family="IBM Plex Sans" font-size="11" font-weight="700" x="40" y="58">HOTSPOT: CYLINDER #3</text>
+<text fill="#ffdad6" font-family="JetBrains Mono" font-size="10" font-weight="500" x="40" y="74">+13.7°C ABOVE PINN BASELINE</text>
+</g>
+<!-- Real-time HUD Callout 2: Turbocharger Housing -->
+<g id="hud-pin-turbo">
+<line stroke="#ff7b00" stroke-width="1.5" x1="440" x2="520" y1="475" y2="495"></line>
+<circle cx="440" cy="475" fill="#ff7b00" r="3"></circle>
+<rect fill="#173a5e" fill-opacity="0.95" height="34" rx="4" width="180" x="520" y="480"></rect>
+<text fill="#a9c9f4" font-family="IBM Plex Sans" font-size="10" font-weight="600" x="530" y="495">TURBO HOUSING</text>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="10" font-weight="700" x="530" y="508">742°C [NORMAL EXPANSION]</text>
+</g>
+<!-- Real-time HUD Callout 3: Oil Sump & Scavenge -->
+<g id="hud-pin-oil">
+<line stroke="#3ab5a1" stroke-width="1.5" x1="440" x2="350" y1="380" y2="400"></line>
+<circle cx="440" cy="380" fill="#3ab5a1" r="3"></circle>
+<rect fill="#002923" fill-opacity="0.95" height="32" rx="4" width="150" x="200" y="388"></rect>
+<text fill="#83f6e0" font-family="IBM Plex Sans" font-size="10" font-weight="600" x="210" y="402">OIL SCAVENGE SUMP</text>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="10" x="210" y="414">94.2°C · 18.2 L/min</text>
+</g>
+</svg>
+</div>
+<!-- Bottom Left Thermal Color Scale Ramp & Legend -->
+<div class="absolute bottom-3 left-3 bg-primary-container/90 backdrop-blur rounded p-2.5 flex flex-col gap-1.5 shadow-md pointer-events-auto">
+<div class="flex items-center justify-between text-[10px] font-code-cell text-surface-container-high font-semibold">
+<span>CONTINUOUS JET / TURBO SCALE</span>
+<span class="text-tertiary-fixed">ΔT: 10°C ISO</span>
+</div>
+<!-- Gradient Bar -->
+<div class="w-64 h-3.5 rounded relative overflow-hidden bg-gradient-to-r from-[#0051d5] via-[#004138] via-[#3ab5a1] via-[#fcd34d] via-[#ff7b00] to-[#ba1a1a]">
+<!-- Ticks -->
+<div class="absolute inset-0 flex justify-between px-1 items-center pointer-events-none opacity-40">
+<div class="w-0.5 h-full bg-surface-container-lowest"></div>
+<div class="w-0.5 h-full bg-surface-container-lowest"></div>
+<div class="w-0.5 h-full bg-surface-container-lowest"></div>
+<div class="w-0.5 h-full bg-surface-container-lowest"></div>
+</div>
+</div>
+<!-- Labels -->
+<div class="flex justify-between font-code-cell text-[10px] text-surface-container-high">
+<span>80°C (MIN)</span>
+<span>115°C (NOM)</span>
+<span class="text-error font-bold">128°C (WARN)</span>
+<span class="text-tertiary-fixed font-bold">700°C+ (EGT)</span>
+</div>
+</div>
+<!-- Floating Viewport Controls (Bottom Right) -->
+<div class="absolute bottom-3 right-3 flex items-center gap-1.5 bg-primary-container/90 backdrop-blur rounded p-1 shadow-md pointer-events-auto">
+<button class="p-1.5 rounded hover:bg-surface-container-lowest/20 text-on-primary transition-colors" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-lowest/20 text-on-primary transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]">zoom_out</span>
+</button>
+<div class="w-[1px] h-4 bg-outline-variant/30"></div>
+<button class="px-2 py-1 rounded bg-secondary-container hover:bg-secondary text-on-primary font-code-cell text-[11px] flex items-center gap-1 font-semibold transition-colors">
+<span class="material-symbols-outlined text-[14px]">rotate_right</span>
+<span>ORBIT 0.5x</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-lowest/20 text-on-primary transition-colors" title="Toggle Fullscreen">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Synchronized 60-Second Thermodynamic Timeline Scrub -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">show_chart</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Thermal Gradient Evolution (Synchronized 60s Buffer)</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-code-cell text-[10px]">T-60s to LIVE T=0s</span>
+</div>
+<div class="flex items-center gap-3 font-code-cell text-code-cell">
+<span class="text-on-surface-variant">MAX GRADIENT RATE:</span>
+<span class="text-error font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+              dT/dt = +0.42°C/s (CYL #3)
+            </span>
+</div>
+</div>
+<!-- Multi-trace CHT/EGT Sparkline Visualizer (SVG) -->
+<div class="relative w-full h-24 bg-surface-container-low rounded overflow-hidden p-2 flex flex-col justify-between">
+<!-- Horizontal Guideline Thresholds -->
+<div class="absolute inset-x-0 top-3 border-b border-error/30 flex justify-end px-2">
+<span class="font-code-cell text-[9px] text-error font-semibold uppercase">128.0°C CHT Critical Max</span>
+</div>
+<div class="absolute inset-x-0 top-12 border-b border-tertiary-container/30 flex justify-end px-2">
+<span class="font-code-cell text-[9px] text-on-tertiary-container font-semibold uppercase">115.0°C CHT Nominal Center</span>
+</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 600 80">
+<!-- Gradient Fill for Cyl #3 Divergence -->
+<defs>
+<lineargradient id="anomArea" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#ba1a1a" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#ba1a1a" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,50 Q150,49 300,42 T480,24 L600,12 L600,80 L0,80 Z" fill="url(#anomArea)"></path>
+<!-- Cyl #1 (Blue Nominal) -->
+<path d="M0,52 C120,53 250,51 380,52 C450,51 520,53 600,52" fill="none" stroke="#0051d5" stroke-width="2"></path>
+<!-- Cyl #2 (Teal Nominal) -->
+<path d="M0,50 C120,49 250,51 380,50 C450,50 520,49 600,50" fill="none" stroke="#3ab5a1" stroke-width="2"></path>
+<!-- Cyl #4 (Muted Nominal) -->
+<path d="M0,54 C120,55 250,54 380,54 C450,55 520,54 600,55" fill="none" stroke="#73777f" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<!-- Cyl #3 (CRITICAL DIVERGENT EXCEEDANCE - Red) -->
+<path d="M0,50 C150,48 280,44 380,32 C450,22 520,16 600,10" fill="none" stroke="#ba1a1a" stroke-width="3"></path>
+<!-- Live T=0 Indicator Needle -->
+<line stroke="#ba1a1a" stroke-width="2" x1="599" x2="599" y1="0" y2="80"></line>
+<circle cx="599" cy="10" fill="#ba1a1a" r="4"></circle>
+</svg>
+<!-- Timeline scrubber axis labels -->
+<div class="flex justify-between font-code-cell text-[10px] text-on-surface-variant pt-1">
+<span>-60 sec</span>
+<span>-45 sec</span>
+<span>-30 sec</span>
+<span>-15 sec</span>
+<span class="text-error font-bold">T=0s (LIVE TELEMETRY)</span>
+</div>
+</div>
+<!-- Synchronized Legend Indicators -->
+<div class="flex flex-wrap items-center justify-between gap-2 pt-1 font-code-cell text-[11px]">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1.5"><span class="w-3 h-1 bg-secondary rounded"></span> CYL #1 (112.0°C)</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-1 bg-on-tertiary-container rounded"></span> CYL #2 (114.0°C)</span>
+<span class="flex items-center gap-1.5 font-bold text-error"><span class="w-3 h-1.5 bg-error rounded"></span> CYL #3 (128.2°C ▲ HOT)</span>
+<span class="flex items-center gap-1.5 text-on-surface-variant"><span class="w-3 h-1 bg-outline rounded"></span> CYL #4 (110.0°C)</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-medium">Export CSV</button>
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-medium">Freeze Buffer</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Deep Diagnostic Cylinder Inspection Panel (4 Columns on 2xl) -->
+<div class="2xl:col-span-4 flex flex-col gap-space-md">
+<!-- Focused Cylinder Card Header -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-error animate-ping"></span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">CYLINDER #3 (PORT FRONT)</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-caps text-label-caps font-bold">THERMAL ANOMALY</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Thermal boundary layer migration detected toward exhaust valve bridge. PINN solver indicates localized lean air/fuel mixture variance.
+        </p>
+<!-- 4-Cylinder Thermal Balance Comparison Matrix -->
+<div class="bg-surface-container-low rounded-lg p-2.5 flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-caps text-label-caps uppercase text-on-surface-variant">
+<span>Cylinder Comparison</span>
+<span>CHT / EGT Matrix</span>
+</div>
+<div class="space-y-1 font-code-cell text-code-cell">
+<!-- Cyl 1 -->
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest">
+<span class="font-bold text-primary">CYL #1</span>
+<div class="flex items-center gap-2">
+<span>CHT: <strong class="text-on-surface">112.0°C</strong></span>
+<span class="text-outline-variant">|</span>
+<span>EGT: <strong class="text-on-surface">682.0°C</strong></span>
+</div>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold text-[10px]">NOM</span>
+</div>
+<!-- Cyl 2 -->
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest">
+<span class="font-bold text-primary">CYL #2</span>
+<div class="flex items-center gap-2">
+<span>CHT: <strong class="text-on-surface">114.0°C</strong></span>
+<span class="text-outline-variant">|</span>
+<span>EGT: <strong class="text-on-surface">680.0°C</strong></span>
+</div>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold text-[10px]">NOM</span>
+</div>
+<!-- Cyl 3 (ANOMALY) -->
+<div class="flex items-center justify-between p-1.5 rounded bg-error-container text-on-error-container font-bold shadow-sm">
+<span class="text-error">CYL #3</span>
+<div class="flex items-center gap-2">
+<span>CHT: 128.2°C</span>
+<span class="text-error">|</span>
+<span>EGT: 886.4°C</span>
+</div>
+<span class="px-1.5 py-0.2 rounded bg-error text-on-error text-[10px]">CRIT</span>
+</div>
+<!-- Cyl 4 -->
+<div class="flex items-center justify-between p-1.5 rounded bg-surface-container-lowest">
+<span class="font-bold text-primary">CYL #4</span>
+<div class="flex items-center gap-2">
+<span>CHT: <strong class="text-on-surface">110.0°C</strong></span>
+<span class="text-outline-variant">|</span>
+<span>EGT: <strong class="text-on-surface">681.8°C</strong></span>
+</div>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold text-[10px]">NOM</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Thermographic Micro-Gradient Breakdown -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Thermomechanical Gradient Profile</span>
+<span class="font-code-cell text-code-cell text-secondary font-semibold">Mesh ID: #C3-FEA</span>
+</div>
+<div class="space-y-3 font-body-sm text-body-sm">
+<!-- Measurement 1: Piston Crown -->
+<div class="space-y-1">
+<div class="flex justify-between font-code-cell text-code-cell">
+<span class="text-on-surface font-medium">Piston Crown Temperature</span>
+<span class="font-bold text-primary">284.0°C <span class="text-on-surface-variant font-normal">/ 310°C Max</span></span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary-container rounded" style="width: 78%;"></div>
+</div>
+</div>
+<!-- Measurement 2: Exhaust Valve Seat -->
+<div class="space-y-1">
+<div class="flex justify-between font-code-cell text-code-cell">
+<span class="text-error font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+                Exhaust Valve Seat Peak
+              </span>
+<span class="font-bold text-error">642.0°C <span class="text-on-error-container font-normal">(+38°C/cm)</span></span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="h-full bg-error rounded" style="width: 93%;"></div>
+</div>
+</div>
+<!-- Measurement 3: Spark Plug Boss -->
+<div class="space-y-1">
+<div class="flex justify-between font-code-cell text-code-cell">
+<span class="text-on-surface font-medium">Spark Plug #3 Boss</span>
+<span class="font-bold text-on-surface">136.4°C <span class="text-on-surface-variant font-normal">/ 145°C</span></span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="h-full bg-on-tertiary-container rounded" style="width: 62%;"></div>
+</div>
+</div>
+<!-- Measurement 4: Middle Barrel Fin -->
+<div class="space-y-1">
+<div class="flex justify-between font-code-cell text-code-cell">
+<span class="text-on-surface font-medium">Barrel Cooling Fin Mid-Plane</span>
+<span class="font-bold text-primary">114.2°C <span class="text-on-surface-variant font-normal">/ 120°C</span></span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim rounded" style="width: 48%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- PINN Solver & Physics Model Residual Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">psychology</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">PINN Heat Transfer Residual</span>
+</div>
+<span class="font-code-cell text-[10px] font-bold px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed">98.4% CONFIDENCE</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container-low flex flex-col gap-2 font-code-cell text-code-cell">
+<div class="flex justify-between text-on-surface-variant">
+<span>Navier-Stokes Convection Delta:</span>
+<span class="text-error font-bold">-18.4 W/m²K</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Thermal Conductivity k(T):</span>
+<span class="text-primary font-bold">148.6 W/m·K</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Local Equivalence Ratio (λ):</span>
+<span class="text-error font-bold">1.18 (Lean Shift)</span>
+</div>
+<div class="w-full h-1 bg-outline-variant/30 rounded overflow-hidden mt-1">
+<div class="h-full bg-secondary-container" style="width: 98.4%;"></div>
+</div>
+</div>
+</div>
+<!-- Flight Engineering Advisory & Quick Commands -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-2 text-primary font-bold font-headline-sm text-headline-sm">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+<span>Diagnostic Advisory &amp; Actions</span>
+</div>
+<div class="p-2.5 rounded bg-surface-container font-body-sm text-body-sm text-on-surface leading-relaxed">
+<strong class="text-error">Recommendation:</strong> Localized lean combustion is stressing the exhaust runner. Micro-distortion danger if cruise engine speed exceeds 5,420 RPM. Request FADEC trim override.
+        </div>
+<div class="flex flex-col gap-1.5 font-label-caps text-label-caps uppercase">
+<button class="w-full py-2 px-3 rounded bg-primary hover:bg-secondary text-on-primary font-bold flex items-center justify-center gap-2 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Inject FADEC Lane B Trim (+4.5% Fuel)</span>
+</button>
+<div class="grid grid-cols-2 gap-1.5">
+<button class="py-2 px-2 rounded bg-surface-container-low hover:bg-surface-container-high text-primary font-semibold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">file_download</span>
+<span>Export .VTK Slice</span>
+</button>
+<button class="py-2 px-2 rounded bg-surface-container-low hover:bg-surface-container-high text-primary font-semibold flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">build</span>
+<span>CBM+ Work Order</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Operational Interconnect Navigation Strip -->
+<div class="flex items-center justify-between px-space-md py-2.5 bg-surface-container-low shadow-inner text-on-surface-variant font-code-cell text-code-cell">
+<div class="flex items-center gap-4">
+<span class="font-bold text-primary">INTERCONNECTED SYSTEMS:</span>
+<a class="hover:text-secondary underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">radar</span> Mission Control
+      </a>
+<a class="hover:text-secondary underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">speed</span> Sensor Monitoring
+      </a>
+<a class="hover:text-secondary underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">psychology</span> AI Diagnostics
+      </a>
+<a class="hover:text-secondary underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">hourglass_bottom</span> RUL &amp; Degradation
+      </a>
+</div>
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant text-[10px]">
+<span>ENGINE S/N: 915-8422</span>
+<span>•</span>
+<span>ROTARY ENCODER: 5,280 RPM</span>
+<span>•</span>
+<span>MAP: 34.2 inHg</span>
+</div>
+</div>
+</div></main></div></body></html>

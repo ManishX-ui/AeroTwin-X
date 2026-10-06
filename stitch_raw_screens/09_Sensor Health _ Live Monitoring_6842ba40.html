@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X - Sensor Health &amp; Live Monitoring</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: IBM Plex Sans & IBM Plex Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<!-- FontAwesome for technical mission icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+          },
+          colors: {
+            aeroblue: {
+              50: '#F5F8FF',
+              100: '#EBF1FF',
+              200: '#D5E2FF',
+              300: '#ADC8FF',
+              500: '#3366FF',
+              600: '#194BE6',
+              700: '#0033CC',
+              900: '#0B1D4B',
+              950: '#06102A'
+            },
+            aerogray: {
+              25: '#FAFBFD',
+              50: '#F8F9FC',
+              100: '#F0F2F7',
+              200: '#E4E7F0',
+              300: '#D2D6E4',
+              400: '#9AA1B9',
+              600: '#5F6782',
+              800: '#23293D',
+              900: '#141824'
+            },
+            aerogreen: {
+              50: '#EAFDF5',
+              100: '#CEF9E5',
+              500: '#00B86B',
+              600: '#009E5A',
+              700: '#007A46'
+            },
+            aeroamber: {
+              50: '#FFF9EB',
+              100: '#FEF0CE',
+              500: '#F59E0B',
+              600: '#D97706'
+            },
+            aerored: {
+              50: '#FEF2F2',
+              100: '#FEE2E2',
+              500: '#EF4444',
+              600: '#DC2626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Technical Styles -->
+<style data-purpose="technical-typography-and-scrollbars">
+    body {
+      background-color: #F8F9FF;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Technical crosshair and grid backdrops */
+    .bg-tech-grid {
+      background-size: 24px 24px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 51, 204, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 51, 204, 0.04) 1px, transparent 1px);
+    }
+    
+    .bg-tech-grid-dense {
+      background-size: 12px 12px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 51, 204, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 51, 204, 0.03) 1px, transparent 1px);
+    }
+
+    /* Scrollbar styling for telemetry logs */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F0F2F7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ADC8FF;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3366FF;
+    }
+  </style>
+<style data-purpose="hud-pulse-and-glow">
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.1); }
+    }
+    .live-dot {
+      animation: pulse-live 2s infinite ease-in-out;
+    }
+  </style>
+<!-- END: Custom Technical Styles -->
+</head>
+<body class="text-aerogray-900 font-sans min-h-screen flex flex-col antialiased selection:bg-aeroblue-500 selection:text-white">
+<!-- BEGIN: Primary Header Navigation -->
+<header class="bg-white border-b border-aerogray-200 px-4 py-2 sticky top-0 z-50 flex items-center justify-between shadow-xs" data-purpose="global-app-header">
+<div class="flex items-center space-x-6">
+<!-- AeroTwin Logo & Brand Identification -->
+<div class="flex items-center space-x-2.5">
+<div class="w-8 h-8 rounded bg-aeroblue-700 text-white flex items-center justify-center font-bold tracking-tighter text-base shadow-sm">
+<i class="fa-solid fa-crosshairs"></i>
+</div>
+<div>
+<div class="flex items-center space-x-1.5 leading-none">
+<span class="font-bold text-base tracking-tight text-aeroblue-950 font-mono">AeroTwin<span class="text-aeroblue-600">-X</span></span>
+<span class="text-[9px] bg-aeroblue-100 text-aeroblue-700 px-1 py-0.5 rounded font-mono font-semibold uppercase">v4.2-Pro</span>
+</div>
+<p class="text-[10px] text-aerogray-400 font-mono tracking-wider uppercase mt-0.5">AERO-PISTON GCS DIGITAL TWIN</p>
+</div>
+</div>
+<!-- Vehicle & Mission Profile Details -->
+<div class="hidden lg:flex items-center space-x-3 border-l border-aerogray-200 pl-6 text-xs font-mono">
+<div class="bg-aerogray-50 border border-aerogray-200 rounded px-2.5 py-1 flex items-center space-x-2">
+<i class="fa-solid fa-plane-up text-aeroblue-600 text-xs"></i>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Vehicle Platform</span>
+<span class="font-semibold text-aerogray-800">UAV-07 (Hermes MALE)</span>
+</div>
+</div>
+<div class="bg-aerogray-50 border border-aerogray-200 rounded px-2.5 py-1 flex items-center space-x-2">
+<i class="fa-solid fa-gears text-aeroblue-600 text-xs"></i>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Powerplant Unit</span>
+<span class="font-semibold text-aerogray-800">AE-03 (Turbo Piston 915iSc)</span>
+</div>
+</div>
+<div class="bg-aerogray-50 border border-aerogray-200 rounded px-2.5 py-1 flex items-center space-x-2">
+<i class="fa-solid fa-bullseye text-aerogreen-600 text-xs"></i>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Mission Assignment</span>
+<span class="font-semibold text-aerogray-800">LONG-ENDURANCE ISR #842</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Status Hub & Officer Profile -->
+<div class="flex items-center space-x-4">
+<div class="hidden xl:flex items-center space-x-3 text-[11px] font-mono">
+<!-- Live Indicator -->
+<div class="flex items-center space-x-1.5 bg-aerogray-900 text-white px-2.5 py-1 rounded shadow-xs">
+<span class="w-2 h-2 rounded-full bg-aerogreen-500 live-dot"></span>
+<span class="font-bold tracking-wider">LIVE</span>
+<span class="text-aerogray-400">|</span>
+<span class="text-aerogray-300">SIMULATION</span>
+</div>
+<!-- Telemetry Sync -->
+<div class="flex items-center space-x-1.5 bg-aerogreen-50 border border-aerogreen-200 text-aerogreen-700 px-2 py-1 rounded">
+<i class="fa-solid fa-satellite-dish text-[10px]"></i>
+<span class="font-semibold">TELEMETRY: CONNECTED</span>
+</div>
+<!-- Twin Sync Ratio -->
+<div class="flex items-center space-x-1.5 bg-aeroblue-50 border border-aeroblue-200 text-aeroblue-700 px-2 py-1 rounded">
+<i class="fa-solid fa-arrows-rotate text-[10px] animate-spin" style="animation-duration: 6s;"></i>
+<span>TWIN: <strong class="font-bold">99.7%</strong> SYNC</span>
+</div>
+<!-- PINN & Edge AI Status -->
+<div class="flex items-center space-x-2 px-2 py-1 bg-aerogray-100 rounded text-aerogray-800">
+<span class="flex items-center space-x-1"><span class="w-1.5 h-1.5 rounded-full bg-aerogreen-500"></span><span>AI: ONLINE</span></span>
+<span class="text-aerogray-300">|</span>
+<span class="flex items-center space-x-1"><span class="w-1.5 h-1.5 rounded-full bg-aerogreen-500"></span><span>EDGE: 50Hz</span></span>
+</div>
+</div>
+<!-- Real-time Mission UTC Clock -->
+<div class="text-right font-mono pr-2 border-r border-aerogray-200">
+<div class="text-xs font-bold text-aerogray-900 tracking-tight">14:28:42 <span class="text-[10px] text-aerogray-500">UTC</span></div>
+<div class="text-[10px] text-aerogray-500">2025-05-18</div>
+</div>
+<!-- Flight Eng Identity -->
+<div class="flex items-center space-x-2.5">
+<div class="relative">
+<div class="w-8 h-8 rounded-full bg-aeroblue-100 border border-aeroblue-300 text-aeroblue-800 flex items-center justify-center font-bold text-xs">
+            MV
+          </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-aerogreen-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="hidden sm:block text-left text-xs leading-tight">
+<div class="font-bold text-aerogray-900">Maj. K. Vance</div>
+<div class="text-[10px] text-aerogray-500 font-mono">Lead Propulsion Eng</div>
+</div>
+<button class="relative p-1.5 text-aerogray-400 hover:text-aerogray-700 rounded transition-colors" title="System Alerts">
+<i class="fa-regular fa-bell text-sm"></i>
+<span class="absolute top-1 right-1 w-2 h-2 bg-aerored-500 rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<!-- END: Primary Header Navigation -->
+<!-- BEGIN: Application Shell with Left Navigation & Main Scrollable Body -->
+<div class="flex-1 flex overflow-hidden">
+<!-- BEGIN: Left Navigation Sidebar -->
+<aside class="w-56 bg-white border-r border-aerogray-200 flex flex-col justify-between shrink-0 select-none overflow-y-auto" data-purpose="sidebar-navigation">
+<div class="py-4">
+<!-- Main Navigation Group -->
+<div class="px-3 mb-2">
+<p class="text-[10px] font-bold uppercase tracking-wider text-aerogray-400 px-3 py-1 font-mono">Main Operations</p>
+<nav class="space-y-0.5 mt-1">
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-gauge w-4 text-center text-aerogray-400"></i>
+<span>Mission Control</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-cube w-4 text-center text-aerogray-400"></i>
+<span>Digital Twin</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-heart-pulse w-4 text-center text-aerogray-400"></i>
+<span>Engine Health</span>
+</a>
+<!-- Active Sub-system -->
+<a class="flex items-center justify-between px-3 py-2 rounded text-xs font-semibold bg-aeroblue-900 text-white shadow-xs" href="#">
+<div class="flex items-center space-x-2.5">
+<i class="fa-solid fa-wave-square w-4 text-center text-aeroblue-300"></i>
+<span>Sensor Monitoring</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-aerogreen-400"></span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-brain w-4 text-center text-aerogray-400"></i>
+<span>AI Diagnostics</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-triangle-exclamation w-4 text-center text-aerogray-400"></i>
+<span>Fault Prediction</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50 hover:text-aerogray-900 transition-colors" href="#">
+<i class="fa-solid fa-clock-rotate-left w-4 text-center text-aerogray-400"></i>
+<span>RUL &amp; Degradation</span>
+</a>
+</nav>
+</div>
+<!-- Operations Navigation Group -->
+<div class="px-3 mb-2 pt-3 border-t border-aerogray-100">
+<p class="text-[10px] font-bold uppercase tracking-wider text-aerogray-400 px-3 py-1 font-mono">Operations</p>
+<nav class="space-y-0.5 mt-1">
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-compass-drafting w-4 text-center text-aerogray-400"></i>
+<span>3D Engine Explorer</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-vr-cardboard w-4 text-center text-aerogray-400"></i>
+<span>Mission Simulator</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-film w-4 text-center text-aerogray-400"></i>
+<span>Mission Replay</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<div class="flex items-center space-x-2.5">
+<i class="fa-solid fa-bell w-4 text-center text-aerogray-400"></i>
+<span>Alerts</span>
+</div>
+<span class="text-[10px] bg-aerored-100 text-aerored-600 px-1.5 py-0.2 rounded font-mono font-bold">1</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-wrench w-4 text-center text-aerogray-400"></i>
+<span>Maintenance</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-regular fa-file-lines w-4 text-center text-aerogray-400"></i>
+<span>Reports</span>
+</a>
+</nav>
+</div>
+<!-- Engineering Architecture Group -->
+<div class="px-3 mb-2 pt-3 border-t border-aerogray-100">
+<p class="text-[10px] font-bold uppercase tracking-wider text-aerogray-400 px-3 py-1 font-mono">Engineering</p>
+<nav class="space-y-0.5 mt-1">
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-network-wired w-4 text-center text-aerogray-400"></i>
+<span>Telemetry / CAN</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-chart-line w-4 text-center text-aerogray-400"></i>
+<span>Data Quality</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-microchip w-4 text-center text-aerogray-400"></i>
+<span>Edge AI Models</span>
+</a>
+<a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-aerogray-600 hover:bg-aerogray-50" href="#">
+<i class="fa-solid fa-diagram-project w-4 text-center text-aerogray-400"></i>
+<span>System Architecture</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Left Sidebar Bottom Hardware Status -->
+<div class="p-3 bg-aerogray-50 border-t border-aerogray-200 font-mono text-[11px]">
+<div class="flex items-center justify-between text-aerogray-500 mb-1">
+<span class="text-[10px] uppercase font-bold tracking-tight">CAN BUS STATUS</span>
+<span class="text-aerogreen-600 font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-aerogreen-500"></span>HEALTHY
+          </span>
+</div>
+<div class="grid grid-cols-3 gap-1 text-center bg-white p-2 rounded border border-aerogray-200">
+<div>
+<div class="text-[9px] text-aerogray-400">LOAD</div>
+<div class="font-bold text-aerogray-800">42%</div>
+</div>
+<div>
+<div class="text-[9px] text-aerogray-400">LOSS</div>
+<div class="font-bold text-aerogreen-600">0.00%</div>
+</div>
+<div>
+<div class="text-[9px] text-aerogray-400">LAT</div>
+<div class="font-bold text-aerogray-800">14ms</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: Left Navigation Sidebar -->
+<!-- BEGIN: Main Page Content -->
+<main class="flex-1 overflow-y-auto p-4 lg:p-6 space-y-6" data-purpose="sensor-monitoring-workspace">
+<!-- BEGIN: Sub-Header & Status Strip -->
+<section class="bg-white border border-aerogray-200 rounded-lg p-4 shadow-2xs" data-purpose="sub-header-and-controls">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<div>
+<div class="flex items-center space-x-3">
+<div class="w-3 h-3 bg-aeroblue-600 rounded-sm"></div>
+<h1 class="text-lg font-bold font-mono tracking-tight text-aerogray-900 uppercase">
+                Sensor Health &amp; Live Monitoring
+              </h1>
+<span class="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-aeroblue-50 text-aeroblue-700 border border-aeroblue-200">
+                AEROSPACE PROPULSION INSTRUMENTATION
+              </span>
+</div>
+<!-- Sensor Telemetry Health Badges -->
+<div class="flex flex-wrap items-center gap-2 mt-2 font-mono text-[11px]">
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">PLATFORM: <strong>UAV-07</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">ENGINE: <strong>AE-03 TURBO-PISTON</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">BUS: <strong>CAN-FD 50Hz</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 flex items-center gap-1.5 font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-aerogreen-500"></span>TELEMETRY: CONNECTED
+              </span>
+<span class="px-2 py-0.5 rounded bg-aeroblue-50 text-aeroblue-700 border border-aeroblue-200">DATA QUALITY: <strong>97.8%</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">ACTIVE NODES: <strong>24 / 24</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">BUS LOAD: <strong>42%</strong></span>
+<span class="px-2 py-0.5 rounded bg-aerogray-100 text-aerogray-700 border border-aerogray-200">LATENCY: <strong>14ms</strong></span>
+</div>
+</div>
+<!-- Time Frame Filters & Primary Actions -->
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- Time Window Switcher -->
+<div class="inline-flex rounded-md shadow-2xs border border-aerogray-200 p-0.5 bg-aerogray-50 font-mono text-xs">
+<button class="px-2.5 py-1 rounded font-bold bg-aeroblue-900 text-white shadow-xs">5 min</button>
+<button class="px-2.5 py-1 rounded text-aerogray-600 hover:text-aerogray-900">30 min</button>
+<button class="px-2.5 py-1 rounded text-aerogray-600 hover:text-aerogray-900">1 hr</button>
+<button class="px-2.5 py-1 rounded text-aerogray-600 hover:text-aerogray-900">6 hr</button>
+<button class="px-2.5 py-1 rounded text-aerogray-600 hover:text-aerogray-900">24 hr</button>
+<button class="px-2.5 py-1 rounded text-aerogray-600 hover:text-aerogray-900">Mission</button>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center space-x-2">
+<button class="px-3 py-1.5 bg-white border border-aerogray-300 text-aerogray-700 hover:bg-aerogray-50 text-xs font-mono font-medium rounded flex items-center space-x-1.5 shadow-2xs transition-colors">
+<i class="fa-solid fa-file-export text-aeroblue-600"></i>
+<span>Export MDF4/CSV</span>
+</button>
+<button class="px-3 py-1.5 bg-aeroblue-700 hover:bg-aeroblue-800 text-white text-xs font-mono font-medium rounded flex items-center space-x-1.5 shadow-2xs transition-colors">
+<i class="fa-solid fa-sliders"></i>
+<span>Calibrate Sensors</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Sub-Header & Status Strip -->
+<!-- BEGIN: Primary Sensor Telemetry Grid (10 Live Cards in 2 Rows of 5) -->
+<section data-purpose="telemetry-card-grid">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center space-x-2 text-xs font-mono font-bold tracking-wider text-aerogray-700 uppercase">
+<i class="fa-solid fa-microchip text-aeroblue-600"></i>
+<span>Primary CAN-FD Sensor Telemetry Mesh (Synchronized at 50Hz)</span>
+</div>
+<span class="text-[11px] font-mono text-aerogray-400">Click card to isolate deep-dive analysis</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+<!-- Card 1: RPM -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x180 • PROPULSION</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Prop Engine RPM</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">2,740</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">rpm</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 2,735</div>
+<div class="text-aerogreen-600 font-semibold">+5 (+0.18%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,15 Q10,14 20,16 T40,13 T60,15 T80,12 L100,14" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,15 Q10,14 20,16 T40,13 T60,15 T80,12 L100,14 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">99.8%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">99%</strong></span>
+</div>
+</div>
+<!-- Card 2: CHT -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x184 • THERMAL</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Cylinder Head (CHT)</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">178.4</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">°C</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 175.2</div>
+<div class="text-aerogreen-600 font-semibold">+3.2 (+1.82%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,18 Q20,17 40,15 T70,14 T100,12" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,18 Q20,17 40,15 T70,14 T100,12 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">98.4%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">98%</strong></span>
+</div>
+</div>
+<!-- Card 3: EGT (SELECTED & ATTENTION) -->
+<div class="bg-aerored-50/30 border-2 border-aerored-500 rounded-lg p-3 relative shadow-md transition-all cursor-pointer ring-2 ring-aerored-500/20" data-purpose="sensor-card-selected">
+<div class="absolute -top-2.5 right-3 bg-aerored-600 text-white font-mono text-[9px] uppercase tracking-wider px-2 py-0.2 rounded font-bold shadow-xs">
+              ACTIVE ISOLATION
+            </div>
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerored-600 font-semibold block leading-tight">CAN ID: 0x188 • THERMAL</span>
+<h3 class="text-xs font-bold text-aerored-600 flex items-center gap-1">
+<i class="fa-solid fa-triangle-exclamation"></i>
+                  Exhaust Gas (EGT Cyl 3)
+                </h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerored-100 text-aerored-700 border border-aerored-300 px-1.5 py-0.2 rounded">ATTENTION</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerored-600">724.0</span>
+<span class="text-xs font-mono text-aerored-500 font-bold ml-1">°C</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-500">Exp: 706.0</div>
+<div class="text-aerored-600 font-bold">+18.0 (+2.55%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,19 L30,17 L60,11 L85,8 L100,6" fill="none" stroke="#EF4444" stroke-width="2"></path>
+<path d="M0,19 L30,17 L60,11 L85,8 L100,6 L100,25 L0,25 Z" fill="rgba(239, 68, 68, 0.15)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerored-200 flex items-center justify-between text-[10px] font-mono">
+<span class="text-aerogray-600">Signal: <strong class="text-aerogray-900">98.1%</strong></span>
+<span class="text-aerored-700 font-bold">Health: 94%</span>
+</div>
+</div>
+<!-- Card 4: Oil Pressure -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x190 • LUBRICATION</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Oil Main Pressure</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">4.82</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">bar</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 4.90</div>
+<div class="text-aerogray-600 font-semibold">-0.08 (-1.63%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,12 Q25,11 50,13 T80,12 T100,13" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,12 Q25,11 50,13 T80,12 T100,13 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">99.5%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">99%</strong></span>
+</div>
+</div>
+<!-- Card 5: Oil Temperature -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x194 • LUBRICATION</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Oil Temperature</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">89.2</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">°C</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 88.0</div>
+<div class="text-aerogreen-600 font-semibold">+1.2 (+1.36%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,16 Q30,15 60,14 T100,13" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,16 Q30,15 60,14 T100,13 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">98.9%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">97%</strong></span>
+</div>
+</div>
+<!-- Card 6: Fuel Flow Rate -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x1A0 • FUEL SYSTEM</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Fuel Flow Rate</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">18.60</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">L/h</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 18.10</div>
+<div class="text-aerogreen-600 font-semibold">+0.50 (+2.76%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,17 Q30,15 50,16 T85,13 T100,14" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,17 Q30,15 50,16 T85,13 T100,14 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">97.4%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">95%</strong></span>
+</div>
+</div>
+<!-- Card 7: RMS Vibration -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x1B2 • VIB-STRUCT</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Engine RMS Vibration</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">1.22</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">g</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 1.10</div>
+<div class="text-aerogray-600 font-semibold">+0.12 (+10.9%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,20 L15,10 L30,18 L45,8 L60,16 L75,9 L90,14 L100,12" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,20 L15,10 L30,18 L45,8 L60,16 L75,9 L90,14 L100,12 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">96.2%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">93%</strong></span>
+</div>
+</div>
+<!-- Card 8: Bus Voltage -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x1C0 • ELECTRICAL</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Main Bus 1 Voltage</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">28.42</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">V</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 28.20</div>
+<div class="text-aerogreen-600 font-semibold">+0.22 (+0.78%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,13 L20,12 L40,14 L60,12 L80,13 L100,12" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,13 L20,12 L40,14 L60,12 L80,13 L100,12 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">99.9%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">99%</strong></span>
+</div>
+</div>
+<!-- Card 9: Alternator Current -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x1C4 • ELECTRICAL</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Alternator Output</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">46.2</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">A</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 45.0</div>
+<div class="text-aerogreen-600 font-semibold">+1.2 (+2.67%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,15 Q30,13 60,16 T100,12" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,15 Q30,13 60,16 T100,12 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">99.2%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">98%</strong></span>
+</div>
+</div>
+<!-- Card 10: Injection Advance -->
+<div class="bg-white border border-aerogray-200 hover:border-aeroblue-400 rounded-lg p-3 relative shadow-2xs transition-all cursor-pointer group" data-purpose="sensor-card">
+<div class="flex items-start justify-between mb-1">
+<div>
+<span class="text-[10px] font-mono text-aerogray-400 block leading-tight">CAN ID: 0x1D0 • ECU TIMING</span>
+<h3 class="text-xs font-bold text-aerogray-900 group-hover:text-aeroblue-600">Injection Advance</h3>
+</div>
+<span class="text-[9px] font-mono font-bold bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 px-1.5 py-0.2 rounded">NORMAL</span>
+</div>
+<div class="my-2 flex items-baseline justify-between">
+<div>
+<span class="text-2xl font-bold font-mono text-aerogray-900">14.2°</span>
+<span class="text-xs font-mono text-aerogray-500 ml-1">BTDC</span>
+</div>
+<div class="text-right text-[10px] font-mono">
+<div class="text-aerogray-400">Exp: 14.0</div>
+<div class="text-aerogreen-600 font-semibold">+0.2 (+1.43%)</div>
+</div>
+</div>
+<!-- Mini Sparkline SVG -->
+<div class="h-8 w-full my-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 25">
+<path d="M0,14 Q25,14 50,13 T75,13 T100,13" fill="none" stroke="#3366FF" stroke-width="1.8"></path>
+<path d="M0,14 Q25,14 50,13 T75,13 T100,13 L100,25 L0,25 Z" fill="rgba(51, 102, 255, 0.08)"></path>
+</svg>
+</div>
+<div class="pt-2 border-t border-aerogray-100 flex items-center justify-between text-[10px] font-mono text-aerogray-500">
+<span>Signal: <strong class="text-aerogray-800">99.6%</strong></span>
+<span>Health: <strong class="text-aerogreen-600">99%</strong></span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Primary Sensor Telemetry Grid -->
+<!-- BEGIN: Selected Sensor Deep-Dive (EGT Cyl #3) -->
+<section class="bg-white border border-aerogray-200 rounded-lg p-5 shadow-2xs" data-purpose="sensor-deep-dive">
+<div class="flex flex-col md:flex-row md:items-center justify-between border-b border-aerogray-200 pb-4 mb-4 gap-3">
+<div>
+<div class="flex items-center space-x-2">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-aerored-100 text-aerored-700">CAN NODE 0x188</span>
+<h2 class="text-base font-bold font-mono text-aerogray-900 tracking-tight">
+                ISOLATED DEEP-DIVE: Exhaust Gas Temperature (EGT Cyl #3)
+              </h2>
+</div>
+<p class="text-xs text-aerogray-500 font-mono mt-0.5">High-frequency transient verification against PINN First-Principle Aerodynamic &amp; Combustion Twin</p>
+</div>
+<!-- Diagnostic Telemetry Metrics Bar -->
+<div class="flex flex-wrap items-center gap-2 bg-aerogray-50 border border-aerogray-200 rounded px-3 py-1.5 font-mono text-xs">
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Residual Mean</span>
+<span class="font-bold text-aerored-600">+17.8 °C</span>
+</div>
+<span class="text-aerogray-300">|</span>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Noise Floor</span>
+<span class="font-bold text-aerogray-800">0.42 %</span>
+</div>
+<span class="text-aerogray-300">|</span>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Long-term Drift</span>
+<span class="font-bold text-aerogray-800">+0.14 °C/h</span>
+</div>
+<span class="text-aerogray-300">|</span>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">SNR</span>
+<span class="font-bold text-aerogreen-600">42.6 dB</span>
+</div>
+<span class="text-aerogray-300">|</span>
+<div>
+<span class="text-[9px] text-aerogray-400 uppercase block leading-none">Missing Frames</span>
+<span class="font-bold text-aerogreen-600">0</span>
+</div>
+</div>
+</div>
+<!-- Synchronized Telemetry Strip Charts -->
+<div class="space-y-4">
+<!-- Chart 1: Observed Telemetry vs. Digital Twin Model -->
+<div class="bg-aerogray-25 border border-aerogray-200 rounded-md p-3 relative">
+<div class="flex items-center justify-between text-xs font-mono mb-2">
+<div class="flex items-center space-x-4">
+<span class="font-bold text-aerogray-800 uppercase tracking-wider">Top View: Observed Sensor vs. Digital Twin Physics Model</span>
+<span class="flex items-center space-x-1.5"><span class="w-3 h-0.5 bg-aerored-500"></span><span class="text-[11px] text-aerogray-600">Observed EGT Cyl #3 (724°C)</span></span>
+<span class="flex items-center space-x-1.5"><span class="w-3 h-0.5 bg-aeroblue-600 border-dashed"></span><span class="text-[11px] text-aerogray-600">Digital Twin Baseline (706°C)</span></span>
+<span class="flex items-center space-x-1.5"><span class="w-3 h-2 bg-aerogray-200 opacity-60"></span><span class="text-[11px] text-aerogray-500">±25°C Tolerance Envelope</span></span>
+</div>
+<span class="text-[10px] text-aerogray-400">Y-Axis: 680°C - 760°C</span>
+</div>
+<!-- Technical Chart Vector -->
+<div class="h-44 w-full relative bg-white border border-aerogray-200 rounded overflow-hidden bg-tech-grid">
+<!-- Y-Axis Labels -->
+<div class="absolute left-2 top-2 text-[9px] font-mono text-aerogray-400">760°C</div>
+<div class="absolute left-2 top-1/2 -translate-y-1/2 text-[9px] font-mono text-aerogray-400">720°C</div>
+<div class="absolute left-2 bottom-2 text-[9px] font-mono text-aerogray-400">680°C</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 160">
+<!-- Tolerance Zone Envelope (Model +- 25C) -->
+<path d="M 50,110 Q 200,105 350,102 T 600,98 T 850,95 L 980,92 L 980,42 L 850,45 T 600,48 T 350,52 Q 200,55 50,60 Z" fill="rgba(228, 231, 240, 0.45)"></path>
+<!-- Gridlines -->
+<line stroke="#F0F2F7" stroke-dasharray="3,3" x1="50" x2="980" y1="40" y2="40"></line>
+<line stroke="#F0F2F7" stroke-dasharray="3,3" x1="50" x2="980" y1="80" y2="80"></line>
+<line stroke="#F0F2F7" stroke-dasharray="3,3" x1="50" x2="980" y1="120" y2="120"></line>
+<!-- Digital Twin Theoretical Curve (Blue Dashed) -->
+<path d="M 50,85 Q 200,82 350,80 T 600,77 T 850,75 L 980,73" fill="none" stroke="#3366FF" stroke-dasharray="6,4" stroke-width="2"></path>
+<!-- Real-time Observed Curve with Exceedance (Red) -->
+<path d="M 50,86 Q 200,84 350,81 T 550,74 T 700,54 T 850,42 L 980,38" fill="none" stroke="#EF4444" stroke-width="2.5"></path>
+<!-- Callout Annotation on Spike -->
+<circle cx="980" cy="38" fill="#EF4444" r="4.5"></circle>
+<line stroke="#DC2626" stroke-dasharray="2,2" stroke-width="1" x1="850" x2="850" y1="42" y2="20"></line>
+<rect fill="#DC2626" height="20" rx="3" width="180" x="760" y="8"></rect>
+<text fill="#FFFFFF" font-family="IBM Plex Mono" font-size="10" font-weight="bold" text-anchor="middle" x="850" y="22">EGT EXCEEDANCE: +18.0°C</text>
+</svg>
+</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-aerogray-400 mt-1 px-1">
+<span>T - 5 min</span>
+<span>T - 4 min</span>
+<span>T - 3 min</span>
+<span>T - 2 min</span>
+<span>T - 1 min</span>
+<span class="text-aerogray-900 font-bold">Live UTC (Now)</span>
+</div>
+</div>
+<!-- Chart 2: Residual Delta (Observed - Model) -->
+<div class="bg-aerogray-25 border border-aerogray-200 rounded-md p-3 relative">
+<div class="flex items-center justify-between text-xs font-mono mb-2">
+<div class="flex items-center space-x-4">
+<span class="font-bold text-aerogray-800 uppercase tracking-wider">Bottom View: Dynamic Residual Δ (Observed - Model)</span>
+<span class="text-[11px] text-aerored-600 font-bold">Offset Peak: +18.0 °C</span>
+<span class="text-[11px] text-aerogray-500">Zero-Mean Reference: 0.0 °C</span>
+</div>
+<span class="text-[10px] text-aerogray-400">Y-Axis: -10°C to +30°C</span>
+</div>
+<div class="h-28 w-full relative bg-white border border-aerogray-200 rounded overflow-hidden bg-tech-grid-dense">
+<div class="absolute left-2 top-2 text-[9px] font-mono text-aerogray-400">+30°C</div>
+<div class="absolute left-2 top-2/3 -translate-y-1/2 text-[9px] font-mono text-aerogray-400">0°C</div>
+<div class="absolute left-2 bottom-2 text-[9px] font-mono text-aerogray-400">-10°C</div>
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 100">
+<!-- 0-Line -->
+<line stroke="#9AA1B9" stroke-dasharray="4,4" stroke-width="1.2" x1="50" x2="980" y1="67" y2="67"></line>
+<!-- Residual Area Gradient -->
+<defs>
+<lineargradient id="residualGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#EF4444" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#EF4444" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Residual Curve -->
+<path d="M 50,66 Q 200,65 350,66 T 550,60 T 700,40 T 850,28 L 980,22 L 980,67 L 50,67 Z" fill="url(#residualGradient)"></path>
+<path d="M 50,66 Q 200,65 350,66 T 550,60 T 700,40 T 850,28 L 980,22" fill="none" stroke="#DC2626" stroke-width="2"></path>
+</svg>
+</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-aerogray-400 mt-1 px-1">
+<span>Synchronized CAN Sample Window (250 Samples)</span>
+<span class="text-aerored-600 font-bold">2.55% Positive Thermal Bias Identified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Selected Sensor Deep-Dive -->
+<!-- BEGIN: Multi-Variable Correlation & Sensor Trust Scores (2 Columns) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Column 1: Multi-Variable Cross-Correlation Matrix -->
+<section class="bg-white border border-aerogray-200 rounded-lg p-5 shadow-2xs" data-purpose="cross-correlation-matrix">
+<div class="flex items-center justify-between pb-3 border-b border-aerogray-200 mb-4">
+<div>
+<h3 class="text-sm font-bold font-mono text-aerogray-900 uppercase">
+                Sensor Cross-Correlation &amp; Physics Coupling
+              </h3>
+<p class="text-xs text-aerogray-500 font-mono">Pearson's r telemetry validation vs thermodynamic thermo-fluid coupling</p>
+</div>
+<span class="px-2 py-0.5 bg-aeroblue-50 text-aeroblue-700 border border-aeroblue-200 rounded text-[10px] font-mono font-bold">6 RELATIONS</span>
+</div>
+<div class="space-y-3 font-mono">
+<!-- Item 1: RPM <-> Fuel Flow -->
+<div class="p-3 bg-aerogray-50 border border-aerogray-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aeroblue-100 text-aeroblue-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-link"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerogray-800">RPM ↔ Fuel Flow</div>
+<div class="text-[10px] text-aerogray-400">Direct engine load fueling correlation</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerogreen-600">r = +0.94</div>
+<span class="text-[9px] bg-aerogreen-100 text-aerogreen-800 px-1.5 py-0.2 rounded font-semibold uppercase">Consistent</span>
+</div>
+</div>
+<!-- Item 2: RPM <-> EGT -->
+<div class="p-3 bg-aerored-50/50 border border-aerored-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aerored-100 text-aerored-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-triangle-exclamation"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerored-700">RPM ↔ EGT (Exhaust)</div>
+<div class="text-[10px] text-aerored-500">Elevated thermal divergence detected</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerored-600">r = +0.88</div>
+<span class="text-[9px] bg-aerored-100 text-aerored-800 px-1.5 py-0.2 rounded font-bold uppercase">Offset Alert</span>
+</div>
+</div>
+<!-- Item 3: RPM <-> CHT -->
+<div class="p-3 bg-aerogray-50 border border-aerogray-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aeroblue-100 text-aeroblue-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-link"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerogray-800">RPM ↔ CHT (Cyl Head)</div>
+<div class="text-[10px] text-aerogray-400">Head conduction thermal lag sync</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerogreen-600">r = +0.91</div>
+<span class="text-[9px] bg-aerogreen-100 text-aerogreen-800 px-1.5 py-0.2 rounded font-semibold uppercase">Consistent</span>
+</div>
+</div>
+<!-- Item 4: Fuel Flow <-> EGT -->
+<div class="p-3 bg-aerogray-50 border border-aerogray-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aeroblue-100 text-aeroblue-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-link"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerogray-800">Fuel Flow ↔ EGT</div>
+<div class="text-[10px] text-aerogray-400">Stoichiometric flame temperature balance</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerogreen-600">r = +0.86</div>
+<span class="text-[9px] bg-aerogreen-100 text-aerogreen-800 px-1.5 py-0.2 rounded font-semibold uppercase">Consistent</span>
+</div>
+</div>
+<!-- Item 5: Oil Pressure <-> RPM -->
+<div class="p-3 bg-aerogray-50 border border-aerogray-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aeroblue-100 text-aeroblue-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-link"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerogray-800">Oil Pressure ↔ RPM</div>
+<div class="text-[10px] text-aerogray-400">Positive displacement pump output curve</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerogreen-600">r = +0.92</div>
+<span class="text-[9px] bg-aerogreen-100 text-aerogreen-800 px-1.5 py-0.2 rounded font-semibold uppercase">Consistent</span>
+</div>
+</div>
+<!-- Item 6: Vibration <-> RPM -->
+<div class="p-3 bg-aerogray-50 border border-aerogray-200 rounded-md flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-8 h-8 rounded bg-aeroblue-100 text-aeroblue-700 flex items-center justify-center text-xs font-bold">
+<i class="fa-solid fa-link"></i>
+</div>
+<div>
+<div class="text-xs font-bold text-aerogray-800">Vibration ↔ RPM</div>
+<div class="text-[10px] text-aerogray-400">Harmonics 1X &amp; 2X clear tracking</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold text-aerogreen-600">r = +0.89</div>
+<span class="text-[9px] bg-aerogreen-100 text-aerogreen-800 px-1.5 py-0.2 rounded font-semibold uppercase">Consistent</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Column 2: Sensor Trust Scores & Reasoning -->
+<section class="bg-white border border-aerogray-200 rounded-lg p-5 shadow-2xs" data-purpose="sensor-trust-scores">
+<div class="flex items-center justify-between pb-3 border-b border-aerogray-200 mb-4">
+<div>
+<h3 class="text-sm font-bold font-mono text-aerogray-900 uppercase">
+                Sensor Trust Score &amp; Algorithmic Reasoning
+              </h3>
+<p class="text-xs text-aerogray-500 font-mono">Real-time Bayesian belief verification via redundant telemetry</p>
+</div>
+<span class="px-2 py-0.5 bg-aerogreen-50 text-aerogreen-700 border border-aerogreen-200 rounded text-[10px] font-mono font-bold">AI SYNTHESIS</span>
+</div>
+<div class="space-y-4 font-mono">
+<!-- Trust Item 1: RPM -->
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-bold text-aerogray-800">Engine RPM (Crank Speed)</span>
+<span class="font-bold text-aerogreen-600">99% Trust</span>
+</div>
+<div class="w-full bg-aerogray-100 h-2 rounded-full overflow-hidden">
+<div class="bg-aerogreen-500 h-full rounded-full" style="width: 99%"></div>
+</div>
+<p class="text-[11px] text-aerogray-500 mt-1 font-sans">
+                Dual magnetic pickup verified; 0 pulse jitter detected; perfectly matches alternator stator frequency.
+              </p>
+</div>
+<!-- Trust Item 2: CHT -->
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-bold text-aerogray-800">Cylinder Head Temp (CHT)</span>
+<span class="font-bold text-aerogreen-600">98% Trust</span>
+</div>
+<div class="w-full bg-aerogray-100 h-2 rounded-full overflow-hidden">
+<div class="bg-aerogreen-500 h-full rounded-full" style="width: 98%"></div>
+</div>
+<p class="text-[11px] text-aerogray-500 mt-1 font-sans">
+                Resistance curve matches thermal dissipation model; ambient airflow cooling factor fully aligned.
+              </p>
+</div>
+<!-- Trust Item 3: EGT -->
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-bold text-aerored-600">Exhaust Gas Temp (EGT Cyl #3)</span>
+<span class="font-bold text-aeroamber-600">96% Trust</span>
+</div>
+<div class="w-full bg-aerogray-100 h-2 rounded-full overflow-hidden">
+<div class="bg-aeroamber-500 h-full rounded-full" style="width: 96%"></div>
+</div>
+<p class="text-[11px] text-aerogray-600 mt-1 font-sans">
+                Mild thermal drift detected; cold-junction reference compensated; physics residual confirms minor injector flow variance.
+              </p>
+</div>
+<!-- Trust Item 4: Oil Pressure -->
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-bold text-aerogray-800">Oil Gallery Pressure</span>
+<span class="font-bold text-aerogreen-600">99% Trust</span>
+</div>
+<div class="w-full bg-aerogray-100 h-2 rounded-full overflow-hidden">
+<div class="bg-aerogreen-500 h-full rounded-full" style="width: 99%"></div>
+</div>
+<p class="text-[11px] text-aerogray-500 mt-1 font-sans">
+                Piezoresistive bridge excitation nominal; hydrodynamic viscosity equations match oil sump temperature.
+              </p>
+</div>
+<!-- Trust Item 5: Vibration -->
+<div>
+<div class="flex items-center justify-between text-xs mb-1">
+<span class="font-bold text-aerogray-800">Engine Block RMS Vibration</span>
+<span class="font-bold text-aeroblue-600">93% Trust</span>
+</div>
+<div class="w-full bg-aerogray-100 h-2 rounded-full overflow-hidden">
+<div class="bg-aeroblue-600 h-full rounded-full" style="width: 93%"></div>
+</div>
+<p class="text-[11px] text-aerogray-500 mt-1 font-sans">
+                Elevated high-frequency aerodynamic floor noise during climb; isolated accelerometer piezo-crystal nominal.
+              </p>
+</div>
+</div>
+</section>
+</div>
+<!-- END: Multi-Variable Correlation & Trust Scores -->
+<!-- BEGIN: Sensor Drift & Calibration Status Table -->
+<section class="bg-white border border-aerogray-200 rounded-lg p-5 shadow-2xs" data-purpose="sensor-calibration-ledger">
+<div class="flex items-center justify-between pb-3 border-b border-aerogray-200 mb-4">
+<div>
+<h3 class="text-sm font-bold font-mono text-aerogray-900 uppercase">
+              Sensor Hardware Drift &amp; Re-Calibration Schedule
+            </h3>
+<p class="text-xs text-aerogray-500 font-mono">Traceable metrology records and factory baseline compliance</p>
+</div>
+<button class="text-xs font-mono font-medium text-aeroblue-600 hover:text-aeroblue-800 flex items-center space-x-1">
+<i class="fa-solid fa-rotate"></i>
+<span>Refresh Drift Analysis</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono text-xs">
+<thead>
+<tr class="bg-aerogray-50 border-y border-aerogray-200 text-aerogray-500 text-[10px] uppercase">
+<th class="py-2.5 px-3 font-semibold">Sensor Designation</th>
+<th class="py-2.5 px-3 font-semibold">Hardware Type</th>
+<th class="py-2.5 px-3 font-semibold">Calibrated Baseline</th>
+<th class="py-2.5 px-3 font-semibold">Current Operating Point</th>
+<th class="py-2.5 px-3 font-semibold">Long-Term Drift %</th>
+<th class="py-2.5 px-3 font-semibold">Drift Rate / 100h</th>
+<th class="py-2.5 px-3 font-semibold text-right">Re-calibration Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-aerogray-200 text-aerogray-800">
+<!-- Row 1: EGT Cyl 3 -->
+<tr class="hover:bg-aerored-50/20">
+<td class="py-3 px-3 font-bold flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-aerored-500"></span>
+<span>EGT Cyl #3 (Exhaust)</span>
+</td>
+<td class="py-3 px-3 text-aerogray-600">Type-K Thermocouple (Inconel Sheath)</td>
+<td class="py-3 px-3">706.0 °C @ 2,740 RPM</td>
+<td class="py-3 px-3 font-bold text-aerored-600">724.0 °C</td>
+<td class="py-3 px-3 font-bold text-aerored-600">+2.55%</td>
+<td class="py-3 px-3">+0.14 °C / 100h</td>
+<td class="py-3 px-3 text-right">
+<span class="bg-aeroamber-100 text-aeroamber-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Schedule Turnaround 14</span>
+</td>
+</tr>
+<!-- Row 2: CHT Cyl 1-4 Avg -->
+<tr class="hover:bg-aerogray-50">
+<td class="py-3 px-3 font-bold flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-aerogreen-500"></span>
+<span>CHT Bank (Cylinder Head)</span>
+</td>
+<td class="py-3 px-3 text-aerogray-600">PT100 RTD High-Precision</td>
+<td class="py-3 px-3">175.2 °C @ Cruise</td>
+<td class="py-3 px-3">178.4 °C</td>
+<td class="py-3 px-3 text-aerogreen-600">+0.45%</td>
+<td class="py-3 px-3">+0.02 °C / 100h</td>
+<td class="py-3 px-3 text-right">
+<span class="bg-aerogreen-100 text-aerogreen-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Compliant (TBO 2,500h)</span>
+</td>
+</tr>
+<!-- Row 3: Oil Gallery Pressure -->
+<tr class="hover:bg-aerogray-50">
+<td class="py-3 px-3 font-bold flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-aerogreen-500"></span>
+<span>Oil Main Gallery Pressure</span>
+</td>
+<td class="py-3 px-3 text-aerogray-600">Piezoresistive Stainless Transducer</td>
+<td class="py-3 px-3">4.90 bar Nominal</td>
+<td class="py-3 px-3">4.82 bar</td>
+<td class="py-3 px-3 text-aerogray-600">-0.12%</td>
+<td class="py-3 px-3">-0.005 bar / 100h</td>
+<td class="py-3 px-3 text-right">
+<span class="bg-aerogreen-100 text-aerogreen-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Compliant (TBO 2,500h)</span>
+</td>
+</tr>
+<!-- Row 4: Fuel Mass Flow Transducer -->
+<tr class="hover:bg-aerogray-50">
+<td class="py-3 px-3 font-bold flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-aerogreen-500"></span>
+<span>Fuel Mass Flow Transducer</span>
+</td>
+<td class="py-3 px-3 text-aerogray-600">Dual Optical Pelton Wheel</td>
+<td class="py-3 px-3">18.10 L/h Standard</td>
+<td class="py-3 px-3">18.60 L/h</td>
+<td class="py-3 px-3 text-aerogreen-600">+0.30%</td>
+<td class="py-3 px-3">+0.01 L/h / 100h</td>
+<td class="py-3 px-3 text-right">
+<span class="bg-aerogreen-100 text-aerogreen-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Compliant (TBO 1,500h)</span>
+</td>
+</tr>
+<!-- Row 5: Crankshaft Hall Sensor -->
+<tr class="hover:bg-aerogray-50">
+<td class="py-3 px-3 font-bold flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-aerogreen-500"></span>
+<span>Crankshaft Hall Effect RPM</span>
+</td>
+<td class="py-3 px-3 text-aerogray-600">Dual Magnetic Differential Pickup</td>
+<td class="py-3 px-3">2,735 RPM Locked</td>
+<td class="py-3 px-3">2,740 RPM</td>
+<td class="py-3 px-3 text-aerogreen-600">0.00%</td>
+<td class="py-3 px-3">0.00 RPM / 100h</td>
+<td class="py-3 px-3 text-right">
+<span class="bg-aerogreen-100 text-aerogreen-800 px-2 py-0.5 rounded text-[10px] font-bold uppercase">Compliant (Permanent)</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- END: Sensor Drift & Calibration Status Table -->
+<!-- BEGIN: Data Quality & CAN Bus Diagnostics Grid -->
+<section data-purpose="can-bus-diagnostics">
+<div class="flex items-center justify-between mb-2">
+<div class="text-xs font-mono font-bold tracking-wider text-aerogray-700 uppercase flex items-center space-x-2">
+<i class="fa-solid fa-network-wired text-aeroblue-600"></i>
+<span>Telemetry Bus &amp; Signal Integrity Diagnostics (CAN-FD A/B Redundant)</span>
+</div>
+<span class="text-[11px] font-mono text-aerogreen-600 font-semibold">ALL 24 HARNESS NODES VERIFIED</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+<!-- Box 1: Missing Packets -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">Missing Packets</div>
+<div class="text-xl font-bold text-aerogreen-600">0.00%</div>
+<div class="text-[9px] text-aerogray-400 mt-1">0 Drops / 2.4M Packets</div>
+</div>
+<!-- Box 2: Stale Readings -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">Stale Readings</div>
+<div class="text-xl font-bold text-aerogreen-600">0</div>
+<div class="text-[9px] text-aerogray-400 mt-1">Zero Heartbeat Loss</div>
+</div>
+<!-- Box 3: Out-of-Range Rejections -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">Range Rejections</div>
+<div class="text-xl font-bold text-aeroamber-600">2</div>
+<div class="text-[9px] text-aerogray-400 mt-1">Filtered by EKF filter</div>
+</div>
+<!-- Box 4: Noise Floor -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">Signal Noise Floor</div>
+<div class="text-xl font-bold text-aerogray-900">0.42%</div>
+<div class="text-[9px] text-aerogray-400 mt-1">Shield Isolation &gt; 90dB</div>
+</div>
+<!-- Box 5: Round-Trip Latency -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">CAN-FD Latency</div>
+<div class="text-xl font-bold text-aerogray-900">14 ms</div>
+<div class="text-[9px] text-aerogray-400 mt-1">Deterministic Bound &lt;20ms</div>
+</div>
+<!-- Box 6: Timestamp Lock -->
+<div class="bg-white border border-aerogray-200 rounded-lg p-3 text-center shadow-2xs font-mono">
+<div class="text-[10px] uppercase text-aerogray-400 font-bold mb-1">GPS PPS Lock</div>
+<div class="text-xl font-bold text-aeroblue-600">±2.4 μs</div>
+<div class="text-[9px] text-aerogray-400 mt-1">UTC Hardware Synced</div>
+</div>
+</div>
+</section>
+<!-- END: Data Quality & CAN Bus Diagnostics Grid -->
+<!-- BEGIN: End-To-End Architecture Pipeline Strip -->
+<footer class="bg-white border border-aerogray-200 rounded-lg p-4 font-mono text-xs shadow-2xs" data-purpose="pipeline-status-footer">
+<div class="flex items-center justify-between mb-3 border-b border-aerogray-100 pb-2">
+<div class="flex items-center space-x-2">
+<i class="fa-solid fa-diagram-project text-aeroblue-600"></i>
+<span class="font-bold text-aerogray-800 uppercase tracking-tight">AeroTwin-X End-to-End Digital Twin Architecture Pipeline</span>
+</div>
+<span class="text-[10px] font-bold bg-aerogreen-100 text-aerogreen-800 px-2 py-0.5 rounded">REAL-TIME CLOSED LOOP ACTIVE</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2 text-left">
+<!-- Step 1 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">01. INGEST</div>
+<div class="font-bold text-aerogray-800 truncate">Live Sensors</div>
+<div class="text-[9px] text-aerogreen-600">CAN Bus 50Hz, 24 nodes</div>
+</div>
+<!-- Step 2 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">02. MODEL</div>
+<div class="font-bold text-aerogray-800 truncate">Physics Engine</div>
+<div class="text-[9px] text-aeroblue-600">1D Thermo &amp; Otto</div>
+</div>
+<!-- Step 3 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">03. TWIN</div>
+<div class="font-bold text-aerogray-800 truncate">Digital Twin</div>
+<div class="text-[9px] text-aeroblue-600">99.7% Synced State</div>
+</div>
+<!-- Step 4 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">04. AI</div>
+<div class="font-bold text-aerogray-800 truncate">Diagnostics</div>
+<div class="text-[9px] text-aeroblue-600">PINN + Autoencoder</div>
+</div>
+<!-- Step 5 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">05. STATE</div>
+<div class="font-bold text-aerogray-800 truncate">Health State</div>
+<div class="text-[9px] text-aerogreen-600">Score: 92/100</div>
+</div>
+<!-- Step 6 -->
+<div class="bg-aerored-50 border border-aerored-200 p-2 rounded">
+<div class="text-[9px] text-aerored-600 uppercase font-bold">06. PREDICT</div>
+<div class="font-bold text-aerored-700 truncate">Fault Forecast</div>
+<div class="text-[9px] text-aerored-600">EGT Exceedance &gt;45h</div>
+</div>
+<!-- Step 7 -->
+<div class="bg-aerogray-50 border border-aerogray-200 p-2 rounded">
+<div class="text-[9px] text-aerogray-400 uppercase">07. RUL</div>
+<div class="font-bold text-aerogray-800 truncate">Life Cycle</div>
+<div class="text-[9px] text-aerogray-600">1,284h Rem TBO</div>
+</div>
+<!-- Step 8 -->
+<div class="bg-aeroblue-900 text-white p-2 rounded shadow-xs">
+<div class="text-[9px] text-aeroblue-200 uppercase">08. ACTION</div>
+<div class="font-bold truncate">Advisory</div>
+<div class="text-[9px] text-aerogreen-400">Turnaround 14 Inspec</div>
+</div>
+</div>
+</footer>
+<!-- END: End-To-End Architecture Pipeline Strip -->
+</main>
+<!-- END: Main Page Content -->
+</div>
+<!-- END: Application Shell -->
+</body></html>

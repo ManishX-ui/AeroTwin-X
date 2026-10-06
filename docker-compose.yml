@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  aerotwin-x:
+    build: .
+    container_name: aerotwin_x_engine
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./aerotwin_x.db
+      - TELEMETRY_HZ=2.0
+      - DEFAULT_UAV_ID=UAV-01
+      - DEFAULT_ENGINE_ID=AE-03
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X GCS V3.8 - Predictive Maintenance (CBM+ Workspace)</title>
+<!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#001830',
+              900: '#002444',
+              850: '#002d55',
+              800: '#0a3a6b',
+            },
+            aeroblue: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+            },
+            surface: {
+              base: '#f4f7fb',
+              card: '#ffffff',
+              border: '#dae3f1',
+              hover: '#eef4fc'
+            }
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Styles: Aerospace HUD & Engineering Badges -->
+<style data-purpose="custom-styling">
+    body {
+      background-color: #f4f7fb;
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: #1e293b;
+    }
+    .font-mono-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-feature-settings: "tnum" 1;
+    }
+    /* Custom scrollbars for data panels */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen overflow-x-hidden text-slate-800 antialiased selection:bg-sky-200">
+<!-- BEGIN: TopNavigationHeader -->
+<header class="bg-navy-900 border-b border-navy-800 text-white sticky top-0 z-50 shadow-md">
+<div class="px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+<!-- Brand & Mission Identity -->
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded bg-sky-600 flex items-center justify-center font-bold text-white shadow-inner tracking-wider font-mono text-sm">
+            AX
+          </div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold tracking-widest text-sky-400 uppercase font-mono">AeroTwin-X GCS V3.8</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-950 border border-sky-600/50 text-sky-300 font-mono">STATION-02</span>
+</div>
+<div class="text-sm font-semibold tracking-tight text-slate-100 flex items-center gap-2">
+<span>UAV-07 (Hermes MALE)</span>
+<span class="text-slate-400 text-xs">/</span>
+<span class="text-slate-300 font-mono text-xs">ENGINE-AE-03 (Turbo Piston)</span>
+</div>
+</div>
+</div>
+<div class="hidden xl:flex items-center border-l border-slate-700/60 pl-3 ml-1 text-xs">
+<span class="px-2 py-0.5 rounded-full bg-slate-800/80 text-slate-300 border border-slate-700 font-mono text-[11px]">MISSION: LONG-ENDURANCE ISR</span>
+</div>
+</div>
+<!-- Telemetry Status Pills & Operator Badge -->
+<div class="flex items-center flex-wrap gap-2 text-xs font-mono">
+<!-- Telemetry Sync -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/70 border border-emerald-500/40 text-emerald-300">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="font-medium tracking-tight">CONNECTED</span>
+<span class="text-slate-400">|</span>
+<span>99.7% SYNC</span>
+</div>
+<!-- AI Engine -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-sky-950/70 border border-sky-500/40 text-sky-300">
+<svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-medium">AI ONLINE</span>
+<span class="text-slate-400">|</span>
+<span class="text-sky-400">EDGE 50Hz</span>
+</div>
+<!-- UTC Clock -->
+<div class="px-2.5 py-1 rounded bg-slate-800 border border-slate-700 text-slate-200 flex items-center gap-1.5">
+<svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span class="font-semibold text-white">14:28:42 UTC</span>
+</div>
+<!-- Operator Info -->
+<div class="flex items-center gap-2 pl-2 border-l border-slate-700/80">
+<div class="w-7 h-7 rounded-full bg-slate-700 border border-sky-500/50 flex items-center justify-center font-sans font-semibold text-xs text-sky-200">
+            KV
+          </div>
+<div class="text-left leading-tight hidden sm:block">
+<div class="text-xs font-sans font-medium text-slate-200">Maj. K. Vance</div>
+<div class="text-[10px] text-slate-400 font-mono">SYS-ENG / AP-IA</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- END: TopNavigationHeader -->
+<!-- BEGIN: ApplicationLayout (Sidebar + Main Workspace) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- BEGIN: LeftSidebarNav -->
+<aside class="w-64 bg-slate-900 border-r border-slate-800 text-slate-300 flex-shrink-0 hidden lg:flex flex-col justify-between select-none">
+<div class="py-4 space-y-6">
+<!-- Navigation Group: MAIN -->
+<div class="px-4">
+<p class="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-semibold mb-2">MAIN</p>
+<nav class="space-y-1 text-sm font-medium">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Flight Telemetry</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Digital Twin Engine</span>
+</a>
+</nav>
+</div>
+<!-- Navigation Group: OPERATIONS -->
+<div class="px-4">
+<p class="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-semibold mb-2">OPERATIONS</p>
+<nav class="space-y-1 text-sm font-medium">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Alerts &amp; Anomalies</span>
+<span class="ml-auto text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono">1 Active</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Sensor Diagnostics</span>
+</a>
+</nav>
+</div>
+<!-- Navigation Group: ENGINEERING -->
+<div class="px-4">
+<p class="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-semibold mb-2">ENGINEERING</p>
+<nav class="space-y-1 text-sm font-medium">
+<!-- Active State: Maintenance -->
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-sky-600 text-white shadow-sm font-semibold" href="#">
+<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Maintenance (CBM+)</span>
+<span class="ml-auto w-2 h-2 rounded-full bg-emerald-400"></span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Logbooks &amp; Part-M</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors" href="#">
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>PINN Physics Models</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- Footer Widget inside Sidebar -->
+<div class="p-3 m-3 rounded bg-slate-950/80 border border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
+<div class="flex justify-between items-center text-slate-300">
+<span>EDGE CONTAINER</span>
+<span class="text-emerald-400">v3.8.4-REL</span>
+</div>
+<div class="text-[10px] text-slate-500">HOST: CBM-EDGE-DAEMON-07</div>
+<div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1">
+<div class="bg-emerald-500 h-full w-4/5"></div>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebarNav -->
+<!-- BEGIN: MainContentWorkspace -->
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-7 space-y-6">
+<!-- BEGIN: HeaderBar -->
+<section class="bg-surface-card border border-surface-border rounded-lg p-5 shadow-sm" data-purpose="workspace-header">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Title & Context Tags -->
+<div>
+<div class="flex items-center gap-3">
+<h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Predictive Maintenance &amp; CBM+ Workspace</h1>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                PART 43 / PART-M VERIFIED
+              </span>
+</div>
+<p class="text-xs font-mono text-slate-500 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+<span class="font-semibold text-slate-700">ENGINE-AE-03 (Rotax 915iSc Turbo)</span>
+<span>•</span>
+<span>UAV-07 Hermes MALE (Tail #601)</span>
+<span>•</span>
+<span class="text-sky-700 font-medium">TTSN: 1,842.6 h</span>
+<span>•</span>
+<span class="text-sky-700 font-medium">TSOH: 342.6 h</span>
+<span>•</span>
+<span class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700">Weibull RUL: 1,284.0 h (Model Est. β=1.82)</span>
+<span>•</span>
+<span class="text-[10px] text-slate-400">SHA-256: 7F4A...B902</span>
+</p>
+</div>
+<!-- Header Action Buttons -->
+<div class="flex items-center gap-2.5 flex-shrink-0">
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all" type="button">
+<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Export Dispatch Pack</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-md bg-sky-600 text-white hover:bg-sky-700 shadow-sm hover:shadow transition-all" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>Generate Work Order</span>
+</button>
+</div>
+</div>
+</section>
+<!-- END: HeaderBar -->
+<!-- BEGIN: KPICardsGrid -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-purpose="kpi-metrics-grid">
+<!-- KPI 1: Propulsion Score -->
+<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Propulsion Condition</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Nominal</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-bold font-mono text-slate-900">92<span class="text-lg text-slate-400 font-normal">/100</span></span>
+<span class="text-xs font-medium text-amber-600 font-mono">1 Subsystem Advisory</span>
+</div>
+<div class="w-full bg-slate-100 rounded-full h-1.5 mt-3 overflow-hidden">
+<div class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- KPI 2: Dispatch Queue -->
+<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Dispatch Action Queue</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Action Req</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-bold font-mono text-slate-900">1</span>
+<span class="text-xs text-slate-600 font-sans">Immediate | 3 Turnaround | 5 Routine</span>
+</div>
+<div class="text-[11px] text-slate-400 mt-3 font-mono flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Next release gate: Turnaround 14
+          </div>
+</div>
+<!-- KPI 3: Fleet MTBUR -->
+<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fleet MTBUR Reliability</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Target &gt;3,800 h</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-bold font-mono text-slate-900">4,120 <span class="text-base font-normal text-slate-500">h</span></span>
+<span class="text-xs font-semibold text-emerald-600 font-mono">+8.4%</span>
+</div>
+<div class="text-[11px] text-slate-500 mt-3 font-mono">
+            Unscheduled Removal Rate: 0.24 / 1k h
+          </div>
+</div>
+<!-- KPI 4: PINN Physics Sync -->
+<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">PINN Physics Model Sync</span>
+<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">50Hz Edge</span>
+</div>
+<div class="mt-3 flex items-baseline gap-2">
+<span class="text-3xl font-bold font-mono text-slate-900">99.4%</span>
+<span class="text-xs font-medium text-emerald-600 font-mono">Confidence</span>
+</div>
+<div class="text-[11px] text-slate-500 mt-3 font-mono flex items-center justify-between">
+<span>Residual Drift: 0.08σ</span>
+<span class="text-slate-400">Lag: 12ms</span>
+</div>
+</div>
+</section>
+<!-- END: KPICardsGrid -->
+<!-- BEGIN: SubsystemFilterStrip -->
+<section class="flex flex-wrap items-center gap-2 pt-1" data-purpose="subsystem-filter-strip">
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-white shadow-sm font-sans" type="button">
+          All Subsystems (8)
+        </button>
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
+          Propulsion Core
+        </button>
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-amber-50 text-amber-900 border border-amber-300 font-medium flex items-center gap-1.5" type="button">
+<span>Fuel &amp; Metering</span>
+<span class="w-4 h-4 rounded-full bg-amber-500 text-white font-mono text-[10px] flex items-center justify-center">1</span>
+</button>
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
+          Thermal Management
+        </button>
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
+          Lubrication &amp; Gearbox
+        </button>
+<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
+          Avionics &amp; FADEC
+        </button>
+</section>
+<!-- END: SubsystemFilterStrip -->
+<!-- BEGIN: ImmediateAttentionSection -->
+<section class="space-y-3" data-purpose="immediate-attention">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="flex h-3 w-3 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+</span>
+<h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Immediate Attention — Subsystem Advisory</h2>
+</div>
+<span class="text-xs font-mono text-slate-500">PRIORITY LEVEL 1 • ACTION REQUIRED BEFORE NEXT MISSION DISPATCH</span>
+</div>
+<!-- Featured Alert Card with Detailed Engineering Evidence -->
+<article class="bg-white border-2 border-rose-400/80 rounded-lg shadow-sm overflow-hidden">
+<!-- Banner Ribbon -->
+<div class="bg-rose-50 border-b border-rose-200 px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-mono font-bold text-xs">CBM+ ADVISORY</span>
+<span class="text-sm font-semibold text-rose-950 font-mono">INJECTOR SYSTEM — Cylinder #3 High-Pressure Solenoid Injector</span>
+</div>
+<div class="flex items-center gap-4 text-xs font-mono text-slate-600">
+<span>P/N: <strong class="text-slate-900">874-920</strong></span>
+<span>S/N: <strong class="text-slate-900">INJ-084</strong></span>
+<span class="px-2 py-0.5 rounded bg-white border border-rose-300 text-rose-700 font-bold">Health Score: 84% (Declining -4.2% / 15h)</span>
+</div>
+</div>
+<div class="p-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Details Column (7 cols) -->
+<div class="lg:col-span-7 space-y-4">
+<!-- Quick Stats Bar -->
+<div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono">
+<div>
+<span class="text-slate-500 block text-[10px]">OPERATING HOURS</span>
+<span class="font-bold text-slate-800">342.6 h TSOH</span>
+<span class="text-slate-400 text-[10px] block">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-500 block text-[10px]">LAST SERVICE</span>
+<span class="font-bold text-slate-800">142.6 h ago</span>
+<span class="text-slate-400 text-[10px] block">Turnaround 11 Flush</span>
+</div>
+<div>
+<span class="text-slate-500 block text-[10px]">REMAINING USEFUL LIFE</span>
+<span class="font-bold text-amber-600">45.0 flight hours</span>
+<span class="text-slate-400 text-[10px] block">To Thermal Boundary</span>
+</div>
+</div>
+<!-- Degradation & Physics Modeling -->
+<div class="space-y-2 text-xs">
+<div>
+<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Degradation Mechanism:</span>
+<p class="text-slate-700 mt-0.5 leading-relaxed bg-amber-50/50 p-2.5 rounded border border-amber-200/60 font-sans">
+                    Micro-orifice nozzle coking causing flow bias (+0.50 L/h) and asymmetric combustion wash on Cylinder #3 crown and valve periphery.
+                  </p>
+</div>
+<div>
+<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Predicted Consequence / Issue:</span>
+<p class="text-slate-700 mt-0.5 leading-relaxed bg-rose-50/50 p-2.5 rounded border border-rose-200/60 font-sans">
+                    Fuel spray pattern atomization asymmetry leading to localized exhaust valve thermal fatigue and accelerated stem micro-cracking if uncorrected within <strong>45 flight hours</strong>.
+                  </p>
+</div>
+<div>
+<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Physics-Informed Evidence Matrix:</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1 font-mono text-[11px]">
+<div class="bg-slate-100 p-2 rounded border border-slate-200">
+<span class="text-slate-500 block text-[10px]">FUEL FLOW DEV</span>
+<span class="font-bold text-rose-600">+2.7% (+0.50 L/h)</span>
+<span class="text-slate-400 block text-[9px]">Sensor: FF-03</span>
+</div>
+<div class="bg-slate-100 p-2 rounded border border-slate-200">
+<span class="text-slate-500 block text-[10px]">EGT RESIDUAL DEV</span>
+<span class="font-bold text-amber-600">+18.0°C vs PINN</span>
+<span class="text-slate-400 block text-[9px]">Exhaust Port #3</span>
+</div>
+<div class="bg-slate-100 p-2 rounded border border-slate-200">
+<span class="text-slate-500 block text-[10px]">OPTICAL CORRELATION</span>
+<span class="font-bold text-sky-700">ALT-084 Matched</span>
+<span class="text-slate-400 block text-[9px]">Verified Carbon Halo</span>
+</div>
+</div>
+</div>
+<div class="pt-1">
+<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Engineering Recommendation:</span>
+<div class="flex items-start gap-2 mt-1 text-slate-800 bg-sky-50/60 p-2.5 rounded border border-sky-200">
+<svg class="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<p class="font-sans text-xs">
+                      Inspect during next authorized turnaround window (<strong>Turnaround 14 Ground - TODAY</strong>). Perform ultrasonic injector flush &amp; flow bench calibration per Rotax MM Chapter 73-10-00. If flow variation exceeds 1.5% post-flush, swap S/N INJ-084 with Depot spares unit #092.
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Optical Borescope Correlation Column (5 cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between space-y-3">
+<div class="border border-slate-300 rounded overflow-hidden bg-slate-900 shadow-inner flex flex-col">
+<div class="bg-slate-800 px-3 py-1.5 flex items-center justify-between text-[11px] font-mono text-slate-200 border-b border-slate-700">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    BORESCOPE MACRO RECORD [ALT-084]
+                  </span>
+<span class="text-sky-300">CYLINDER #3 VALVE</span>
+</div>
+<!-- Borescope Imagery from DataStore -->
+<div class="relative group aspect-video overflow-hidden bg-black flex items-center justify-center">
+<img alt="Detailed aerospace engineering optical borescope inspection macro photo inside aircraft piston engine cylinder combustion chamber" class="object-cover w-full h-full transform transition duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1X_bLwlM7Z9WBgyJe9E5dt41w7IqesG4bzaOexec0zoLVq-PC96kTkTnSDh_wq9DoI0X0Eb-b6RC4wXCnZzGTn4B2VWkQCPY-4jrlLgvW1tFmxgga5riy38ncWEG4eEq222Sf1NdDX2y7JmWfE196LBKnEZNT_zcOLNjXw7CwOpyWZAoecz1xIGN87l7NeLcYRuW4DYBpORT01IKuJclt4n0NOA8OJXf40Y-lIay2GW80qn6QaA5uB3kg"/>
+<!-- Crosshair and engineering overlay -->
+<div class="absolute inset-0 pointer-events-none border border-sky-400/20 m-2 flex flex-col justify-between p-2 font-mono text-[9px] text-white/90">
+<div class="flex justify-between items-start">
+<span class="bg-black/60 px-1 rounded">FOV: 120° DUAL-VIEW</span>
+<span class="bg-black/60 px-1 rounded text-amber-300">CARBON EDGE RESIDUAL: 0.42mm</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="bg-black/60 px-1 rounded">CAL: VERIFIED 6.0mm</span>
+<span class="bg-black/60 px-1 rounded">HONING RETENTION: 91.2%</span>
+</div>
+</div>
+</div>
+<div class="p-2.5 bg-slate-900 text-[11px] font-mono text-slate-300 flex items-center justify-between">
+<span>Target: Exhaust Valve Face / Edge Carbon Ring</span>
+<a class="text-sky-400 hover:text-sky-300 flex items-center gap-1" href="#">Full-Res Scan (4K) →</a>
+</div>
+</div>
+<!-- Action Bar Buttons -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+<button class="col-span-2 sm:col-span-2 py-2 px-3 rounded bg-sky-600 hover:bg-sky-700 text-white font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-colors" type="button">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+<span>CREATE TASK / WORK ORDER</span>
+</button>
+<button class="py-2 px-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium text-center transition-colors" type="button">
+                  VIEW HISTORY
+                </button>
+<button class="py-2 px-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium text-center transition-colors" type="button">
+                  FAULT EVIDENCE
+                </button>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- END: ImmediateAttentionSection -->
+<!-- BEGIN: SubsystemConditionGridSection -->
+<section class="space-y-4" data-purpose="subsystem-condition-monitoring">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Upcoming Maintenance &amp; Condition Monitoring</h2>
+<p class="text-xs text-slate-500 font-mono">Continuous Health Indexing via Edge Digital Twin &amp; High-Frequency Telemetry</p>
+</div>
+<span class="text-xs font-mono text-slate-500 hidden sm:inline-block">6 SUBSYSTEMS NOMINAL / AUDITED</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+<!-- Card 1: Turbocharger & Electronic Wastegate -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">TURBO &amp; ELECTRONIC WASTEGATE</h3>
+<p class="text-[11px] text-slate-500 font-mono">Actuator S/N: WG-109 • Core 1842.6 h</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">94%</span>
+<span class="block text-[10px] text-slate-400 font-mono">NOMINAL</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">142.6 h ago</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">Spindle axial clearance 0.35mm (Limit: 0.60mm). Wastegate servo duty nominal.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">High altitude boost bleed risk at &gt;18,000 ft if linkage friction rises.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Torque check wastegate linkage at 1,950 h depot cycle.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+<!-- Card 2: Propeller Reduction Gearbox (PRGB) -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">PRGB REDUCTION GEARBOX (2.54:1)</h3>
+<p class="text-[11px] text-slate-500 font-mono">Overload Clutch S/N: GB-411</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">91%</span>
+<span class="block text-[10px] text-slate-400 font-mono">MONITORED</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">842.6 h TSOH</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">42.6 h ago (SOAP)</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">SOAP oil spectro: Fe 8ppm, Cu 1ppm. Slipper clutch wear estimated at 14%.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">Torsional oscillation harmonic damper slip margin remaining: 1,120 h.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Verify drag torque and dog gear back-lash at Turnaround 15 window.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+<!-- Card 3: Cylinder Assemblies (Piston & Barrels) -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">CYLINDER #1 - #4 PISTON &amp; BARREL</h3>
+<p class="text-[11px] text-slate-500 font-mono">Nikasil Bore Coatings • Cyl #3 Checked</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">95%</span>
+<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">Turnaround 13</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">Differential compression 78/80 psi average. Nikasil crosshatch retention 92.4%.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">Cylinder #3 slight ring fouling if injector rich-flow is not calibrated.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Continue on-condition telemetry monitoring. No ring repacking needed.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+<!-- Card 4: High Pressure Fuel Rail & Boost Pumps -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">HP DUAL FUEL RAIL &amp; BOOST PUMPS</h3>
+<p class="text-[11px] text-slate-500 font-mono">Main &amp; Aux Pumps (3.0 Bar Rail)</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">96%</span>
+<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">100 h Check</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">Pressure damper compliance 98.2%. Duplex filter delta-P 0.12 bar (Clean).</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">Zero cavitation detected. Pump-B commutators nominal.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Scheduled fuel fine micron filter canister exchange at 2,050 h.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+<!-- Card 5: Ignition & Dual FADEC Spark Circuits -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">IGNITION &amp; DUAL FADEC SPARK</h3>
+<p class="text-[11px] text-slate-500 font-mono">Dual Lane A/B Igniters (8 Plugs)</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">93%</span>
+<span class="block text-[10px] text-slate-400 font-mono">NOMINAL</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">42.6 h ago</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">Spark discharge rise-time jitter 0.04 ms. Iridium gap average 0.68mm.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">Slight carbon tracking risk on Bottom Plug #3 if uncleaned.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Clean and regap spark plugs during upcoming Turnaround 16 maintenance.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+<!-- Card 6: Dual Oil Scavenge Pump & Heat Exchanger -->
+<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+<div class="space-y-3">
+<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
+<div>
+<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">OIL SCAVENGE PUMP &amp; HEAT EXCHANGER</h3>
+<p class="text-[11px] text-slate-500 font-mono">Dry Sump Lube System (AeroShell 4)</p>
+</div>
+<div class="text-right">
+<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">97%</span>
+<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
+<div>
+<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
+<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
+</div>
+<div>
+<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
+<span class="font-bold text-slate-700">Turnaround 13</span>
+</div>
+</div>
+<div class="text-xs space-y-1.5 font-sans">
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
+<p class="text-slate-600 text-[11px]">Scavenge pump pressure delta steady at 4.82 bar. Core delta-T nominal.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
+<p class="text-slate-600 text-[11px]">No varnish accumulation or cooler fin clogging predicted &lt;500h.</p>
+</div>
+<div>
+<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
+<p class="text-slate-800 text-[11px] font-medium">Routine pre-flight oil level dipstick check and magnetic plug inspection.</p>
+</div>
+</div>
+</div>
+<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
+<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
+<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
+</div>
+</article>
+</div>
+</section>
+<!-- END: SubsystemConditionGridSection -->
+<!-- BEGIN: MaintenanceCalendarTimeline -->
+<section class="bg-surface-card border border-surface-border rounded-lg p-5 shadow-sm space-y-4" data-purpose="maintenance-timeline">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+<div>
+<h2 class="text-base font-bold text-slate-900 tracking-tight">Maintenance Schedule &amp; Work Windows</h2>
+<p class="text-xs text-slate-500 font-mono">Automated Turnaround Interval Queuing (Ground Stations &amp; Line Operations)</p>
+</div>
+<div class="flex items-center gap-2 font-mono text-xs">
+<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-rose-500"></span> Urgent</span>
+<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-sky-500"></span> Scheduled</span>
+<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-emerald-500"></span> Depot</span>
+</div>
+</div>
+<!-- Horizontal Timeline Bar Representation -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-3 pt-2">
+<!-- Column 1: Today / Turnaround 14 -->
+<div class="border-2 border-rose-300 bg-rose-50/30 rounded-lg p-3 space-y-2.5">
+<div class="flex items-center justify-between font-mono">
+<span class="text-xs font-bold text-rose-900">TURNAROUND 14</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-semibold uppercase">TODAY (Ground)</span>
+</div>
+<div class="text-[11px] text-slate-500 font-mono">TTSN: 1,842.6 h • Station Alpha</div>
+<!-- Timeline Task Item -->
+<div class="bg-white border border-rose-200 rounded p-2.5 shadow-xs space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-slate-800 font-mono">WO-8842</span>
+<span class="text-[10px] font-mono text-rose-600 font-bold">45 min</span>
+</div>
+<p class="text-xs font-medium text-slate-700 font-sans">Injector #3 Flow &amp; Ultrasonic Clean</p>
+<div class="text-[10px] text-slate-500 font-mono flex items-center justify-between pt-1">
+<span>Assigned: Avionics Shop</span>
+<span class="text-amber-700 font-semibold">QUEUED</span>
+</div>
+</div>
+<!-- Task Item 2 -->
+<div class="bg-white border border-slate-200 rounded p-2 shadow-xs space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-slate-800 font-mono">WO-8843</span>
+<span class="text-[10px] font-mono text-slate-500">20 min</span>
+</div>
+<p class="text-xs text-slate-700 font-sans">Compression Delta Verification</p>
+<div class="text-[10px] text-slate-400 font-mono">Routine Differential Gauge</div>
+</div>
+</div>
+<!-- Column 2: Turnaround 15 (+50h) -->
+<div class="border border-surface-border bg-slate-50/70 rounded-lg p-3 space-y-2.5">
+<div class="flex items-center justify-between font-mono">
+<span class="text-xs font-bold text-slate-800">TURNAROUND 15</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 font-semibold">+50 flight hrs</span>
+</div>
+<div class="text-[11px] text-slate-500 font-mono">Est: ~1,892 h • Line Station</div>
+<div class="bg-white border border-slate-200 rounded p-2.5 shadow-xs space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-slate-800 font-mono">TASK-CBM-09</span>
+<span class="text-[10px] font-mono text-slate-500">30 min</span>
+</div>
+<p class="text-xs text-slate-700 font-sans">SOAP Oil Sample Extraction</p>
+<div class="text-[10px] text-slate-400 font-mono">Lab Spectro ICP-OES Analysis</div>
+</div>
+</div>
+<!-- Column 3: Turnaround 16 (+100h) -->
+<div class="border border-surface-border bg-slate-50/70 rounded-lg p-3 space-y-2.5">
+<div class="flex items-center justify-between font-mono">
+<span class="text-xs font-bold text-slate-800">TURNAROUND 16</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 font-semibold">+100 flight hrs</span>
+</div>
+<div class="text-[11px] text-slate-500 font-mono">Est: ~1,942 h • Hangar Bay 4</div>
+<div class="bg-white border border-slate-200 rounded p-2.5 shadow-xs space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-slate-800 font-mono">INSP-100H</span>
+<span class="text-[10px] font-mono text-slate-500">2.5 hrs</span>
+</div>
+<p class="text-xs text-slate-700 font-sans">Spark Plug Regap &amp; Borescope Scan</p>
+<div class="text-[10px] text-slate-400 font-mono">Full 4-Cylinder Macro Pass</div>
+</div>
+</div>
+<!-- Column 4: Depot Major (+650h) -->
+<div class="border border-indigo-200 bg-indigo-50/20 rounded-lg p-3 space-y-2.5">
+<div class="flex items-center justify-between font-mono">
+<span class="text-xs font-bold text-indigo-950">DEPOT OVERHAUL</span>
+<span class="text-[10px] px-1.5 py-0.2 rounded bg-indigo-100 text-indigo-800 font-semibold">TBO: 2,000 h</span>
+</div>
+<div class="text-[11px] text-slate-500 font-mono">Target: ~2,000 h • Depot Base</div>
+<div class="bg-white border border-indigo-200 rounded p-2.5 shadow-xs space-y-1">
+<div class="flex items-center justify-between text-xs">
+<span class="font-bold text-indigo-900 font-mono">DEPOT-OVH-03</span>
+<span class="text-[10px] font-mono text-indigo-600 font-bold">14 Days</span>
+</div>
+<p class="text-xs text-slate-700 font-sans">Full Powerplant Overhaul &amp; Re-cert</p>
+<div class="text-[10px] text-slate-500 font-mono">Complete Teardown &amp; NDT</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: MaintenanceCalendarTimeline -->
+<!-- BEGIN: MaintenanceHistoryComplianceLog -->
+<section class="bg-surface-card border border-surface-border rounded-lg shadow-sm overflow-hidden" data-purpose="compliance-log-table">
+<div class="px-5 py-4 border-b border-surface-border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<h2 class="text-base font-bold text-slate-900 tracking-tight">Maintenance History &amp; Tamper-Evident Compliance Log</h2>
+<p class="text-xs text-slate-500 font-mono">FAA Part-43 / EASA Part-M Synchronized Cryptographic Ledger</p>
+</div>
+<div class="flex items-center gap-2">
+<input class="text-xs px-3 py-1.5 rounded border border-slate-300 font-mono w-48 sm:w-64 focus:ring-1 focus:ring-sky-500" placeholder="Search S/N, Work Order, Tech..." type="text"/>
+<button class="px-2.5 py-1.5 border border-slate-300 rounded text-slate-600 hover:bg-slate-50 text-xs">Filter</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-xs font-sans">
+<thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+<tr>
+<th class="py-3 px-4">Event ID / Order</th>
+<th class="py-3 px-4">Date / UTC</th>
+<th class="py-3 px-4">Aircraft TTSN</th>
+<th class="py-3 px-4">Task Description &amp; Corrective Action</th>
+<th class="py-3 px-4">Certifying Authority</th>
+<th class="py-3 px-4 text-center">Status</th>
+<th class="py-3 px-4 text-right">Audit Proof</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 font-mono text-slate-700">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-3 px-4 font-bold text-sky-700">WO-8839</td>
+<td class="py-3 px-4 whitespace-nowrap">14-OCT-2024 08:30</td>
+<td class="py-3 px-4 font-semibold">1,838.2 h</td>
+<td class="py-3 px-4 font-sans">
+                  Turnaround 13 Post-Flight Sign-off: Compression test Cyl 1-4 (average 78/80 psi). SOAP spectro lab sample pulled.
+                </td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="font-sans font-medium text-slate-900 block">Maj. K. Vance</span>
+<span class="text-[10px] text-slate-400">FAA A&amp;P #3841920 / IA</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold text-[10px]">CLOSED</span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 9C81..E4F0</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-3 px-4 font-bold text-sky-700">WO-8831</td>
+<td class="py-3 px-4 whitespace-nowrap">02-OCT-2024 16:15</td>
+<td class="py-3 px-4 font-semibold">1,800.0 h</td>
+<td class="py-3 px-4 font-sans">
+                  Digital Twin Telemetry Recalibration: PINN model residual offset re-zeroed following FADEC software patch v3.8.1.
+                </td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="font-sans font-medium text-slate-900 block">Edge Automated Daemon</span>
+<span class="text-[10px] text-slate-400">SYS-VERIFIED AUTONOMOUS</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold text-[10px]">VERIFIED</span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 4D22..AA19</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-3 px-4 font-bold text-sky-700">WO-8798</td>
+<td class="py-3 px-4 whitespace-nowrap">18-SEP-2024 11:40</td>
+<td class="py-3 px-4 font-semibold">1,742.6 h</td>
+<td class="py-3 px-4 font-sans">
+                  100-Hour Mandatory Powerplant Inspection: Valvetrain pushrod lash adjusted, oil and dual micro-filters replaced. Slipper clutch drag verified.
+                </td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="font-sans font-medium text-slate-900 block">Capt. R. Hernandez</span>
+<span class="text-[10px] text-slate-400">FAA A&amp;P #4102941</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold text-[10px]">CLOSED</span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 18BC..8821</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/60 transition-colors">
+<td class="py-3 px-4 font-bold text-sky-700">WO-8762</td>
+<td class="py-3 px-4 whitespace-nowrap">05-SEP-2024 14:05</td>
+<td class="py-3 px-4 font-semibold">1,700.0 h</td>
+<td class="py-3 px-4 font-sans">
+                  Optical Borescope Inspection ALT-083: Cylinders #1 - #4 macro video scan. Nikasil barrel crosshatching confirmed nominal.
+                </td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="font-sans font-medium text-slate-900 block">NDT Specialist E. Chen</span>
+<span class="text-[10px] text-slate-400">NAS-410 Level III</span>
+</td>
+<td class="py-3 px-4 text-center">
+<span class="px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-semibold text-[10px]">ARCHIVED</span>
+</td>
+<td class="py-3 px-4 text-right">
+<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: FF03..43B1</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-5 py-3 bg-slate-50 border-t border-surface-border flex items-center justify-between text-xs font-mono text-slate-500">
+<span>Showing 4 of 142 Certified Part-M Ledger Entries</span>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 border border-slate-300 rounded bg-white text-slate-600 hover:bg-slate-50">Prev</button>
+<button class="px-2 py-1 border border-slate-300 rounded bg-white text-slate-600 hover:bg-slate-50">Next</button>
+</div>
+</div>
+</section>
+<!-- END: MaintenanceHistoryComplianceLog -->
+</main>
+<!-- END: MainContentWorkspace -->
+</div>
+<!-- END: ApplicationLayout -->
+</body></html>

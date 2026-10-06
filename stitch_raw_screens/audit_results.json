@@ -1,0 +1,1064 @@
+[
+  {
+    "file": "00_AeroTwin-X Emblem _ Wordmark_84865c52.html",
+    "title": "00_AeroTwin-X Emblem _ Wordmark_84865c52.html",
+    "size_kb": 1.4,
+    "has_tailwind": false,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 0,
+    "metrics": [],
+    "buttons": [],
+    "links": []
+  },
+  {
+    "file": "02_Screen 05_ RUL _ Engine Degradation_7f7479c8.html",
+    "title": "AeroTwin-X | Screen 05: RUL &amp; Engine Degradation",
+    "size_kb": 36.9,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 5,
+    "metrics": [
+      "ALTERNATOR",
+      "CHT",
+      "EGT",
+      "HEALTH INDEX",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "Export Prognostics Dossier (PDF/JSON)",
+      "Recalibrate Prior",
+      "Lock Maintenance Window at T-14",
+      "Generate Work Order",
+      "Review Borescope Archive"
+    ],
+    "links": [
+      "AX\n          \n\nAeroTwin-X\nAERO-PISTON GCS v4.8\n\n\n\n\nMain Operations\n\n\n\n              Mission Control",
+      "Digital Twin",
+      "Engine Health",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "Fault Prediction"
+    ]
+  },
+  {
+    "file": "03_Screen 16_ About AeroTwin-X_a19983d2.html",
+    "title": "03_Screen 16_ About AeroTwin-X_a19983d2.html",
+    "size_kb": 67.3,
+    "has_tailwind": true,
+    "has_three": true,
+    "has_charts": false,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 7,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "notifications",
+      "Comparative Matrix",
+      "Bandwidth &amp; SATCOM Optimization",
+      "download\nICD PKG",
+      "download\nDBC / JSON",
+      "download\nSAFETY DOC",
+      "download\nPROTO API"
+    ],
+    "links": [
+      "flightAEROTWIN-XMALE GCS COREV4.2Main TelemetryMission Control",
+      "Digital Twin",
+      "Engine Health",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "Fault Prediction"
+    ]
+  },
+  {
+    "file": "04_UAV Tactical Showcase _ Dark Hero Landin_e5972a86.html",
+    "title": "AERO UAV // Tactical Autonomous Systems",
+    "size_kb": 13.8,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 0,
+    "metrics": [],
+    "buttons": [],
+    "links": [
+      "AERO.UAV",
+      "Drones",
+      "Tactical UAV",
+      "Summer Sale",
+      "Parts &amp; Accessories",
+      "aerospace autonomous beats resonate within mission\n      \n\n\n\n\n\n\nMALE UAV\n\n\n\n\n          R E V I T A L I Z E\n        \n\n          Autonomous medium-altitude long-endurance tactical unmanned aerial system designed for integrated day &amp; night persistent reconnaissance and situational superiority.\n        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n          MIL-STD-810G Qualified \u2022 Rotax 915iSc Turbocharged \u2022 24h Endurance\n        \n\n\n\n\nExplore Now"
+    ]
+  },
+  {
+    "file": "05_3D Engine Digital Twin Explorer_97b5f472.html",
+    "title": "AeroTwin-X - 3D Engine Digital Twin Explorer",
+    "size_kb": 58.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 26,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "ISOMETRIC",
+      "FRONT (PRGB)",
+      "TOP (CYL)",
+      "SIDE (TURBO)",
+      "SECTION A-A",
+      "EXPLODED",
+      "THERMAL",
+      "STRESS (FEA)"
+    ],
+    "links": [
+      "Main Operations\n          \n            \n              \n              Mission Control",
+      "Digital Twin",
+      "Engine Health",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "Fault Prediction"
+    ]
+  },
+  {
+    "file": "06_Screen 14_ AeroTwin-X Control Center_36f9c5c3.html",
+    "title": "06_Screen 14_ AeroTwin-X Control Center_36f9c5c3.html",
+    "size_kb": 56.9,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 2,
+    "num_selects": 0,
+    "num_buttons": 13,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "1x",
+      "2x",
+      "5x",
+      "10x",
+      "tune\n          FILTER SUITE"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "07_3D Engine Digital Twin_ Cylinder Heat Di_1cf89280.html",
+    "title": "07_3D Engine Digital Twin_ Cylinder Heat Di_1cf89280.html",
+    "size_kb": 51.6,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 25,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "notifications",
+      "thermostat\nThermal / Heat Distribution",
+      "network_node\nvon Mises Stress",
+      "waves\nCoolant &amp; Oil Flow",
+      "graphic_eq\nModal / Vibration",
+      "air\nCombustion Gas",
+      "0%",
+      "25%"
+    ],
+    "links": [
+      "AEROTWIN-Xv4.2Aero-Piston Digital Twin1. Main TelemetryCAN-0radarMission Control",
+      "view_in_arDigital Twin",
+      "vital_signsEngine Health",
+      "speedSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "analyticsFault Prediction"
+    ]
+  },
+  {
+    "file": "08_Screen 17_ Logbooks _ EASA Part-M Compli_aec05545.html",
+    "title": "08_Screen 17_ Logbooks _ EASA Part-M Compli_aec05545.html",
+    "size_kb": 53.2,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": false,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 20,
+    "metrics": [
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "RESIDUAL",
+      "RUL"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "fingerprint\nVERIFY LEDGER HASH",
+      "file_download\nEXPORT DOSSIER (PDF/XML)",
+      "edit_document\nNEW LOG ENTRY / CRS SIGN-OFF",
+      "ALL RECORDS (142)",
+      "SCHEDULED (PART-M)"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "09_Sensor Health _ Live Monitoring_6842ba40.html",
+    "title": "AeroTwin-X - Sensor Health &amp; Live Monitoring",
+    "size_kb": 62.5,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 9,
+    "metrics": [
+      "ALTERNATOR",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "OIL PRESSURE",
+      "OIL TEMPERATURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "5 min",
+      "30 min",
+      "1 hr",
+      "6 hr",
+      "24 hr",
+      "Mission",
+      "Export MDF4/CSV",
+      "Calibrate Sensors"
+    ],
+    "links": [
+      "Main Operations\n\n\n\nMission Control",
+      "Digital Twin",
+      "Engine Health",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "Fault Prediction"
+    ]
+  },
+  {
+    "file": "10_Screen 06_ Alerts _ Events Center_211b10e2.html",
+    "title": "AeroTwin-X | Screen 06: Alerts &amp; Events Center",
+    "size_kb": 45.3,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 4,
+    "num_selects": 3,
+    "num_buttons": 24,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "MANIFOLD",
+      "MAP",
+      "RESIDUAL",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "Export Dossier (CSV/JSON)",
+      "Silence Non-Critical (15m)",
+      "Batch Acknowledge (3)",
+      "Audit Logbook",
+      "ALT-084 (T-14m EGT)",
+      "ALT-082 (T-40m FF)",
+      "EVT-098 (T-6h WPT)",
+      "ALL\n7"
+    ],
+    "links": [
+      "Main\n\n\n\nMission Control",
+      "Digital Twin",
+      "Engine Health",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "Fault Prediction"
+    ]
+  },
+  {
+    "file": "11_Screen 10_ Live Telemetry _ CAN Bus_02a30dc9.html",
+    "title": "AeroTwin-X | Screen 08: Mission Simulator",
+    "size_kb": 69.6,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 3,
+    "num_selects": 0,
+    "num_buttons": 19,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "FUEL FLOW",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL"
+    ],
+    "buttons": [
+      "sim_card_download\nExport PCAP/CSV",
+      "pause_circle\nPause Stream",
+      "alt_route\nInject Test Frame",
+      "tune\nConfigure Masks",
+      "data_table\nRAW CAN-FD STREAM\nLIVE",
+      "transform\nDECODED SIGNALS",
+      "grid_view\nSENSOR DATA MATRIX",
+      "speed\nBUS ARBITRATION &amp; LOAD"
+    ],
+    "links": [
+      "MAIN\n\n\n\n              Mission Control",
+      "Digital Twin (3D State)",
+      "Engine Health &amp; Matrix",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "RUL &amp; Degradation"
+    ]
+  },
+  {
+    "file": "12_Maintenance _ Lifecycle Management _ Opt_0d570ee8.html",
+    "title": "AeroTwin-X | Maintenance &amp; Lifecycle Management \u2014 Optical Borescope Inspection",
+    "size_kb": 51.1,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 1,
+    "num_buttons": 11,
+    "metrics": [
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "RESIDUAL",
+      "RUL"
+    ],
+    "buttons": [
+      "Log Snapshot",
+      "Form 8130-3 / EASA Form 1",
+      "Generate Work Order",
+      "Sync Digital Twin",
+      "Freeze Frame",
+      "Capture UHD Still",
+      "Stereo 3D Tip Measurement",
+      "AI Defect Re-Scan"
+    ],
+    "links": [
+      "MAIN\n\n\n\n              Mission Control",
+      "Digital Twin (3D State)",
+      "Engine Health &amp; Matrix",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "RUL &amp; Degradation"
+    ]
+  },
+  {
+    "file": "13_AeroTwin-X_ Master Control Center _ Faul_f8d26049.html",
+    "title": "13_AeroTwin-X_ Master Control Center _ Faul_f8d26049.html",
+    "size_kb": 76.5,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 10,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "notifications",
+      "lock\nLive RF Cell\nINTERLOCKED",
+      "model_training\nSimulation (Active Inject)",
+      "history\nReplay Log",
+      "sensors_off\nOffline Sandbox",
+      "file_download\nExport .YAML",
+      "pause\nPAUSE ODE SOLVER",
+      "redo\nSTEP +1.0s (RK4)"
+    ],
+    "links": [
+      "AEROTWIN-Xv4.2Aero-Piston Digital Twin1. Main TelemetryCAN-0radarMission Control",
+      "view_in_arDigital Twin",
+      "vital_signsEngine Health",
+      "speedSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "analyticsFault Prediction"
+    ]
+  },
+  {
+    "file": "15_Screen 08_ Mission Simulator_9f1d8582.html",
+    "title": "AeroTwin-X | Screen 08: Mission Simulator",
+    "size_kb": 52.9,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 10,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "play_arrow\n            RUN SIMULATION (50x)",
+      "bookmark\n            Save Scenario",
+      "ios_share\n            Export Telemetry",
+      "restart_alt\n            Reset Baseline",
+      "ISR\n                check",
+      "Maritime Surv.",
+      "Comm Relay",
+      "Long Patrol"
+    ],
+    "links": [
+      "MAIN\n          \n            \n              \n              Mission Control",
+      "Digital Twin (3D State)",
+      "Engine Health & Matrix",
+      "Sensor Monitoring",
+      "AI Diagnostics",
+      "RUL & Degradation"
+    ]
+  },
+  {
+    "file": "16_Fleet Health _ Multi-UAV Mission Overvie_5481fa6d.html",
+    "title": "16_Fleet Health _ Multi-UAV Mission Overvie_5481fa6d.html",
+    "size_kb": 37.3,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": false,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 5,
+    "metrics": [
+      "CHT",
+      "EXHAUST",
+      "HEALTH INDEX",
+      "MAP",
+      "OIL PRESSURE",
+      "RUL"
+    ],
+    "buttons": [
+      "notifications",
+      "layersSectors",
+      "my_locationRecenter",
+      "psychologyView All AI Diagnostics",
+      "Export Telemetry CSV"
+    ],
+    "links": [
+      "AeroTwin-XanalyticsMission Telemetry",
+      "view_in_arDigital Twin Core",
+      "psychologyAI Diagnostics",
+      "hubCAN Bus Matrix"
+    ]
+  },
+  {
+    "file": "17_UAV Explorer 3D_ Interactive MALE Drone _a10db09a.html",
+    "title": "17_UAV Explorer 3D_ Interactive MALE Drone _a10db09a.html",
+    "size_kb": 84.8,
+    "has_tailwind": true,
+    "has_three": true,
+    "has_charts": false,
+    "num_inputs": 2,
+    "num_selects": 0,
+    "num_buttons": 23,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "notifications",
+      "All",
+      "Avionics",
+      "Propulsion",
+      "Structure",
+      "restart_alt\nReset",
+      "view_in_ar\nExploded",
+      "grid_4x4\nWireframe"
+    ],
+    "links": [
+      "AEROTWIN-Xv4.2Aero-Piston Digital Twin1. Main TelemetryCAN-0radarMission Control",
+      "view_in_arDigital Twin",
+      "vital_signsEngine Health",
+      "speedSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "analyticsFault Prediction"
+    ]
+  },
+  {
+    "file": "18_MALE UAV Premium Front Page_21a9db6b.html",
+    "title": "Sign in - Google Accounts",
+    "size_kb": 921.1,
+    "has_tailwind": false,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 8,
+    "num_selects": 1,
+    "num_buttons": 1,
+    "metrics": [
+      "MAP"
+    ],
+    "buttons": [
+      "Next"
+    ],
+    "links": [
+      "Forgot email?",
+      "=D&&(D+4&39)=D?56:6:q==21?q=(D^55)>>4?54:65:q==73?(w=Jb,l in w?F.setAttribute(K,w[l]):F.removeAttribute(K),q=81):q==67?q=21:q==54?q=(D|80)==D?24:97:q==65?(l.Pk(function(M){F=M},u,X),W=F,q=54):q==6&&(q=(D>>2&7)==3?32:72)}}},gz=function(X,D,u,l,F,J,R,w,K,V,q){for(q=22;q!=X;)if(q==54)R$.call(this),this.A=new I1(this),this.Kg=null,this.Kz=this,q=19;else if(q==48)q=(D&124)==D?4:99;else if(q==22)q=68;else if(q==19)q=(D>>1&7)==1?28:48;else if(q==77)q=w=D?54:19;else if(q==92)q=(D^12)>>4==4?70:66;else if(q==11)F=\"allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-storage-access-by-user-activation\".split(\" \"),u.setAttribute(\"sandbox\",\"\"),J=0,q=85;else{if(q==99)return V;if(q==75)V=typeof F.className==u?F.className:F.getAttribute&&F.getAttribute(l)||\"\",q=92;else if(q==94)J++,q=43;else{if(q==8)throw new q7(typeof l,1);if(q==13)q=77;else if(q==43)q=J=D?75:92:q==36?q=l instanceof rz?11:8:q==37?(u.sandbox.supports&&!u.sandbox.supports(F[J])||u.sandbox.add(F[J]),q=94):q==70?(J=uC(24,u,11,0,F,l),(R=J>=0)&&Array.prototype.splice.call(F,J,u),V=R,q=66):q==0?(w++,q=77):q==4?(u.removeAttribute(\"srcdoc\"),q=36):q==28?(K=F.length,R=typeof F===\"string\"?F.split(l):F,w=u,q=13):q==49&&(w in R&&J.call(void 0,R[w],w,F),q=0)}}},OB=function(X,D,u,l,F,J,R,w,K,V,q,W,M,Z){{Z=73;while(Z!=63)if(Z==79)M=function(C){C&&J.appendChild(typeof C===\"string\"?w.createTextNode(C):C)},V=X,Z=35;else if(Z==90)M(q),Z=48;else if(Z==73)Z=99;else if(Z==6)Z=V0?90:50;else if(Z==35)Z=6;else if(Z==50){a:{if(q&&typeof q.length==\"number\"){if($_(\"object\",7,q)){K=typeof q.item==\"function\"||typeof q.item==F;break a}if(typeof q===\"function\"){K=typeof q.item==\"function\";break a}}K=false}Z=(gz(32,19,0,l,K?Lb(0,3,q):q,M),48)}else Z==15?(q=R[V],Z=52):Z==45?(D.classList?Array.prototype.forEach.call(X,function(C){bH(40,41,\" \",0,\"class\",D,C)}):iH(25,\"class\",D,Array.prototype.filter.call(jK(5,11,\"class\",D),function(C){return!UB(0,10,C,X)}).join(\" \")),Z=86):Z==94?Z=(u+9&7)>=2&&(u>>2&8)>3>=1&&(u>>1&7)=2?23:50;else if(w==50)w=(u|X)==u?69:44;else{if(w==44)return K;w==76&&(l=Math.floor(Math.random()*this.n),l>4>=1?84:27;else if(K==20)sB(w.A,30,l,0),K=56;else if(K==69)K=J.Dn==0?66:56;else if(K==27)K=(D>>2&15)==2?47:21;else if(K==47)V=uC(24,1,10,X,l,u)>=X,K=21;else if(K==97)w=l.src,K=72;else if(K==30)K=typeof l!==\"number\"&&l&&!l.Fo?97:56;else if(K==66)J.src=u,w[EB]=u,K=56;else if(K==0)R=l.type,F=l.proxy,w.removeEventListener?w.removeEventListener(R,F,l.capture):w.detachEvent?w.detachEvent(SK(3,5,X,R),F):w.addListener&&w.removeListener&&w.removeListener(F),H4--,J=UB(w,40),K=82;else if(K==84)u=X[EB],V=u instanceof I1?u:null,K=27;else if(K==82)K=J?87:39;else{if(K==59)return V;K==64?K=(D^17)>1&11)>=9?96:59:K==72?K=w&&w[Cb]?20:0:K==71?K=(D|24)==D?30:56:K==87?(sB(J,3,l,0),K=69):K==96?(J=typeof F,R=J!=l?J:F?Array.isArray(F)?\"array\":J:\"null\",V=R==X||R==l&&typeof F.length==u,K=59):K==39&&(B4(68,u,l),K=56)}}},jK=function(X,D,u,l,F,J){for(J=3;J!=64;){if(J==29)return F;J==71?(F=l.classList?l.classList:gz(32,X,\"string\",u,l).match(/\\\\S+/g)||[],J=89):J==73?(this[this+\"\"]=this,J=29):J==3?J=18:J==18?J=((D^47)&7)==1?49:80:J==49?(F=u&&u.parentNode?u.parentNode.removeChild(u):null,J=80):J==89?J=(D^52)&6?29:73:J==80&&(J=(D+8&29)>=D&&(D+9^16)=4?93:67;else{if(w==8)return R;if(w==93)J=u,k_===void 0&&(k_=D),l=(F=k_)?F.createScriptURL(J):J,R=new rz(l),w=67;else if(w==80)w=(X|48)==X?29:81;else if(w==81)w=(X&76)==X?56:8;else if(w==29){a:{if(this.n===0){R=[0,0];break a}this.G.sort(function(K,V){return K-V}),R=[this.n,this.G[this.G.length>>1]]}w=81}else w==67&&(w=(X^57)>>3==3?27:80)}}},sB=function(X,D,u,l,F,J,R,w,K,V,q){for(q=50;q!=54;)if(q==38)q=(D|1)>>3==1?40:24;else{if(q==19)return V;if(q==9)F=u.type,q=74;else if(q==7)q=X.L[F].length==l?55:19;else if(q==55)delete X.L[F],X.Dn--,q=19;else if(q==24)q=(D-5^11)=D?9:19;else if(q==90)B4(64,null,u),q=7;else if(q==74)q=F in X.L&&gz(32,70,1,u,X.L[F])?90:19;else if(q==40){a:if(X.C.length){X.J=!((X.J&&\":TQR:TQR:\"(),X).ez=F,0);try{R=X.F(),X.A3=R,X.vk=l,X.li=l,X.gI=R,J=$_(false,32,true,0,\"load\",X,F),K=u?0:10,w=X.F()-X.A3,X.Nx+=w,X.kw&&X.kw(w-X.X,X.B,X.m,X.vk),X.m=false,X.B=false,X.X=l,w>1&3)>=1?40:68;else if(Z==30)w.addListener(M),Z=70;else{if(Z==35)throw Error(\"addEventListener and attachEvent are unavailable.\");if(Z==93)throw Error(\"Invalid event type\");Z==22?Z=u-3>>4?25:72:Z==59?Z=w.addEventListener?61:24:Z==27?(M=iH(20),q.proxy=M,M.src=w,M.listener=q,Z=59):Z==40?(this.n++,X=D-this.Z,this.Z+=X/this.n,this.si+=X*(D-this.Z),Z=68):Z==61?(Y_||(K=W),K===void 0&&(K=D),w.addEventListener(J.toString(),M,K),Z=70):Z==24?Z=w.attachEvent?94:69:Z==76?(W=$_(X,3,K)?!!K.capture:!!K,(V=UB(w,17))||(w[EB]=V=new I1(w)),q=V.add(J,R,l,W,F),Z=36):Z==20&&(Z=22)}}},WP=function(X,D,u,l,F,J,R,w,K,V){{V=X;while(V!=9)if(V==6)F.raw=u,Object.freeze&&(Object.freeze(F),Object.freeze(u)),K=F,V=28;else if(V==X)V=D;else{if(V==28)return K;if(V==D)V=(l&93)==l?5:11;else if(V==5){a:{for(w in R)if(J.call(void 0,R[w],w,R)){K=u;break a}K=F}V=11}else V==11&&(V=(l|32)==l?6:28)}}},mQ=function(X,D,u,l,F,J,R){for(J=18;J!=34;)if(J==51)F=l,R=function(){return F=D?51:43;else if(J==18)J=97;else if(J==43)J=(D|7)>>3==1?19:17;else if(J==17)return R},z=function(X,D,u,l,F,J,R){while((D-8^13)=D){a:{if(X.i){R=JM(X,X.V);break a}if(true)u=W4(8,X,true);if(((u|128)-~(u&128)+~(u|128)&&(u^=128,l=W4(2,X,true),u=(uX)F=F=u&&u+5>>1>1&15)>=9&&X>>2=X&&(X+3^14)>4?77:82;else if(Z==8)W=28,TY(50,2048,q,J),Z=41;else if(Z==9)Z=J.C.length?14:71;else if(Z==14)J.N=null,w=J.C.pop(),Z=21;else if(Z==52)Z=(D>>2&14)==2?58:68;else if(Z==31)l=typeof u,M=l==X&&u!=null||l==\"function\",Z=52;else if(Z==82)Z=9;else if(Z==91)Z=R&&J.N?84:29;else if(Z==77)Z=(D|6)=0?31:52;else if(Z==29)Z=9;else if(Z==30)Z=76;else if(Z==41)W=28,Z=91;else if(Z==71)M=K,Z=77;else if(Z==58)this.listener=J,this.proxy=null,this.src=l,this.type=F,this.capture=!!u,this.handler=X,this.key=++xI,this.Fo=this.j3=false,Z=68;else if(Z==84)V=J.N,V(function(){sB(J,8,u,l,u)}),Z=71;else if(Z==21)W=31,K=tM(w,J,F,X),Z=41;else if(Z==68)return M}catch(C){if(W==28)throw C;W==31&&(q=C,Z=8)}}},iH=function(X,D,u,l,F,J,R,w,K,V){{w=97;while(w!=55)if(w==54)w=(X>>2&31)>=8&&(X^83)=X&&(X+8^12)>3==2?10:15;else if(w==86)w=X-3>>4?61:71;else{if(w==15)return K;if(w==31){a:{switch(R){case l:K=J?\"disable\":\"enable\";break a;case 2:K=J?\"highlight\":\"unhighlight\";break a;case 4:K=J?\"activate\":\"deactivate\";break a;case D:K=J?\"select\":\"unselect\";break a;case 16:K=J?\"check\":\"uncheck\";break a;case u:K=J?\"focus\":\"blur\";break a;case F:K=J?\"open\":\"close\";break a}throw Error(\"Invalid component state\");}w=86}else w==74&&(w=(X>>1&15)==1?31:86)}}},I=function(X,D,u,l,F,J){for(J=64;J!=59;)if(J==95)F=Math.floor(this.Nx+(this.F()-this.A3)),J=22;else if(J==16)U(D,l,u),u[yF]=551040,J=19;else{if(J==19)return F;J==23?J=(X&47)==X?95:22:J==64?J=23:J==22&&(J=(X+3^24)=X?16:19)}},pU=function(X,D,u,l,F,J){{J=67;while(J!=82)if(J==67)J=37;else if(J==81)this[this+\"\"]=this,F=Promise.resolve(),J=41;else if(J==37)J=(D|16)==D?95:42;else if(J==95)Ab.call(this,u?u.type:\"\"),this.relatedTarget=this.currentTarget=this.target=null,this.button=this.screenY=this.screenX=this.clientY=this.clientX=this.offsetY=this.offsetX=0,this.key=\"\",this.charCode=this.keyCode=0,this.metaKey=this.shiftKey=this.altKey=this.ctrlKey=false,this.state=null,this.pointerId=0,this.pointerType=\"\",this.timeStamp=0,this.Ei=null,u&&this.init(u,l),J=42;else if(J==X)J=24;else if(J==42)J=(D&105)==D?81:41;else if(J==41)J=(D-3^10)>=D&&D+9>>1=D&&(D-7|42)>3==3?61:76;else if(W==23)W=30;else if(W==81)W=(R=sU[V])?23:78;else if(W==82)W=40;else if(W==30)K=R?typeof R.t3===\"function\"?R.t3():new R:null,W=35;else if(W==49)nU.call(this,F),W=X;else{if(W==20)return q;W==74?W=70:W==83?(V=iH(8,w),W=81):W==96?(this.iA=u,W=32):W==39?W=20:W==63?W=(D+3&59)=D?39:20:W==72?W=40:W==35&&(this.l=K,W=63)}}},e9=function(X,D,u,l,F,J,R,w,K,V,q,W,M,Z){for(Z=71;Z!=15;)if(Z==37)q=$_(u,5,R)?!!R.capture:!!R,w=SK(3,16,w),Z=56;else{if(Z==30)return M;Z==21?Z=(X+8&23)==4?92:81:Z==55?(K=UB(F,16),Z=54):Z==50?(K=0,Z=23):Z==92?(M=!!(l.TJ&u)&&!!(l.j&u)!=F&&(!(l.MB&u)||l.dispatchEvent(iH(34,D,32,1,64,F,u)))&&!l.ck,Z=81):Z==0?Z=R&&R.once?59:7:Z==63?(V++,Z=1):Z==40?Z=F?55:30:Z==87?(e9(10,false,\"object\",l,F[K],J,R,w),Z=74):Z==82?((W=K.dI(l,q,w,J))&&UB(\"on\",58,null,W),Z=30):Z==77?(D.t3=function(){return D.Wk?D.Wk:D.Wk=new D},D.Wk=void 0,Z=20):Z==23?Z=69:Z==71?Z=89:Z==7?Z=Array.isArray(F)?50:28:Z==35?(e9(25,0,\"object\",l,F,J[V],R,w),Z=63):Z==59?(Ql(2,8,0,u,F,R,w,l,J),Z=21):Z==16?(M=XS(59,null,3,D,0,true),Z=67):Z==70?(F.A.remove(String(J),w,q,l),Z=30):Z==89?Z=X>>2&15?20:77:Z==56?Z=F&&F[Cb]?70:40:Z==69?Z=K>3==2?0:21:Z==67?Z=(X0&&u.J&&u.ez&&u.Yw1)&&document.hidden==0,q=J?255:F?5:2,w=u.li==4)||V?u.F():u.gI,W=R-u.gI,W)>>14>0,u.U&&(u.U^=(u.h+1>>2)*(W>2!=0||u.O,w||V)u.gI=R,u.li=0;if(!V){Z=false;break a}if(u.ii>u.vk&&(u.vk=u.ii),R-u.A3X){for(J=(l=Array(F),X);J=D&&D+1>>1>4?65:31:M==21&&(M=(D|40)==D?34:97)}}},iC=function(X,D,u,l,F,J,R,w,K,V,q){return B4.call(this,7,X,D,u,l,F,J,R,w,K,V,q)},zz=function(X,D,u,l){for(u=(D|0)-1,l=[];u>=0;u--)l[(D|0)-1-(u|0)]=X>>u*8&255;return l},SK=function(X,D,u,l,F,J,R,w,K,V,q,W){{q=1;while(q!=0)if(q==1)q=95;else if(q==85)W=l in QF?QF[l]:QF[l]=u+l,q=49;else if(q==67)J+=l,V=(w=V>J&255),q=82;else if(q==90)q=K7?24:26;else if(q==95)q=(D+5&15)==1?46:93;else if(q==11)q=D>>2&14?49:85;else if(q==82)q=58;else if(q==33)q=(D&41)==D?53:11;else{if(q==49)return W;q==26?(K++,q=90):q==98&&(q=90)}}},$I=function(X,D,u,l,F,J,R,w,K,V,q,W){for(W=37;W!=54;){if(W==1)return q;W==80?(K++,W=19):W==16?(Tz.call(this),X||S9||(S9=new CU),this.Hk=false,this.H=this.e3=this.pg=this.Cz=null,this.Oi=void 0,this.Lg=null,this.WL=false,W=1):W==19?W=K>6,W=80):W==9?W=19:W==65?(K=V=0,W=9):W==82&&(V+=V>11,w=V+(V>>0,R=new Number((F=(J=1>>u)%l,q=R,W=22)}},h=function(X,D,u){if(u=D.o[X],u===void 0)throw[j9,30,X];switch(!u.value){case true:1;break;case ![]!=Number():return u.create();break}return(u.create(X*3*X+63*X+-47),u).prototype},bH=function(X,D,u,l,F,J,R,w,K){for(K=14;K!=72;)if(K==38)J=l,J^=J>17,J=(R=J=D&&(D+1&55)0?\" \"+R:R;iH(26,\"class\",u,J),K=85}else if(K==16)K=(D|X)==D?31:36;else if(K==65)K=49;else if(K==31)J.classList?J.classList.remove(R):(J.classList?J.classList.contains(R):UB(l,11,R,jK(5,7,F,J)))&&iH(27,F,J,Array.prototype.filter.call(jK(5,8,F,J),function(V){return V!=R}).join(u)),K=36;else if(K==14)K=1;else if(K==1)K=(D|3)>>4?16:22;else if(K==24)K=u.classList?18:25;else if(K==49)K=D0?\" \"+V:V)),W=98)}),K=85;else if(K==85)K=D-4=D&&(D+2^6)>3,B=93)}}catch(k){if(P==90)throw k;P==79&&(T=k,B=17)}},w=r(u,110)):R=function(V){F.push(V)},l&&R((l|0)-(l^255)+(~l&255)),K=D.length,J=0;J>y,25),R?function(v,G,x,t){G=38;{t=1;while({})try{if(G==74)break;else G==13?(t=1,G=74):G==38&&(t=84,R(v),G=74)}catch(a){if(t==1)throw a;t==84&&(x=a,G=13)}}}:function(){}),X).vk=0,X).QZ=[],\"push\"),0),K.length)>y),392),X,[]),355),[]),function(v,G,x,t,a,e,S,p,A){{A=83;while(A!=26)A==93?(U(e,H,t),A=26):A==83?(e=z(T,7),G=m(7,54,v),t=\"\",x=r(v,371),a=x[W],p=0,A=6):A==6?A=80:A==90?(p=(S=m(7,58,v),-4-2*~S-(p^S)-2*(~p|S))%a,t+=eK[x[p]],A=36):A==36?A=80:A==80&&(A=G--?90:93)}}),X),function(v,G,x){ZL((G=c((Fx=(x=z(v,19),AM-231),v),97),v),G,\"\"+r(H,x))}),X),ZL(X,68,{}),X)),I)(26,195,function(v,G,x,t,a){G=h((a=(t=z((hM=(x=m(P,11),AM/Fx),P),3),f(T,x)!=0),t),v),a&&d(H,399,G)},X),X),[]),0)),X).aF=0,X).ER=0,X).cc=0,182),{}),X),591),X),dL(4)),X)),\"Submit\"))).dispose();while([])if(true==(I(18,10,function(v,G,x,t,a,e,S,p,A,Q,b,Zd,Kb,o1,g){for(g=75;g!=24;)if(g==32)g=S0?e:1,g=81;else if(g==95)b(A[q](S,(S|0)+(e|0)),Zd),g=70;else if(g==75)g=Lb(399,24,T,G,true,true)?24:77;else if(g==81)g=32;else if(g==70)S+=e,g=32;else if(g==54){for(t in a=[],A)a[B](t);g=(A=a,34)}else g==77?(o1=c(v,97),Q=z(P,19),Kb=c(H,30),x=m(v,10),Zd=h(x,T),e=f(v,Kb),b=f(T,Q),A=r(v,o1),g=85):g==85?g=GY(\"number\",\"array\",A)==\"object\"?54:34:g==34&&(g=H.O==H?58:24)},X),![])==![])break;I(17,385,(d(X,(U(200,X,Ng),433),[]),function(v,G,x,t,a,e,S,p,A,Q,b,Zd,Kb,o1,g,n,fb,N){for(N=38;N!=25;)N==38?(fb=function(wz,Y){for(;S>=(Y=Zd&(1=yl[W]?59:55:E==74?E=16:E==85?(Y=0,yl=[],HP=[],E=27):E==47?(Y++,E=19):E==19?E=Y>AM;for(a=89;a!=11;)a==69?(x=c(v,37),t=c(T,96),U(t,v,function(e){return eval(e)}(rL(r(T.O,x)))),a=11):a==89&&(a=Lb(399,26,P,G,true,false)?11:69)},(Dd=(I((d(X,(I(18,366,function(v,G,x,t,a){for(a=12;a!=93;)a==79?(G[433]=v.o[433],G[157]=H.o[157],H.o=G,a=93):a==89?(U(399,H,T.R),a=93):a==33?(t=Vl(H),a=36):a==12?(G=T.QZ[DL](),a=14):a==5?(x=z(v,38),G[x]=P.o[x],a=85):a==85?(t--,a=82):a==14?a=G?33:89:a==36?a=82:a==82&&(a=t>0?5:79)},((U(455,X,(I(26,(I(18,293,function(v,G,x,t,a,e){for(e=15;e!=37;)e==42?e=t>>G)},X),[165,0,0])),I)(22,206,function(v,G,x,t,a,e,S,p,A,Q){for(Q=(pb=Fx^59,64);Q!=97;)Q==64?Q=Lb(399,39,P,G,true,false)?97:41:Q==41&&(S=XK(14,H.O,1,0),p=S.Dy,A=S.gH,x=S.P,e=x[W],t=S.Es,a=e==0?new A[t]:e==1?new A[t](x[0]):e==2?new A[t](x[0],x[1]):e==3?new A[t](x[0],x[1],x[2]):e==4?new A[t](x[0],x[1],x[2],x[3]):2(),U(p,H,a),Q=97)},X),X)),28),dL(4)),25),430,function(v,G,x,t){U((v=GY(\"number\",\"array\",(t=h((G=m((x=c(H,37),pb=AM*AM,H),18),x),H),t)),pb=3-Fx,G),H,v)},X),y)&y,X)),D||v4(34,X,[yF]),Dk),K]),[uA,J])),true))},U=function(X,D,u){if(X==399||X==294)D.o[X]?D.o[X].concat(u):D.o[X]=m(D,25,u);else{if(D.Ui&&X!=327)return;X==455||X==28||X==355||X==186||X==433||X==392||X==387||X==110||X==13||X==157?D.o[X]||(D.o[X]=c(7,40,D,X,u,54)):D.o[X]=c(7,8,D,X,u,89)}X==327&&(D.U=W4(32,D,false),D.S=void 0)},Vl=function(X){return X.i?JM(X,X.V):W4(8,X,true)},YI=function(X,D,u,l,F){return bH.call(this,(y&=194,40),23,X,D,u,l,F)},WD=function(){return pU.call(this,77,10)},XK=function(X,D,u,l,F,J,R,w,K,V){while(true)if(K=D[RG]||{},[])break;for(R=(w=z(D,(J=((F=m(D,X),K.Dy=z(D,6),K).P=[],D.O==D?(V=Vl(D),-~V+~(V|u)+(V&-2)):1),3)),l);RF?K0(u,[j9,36],X,J):(J.QZ.push(J.o.slice()),J.o[D]=void 0,d(J,D,l))},tM=function(X,D,u,l,F,J,R,w,K,V,q,W,M,Z){if((M=X[0],M)==a1)while(Z=D.T(X)){if(Z.vL=Ng.setTimeout(function(C){v4(38,(v4(33,(C=!(Z.pz=true,D).C.length&&!D.J,D),Z.jz),D),Z.Am),C&&sB(D,12,true,0,true)},Z.timeout),D.VZ.push(Z),true)break}else switch(!(M==vD)){case true:switch(!(M==kI)){case ![]==0:switch(!(M==Gz)){case 0==false:switch(!(M==Dk)){case true:if(M==uA){try{{V=0;while(V=w)break;R=r(l,(J=m(l,(ZL(l,294,F),10)),J))}Lb(399,23,l,(R&&R[FK]&2048?R(l,D):K0(X,[j9,21,J],u,l),D),false,false)}catch(K){h(192,l)?K0(22,K,u,l):d(l,192,K)}if(!D){while(l.VY){wU(0,1903720202985,433,(l.Yw--,l));return;if(0==![])break}K0(X,[j9,33],u,l)}}catch(K){try{K0(22,K,u,l)}catch(V){TY(54,2048,V,l)}}if(l.Yw--,\"I\")break}},VF=function(X,D,u,l,F,J,R,w,K,V){V=this;try{lA(this,w,l,u,K,F,R,J,D,X)}catch(q){TY(51,2048,q,this),F(function(W){W(V.D)})}},Zk=function(X,D,u,l,F,J){try{J=X[(-(D|2)+3*(D&2)+2*(D^2))%3],X[D]=(l=(X[D]|0)-(X[(2*(D|1)- -1+(~D^1))%3]|0)-(J|0),F=D==1?J>>u,(l|0)+(F|0)+2*~F-2*(l|~F))}catch(R){throw R;}},W4=function(X,D,u,l,F,J,R,w,K,V,q,W,M,Z,C,T){if((q=h(399,D),q)>=D.R)throw[j9,31];for(R=(T=(V=X,(F=0,D).dH).length,q);V>0;)Z=R>>3,K=D.Cg[Z],l=R%8,w=8-(l|0),J=w>6&&(C.S=R>>6,M=h(327,C),C.cL=V4(2296,[0,0,M[1],M[2]],C.U,C.S,29)),K^=D.cL[Z&T]),F|=(K>>8-(l|0)-(J|0)&(1>6,-~R+(R^192)+(~R|192)):((w&64512)==55296&&W+1>18|240,M[K++]=(F=w>>12&63,127-(~F|D))):M[K++]=(V=w>>12,-(V&224)+~(V&224)-3*~(V|224)+2*(~V^224)),M[K++]=(u=w>>6&63,(u&D)-1-(~u^D))),M[K++]=(l=-2*~(w&63)+~w+2*(w&-64)+(~w|63),D+(l&-129)));return M},$t=function(X,D,u,l,F){return $_.call(this,F,8,l,u,X,D)},bC=function(X,D,u,l,F,J,R){ts(((l=m(D,(J=3+(~X^3)-(R=X&4,~X|3),u=z(D,6),10)),F=h(u,D),R&&(F=sW(\"\"+F,128)),J)&&ts(l,D,28,zz(F.length,2)),l),D,28,F)},nU=function(X){return $I.call(this,X,9)},V4=function(X,D,u,l,F,J,R,w){w=D[2]|(J=D[3]|0,0);{R=0;while(R>>8|l>>F,J=J>>>8|J>>F,J^=R+X,w^=J,u^=l,R++}while(!null){return[u>>>24&255,u>>>16&255,u>>>8&255,u>>>0&255,l>>>24&255,l>>>16&255,l>>>8&255,l>>>0&255];if(\"Y\")break}},xt=function(){for(var X=47;X!=34;){if(X==83)return u;if(X==47)var D=(X=93,Number)(this),l=D,u=[];else X==19?X=l>3,W.push(X,(Z=K>>8,-2*~(Z&255)+~(Z|255)+2*(Z^255)+(~Z^255)),-1-~K-(K&-256)),F!=void 0&&W.push(255-~(F&255)+-256)),M=\"\",D&&(D.message&&(M+=D.message),D.stack&&(M+=\":\"+D.stack)),V=f(l,157),V[0]>3))){case []!=true:![]==true;break;case ![]==(!![]!=![]):J=(M=(V[0]-=(w=(M=M.slice(0,(V[0]|0)-3),M.length),(w|3)-~(w|3)+(~w^3)),sW(M,128)),l.O),l.O=l;try{l.xw?(R=(R=h(392,l))&&R[R.length-1]||95,(q=r(l,387))&&q[q.length-1]==R||Mv(387,[R&255],l)):Mv(392,[95],l),Mv(28,zz(M.length,2).concat(M),l,12)}finally{l.O=J}break}},aG=function(){return bH.call(this,40,21)},M7=function(X){{var D=99;while(9){if(D==41)return;if(D==94)l+=encodeURIComponent(F[u])+X[u+1],D=2;else if(D==92)var u=(D=27,0),l=X[0];else{if(D==42)return v4(3,null,X[0]);if(D==75)return v4(5,null,l);if(D==27)D=3;else if(D==2)u++,D=3;else if(D==3)D=u>172},OU=function(X,D,u){return wL.call(this,D,24,X,u)},JM=function(X,D,u){return(y=(u=D.create().shift(),lH/lH),X.i.create()).length||X.V.create().length||(X.i=void 0,X.V=void 0),u},R$=function(){return v4.call(this,12)},q7=function(X,D,u){this.name=(\"stack\"in(this.message=(u=Error.call(this,X+\" cannot be used with intent \"+Sh[D]),u).message,u)&&(this.stack=u.stack),this.type=X,\"TypeCannotBeUsedWithIframeIntentError\")},ts=function(X,D,u,l,F,J,R,w,K,V){if(D.O==D)for(w=h(X,D),X==u||X==13||X==186?(J=function(q,W,M,Z,C,T,P,B,k){for(P=(k=74,59);;)try{if(k==20)break;else if(k==74)Z=w.length,C=(Z|0)-4>>3,k=44;else if(k==33)P=9,w.zJ=V4(2296,T,c(1,49,W,w),c(1,53,-2*~(W|4)+(W|-5)+(~W|4),w),29),k=5;else if(k==44)k=w.Xo!=C?83:5;else if(k==83)W=(C>>0),gL=0,S9,Y_=function(X,D,u,l,F,J){J=43,F=55;{Xx=69>>uH;while({})try{if(J==15)break;else if(J==85)F=77,u=function(){},Ng.addEventListener(\"test\",u,D),Ng.removeEventListener(\"test\",u,D),J=32;else if(J==22)X=false,D=Object.defineProperty({},\"passive\",{get:function(){X=true}}),J=85;else if(J==49)F=55,J=32;else if(J==43)J=Ng.addEventListener&&Object.defineProperty?22:11;else{if(J==11)return false;if(J==32)return F=55,X}}catch(R){if(F==55)throw R;F==77&&(l=R,J=49)}}}(),Cb=\"closure_listenable_\"+(((wL(PP,(R$.prototype[(Ab.prototype.preventDefault=function(){this.defaultPrevented=true},R$.prototype.dispose=(R$.prototype.ck=!(Ab.prototype.stopPropagation=function(){this.I0=true},1),R$.prototype.v=function(X){for(X=65,Dd=199%Dd;X!=51;)X==74?X=93:X==93?X=this.J3.length?49:51:X==65?X=this.J3?6:51:X==49?(this.J3.shift()(),X=74):X==6&&(X=93)},function(X){for(X=52;X!=48;)X==75?(this.ck=true,this.v(),X=48):X==52&&(X=this.ck?48:75)}),Symbol).dispose]=function(){this.dispose()},81),2,Ab),PP).prototype.init=function(X,D,u,l,F,J){for(J=45;J!=86;)J==64?(u=X.fromElement,J=85):J==45?(l=this.type=X.type,F=X.changedTouches&&X.changedTouches.length?X.changedTouches[0]:null,this.target=X.target||X.srcElement,this.currentTarget=D,u=X.relatedTarget,J=84):J==1?(this.offsetX=X.offsetX,this.offsetY=X.offsetY,this.clientX=X.clientX!==void 0?X.clientX:X.pageX,this.clientY=X.clientY!==void 0?X.clientY:X.pageY,this.screenX=X.screenX||0,this.screenY=X.screenY||0,J=58):J==10?(this.clientX=F.clientX!==void 0?F.clientX:F.pageX,this.clientY=F.clientY!==void 0?F.clientY:F.pageY,this.screenX=F.screenX||0,this.screenY=F.screenY||0,J=58):J==20?J=l==\"mouseout\"?4:85:J==85?(this.relatedTarget=u,J=30):J==58?(this.button=X.button,this.keyCode=X.keyCode||0,this.key=X.key||\"\",this.charCode=X.charCode||(l==\"keypress\"?X.keyCode:0),this.ctrlKey=X.ctrlKey,this.altKey=X.altKey,this.shiftKey=X.shiftKey,this.metaKey=X.metaKey,this.pointerId=X.pointerId||0,this.pointerType=X.pointerType,this.state=X.state,this.timeStamp=X.timeStamp,this.Ei=X,X.defaultPrevented&&PP.I.preventDefault.call(this),J=86):J==84?J=u?85:37:J==37?J=l==\"mouseover\"?64:20:J==4?(u=X.toElement,J=85):J==30&&(J=F?10:1)},PP.prototype.stopPropagation=function(){(PP.I.stopPropagation.call(this),this).Ei.stopPropagation?this.Ei.stopPropagation():this.Ei.cancelBubble=true},PP.prototype).preventDefault=function(X){(X=(PP.I.preventDefault.call(this),this.Ei),X).preventDefault?X.preventDefault():X.returnValue=false},Math.random()*1E6|0),As=\"constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf\".split(\" \"),xI=0,EB=\"closure_lm_\"+((I1.prototype.dI=(((I1.prototype.hasListener=function(X,D,u,l,F,J,R,w,K){return WP(91,70,true,(w=(w=(K=(J=112,179),R=243,84),l=(u=D!==void 0,(F=X!==void 0)?X.toString():\"\"),33),5),false,function(V,q,W){for(W=(J=K-1?67:35:V==35&&(J=new $t(w,D,this.src,!!l,F),J.j3=u,K.push(J),V=32)}},I1).prototype.remove=function(X,D,u,l,F,J,R,w){for(w=13;w!=25;){if(w==61)return true;if(w==65)w=R.length==0?35:61;else{if(w==62)return false;if(w==91)B4(36,null,R[J]),Array.prototype.splice.call(R,J,1),w=65;else if(w==50)w=F in this.L?40:83;else if(w==13)F=X.toString(),w=50;else{if(w==83)return false;w==40?(R=this.L[F],J=TY(10,0,u,D,l,R),w=46):w==46?w=J>-1?91:62:w==35&&(delete this.L[F],this.Dn--,w=61)}}}},function(X,D,u,l,F,J){return((F=(uH=lH>>Xx,J=-1,this.L[l.toString()]),F)&&(J=TY(14,0,D,u,X,F)),J)>-1?F[J]:null}),Math).random()*1E6|0),QF={},H4=0,N7=\"__closure_events_fn_\"+(Math.random()*1E9>>>0);(((((((L=((wL(Tz,85,2,R$),Tz.prototype)[Cb]=true,Tz.prototype),L).rI=function(X){this.Kg=X},L).addEventListener=function(X,D,u,l){e9(12,false,\"object\",l,X,this,u,D)},L).removeEventListener=function(X,D,u,l){e9(9,0,\"object\",l,this,X,u,D)},L).dispatchEvent=function(X,D,u,l,F,J,R,w,K,V,q,W){for(W=52;W!=66;)if(W==61)W=11;else if(W==33)J.target=J.target||R,W=70;else if(W==81)W=J instanceof Ab?33:75;else if(W==55)W=J.I0?44:46;else if(W==34)W=typeof J===\"string\"?27:81;else if(W==75)u=J,J=new Ab(F,R),p0(J,u),W=70;else if(W==46)l=J.currentTarget=R,q=Lb(0,44,F,J,true,l)&&q,J.I0||(q=Lb(0,46,F,J,false,l)&&q),W=44;else if(W==47)V++,W=11;else if(W==31)W=D?95:85;else{if(W==92)return q;W==95?(w.push(D),W=0):W==52?(D=this.Kg,W=39):W==11?W=!J.I0&&V=0?63:55:W==24?(w=[],W=82):W==6?W=K?58:55:W==12?W=90:W==79?(V--,W=90):W==44?W=K?94:92:W==82?W=31:W==14?(l=J.currentTarget=K[V],q=Lb(0,43,F,J,false,l)&&q,W=47):W==85&&(K=w,R=this.Kz,J=X,F=J.type||J,W=34)}},L).dI=function(X,D,u,l){return y=123&Dd,this.A.dI(X,D,u,String(l))},L).v=function(){Tz.I.v.call(this),this.A&&wL(0,12,null,this.A),this.Kg=null},L).hasListener=function(X,D){return this.A.hasListener(X!==void 0?String(X):void 0,D)};var Jb,k_,Sh={QY:0,bA:1,rH:2,0:(rz.prototype.toString=function(){return this.iA+\"\"},\"FORMATTED_HTML_CONTENT\"),1:\"EMBEDDED_INTERNAL_CONTENT\",2:\"EMBEDDED_TRUSTED_EXTERNAL_CONTENT\"},gU=Error;q7.prototype=Js(gU.prototype);while([])if(q7.prototype.constructor=q7,{})break;if(BD)BD(q7,gU);else for(var mn in gU)if(mn!=\"prototype\")if(Object.defineProperties){var jh=Object.getOwnPropertyDescriptor(gU,mn);jh&&Object.defineProperty(q7,mn,jh)}else q7[mn]=gU[mn];wL(nU,83,(((e9(((((q7.I=gU.prototype,\"ARTICLE SECTION NAV ASIDE H1 H2 H3 H4 H5 H6 HEADER FOOTER ADDRESS P HR PRE BLOCKQUOTE OL UL LH LI DL DT DD FIGURE FIGCAPTION MAIN DIV EM STRONG SMALL S CITE Q DFN ABBR RUBY RB RT RTC RP DATA TIME CODE VAR SAMP KBD SUB SUP I B U MARK BDI BDO SPAN BR WBR NOBR INS DEL PICTURE PARAM TRACK MAP TABLE CAPTION COLGROUP COL TBODY THEAD TFOOT TR TD TH SELECT DATALIST OPTGROUP OPTION OUTPUT PROGRESS METER FIELDSET LEGEND DETAILS SUMMARY MENU DIALOG SLOT CANVAS FONT CENTER ACRONYM BASEFONT BIG DIR HGROUP STRIKE TT\".split(\" \").concat([\"BUTTON\",\"INPUT\"]),L=CU.prototype,L.W=function(X){return typeof X===\"string\"?this.ui.getElementById(X):X},L.getElementsByTagName=function(X,D){return(D||this.ui).getElementsByTagName(String((Xx=y&3,X)))},L.createElement=function(X,D,u){return(lH=(D=(u=this.ui,String(X)),82/Xx),u.contentType===\"application/xhtml+xml\")&&(D=D.toLowerCase()),u.createElement(D)},L.createTextNode=function(X){return this.ui.createTextNode(String(X))},L.appendChild=function(X,D){X.appendChild(D)},L.append=function(X,D){OB(1,\"array\",16,\"\",\"string\",X,arguments,X.nodeType==9?X:X.ownerDocument||X.document)},L).canHaveChildren=function(X,D){for(D=27;D!=36;)if(D==27)D=X.nodeType!=1?41:46;else{if(D==46){switch(X.tagName){case \"APPLET\":case \"AREA\":case \"BASE\":case \"BR\":case \"COL\":case \"COMMAND\":case \"EMBED\":case \"FRAME\":case \"HR\":case \"IMG\":case \"INPUT\":case \"IFRAME\":case \"ISINDEX\":case \"KEYGEN\":case \"LINK\":case \"NOFRAMES\":case \"NOSCRIPT\":case \"META\":case \"OBJECT\":case \"PARAM\":case \"SCRIPT\":case \"SOURCE\":case \"STYLE\":case \"TRACK\":case \"WBR\":return false}return true}if(D==41)return false}},L).removeNode=C0,L).contains=function(X,D,u,l){l=65;{y=246=0&&F>J),43),undefined);{dz=false;while(true)try{if(n==74)break;else if(n==78)x=Kb.next(),n=79;else if(n==68)Y=50,this.O=AM,n=90;else if(n==42)ts(455,this,28,zz(qg.length,2).concat(qg),153),n=68;else{if(n==65)return wz;if(n==15)n=T==Dk?57:64;else if(n==98)n=R[4]?3:23;else if(n==62)n=qg.length>1E6?61:42;else if(n==69)Y=50,T=R[0],n=15;else if(n==10)Y=37,q=r(this,68)||{},p=q.t|0,n=7;else if(n==83)H=R[1],H[1].push(f(this,186).length,f(this,28).length,h(13,this).length,h(355,this).length,r(this,387).length,r(this,392).length,f(this,455).length,f(this,157)[0]),U(182,this,H[2]),this.o[113]&&qv(182,433,h(113,this),30003,this),n=49;else if(n==53)q={},p=0,n=10;else if(n==56)n=qg.length>4?62:68;else if(n==75)n=T==nb?5:89;else if(n==57)W=R[1],n=4;else if(n==23)this.C.push(pb),this.C.push(a),g=74,n=49;else if(n==26)Y=67,P=h(433,this),P.length>0&&Mv(455,zz(P.length,2).concat(P),this,15),Mv(455,zz(this.h+1>>1,1),this,104),ts(455,this,28,zz(this[kI].length,1)),B=this.xw?r(this,387):f(this,392),B.length>0&&Mv(186,zz(B.length,2).concat(B),this,127),w=h(186,this),w.length>4&&Mv(455,zz(w.length,2).concat(w),this,126),G=0,qg=h(28,this),G-=(h(455,this).length|0)+5,G+=r(this,263)&2047,qg.length>4&&(G-=(qg.length|0)+3),G>0&&ts(455,this,28,zz(G,2).concat(dL(G)),10),n=56;else if(n==4)Y=94,this.Cg=Ql(2,80,0,8,atob(W)),this.R=this.Cg.length(function(){'use strict';var e=function(a){var b=0;return function(){return b(function(){'use strict';var n=typeof Object.defineProperties==\"function\"?Object.defineProperty:function(a,b,c){if(a==Array.prototype||a==Object.prototype)return a;a[b]=c.value;return a},aa=function(a){a=[\"object\"==typeof globalThis&&globalThis,a,\"object\"==typeof window&&window,\"object\"==typeof self&&self,\"object\"==typeof global&&global];for(var b=0;b>>0)+\"_\",d=0,e=function(f){if(this instanceof e)throw new TypeError(\"Symbol is not a constructor\");return new b(c+(f||\"\")+\"_\"+d++,f)};return e});\nq(\"Symbol.iterator\",function(a){if(a)return a;a=Symbol(\"Symbol.iterator\");n(Array.prototype,a,{configurable:!0,writable:!0,value:function(){return da(ca(this))}});return a});var da=function(a){a={next:a};a[Symbol.iterator]=function(){return this};return a},t=function(a,b){return Object.prototype.hasOwnProperty.call(a,b)};q(\"Symbol.dispose\",function(a){return a?a:Symbol(\"Symbol.dispose\")});\nq(\"WeakMap\",function(a){function b(){}function c(h){var l=typeof h;return l===\"object\"&&h!==null||l===\"function\"}function d(h){if(!t(h,f)){var l=new b;n(h,f,{value:l})}}function e(h){var l=Object[h];l&&(Object[h]=function(m){if(m instanceof b)return m;Object.isExtensible(m)&&d(m);return l(m)})}if(function(){if(!a||!Object.seal)return!1;try{var h=Object.seal({}),l=Object.seal({}),m=new a([[h,2],[l,3]]);if(m.get(h)!=2||m.get(l)!=3)return!1;m.delete(h);m.set(l,4);return!m.has(h)&&m.get(l)==4}catch(y){return!1}}())return a;\nvar f=\"$jscomp_hidden_\"+Math.random();e(\"freeze\");e(\"preventExtensions\");e(\"seal\");var k=0,g=function(h){this.h=(k+=Math.random()+1).toString();if(h){h=r(h);for(var l;!(l=h.next()).done;)l=l.value,this.set(l[0],l[1])}};g.prototype.set=function(h,l){if(!c(h))throw Error(\"Invalid WeakMap key\");d(h);if(!t(h,f))throw Error(\"WeakMap key fail: \"+h);h[f][this.h]=l;return this};g.prototype.get=function(h){return c(h)&&t(h,f)?h[f][this.h]:void 0};g.prototype.has=function(h){return c(h)&&t(h,f)&&t(h[f],this.h)};\ng.prototype.delete=function(h){return c(h)&&t(h,f)&&t(h[f],this.h)?delete h[f][this.h]:!1};return g});\nq(\"Map\",function(a){if(function(){if(!a||typeof a!=\"function\"||!a.prototype.entries||typeof Object.seal!=\"function\")return!1;try{var g=Object.seal({x:4}),h=new a(r([[g,\"s\"]]));if(h.get(g)!=\"s\"||h.size!=1||h.get({x:4})||h.set({x:4},\"t\")!=h||h.size!=2)return!1;var l=h.entries(),m=l.next();if(m.done||m.value[0]!=g||m.value[1]!=\"s\")return!1;m=l.next();return m.done||m.value[0].x!=4||m.value[1]!=\"t\"||!l.next().done?!1:!0}catch(y){return!1}}())return a;var b=new WeakMap,c=function(g){this[0]={};this[1]=\nf();this.size=0;if(g){g=r(g);for(var h;!(h=g.next()).done;)h=h.value,this.set(h[0],h[1])}};c.prototype.set=function(g,h){g=g===0?0:g;var l=d(this,g);l.list||(l.list=this[0][l.id]=[]);l.entry?l.entry.value=h:(l.entry={next:this[1],A:this[1].A,head:this[1],key:g,value:h},l.list.push(l.entry),this[1].A.next=l.entry,this[1].A=l.entry,this.size++);return this};c.prototype.delete=function(g){g=d(this,g);return g.entry&&g.list?(g.list.splice(g.index,1),g.list.length||delete this[0][g.id],g.entry.A.next=\ng.entry.next,g.entry.next.A=g.entry.A,g.entry.head=null,this.size--,!0):!1};c.prototype.clear=function(){this[0]={};this[1]=this[1].A=f();this.size=0};c.prototype.has=function(g){return!!d(this,g).entry};c.prototype.get=function(g){return(g=d(this,g).entry)&&g.value};c.prototype.entries=function(){return e(this,function(g){return[g.key,g.value]})};c.prototype.keys=function(){return e(this,function(g){return g.key})};c.prototype.values=function(){return e(this,function(g){return g.value})};c.prototype.forEach=\nfunction(g,h){for(var l=this.entries(),m;!(m=l.next()).done;)m=m.value,g.call(h,m[1],m[0],this)};c.prototype[Symbol.iterator]=c.prototype.entries;var d=function(g,h){var l=h&&typeof h;l==\"object\"||l==\"function\"?b.has(h)?l=b.get(h):(l=\"\"+ ++k,b.set(h,l)):l=\"p_\"+h;var m=g[0][l];if(m&&t(g[0],l))for(g=0;g2){var d=Array.prototype.slice.call(arguments,2);return function(){var e=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(e,d);return a.apply(b,e)}}return function(){return a.apply(b,arguments)}},w=function(a,b,c){w=Function.prototype.bind&&Function.prototype.bind.toString().indexOf(\"native code\")!=\n-1?ha:ia;return w.apply(null,arguments)},x=function(a,b){function c(){}c.prototype=b.prototype;a.P=b.prototype;a.prototype=new c;a.prototype.constructor=a;a.fa=function(d,e,f){for(var k=Array(arguments.length-2),g=2;g=0)C(a.length!=null),Array.prototype.splice.call(a,b,1);return c};var E=function(a,b){this.name=a;this.value=b};E.prototype.toString=function(){return this.name};\nvar ta=new E(\"OFF\",Infinity),ua=new E(\"SEVERE\",1E3),va=new E(\"CONFIG\",700),wa=new E(\"FINE\",500),xa=function(){},ya,za=function(){},Aa=function(a,b){b=b===void 0?null:b;this.h=null;this.m=[];this.i=b||null;this.l=[];this.o={h:function(){return a}}},Ba=function(a){if(a.h)return a.h;if(a.i)return Ba(a.i);qa(\"Root logger has no level set.\");return ta},Ca=function(a,b){for(;a;)a.m.forEach(function(c){c(b)}),a=a.i},Da=function(){this.entries={};var a=new Aa(\"\");a.h=va;this.entries[\"\"]=a},Ea,F=function(a,\nb){var c=a.entries[b];if(c)return c;c=F(a,b.slice(0,Math.max(b.lastIndexOf(\".\"),0)));var d=new Aa(b,c);a.entries[b]=d;c.l.push(d);return d},Fa=function(){Ea||(Ea=new Da);return Ea},Ga=function(a,b,c){var d;if(d=a)if(d=a&&b)b=b.value,d=a?Ba(F(Fa(),a.h())):ta,d=b>=d.value;d&&(a=F(Fa(),a.h()),typeof c===\"function\"&&c(),ya||(ya=new xa),c=new za,Ca(a,c))},G=function(a,b){a&&Ga(a,wa,b)};function H(){this.h=(typeof document==\"undefined\"?null:document)||{cookie:\"\"}}\nH.prototype.set=function(a,b,c){var d=!1;if(typeof c===\"object\"){var e=c.sameSite;d=c.secure||!1;var f=c.domain||void 0;var k=c.path||void 0;var g=c.ga}if(/[;=\\s]/.test(a))throw Error('Invalid cookie name \"'+a+'\"');if(/[;\\r\\n]/.test(b))throw Error('Invalid cookie value \"'+b+'\"');g===void 0&&(g=-1);this.h.cookie=a+\"=\"+b+(f?\";domain=\"+f:\"\")+(k?\";path=\"+k:\"\")+(g-1?(b=a[k],c||(b.M=!1)):(b=new La(b,this.src,f,!!d,e),b.M=c,a.push(b));return b};var Pa=function(a,b){var c=b.type;c in a.h&&sa(a.h[c],b)&&(M(b),a.h[c].length==0&&(delete a.h[c],a.i--))},Oa=function(a,b,c,d){for(var e=0;e-1&&(M(f[c]),C(f.length!=null),Array.prototype.splice.call(f,c,1),f.length==0&&(delete a.h[b],a.i--)))):a&&(a=Ya(a))&&(b=a.h[b.toString()],a=-1,b&&(a=Oa(b,c,d,e)),(c=a>-1?b[a]:null)&&cb(c))},cb=function(a){if(typeof a!==\"number\"&&a&&!a.L){var b=a.src;if(b&&b[L])Pa(b.v,\na);else{var c=a.type,d=a.proxy;b.removeEventListener?b.removeEventListener(c,d,a.capture):b.detachEvent?b.detachEvent($a(c),d):b.addListener&&b.removeListener&&b.removeListener(d);Sa--;(c=Ya(b))?(Pa(c,a),c.i==0&&(c.src=null,b[Qa]=null)):M(a)}}},$a=function(a){return a in Ra?Ra[a]:Ra[a]=\"on\"+a},ab=function(a,b){if(a.L)a=!0;else{b=new K(b,this);var c=a.listener,d=a.handler||a.src;a.M&&cb(a);a=c.call(d,b)}return a},Ya=function(a){a=a[Qa];return a instanceof N?a:null},db=\"__closure_events_fn_\"+(Math.random()*\n1E9>>>0),Va=function(a){C(a,\"Listener can not be null.\");if(typeof a===\"function\")return a;C(a.handleEvent,\"An object listener must have handleEvent method.\");a[db]||(a[db]=function(b){return a.handleEvent(b)});return a[db]};function O(){I.call(this);this.v=new N(this);this.l=this;this.i=null}x(O,I);O.prototype[L]=!0;O.prototype.addEventListener=function(a,b,c,d){Ua(this,a,b,c,d)};O.prototype.removeEventListener=function(a,b,c,d){bb(this,a,b,c,d)};\nO.prototype.dispatchEvent=function(a){Wa(this);var b=this.i;if(b){var c=[];for(var d=1;b;b=b.i)c.push(b),C(++d=0;f--){var k=a.h=c[f];e=P(k,d,!0,a)&&e}k=a.h=b;e=P(k,d,!0,a)&&e;e=P(k,d,!1,a)&&e;if(c)for(f=0;f=0){var f=a[c].substring(0,d);e=a[c].substring(d+1)}else f=a[c];b(f,e?decodeURIComponent(e.replace(/\\+/g,\" \")):\"\")}}};var Q=function(){O.call(this);this.headers=new Map;this.B=!1;this.j=null;this.K=this.W=this.O=\"\";this.C=this.U=this.N=this.T=!1;this.R=0;this.F=null;this.Z=\"\";this.da=this.aa=!1;this.S=this.V=null};x(Q,O);Q.prototype.u=F(Fa(),\"goog.net.XhrIo\").o;var gb=/^https?$/i,hb=[\"POST\",\"PUT\"],ib=[];Q.prototype.ba=function(){this.dispose();sa(ib,this)};Q.prototype.setTrustToken=function(a){this.V=a};Q.prototype.setAttributionReporting=function(a){this.S=a};\nQ.prototype.send=function(a,b,c,d){if(this.j)throw Error(\"[goog.net.XhrIo] Object is active with another request=\"+this.O+\"; newUri=\"+a);if(typeof b===\"string\")var e=b;else b&&(e=b.method,c!=null||(c=b.body),d!=null||(d=b.headers));e=e?e.toUpperCase():\"GET\";this.O=a;this.K=\"\";this.W=e;this.T=!1;this.B=!0;this.j=new XMLHttpRequest;this.j.onreadystatechange=Ia(w(this.Y,this));this.da&&\"onprogress\"in this.j&&(this.j.onprogress=Ia(w(function(p){this.X(p,!0)},this)),this.j.upload&&(this.j.upload.onprogress=\nIa(w(this.X,this))));try{G(this.u,R(this,\"Opening Xhr\")),this.U=!0,this.j.open(e,String(a),!0),this.U=!1}catch(p){G(this.u,R(this,\"Error opening Xhr: \"+p.message));jb(this,p);return}a=c||\"\";b=new Map(this.headers);if(d)if(Object.getPrototypeOf(d)===Object.prototype)for(var f in d)b.set(f,d[f]);else if(typeof d.keys===\"function\"&&typeof d.get===\"function\"){f=r(d.keys());c=f.next();var k;try{for(;!c.done;c=f.next()){var g=c.value;b.set(g,d.get(g))}}finally{c&&!c.done&&(k=f.return)&&k.call(f)}}else throw Error(\"Unknown input type for opt_headers: \"+\nString(d));d=Array.from(b.keys()).find(function(p){return\"content-type\"==p.toLowerCase()});k=u.FormData&&a instanceof u.FormData;!(ra(hb,e)>=0)||d||k||b.set(\"Content-Type\",\"application/x-www-form-urlencoded;charset=utf-8\");e=r(b);d=e.next();var h;try{for(;!d.done;d=e.next()){var l=r(d.value),m=l.next().value,y=l.next().value;this.j.setRequestHeader(m,y)}}finally{d&&!d.done&&(h=e.return)&&h.call(e)}this.Z&&(this.j.responseType=this.Z);\"withCredentials\"in this.j&&this.j.withCredentials!==this.aa&&(this.j.withCredentials=\nthis.aa);if(\"setTrustToken\"in this.j&&this.V)try{this.j.setTrustToken(this.V)}catch(p){G(this.u,R(this,\"Error SetTrustToken: \"+p.message))}if(\"setAttributionReporting\"in this.j&&this.S)try{this.j.setAttributionReporting(this.S)}catch(p){G(this.u,R(this,\"Error SetAttributionReporting: \"+p.message))}try{this.F&&(clearTimeout(this.F),this.F=null),this.R>0&&(G(this.u,R(this,\"Will abort after \"+this.R+\"ms if incomplete\")),this.F=setTimeout(this.ea.bind(this),this.R)),G(this.u,R(this,\"Sending request\")),\nthis.N=!0,this.j.send(a),this.N=!1}catch(p){G(this.u,R(this,\"Send error: \"+p.message)),jb(this,p)}};Q.prototype.ea=function(){typeof fa!=\"undefined\"&&this.j&&(this.K=\"Timed out after \"+this.R+\"ms, aborting\",G(this.u,R(this,this.K)),this.dispatchEvent(\"timeout\"),this.abort(8))};var jb=function(a,b){a.B=!1;a.j&&(a.C=!0,a.j.abort(),a.C=!1);a.K=b;kb(a);S(a)},kb=function(a){a.T||(a.T=!0,a.dispatchEvent(\"complete\"),a.dispatchEvent(\"error\"))};\nQ.prototype.abort=function(){this.j&&this.B&&(G(this.u,R(this,\"Aborting\")),this.B=!1,this.C=!0,this.j.abort(),this.C=!1,this.dispatchEvent(\"complete\"),this.dispatchEvent(\"abort\"),S(this))};Q.prototype.I=function(){this.j&&(this.B&&(this.B=!1,this.C=!0,this.j.abort(),this.C=!1),S(this,!0));Q.P.I.call(this)};Q.prototype.Y=function(){this.J||(this.U||this.N||this.C?lb(this):this.ca())};Q.prototype.ca=function(){lb(this)};\nvar lb=function(a){if(a.B&&typeof fa!=\"undefined\")if(a.N&&T(a)==4)setTimeout(a.Y.bind(a),0);else if(a.dispatchEvent(\"readystatechange\"),T(a)==4){G(a.u,R(a,\"Request complete\"));a.B=!1;try{if(mb(a))a.dispatchEvent(\"complete\"),a.dispatchEvent(\"success\");else{try{var b=T(a)>2?a.j.statusText:\"\"}catch(c){G(a.u,\"Can not get status: \"+c.message),b=\"\"}a.K=b+\" [\"+nb(a)+\"]\";kb(a)}}finally{S(a)}}};\nQ.prototype.X=function(a,b){C(a.type===\"progress\",\"goog.net.EventType.PROGRESS is of the same type as raw XHR progress.\");this.dispatchEvent(ob(a,\"progress\"));this.dispatchEvent(ob(a,b?\"downloadprogress\":\"uploadprogress\"))};\nvar ob=function(a,b){return{type:b,lengthComputable:a.lengthComputable,loaded:a.loaded,total:a.total}},S=function(a,b){if(a.j){a.F&&(clearTimeout(a.F),a.F=null);var c=a.j;a.j=null;b||a.dispatchEvent(\"ready\");try{c.onreadystatechange=null}catch(d){(a=a.u)&&Ga(a,ua,\"Problem encountered resetting onreadystatechange: \"+d.message)}}};Q.prototype.isActive=function(){return!!this.j};\nvar mb=function(a){var b=nb(a);a:switch(b){case 200:case 201:case 202:case 204:case 206:case 304:case 1223:var c=!0;break a;default:c=!1}if(!c){if(b=b===0)a=String(a.O).match(eb)[1]||null,!a&&u.self&&u.self.location&&(a=u.self.location.protocol.slice(0,-1)),b=!gb.test(a?a.toLowerCase():\"\");c=b}return c},T=function(a){return a.j?a.j.readyState:0},nb=function(a){try{return T(a)>2?a.j.status:-1}catch(b){return-1}};\nQ.prototype.getResponseHeader=function(a){if(this.j&&T(this)==4)return a=this.j.getResponseHeader(a),a===null?void 0:a};Q.prototype.getAllResponseHeaders=function(){return this.j&&T(this)>=2?this.j.getAllResponseHeaders()||\"\":\"\"};var R=function(a,b){return b+\" [\"+a.W+\" \"+a.O+\" \"+nb(a)+\"]\"};function U(a){this.h=this.G=this.m=\"\";this.H=null;this.D=this.i=\"\";this.o=!1;var b;a instanceof U?(this.o=a.o,pb(this,a.m),this.G=a.G,this.h=a.h,qb(this,a.H),rb(this,a.i),sb(this,tb(a.l)),this.D=a.D):a&&(b=String(a).match(eb))?(this.o=!1,pb(this,b[1]||\"\",!0),this.G=V(b[2]||\"\"),this.h=V(b[3]||\"\",!0),qb(this,b[4]),rb(this,b[5]||\"\",!0),sb(this,b[6]||\"\",!0),this.D=V(b[7]||\"\")):(this.o=!1,this.l=new W(null,this.o))}\nU.prototype.toString=function(){var a=[],b=this.m;b&&a.push(X(b,ub,!0),\":\");var c=this.h;if(c||b==\"file\")a.push(\"//\"),(b=this.G)&&a.push(X(b,ub,!0),\"@\"),a.push(encodeURIComponent(String(c)).replace(/%25([0-9a-fA-F]{2})/g,\"%$1\")),c=this.H,c!=null&&a.push(\":\",String(c));if(c=this.i)this.h&&c.charAt(0)!=\"/\"&&a.push(\"/\"),a.push(X(c,c.charAt(0)==\"/\"?vb:wb,!0));(c=this.l.toString())&&a.push(\"?\",c);(c=this.D)&&a.push(\"#\",X(c,xb));return a.join(\"\")};\nU.prototype.resolve=function(a){var b=new U(this),c=!!a.m;c?pb(b,a.m):c=!!a.G;c?b.G=a.G:c=!!a.h;c?b.h=a.h:c=a.H!=null;var d=a.i;if(c)qb(b,a.H);else if(c=!!a.i){if(d.charAt(0)!=\"/\")if(this.h&&!this.i)d=\"/\"+d;else{var e=b.i.lastIndexOf(\"/\");e!=-1&&(d=b.i.slice(0,e+1)+d)}e=d;if(e==\"..\"||e==\".\")d=\"\";else if(e.indexOf(\"./\")!=-1||e.indexOf(\"/.\")!=-1){d=e.lastIndexOf(\"/\",0)==0;e=e.split(\"/\");for(var f=[],k=0;k1||f.length==1&&f[0]!=\n\"\")&&f.pop(),d&&k==e.length&&f.push(\"\")):(f.push(g),d=!0)}d=f.join(\"/\")}else d=e}c?rb(b,d):c=a.l.toString()!==\"\";c?sb(b,tb(a.l)):c=!!a.D;c&&(b.D=a.D);return b};\nvar pb=function(a,b,c){a.m=c?V(b,!0):b;a.m&&(a.m=a.m.replace(/:$/,\"\"))},qb=function(a,b){if(b){b=Number(b);if(isNaN(b)||b>4&15).toString(16)+(a&15).toString(16)},ub=/[#\\/\\?@]/g,wb=/[#\\?:]/g,vb=/[#\\?]/g,zb=/[#\\?@]/g,xb=/#/g,W=function(a,b){this.i=this.h=null;this.l=a||null;this.m=!!b},Y=function(a){a.h||(a.h=new Map,a.i=0,a.l&&fb(a.l,function(b,c){a.add(decodeURIComponent(b.replace(/\\+/g,\" \")),c)}))};W.prototype.add=function(a,b){Y(this);this.l=null;a=Z(this,a);var c=this.h.get(a);c||this.h.set(a,c=[]);c.push(b);this.i=D(this.i)+1;return this};\nvar Bb=function(a,b){Y(a);b=Z(a,b);a.h.has(b)&&(a.l=null,a.i=D(a.i)-a.h.get(b).length,a.h.delete(b))},Cb=function(a,b){Y(a);b=Z(a,b);return a.h.has(b)};W.prototype.forEach=function(a,b){Y(this);this.h.forEach(function(c,d){c.forEach(function(e){a.call(b,e,d,this)},this)},this)};W.prototype.o=function(a){Y(this);var b=[];if(typeof a===\"string\")Cb(this,a)&&(b=b.concat(this.h.get(Z(this,a))));else{a=Array.from(this.h.values());for(var c=0;c0?String(a[0]):b};\nW.prototype.toString=function(){if(this.l)return this.l;if(!this.h)return\"\";for(var a=[],b=Array.from(this.h.keys()),c=0;c0)){this.l=null;d=this.h;var f=d.set;e=Z(this,e);var k=c.length;if(k>0){for(var g=Array(k),h=0;hNot your computer? Use a private browsing window to sign in. Learn more about using Guest mode",
+      "Create account",
+      "window.wiz_progress&&window.wiz_progress();window.wiz_tick&&window.wiz_tick('chA7fe');Afrikaansaz\u0259rbaycanbosanskicatal\u00e0\u010ce\u0161tinaCymraegDanskDeutscheestiEnglish (United Kingdom)English (United States)Espa\u00f1ol (Espa\u00f1a)Espa\u00f1ol (Latinoam\u00e9rica)euskaraFilipinoFran\u00e7ais (Canada)Fran\u00e7ais (France)GaeilgegalegoHrvatskiIndonesiaisiZulu\u00edslenskaItalianoKiswahililatvie\u0161ulietuvi\u0173magyarMelayuNederlandsnorsko\u2018zbekpolskiPortugu\u00eas (Brasil)Portugu\u00eas (Portugal)rom\u00e2n\u0103shqipSloven\u010dinasloven\u0161\u010dinasrpski (latinica)SuomiSvenskaTi\u1ebfng Vi\u1ec7tT\u00fcrk\u00e7e\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac\u0431\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438\u043a\u044b\u0440\u0433\u044b\u0437\u0447\u0430\u049b\u0430\u0437\u0430\u049b \u0442\u0456\u043b\u0456\u043c\u0430\u043a\u0435\u0434\u043e\u043d\u0441\u043a\u0438\u043c\u043e\u043d\u0433\u043e\u043b\u0420\u0443\u0441\u0441\u043a\u0438\u0439\u0441\u0440\u043f\u0441\u043a\u0438 (\u045b\u0438\u0440\u0438\u043b\u0438\u0446\u0430)\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8\u0570\u0561\u0575\u0565\u0580\u0565\u0576\u202b\u05e2\u05d1\u05e8\u05d9\u05ea\u202c\u200e\u202b\u0627\u0631\u062f\u0648\u202c\u200e\u202b\u0627\u0644\u0639\u0631\u0628\u064a\u0629\u202c\u200e\u202b\u0641\u0627\u0631\u0633\u06cc\u202c\u200e\u12a0\u121b\u122d\u129b\u0928\u0947\u092a\u093e\u0932\u0940\u092e\u0930\u093e\u0920\u0940\u0939\u093f\u0928\u094d\u0926\u0940\u0985\u09b8\u09ae\u09c0\u09af\u09bc\u09be\u09ac\u09be\u0982\u09b2\u09be\u0a2a\u0a70\u0a1c\u0a3e\u0a2c\u0a40\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0\u0b13\u0b21\u0b3c\u0b3f\u0b06\u0ba4\u0bae\u0bbf\u0bb4\u0bcd\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41\u0c95\u0ca8\u0ccd\u0ca8\u0ca1\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02\u0dc3\u0dd2\u0d82\u0dc4\u0dbd\u0e44\u0e17\u0e22\u0ea5\u0eb2\u0ea7\u1019\u103c\u1014\u103a\u1019\u102c\u1781\u17d2\u1798\u17c2\u179a\ud55c\uad6d\uc5b4\u4e2d\u6587\uff08\u9999\u6e2f\uff09\u65e5\u672c\u8a9e\u7b80\u4f53\u4e2d\u6587\u7e41\u9ad4\u4e2d\u6587Help",
+      "Privacy",
+      "Terms"
+    ]
+  },
+  {
+    "file": "19_Screen 04_ AI Diagnostics _ Fault Predic_88451337.html",
+    "title": "AI Diagnostics & Fault Prediction",
+    "size_kb": 67.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 11,
+    "metrics": [
+      "ALTERNATOR",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "OIL TEMPERATURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "play_circle\n                Run Ad-Hoc Inference",
+      "download\n                Export Dossier (JSON/PDF)",
+      "account_tree\n                Model Weight Details",
+      "Isolate Node",
+      "troubleshoot\n                Investigate Root Cause"
+    ],
+    "links": [
+      "AX\n        \n        \n          AeroTwin-X\n          AERO-PISTON GCS\n        \n      \n\n      \n      \n        MAIN OPERATIONS\n        \n          \n            space_dashboard\n            Mission Control",
+      "model_training\n            Digital Twin",
+      "vital_signs\n            Engine Health",
+      "sensors\n            Sensor Monitoring",
+      "psychology\n              AI Diagnostics",
+      "troubleshoot\n            Fault Prediction"
+    ]
+  },
+  {
+    "file": "22_Screen 11_ Edge AI Monitoring_d9a3858f.html",
+    "title": "22_Screen 11_ Edge AI Monitoring_d9a3858f.html",
+    "size_kb": 31.2,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": false,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 3,
+    "metrics": [
+      "CHT",
+      "RESIDUAL",
+      "RUL"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "23_Mission Control _ Overview Dashboard _Ai_c79d5ee8.html",
+    "title": "23_Mission Control _ Overview Dashboard _Ai_c79d5ee8.html",
+    "size_kb": 83.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 25,
+    "metrics": [
+      "ALTERNATOR",
+      "BATTERY",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "OIL TEMPERATURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "Filter 24 Nodes",
+      "thermostatTHERMAL MESH",
+      "grid_4x4WIREFRAME",
+      "zoom_in",
+      "zoom_out"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "24_Screen 07_ Predictive Maintenance _ CBM__9a0c66f4.html",
+    "title": "AeroTwin-X GCS V3.8 - Predictive Maintenance (CBM+ Workspace)",
+    "size_kb": 52.3,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 16,
+    "metrics": [
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "RESIDUAL",
+      "RUL"
+    ],
+    "buttons": [
+      "Export Dispatch Pack",
+      "Generate Work Order",
+      "All Subsystems (8)",
+      "Propulsion Core",
+      "Fuel &amp; Metering\n1",
+      "Thermal Management",
+      "Lubrication &amp; Gearbox",
+      "Avionics &amp; FADEC"
+    ],
+    "links": [
+      "MAIN\n\n\n\nFlight Telemetry",
+      "Digital Twin Engine",
+      "Alerts &amp; Anomalies\n1 Active",
+      "Sensor Diagnostics",
+      "Maintenance (CBM+)",
+      "Logbooks &amp; Part-M"
+    ]
+  },
+  {
+    "file": "27_Screen 09_ Mission Replay _ Historical T_1dab415f.html",
+    "title": "27_Screen 09_ Mission Replay _ Historical T_1dab415f.html",
+    "size_kb": 63.7,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 23,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MANIFOLD",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "bolt\nJUMP ANOMALY (03:18:02)",
+      "warning\nJUMP ALERT (03:21:40)",
+      "balance\nBASELINE OVERLAY [ON]",
+      "replay_10",
+      "pause\nPLAYING"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "28_Three_js_7f6b12d6.html",
+    "title": "28_Three_js_7f6b12d6.html",
+    "size_kb": 24.0,
+    "has_tailwind": true,
+    "has_three": true,
+    "has_charts": false,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 0,
+    "metrics": [
+      "EXHAUST"
+    ],
+    "buttons": [],
+    "links": []
+  },
+  {
+    "file": "29_Screen 15_ AeroTwin-X System Architectur_e48db836.html",
+    "title": "29_Screen 15_ AeroTwin-X System Architectur_e48db836.html",
+    "size_kb": 76.2,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 21,
+    "metrics": [
+      "ALTERNATOR",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL"
+    ],
+    "buttons": [
+      "timer\nBudget: 42.6 ms",
+      "lan\nTopology: Real-Time Active",
+      "file_download\nEXPORT SYSML",
+      "01 // SOURCE\n\nACTIVE\n              \n\n\n\nengineering\nENGINE CORE\n\nRotax 915iSc 4-Cyl Turbocharged Aero Piston\n\n\nRPM: 5,420\n141 HP",
+      "02 // SENSORS\n\n28 CH\n              \n\n\n\nsensors\nTRANSDUCERS\n\nCHT, EGT, MAP, Piezo Knock, Pressure Tranducers\n\n\nLATENCY: 2.0ms\n500 Hz S/R",
+      "03 // REAL-TIME\n\nLOCKED\n              \n\n\n\ndeveloper_board\nFADEC / ECU\n\nDual-lane lockstep Cortex-R5F MCU for closed-loop ignition\n\n\nEXEC: 4.5ms\nDUAL LANE",
+      "04 // BUS\n\nISO 11898\n              \n\n\n\ncable\nCAN-FD BUS\n\nDual 1M/5M baud CAN-FD + Air-to-Ground C2 transceiver\n\n\nTX: 1.2ms\n0% DROPS",
+      "05 // INFERENCE\n\n100 TOPS\n              \n\n\n\nmemory\nEDGE AI GATEWAY\n\nTensorRT INT8 engine running local anomaly classification\n\n\nLATENCY: 10.5ms\nTENSORRT 8.6"
+    ],
+    "links": [
+      "flight_takeoffAeroTwin-XPropulsion GCS // MALESYS ARCHITECTUREACTIVEMainradarMission Control",
+      "view_in_arDigital Twin",
+      "monitor_heartEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "warningFault Prediction"
+    ]
+  },
+  {
+    "file": "30_Mission Control _ Overview Dashboard_80aa08ef.html",
+    "title": "30_Mission Control _ Overview Dashboard_80aa08ef.html",
+    "size_kb": 81.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 25,
+    "metrics": [
+      "ALTERNATOR",
+      "BATTERY",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "OIL TEMPERATURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "Filter 24 Nodes",
+      "thermostatTHERMAL MESH",
+      "grid_4x4WIREFRAME",
+      "zoom_in",
+      "zoom_out"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "31_AeroTwin-X_ Master Mission Control _ Int_3d5d0b4c.html",
+    "title": "31_AeroTwin-X_ Master Mission Control _ Int_3d5d0b4c.html",
+    "size_kb": 66.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 6,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL"
+    ],
+    "buttons": [
+      "notifications",
+      "check_circle\nNOMINAL CRUISE",
+      "local_gas_station\nINJECTOR CLIPPING (Cyl #3)",
+      "thermostat\nOVERHEAT EXCEEDANCE (+38\u00b0C)",
+      "water_drop\nLUBRICATION DEGRADATION (1.9 bar)",
+      "trending_up\nSENSOR DRIFT (+1.5%/100h)"
+    ],
+    "links": [
+      "AEROTWIN-Xv4.2Aero-Piston Digital Twin1. Main TelemetryCAN-0radarMission Control",
+      "view_in_arDigital Twin",
+      "vital_signsEngine Health",
+      "speedSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "analyticsFault Prediction"
+    ]
+  },
+  {
+    "file": "32_Screen 10_ Live Telemetry _ CAN Bus_26295ed4.html",
+    "title": "32_Screen 10_ Live Telemetry _ CAN Bus_26295ed4.html",
+    "size_kb": 86.0,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 2,
+    "num_selects": 2,
+    "num_buttons": 18,
+    "metrics": [
+      "CHT",
+      "EGT",
+      "MANIFOLD",
+      "MAP",
+      "RPM",
+      "RUL"
+    ],
+    "buttons": [
+      "pause\nPAUSE STREAM",
+      "mop\nCLEAR BUFFER",
+      "fiber_manual_record\nRECORD PCAP",
+      "file_download\nEXPORT LOG\nexpand_more",
+      "tune\nFILTER CONFIG",
+      "code\n              DECODED DATA",
+      "data_object\n              RAW DATA (HEX)",
+      "show_chart\n              SENSOR VOLTAGES / ADC"
+    ],
+    "links": [
+      "MainMission Controlterminal",
+      "Digital Twin (3D State)view_in_ar",
+      "Engine Health &amp; Matrixspeed",
+      "Sensor Monitoringinsights",
+      "AI Diagnosticsneurology",
+      "RUL &amp; Degradationtimelapse"
+    ]
+  },
+  {
+    "file": "33_AeroTwin-X Ground Control Station_17412e57.html",
+    "title": "33_AeroTwin-X Ground Control Station_17412e57.html",
+    "size_kb": 83.4,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": true,
+    "num_inputs": 0,
+    "num_selects": 0,
+    "num_buttons": 25,
+    "metrics": [
+      "ALTERNATOR",
+      "BATTERY",
+      "CHT",
+      "EGT",
+      "EXHAUST",
+      "FUEL FLOW",
+      "MANIFOLD",
+      "MAP",
+      "OIL PRESSURE",
+      "OIL TEMPERATURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "Filter 24 Nodes",
+      "thermostatTHERMAL MESH",
+      "grid_4x4WIREFRAME",
+      "zoom_in",
+      "zoom_out"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  },
+  {
+    "file": "34_Screen 12_ Data Quality Center_602b9b98.html",
+    "title": "34_Screen 12_ Data Quality Center_602b9b98.html",
+    "size_kb": 44.7,
+    "has_tailwind": true,
+    "has_three": false,
+    "has_charts": false,
+    "num_inputs": 1,
+    "num_selects": 0,
+    "num_buttons": 15,
+    "metrics": [
+      "CHT",
+      "EXHAUST",
+      "INLET TEMP",
+      "MANIFOLD",
+      "OIL PRESSURE",
+      "RPM",
+      "RUL"
+    ],
+    "buttons": [
+      "LIVE",
+      "SIMULATION",
+      "notifications",
+      "tune\n        Re-calibrate Sensor Weights",
+      "cleaning_services\n        Purge Stale Cache",
+      "restart_alt\n        Reset Kalman Filters",
+      "download\n        Export Audit Report",
+      "filter_list\n          Filter: All"
+    ],
+    "links": [
+      "AeroTwin-XAERO-PISTON GCSMAINspace_dashboardMission Control",
+      "model_trainingDigital Twin",
+      "vital_signsEngine Health",
+      "sensorsSensor Monitoring",
+      "psychologyAI Diagnostics",
+      "troubleshootFault Prediction"
+    ]
+  }
+]

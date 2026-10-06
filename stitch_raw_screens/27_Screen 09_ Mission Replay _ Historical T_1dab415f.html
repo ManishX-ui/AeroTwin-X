@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-primary": "#a9c9f4", "on-tertiary-fixed-variant": "#005046", "surface-tint": "#416086", "on-error-container": "#93000a", "outline-variant": "#c3c6cf", "surface": "#f8f9ff", "tertiary-container": "#004138", "primary-container": "#173a5e", "on-secondary-fixed-variant": "#003ea8", "secondary-fixed-dim": "#b4c5ff", "secondary-container": "#316bf3", "secondary-fixed": "#dbe1ff", "tertiary-fixed-dim": "#65dac4", "on-secondary-fixed": "#00174b", "surface-dim": "#d2dbe9", "surface-container-high": "#e0e9f7", "surface-container-highest": "#dae3f1", "outline": "#73777f", "error": "#ba1a1a", "on-surface": "#131c26", "surface-bright": "#f8f9ff", "error-container": "#ffdad6", "surface-container-low": "#eef4ff", "on-tertiary-container": "#3ab5a1", "on-primary-fixed-variant": "#28486d", "surface-container": "#e5effd", "on-secondary-container": "#fefcff", "primary-fixed-dim": "#a9c9f4", "inverse-on-surface": "#e9f1ff", "on-secondary": "#ffffff", "inverse-surface": "#28313c", "secondary": "#0051d5", "on-surface-variant": "#43474e", "surface-variant": "#dae3f1", "on-primary": "#ffffff", "on-background": "#131c26", "primary-fixed": "#d2e4ff", "on-tertiary-fixed": "#00201b", "primary": "#002444", "tertiary-fixed": "#83f6e0", "tertiary": "#002923", "on-primary-container": "#85a4ce", "on-error": "#ffffff", "background": "#f8f9ff", "on-tertiary": "#ffffff", "on-primary-fixed": "#001c37", "surface-container-lowest": "#ffffff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "gutter": "0.75rem", "space-lg": "1rem", "space-xl": "1.5rem", "margin": "1rem", "space-sm": "0.375rem", "space-xs": "0.25rem", "space-md": "0.75rem" }, "fontFamily": { "telemetry-lg": [ "JetBrains Mono" ], "telemetry-hero": [ "JetBrains Mono" ], "headline-sm": [ "IBM Plex Sans" ], "telemetry-sm": [ "JetBrains Mono" ], "headline-lg": [ "IBM Plex Sans" ], "headline-md": [ "IBM Plex Sans" ], "label-caps": [ "IBM Plex Sans" ], "display": [ "IBM Plex Sans" ], "body-lg": [ "IBM Plex Sans" ], "body-md": [ "IBM Plex Sans" ], "body-sm": [ "IBM Plex Sans" ], "telemetry-md": [ "JetBrains Mono" ], "code-cell": [ "JetBrains Mono" ] }, "fontSize": { "telemetry-lg": [ "20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" } ], "telemetry-hero": [ "28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" } ], "headline-sm": [ "15px", { "lineHeight": "20px", "fontWeight": "600" } ], "telemetry-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "400" } ], "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-md": [ "18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" } ], "label-caps": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" } ], "display": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "body-lg": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "telemetry-md": [ "14px", { "lineHeight": "18px", "fontWeight": "500" } ], "code-cell": [ "11px", { "lineHeight": "16px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm bg-surface-container-low"><img alt="Brand logo. - Primary color: #173a5e
+- Font: ibmPlexSans
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XCmR0Ip4sRmMZDx30Q-r7zfFi89hwErBK1cPFuPdiwXSTm_7lWCjmntfNZOVxilf6KTfV8VfAraBbg1YyH2PMpd6ySLpk73jmTIzy1A0xonxTm9xu7KrvLNU0kHZXvgwBhjtT60VohOtmIltPcfdr3yAohL6L6E4YcdhlzRYU3aiaDxeFM6yjQvRbqmf0cjrj5yPa5JhSbEhN2aJ4n71XhS_ofqCGAVs_UasF3q9HnCbHDKFFdMHWWgtg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none">AeroTwin-X</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-space-xs">AERO-PISTON GCS</span></div></div><div class="p-space-xs"><div class="px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">MAIN</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT shadow-[0_1px_3px_rgba(11,31,51,0.08)]"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-control" href="#"><span class="material-symbols-outlined text-[18px]">space_dashboard</span><span>Mission Control</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="digital-twin" href="#"><span class="material-symbols-outlined text-[18px]">model_training</span><span>Digital Twin</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="engine-health" href="#"><span class="material-symbols-outlined text-[18px]">vital_signs</span><span>Engine Health</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="sensor-monitoring" href="#"><span class="material-symbols-outlined text-[18px]">sensors</span><span>Sensor Monitoring</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined text-[18px]">psychology</span><span>AI Diagnostics</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fault-prediction" href="#"><span class="material-symbols-outlined text-[18px]">troubleshoot</span><span>Fault Prediction</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="rul-degradation" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>RUL &amp; Degradation</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">OPERATIONS</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="3d-engine-explorer" href="#"><span class="material-symbols-outlined text-[18px]">view_in_ar</span><span>3D Engine Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-simulator" href="#"><span class="material-symbols-outlined text-[18px]">science</span><span>Mission Simulator</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="mission-replay" href="#"><span class="material-symbols-outlined text-[18px]">replay</span><span>Mission Replay</span></a><a class="flex items-center justify-between px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="alerts" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">warning</span><span>Alerts</span></div><span class="px-space-xs py-[1px] bg-error-container text-on-error-container font-label-caps text-label-caps rounded-DEFAULT">1</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="maintenance" href="#"><span class="material-symbols-outlined text-[18px]">build</span><span>Maintenance</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="reports" href="#"><span class="material-symbols-outlined text-[18px]">description</span><span>Reports</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">ENGINEERING</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="telemetry-can" href="#"><span class="material-symbols-outlined text-[18px]">cable</span><span>Telemetry / CAN</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[18px]">fact_check</span><span>Data Quality</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="edge-ai" href="#"><span class="material-symbols-outlined text-[18px]">memory</span><span>Edge AI</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="system-architecture" href="#"><span class="material-symbols-outlined text-[18px]">schema</span><span>System Architecture</span></a></nav><div class="mt-space-sm px-space-xs py-space-xs font-label-caps text-label-caps text-on-surface-variant tracking-wider uppercase">SYSTEM</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-body-lg rounded-DEFAULT"><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="fleet" href="#"><span class="material-symbols-outlined text-[18px]">flight</span><span>Fleet</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="about-aerotwin-x" href="#"><span class="material-symbols-outlined text-[18px]">info</span><span>About AeroTwin-X</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="controls" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span>Controls</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-xs text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-body-md text-body-md transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[18px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-xs m-space-xs bg-surface-container-low rounded-DEFAULT"><div class="flex justify-between items-center font-label-caps text-label-caps text-on-surface-variant mb-space-xs"><span>CAN BUS STATUS</span><span class="text-tertiary font-telemetry-sm text-telemetry-sm font-semibold">HEALTHY</span></div><div class="grid grid-cols-3 gap-space-xs text-center"><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOAD</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">42%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LOSS</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">0.00%</div></div><div class="bg-surface-container-lowest p-space-xs rounded-DEFAULT"><div class="font-label-caps text-[9px] text-on-surface-variant">LAT</div><div class="font-telemetry-sm text-telemetry-sm font-bold text-on-surface">14ms</div></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary">flight_takeoff</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">UAV-07 (Hermes MALE)</span></div><div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT"><span class="material-symbols-outlined text-[16px] text-primary-container">speed</span><span class="font-telemetry-sm text-telemetry-sm text-on-surface font-semibold">ENGINE-AE-03 (Turbo Piston)</span></div><span class="px-space-sm py-space-xs bg-surface-container font-label-caps text-label-caps text-on-surface-variant rounded-DEFAULT">MISSION: LONG-ENDURANCE ISR</span><div class="flex items-center bg-surface-container-high rounded-DEFAULT p-[2px]"><button class="px-space-sm py-[2px] bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>LIVE</button><button class="px-space-sm py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps">SIMULATION</button></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-tertiary-container text-on-tertiary-container rounded-DEFAULT"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span><span class="font-label-caps text-label-caps uppercase">TELEMETRY: CONNECTED</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-high text-on-surface rounded-DEFAULT"><span class="material-symbols-outlined text-[14px] text-secondary">sync</span><span class="font-label-caps text-label-caps uppercase">TWIN: 99.7% SYNC</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">AI: ONLINE</span></div><div class="flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low text-on-surface rounded-DEFAULT"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span><span class="font-label-caps text-label-caps uppercase">EDGE: ONLINE</span></div><div class="font-code-cell text-code-cell text-on-surface bg-surface-container-low px-space-sm py-space-xs rounded-DEFAULT font-semibold">14:28:42 UTC | 2025-05-18</div><button class="relative p-space-xs hover:bg-surface-container-high rounded-DEFAULT text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="text-right hidden xl:block"><div class="font-body-md text-body-md font-semibold leading-none text-on-surface">Maj. K. Vance</div><div class="font-label-caps text-[10px] text-on-surface-variant leading-tight">Lead Flight Eng</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-14 w-full px-gutter bg-surface min-h-screen"><div class="flex flex-col w-full gap-space-md">
+<!-- TOP REPLAY CONTROLLER & SCRUBBER SECTION -->
+<section class="flex flex-col bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm">
+<!-- Header & Flight Meta -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-space-sm py-[2px] rounded-DEFAULT">HISTORICAL REPLAY</span>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">MISSION REPLAY // FLIGHT AE-2026-0814 "GHOST HAWK" ISR</h1>
+<span class="font-telemetry-sm text-telemetry-sm bg-surface-container text-on-surface-variant px-space-xs py-[2px] rounded-DEFAULT font-semibold">REC #8849-B</span>
+</div>
+<div class="flex items-center gap-space-md font-body-sm text-body-sm text-on-surface-variant flex-wrap">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[15px] text-secondary">flight</span> UAV-07 (Rotax 915iSc Turbo - S/N 915-8422)</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">radar</span> Sortie: 08-14 ISR Bravo</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">timer</span> Sortie Duration: 06h 42m 18s</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-primary font-semibold"><span class="material-symbols-outlined text-[15px]">location_searching</span> FL180 Station Patrol</span>
+</div>
+</div>
+<!-- Playback Jump & Mode Buttons -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="flex items-center gap-1 px-space-sm py-space-xs bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-caps text-label-caps rounded-DEFAULT transition-all" id="jump-anomaly-btn">
+<span class="material-symbols-outlined text-[15px] text-secondary-container">bolt</span>
+<span>JUMP ANOMALY (03:18:02)</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-space-xs bg-error-container hover:bg-error-container/80 text-on-error-container font-label-caps text-label-caps rounded-DEFAULT transition-all" id="jump-alert-btn">
+<span class="material-symbols-outlined text-[15px] text-error">warning</span>
+<span>JUMP ALERT (03:21:40)</span>
+</button>
+<button class="flex items-center gap-1 px-space-sm py-space-xs bg-primary-container text-on-primary font-label-caps text-label-caps rounded-DEFAULT shadow-sm" id="compare-toggle-btn">
+<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim">balance</span>
+<span>BASELINE OVERLAY [ON]</span>
+</button>
+</div>
+</div>
+<!-- Active Transport Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md py-space-sm bg-surface-container-low px-space-md rounded-DEFAULT">
+<div class="flex items-center gap-space-sm flex-wrap">
+<!-- Play / Step Group -->
+<div class="flex items-center bg-surface-container-lowest rounded-DEFAULT p-[2px] shadow-sm">
+<button class="p-space-xs hover:bg-surface-container text-on-surface rounded-DEFAULT transition-colors" id="step-back-btn" title="Step Back 10s">
+<span class="material-symbols-outlined text-[18px]">replay_10</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs bg-secondary hover:bg-secondary/90 text-on-secondary rounded-DEFAULT font-label-caps text-label-caps shadow-sm transition-all" id="play-pause-btn">
+<span class="material-symbols-outlined text-[18px]" id="play-icon">pause</span>
+<span id="play-text">PLAYING</span>
+</button>
+<button class="p-space-xs hover:bg-surface-container text-on-surface rounded-DEFAULT transition-colors" id="step-fwd-btn" title="Step Forward 10s">
+<span class="material-symbols-outlined text-[18px]">forward_10</span>
+</button>
+</div>
+<!-- Playback Speeds -->
+<div class="flex items-center bg-surface-container-lowest rounded-DEFAULT p-[2px] shadow-sm">
+<button class="speed-btn px-space-sm py-[3px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded-DEFAULT" data-speed="0.5">0.5x</button>
+<button class="speed-btn px-space-sm py-[3px] bg-primary text-on-primary font-label-caps text-label-caps rounded-DEFAULT font-semibold" data-speed="1.0">1.0x</button>
+<button class="speed-btn px-space-sm py-[3px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded-DEFAULT" data-speed="2.0">2x</button>
+<button class="speed-btn px-space-sm py-[3px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded-DEFAULT" data-speed="5.0">5x</button>
+<button class="speed-btn px-space-sm py-[3px] text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps rounded-DEFAULT" data-speed="10.0">10x</button>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+<span>PINN PHYSICS ENGINE LOCKED (JITTER 1.2ms)</span>
+</div>
+</div>
+<!-- Timecode Readouts -->
+<div class="flex items-center gap-space-md">
+<div class="flex flex-col text-right">
+<span class="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase">CURRENT TIME / TOTAL SORTIE</span>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-telemetry-lg text-telemetry-lg font-bold text-primary" id="timecode-display">T+03:24:18</span>
+<span class="font-telemetry-sm text-telemetry-sm text-outline">/ 06:42:18</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest px-space-sm py-space-xs rounded-DEFAULT shadow-sm text-center">
+<div class="font-label-caps text-[9px] text-on-surface-variant uppercase">FRAME SYNC</div>
+<div class="font-telemetry-sm text-telemetry-sm font-semibold text-secondary">#122,580</div>
+</div>
+</div>
+</div>
+<!-- Multi-Track Timeline Scrubber Container -->
+<div class="mt-space-md flex flex-col gap-space-xs relative select-none">
+<!-- Track 1: Flight Phase Segments -->
+<div class="flex items-center justify-between text-[10px] font-label-caps text-on-surface-variant px-1 mb-[2px]">
+<span>TRACK 1: MISSION PHASES</span>
+<span>UTC ZERO REF: 11:04:24 UTC</span>
+</div>
+<div class="h-6 w-full flex rounded-DEFAULT overflow-hidden bg-surface-container-high text-[10px] font-label-caps text-on-primary">
+<div class="w-[4.5%] bg-primary-container flex items-center justify-center truncate px-1" title="Takeoff 00:00 - 00:18">TKOFF</div>
+<div class="w-[9.0%] bg-surface-tint flex items-center justify-center truncate px-1" title="Climb 00:18 - 00:54">CLIMB</div>
+<div class="w-[23.8%] bg-primary flex items-center justify-center truncate px-1" title="Cruise Outbound 00:54 - 02:30">CRUISE TRANSIT</div>
+<div class="w-[33.5%] bg-secondary-container flex items-center justify-between truncate px-2 font-bold shadow-sm" title="High Alt ISR Patrol 02:30 - 04:45">
+<span>● HIGH ALTITUDE ISR (FL180)</span>
+<span class="text-[9px] opacity-80">ACTIVE ZONE</span>
+</div>
+<div class="w-[16.2%] bg-primary flex items-center justify-center truncate px-1" title="Extended Endurance 04:45 - 05:50">ENDURANCE</div>
+<div class="w-[10.0%] bg-surface-tint flex items-center justify-center truncate px-1" title="Descent 05:50 - 06:30">DESCENT</div>
+<div class="w-[3.0%] bg-primary-container flex items-center justify-center truncate" title="Recovery 06:30 - 06:42">RCV</div>
+</div>
+<!-- Track 2: Mahalanobis Anomaly Heatmap / Density Strip -->
+<div class="flex items-center justify-between text-[10px] font-label-caps text-on-surface-variant px-1 mt-1">
+<span>TRACK 2: MAHALANOBIS ANOMALY DISTANCE DENSITY</span>
+<span class="text-error font-telemetry-sm">PEAK CHI-SQ: 14.8 @ 03:22:10</span>
+</div>
+<div class="h-4 w-full rounded-DEFAULT overflow-hidden bg-surface-container flex relative">
+<!-- Low background throughout -->
+<div class="w-[49%] h-full bg-tertiary-container/30"></div>
+<!-- Anomaly spike region around 03:18 - 03:35 (49% to 54%) -->
+<div class="w-[2%] h-full bg-secondary-container/40"></div>
+<div class="w-[1.5%] h-full bg-error-container"></div>
+<div class="w-[2.5%] h-full bg-error shadow-[0_0_8px_rgba(186,26,26,0.6)]"></div>
+<div class="w-[2.0%] h-full bg-error-container"></div>
+<div class="w-[2.0%] h-full bg-secondary-container/40"></div>
+<div class="w-[41%] h-full bg-tertiary-container/30"></div>
+</div>
+<!-- Track 3: Alert & Event Markers -->
+<div class="h-5 w-full relative bg-surface-container-low rounded-DEFAULT flex items-center px-1">
+<!-- Anomaly Detected Flag @ ~49.2% (03:18:02) -->
+<div class="absolute left-[49.2%] -translate-x-1/2 flex items-center gap-1 cursor-pointer hover:scale-110 transition-transform" title="T+03:18:02 - CHT/EGT Delta Anomaly">
+<span class="material-symbols-outlined text-[14px] text-secondary font-bold">bolt</span>
+<span class="text-[9px] font-telemetry-sm text-secondary bg-surface-container-lowest px-1 rounded-DEFAULT shadow-xs hidden sm:inline">03:18</span>
+</div>
+<!-- Warning ALT-084 @ ~50.1% (03:21:40) -->
+<div class="absolute left-[50.1%] -translate-x-1/2 flex items-center gap-1 cursor-pointer hover:scale-110 transition-transform" title="T+03:21:40 - ALT-084 Injector #3 Abnormality">
+<span class="material-symbols-outlined text-[15px] text-error font-bold">warning</span>
+<span class="text-[9px] font-label-caps text-on-error bg-error px-1 rounded-DEFAULT shadow-xs hidden md:inline">ALT-084</span>
+</div>
+<!-- Stepdown Action @ ~55.9% (03:45:10) -->
+<div class="absolute left-[55.9%] -translate-x-1/2 flex items-center gap-1 cursor-pointer hover:scale-110 transition-transform" title="T+03:45:10 - Pilot Leaning / Stepdown">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim bg-tertiary-container p-[1px] rounded-full">tune</span>
+</div>
+<span class="font-telemetry-sm text-[9px] text-on-surface-variant absolute right-2">TOTAL SAMPLES: 483,120 Hz</span>
+</div>
+<!-- Interactive Scrubber Interactive Range / Playhead -->
+<div class="relative w-full h-4 mt-1 cursor-ew-resize flex items-center" id="scrubber-bar-container">
+<div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" id="scrubber-progress" style="width: 50.8%;"></div>
+</div>
+<!-- Synchronized Playhead Cursor -->
+<div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none transition-all duration-75" id="scrubber-head" style="left: 50.8%;">
+<div class="w-3.5 h-3.5 bg-secondary text-on-secondary rounded-full shadow-md flex items-center justify-center">
+<span class="w-1.5 h-1.5 bg-surface-container-lowest rounded-full"></span>
+</div>
+<div class="w-[2px] h-3 bg-secondary"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN DUAL WORKSPACE SPLIT (Left 2D/3D Twin + Charts | Right Incident Dossier) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- LEFT / CENTER COLUMN: DIGITAL TWIN SYNCHRONIZATION & MULTI-CHANNEL GRAPHS (Cols 8) -->
+<div class="lg:col-span-8 flex flex-col gap-space-md min-w-0">
+<!-- SECTION 2A: SYNCHRONIZED 3D DIGITAL TWIN & CUTAWAY STATE -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col">
+<!-- Twin Toolbar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">view_in_ar</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">SYNCHRONIZED DIGITAL TWIN CUTAWAY // ROTAX 915iSc</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">THERMO-MECHANICAL PINN RECONSTRUCTION AT T+03:24:18</span>
+</div>
+</div>
+<!-- Camera Views -->
+<div class="flex items-center gap-1 bg-surface-container rounded-DEFAULT p-[2px] self-start sm:self-auto">
+<button class="px-space-xs py-[2px] bg-primary text-on-primary font-label-caps text-[10px] rounded-DEFAULT">ISOMETRIC 3/4</button>
+<button class="px-space-xs py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-[10px]">CYL HEAD TOP</button>
+<button class="px-space-xs py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-[10px]">TURBO LOOP</button>
+<button class="px-space-xs py-[2px] text-on-surface-variant hover:text-on-surface font-label-caps text-[10px]">EXPLODED CAD</button>
+</div>
+</div>
+<!-- 3D Engine Schematic Viewport -->
+<div class="relative w-full h-80 sm:h-96 rounded-DEFAULT bg-surface-container-lowest overflow-hidden flex items-center justify-center p-space-sm">
+<!-- Background Atmospheric Aerospace Grid -->
+<div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(#173a5e 1px, transparent 1px); background-size: 16px 16px;"></div>
+<!-- Synchronized Realistic Visual Engine Representation -->
+<div class="relative z-10 w-full max-w-xl h-full flex flex-col items-center justify-center">
+<!-- Engine Structural Wireframe & Cutaway Graphic Container -->
+<div class="relative w-full h-64 flex items-center justify-center">
+<!-- SVG Schematic Representation of Boxer-4 Turbo Aircraft Piston Engine -->
+<svg class="w-full h-full max-h-64 drop-shadow-sm select-none" viewbox="0 0 540 240" xmlns="http://www.w3.org/2000/svg">
+<!-- Turbocharger & Intercooler Unit -->
+<path d="M 60 70 L 110 70 L 130 90 L 130 150 L 110 170 L 60 170 Z" fill="#dae3f1" opacity="0.6"></path>
+<circle cx="85" cy="120" fill="#e0e9f7" r="28"></circle>
+<path d="M 85 92 A 28 28 0 0 1 113 120" fill="none" stroke="#0051d5" stroke-width="3"></path>
+<text fill="#173a5e" font-family="JetBrains Mono" font-size="8" font-weight="600" text-anchor="middle" x="85" y="123">TURBO 915</text>
+<!-- Intake Runner Plenum -->
+<path d="M 130 110 L 220 110 L 250 80 L 370 80 L 390 100" fill="none" stroke="#73777f" stroke-linecap="round" stroke-width="6"></path>
+<path d="M 220 110 L 250 140 L 370 140 L 390 120" fill="none" stroke="#73777f" stroke-linecap="round" stroke-width="6"></path>
+<!-- Engine Crankcase Central Block -->
+<rect fill="#173a5e" height="70" rx="4" width="160" x="230" y="85"></rect>
+<text fill="#f8f9ff" font-family="JetBrains Mono" font-size="10" font-weight="bold" text-anchor="middle" x="310" y="124">CRANKCASE CORE</text>
+<text fill="#85a4ce" font-family="JetBrains Mono" font-size="8" text-anchor="middle" x="310" y="138">2,740 RPM • BALANCED</text>
+<!-- Propeller Drive Gearbox Reduction Unit (Front) -->
+<polygon fill="#416086" points="390,95 440,105 440,135 390,145"></polygon>
+<rect fill="#73777f" height="8" rx="2" width="30" x="440" y="116"></rect>
+<!-- Propeller Hub Line -->
+<line stroke="#131c26" stroke-linecap="round" stroke-width="4" x1="470" x2="470" y1="40" y2="200"></line>
+<!-- CYLINDER 1 (Top Left) Nominal -->
+<rect fill="#004138" height="52" opacity="0.85" rx="2" width="45" x="250" y="32"></rect>
+<rect fill="#3ab5a1" height="6" rx="1" width="53" x="246" y="30"></rect>
+<text fill="#83f6e0" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="272" y="60">CYL 1</text>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="272" y="72">108°C</text>
+<!-- CYLINDER 2 (Bottom Left) Nominal -->
+<rect fill="#004138" height="52" opacity="0.85" rx="2" width="45" x="250" y="156"></rect>
+<rect fill="#3ab5a1" height="6" rx="1" width="53" x="246" y="204"></rect>
+<text fill="#83f6e0" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="272" y="184">CYL 2</text>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="272" y="196">110°C</text>
+<!-- CYLINDER 3 (Top Right) ANOMALY / OVERHEAT -->
+<!-- Amber highlighted thermal bloom pulse -->
+<rect fill="#ffdad6" height="58" opacity="0.8" rx="4" width="55" x="330" y="26"></rect>
+<rect fill="#ba1a1a" height="52" rx="2" width="45" x="335" y="32"></rect>
+<rect fill="#ffdad6" height="6" rx="1" width="53" x="331" y="30"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="9" font-weight="bold" text-anchor="middle" x="357" y="58">CYL 3 ⚠</text>
+<text fill="#ffdad6" font-family="JetBrains Mono" font-size="8" font-weight="bold" text-anchor="middle" x="357" y="70">118°C / +18°C</text>
+<!-- CYLINDER 4 (Bottom Right) Nominal -->
+<rect fill="#004138" height="52" opacity="0.85" rx="2" width="45" x="335" y="156"></rect>
+<rect fill="#3ab5a1" height="6" rx="1" width="53" x="331" y="204"></rect>
+<text fill="#83f6e0" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="357" y="184">CYL 4</text>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="7.5" text-anchor="middle" x="357" y="196">109°C</text>
+<!-- Exhaust System Manifold toward Turbo -->
+<path d="M 272 26 L 272 15 L 140 15 L 100 70" fill="none" stroke="#43474e" stroke-width="3"></path>
+<!-- Cyl 3 Red hot exhaust gas stroke -->
+<path d="M 357 26 L 357 15 L 272 15" fill="none" stroke="#ba1a1a" stroke-dasharray="3,2" stroke-width="3"></path>
+<!-- Sensor Pin Indicators -->
+<circle cx="357" cy="15" fill="#ba1a1a" r="4"></circle>
+<line stroke="#ba1a1a" stroke-width="1" x1="357" x2="385" y1="15" y2="12"></line>
+</svg>
+<!-- Realtime Spatial Telemetry Callout Overlay Cards -->
+<!-- Callout 1: Cyl 3 Exhaust Port (Anomaly Anchor) -->
+<div class="absolute -top-1 right-2 sm:right-6 bg-surface-container-lowest/95 backdrop-blur-sm p-space-xs rounded-DEFAULT shadow-md max-w-[210px]">
+<div class="flex items-center justify-between gap-1 pb-[2px]">
+<span class="font-label-caps text-[10px] text-error font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">local_fire_department</span> CYL #3 EXHAUST PORT
+                  </span>
+<span class="font-telemetry-sm text-[9px] bg-error-container text-on-error-container px-1 rounded-DEFAULT font-bold">+18°C DELTA</span>
+</div>
+<div class="font-telemetry-sm text-[12px] text-primary font-bold">
+                  724°C <span class="font-normal text-on-surface-variant text-[10px]">(Baseline: 706°C)</span>
+</div>
+<div class="text-[10px] font-body-sm text-on-surface-variant leading-tight mt-[1px]">
+                  Thermal gradient divergence detected by PINN model.
+                </div>
+</div>
+<!-- Callout 2: Injector #3 Pulse Width -->
+<div class="absolute -bottom-2 right-4 sm:right-10 bg-surface-container-lowest/95 backdrop-blur-sm p-space-xs rounded-DEFAULT shadow-md max-w-[190px]">
+<div class="flex items-center justify-between pb-[2px]">
+<span class="font-label-caps text-[10px] text-primary font-bold">INJECTOR #3 PW</span>
+<span class="font-telemetry-sm text-[9px] text-secondary font-semibold">CAN ID 0x312</span>
+</div>
+<div class="font-telemetry-sm text-[12px] text-primary font-bold">
+                  4.82 ms <span class="text-error font-semibold text-[10px]">(+12% duty)</span>
+</div>
+<div class="text-[10px] font-body-sm text-on-surface-variant leading-tight">
+                  ECU closed-loop auto-enrichment compensation active.
+                </div>
+</div>
+<!-- Callout 3: Turbocharger / Wastegate -->
+<div class="absolute top-2 left-2 sm:left-4 bg-surface-container-lowest/95 backdrop-blur-sm p-space-xs rounded-DEFAULT shadow-md max-w-[170px]">
+<div class="flex items-center justify-between pb-[2px]">
+<span class="font-label-caps text-[10px] text-primary font-bold">TURBO LOOP</span>
+<span class="font-telemetry-sm text-[9px] text-tertiary font-semibold">BOOST OK</span>
+</div>
+<div class="font-telemetry-sm text-telemetry-sm text-primary font-bold">
+                  36.4 inHg <span class="text-[10px] text-on-surface-variant font-normal">| WG 42%</span>
+</div>
+<div class="text-[10px] font-body-sm text-on-surface-variant leading-tight">
+                  Pressure ratio: 2.14 @ FL180
+                </div>
+</div>
+<!-- Callout 4: Crankcase FFT Vibration -->
+<div class="absolute bottom-2 left-4 sm:left-8 bg-surface-container-lowest/95 backdrop-blur-sm p-space-xs rounded-DEFAULT shadow-md max-w-[170px]">
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase">CRANK FFT VIB</div>
+<div class="font-telemetry-sm text-[12px] text-primary font-bold">
+                  1.8 mm/s <span class="text-[10px] text-tertiary font-semibold">NOMINAL</span>
+</div>
+<div class="text-[10px] font-body-sm text-on-surface-variant">Harmonic 1X at 45.6 Hz</div>
+</div>
+</div>
+<!-- Bottom Sync Legend Bar -->
+<div class="w-full flex items-center justify-between pt-space-xs mt- space-xs font-label-caps text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary"></span> CYL 1, 2, 4 NOMINAL</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error animate-pulse"></span> CYL 3 ANOMALY DIVERGENCE</span>
+</div>
+<span class="font-telemetry-sm text-[10px] text-secondary font-semibold">PHYSICS-INFORMED NEURAL NETWORK (PINN) RESIDUAL: +2.8σ</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2B: SYNCHRONIZED MULTI-CHANNEL TELEMETRY vs BASELINE -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<!-- Telemetry Graphs Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">SYNCHRONIZED TELEMETRY CHANNELS vs NOMINAL BASELINE</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Continuous synchronized traces. Playhead locked at <span class="font-telemetry-sm font-semibold text-primary">T+03:24:18</span></p>
+</div>
+<!-- Legend -->
+<div class="flex items-center gap-space-md font-label-caps text-label-caps">
+<div class="flex items-center gap-1">
+<span class="w-3.5 h-[2px] bg-secondary inline-block"></span>
+<span class="text-on-surface">ACTUAL SORTIE DATA</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-3.5 h-[2px] bg-outline-variant inline-block border-t border-dashed"></span>
+<span class="text-on-surface-variant">GOLDEN BASELINE TWIN</span>
+</div>
+</div>
+</div>
+<!-- 5 Synchronized Telemetry Strip Charts (Stacked with unified cursor) -->
+<div class="relative flex flex-col gap-space-xs select-none">
+<!-- Continuous Vertical Playhead Cursor across all charts at 50.8% -->
+<div class="absolute top-0 bottom-0 left-[50.8%] w-[1.5px] bg-secondary z-30 pointer-events-none">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary px-1 py-[1px] font-telemetry-sm text-[9px] rounded-DEFAULT whitespace-nowrap shadow-sm">
+              03:24:18
+            </div>
+</div>
+<!-- Channel 1: Exhaust Gas Temperature (EGT) Cylinders 1-4 -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-on-surface-variant pb-1">
+<span class="font-semibold text-primary">CH-01: EXHAUST GAS TEMP (EGT) [°C] — CYL 1, 2, 3, 4</span>
+<div class="flex items-center gap-space-sm font-telemetry-sm text-[10px]">
+<span class="text-outline">C1: 698°C</span>
+<span class="text-outline">C2: 704°C</span>
+<span class="text-error font-bold bg-error-container/60 px-1 rounded-DEFAULT">C3: 724°C (Nominal 706°C)</span>
+<span class="text-outline">C4: 702°C</span>
+</div>
+</div>
+<div class="h-16 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 64">
+<!-- Baseline reference dashed line -->
+<path d="M 0 38 Q 150 36 300 37 T 600 37" fill="none" stroke="#c3c6cf" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<!-- Cyl 1,2,4 cluster baseline traces -->
+<path d="M 0 42 L 120 40 L 260 41 L 300 40 L 450 39 L 600 41" fill="none" opacity="0.6" stroke="#73777f" stroke-width="1"></path>
+<!-- Cyl 3 Divergent trace (Spikes upward from 48% onwards) -->
+<path d="M 0 40 L 140 39 L 285 40 L 305 24 L 350 16 L 420 18 L 600 22" fill="none" stroke="#ba1a1a" stroke-width="2"></path>
+<!-- Highlight marker at cursor (x=305 is ~50.8%) -->
+<circle cx="305" cy="24" fill="#ba1a1a" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Channel 2: Fuel Flow (L/h) -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-on-surface-variant pb-1">
+<span class="font-semibold text-primary">CH-02: TOTAL FUEL FLOW [L/h]</span>
+<div class="flex items-center gap-space-sm font-telemetry-sm text-[10px]">
+<span class="text-on-surface-variant">Baseline: 21.1 L/h</span>
+<span class="text-secondary font-bold">Actual: 22.4 L/h (+1.3 L/h Delta)</span>
+</div>
+</div>
+<div class="h-14 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 56">
+<!-- Baseline -->
+<path d="M 0 32 L 200 32 L 400 32 L 600 32" fill="none" stroke="#c3c6cf" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<!-- Actual -->
+<path d="M 0 34 L 140 33 L 280 32 L 305 21 L 400 20 L 600 22" fill="none" stroke="#0051d5" stroke-width="1.8"></path>
+<circle cx="305" cy="21" fill="#0051d5" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Channel 3: Cylinder Head Temperature (CHT Cyl #3) -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-on-surface-variant pb-1">
+<span class="font-semibold text-primary">CH-03: CYLINDER HEAD TEMP #3 (CHT) [°C]</span>
+<div class="flex items-center gap-space-sm font-telemetry-sm text-[10px]">
+<span class="text-on-surface-variant">Baseline: 111.0°C</span>
+<span class="text-error font-bold">Actual: 118.2°C (Warning Threshold 120°C)</span>
+</div>
+</div>
+<div class="h-14 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 56">
+<path d="M 0 36 L 250 36 L 300 35 L 600 36" fill="none" stroke="#c3c6cf" stroke-dasharray="3,3" stroke-width="1.5"></path>
+<path d="M 0 38 L 150 37 L 275 36 L 305 18 L 450 16 L 600 19" fill="none" stroke="#ba1a1a" stroke-width="1.8"></path>
+<circle cx="305" cy="18" fill="#ba1a1a" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Channel 4: Engine RPM & Manifold Pressure (MAP) -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-on-surface-variant pb-1">
+<span class="font-semibold text-primary">CH-04: ENGINE SPEED [RPM] &amp; MANIFOLD PRESSURE [inHg]</span>
+<div class="flex items-center gap-space-sm font-telemetry-sm text-[10px]">
+<span class="text-primary font-semibold">RPM: 2,740</span>
+<span class="text-outline-variant">•</span>
+<span class="text-secondary font-semibold">MAP: 36.4 inHg</span>
+</div>
+</div>
+<div class="h-14 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 56">
+<path d="M 0 28 L 220 28 L 305 28 L 450 28 L 600 28" fill="none" stroke="#173a5e" stroke-width="1.5"></path>
+<path d="M 0 32 L 200 32 L 305 32 L 450 32 L 600 32" fill="none" stroke="#316bf3" stroke-dasharray="2,2" stroke-width="1.5"></path>
+<circle cx="305" cy="28" fill="#173a5e" r="3"></circle>
+</svg>
+</div>
+</div>
+<!-- Channel 5: Multivariate Anomaly Score (PINN AI Residual) -->
+<div class="bg-surface-container-low rounded-DEFAULT p-space-xs flex flex-col">
+<div class="flex items-center justify-between text-[11px] font-label-caps text-on-surface-variant pb-1">
+<span class="font-semibold text-error">CH-05: MULTIVARIATE ANOMALY SCORE [PINN LATENT VECTOR CHI-SQ]</span>
+<div class="flex items-center gap-space-sm font-telemetry-sm text-[10px]">
+<span class="text-outline">Normal: &lt;0.05</span>
+<span class="text-error font-bold bg-error-container px-1 rounded-DEFAULT">Current: 0.182 (ANOMALY CONFIRMED)</span>
+</div>
+</div>
+<div class="h-16 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 600 64">
+<!-- Nominal threshold shaded zone -->
+<rect fill="#004138" height="20" opacity="0.08" width="600" x="0" y="44"></rect>
+<line stroke="#004138" stroke-dasharray="2,2" stroke-width="1" x1="0" x2="600" y1="44" y2="44"></line>
+<!-- Anomaly score rise -->
+<path d="M 0 52 L 180 53 L 270 51 L 288 42 L 305 16 L 330 14 L 380 18 L 600 35" fill="none" stroke="#ba1a1a" stroke-width="2"></path>
+<!-- Shaded under curve -->
+<path d="M 270 51 L 288 42 L 305 16 L 330 14 L 380 18 L 380 64 L 270 64 Z" fill="#ba1a1a" opacity="0.15"></path>
+<circle cx="305" cy="16" fill="#ba1a1a" r="3.5"></circle>
+</svg>
+</div>
+</div>
+</div>
+<!-- Telemetry Bottom Action Strip -->
+<div class="flex items-center justify-between pt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-space-sm">
+<button class="px-space-sm py-1 bg-surface-container hover:bg-surface-container-high rounded-DEFAULT text-primary font-label-caps text-label-caps flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">zoom_in</span> ZOOM TO WINDOW (03:15 - 03:30)
+            </button>
+<button class="px-space-sm py-1 bg-surface-container hover:bg-surface-container-high rounded-DEFAULT text-primary font-label-caps text-label-caps flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">add_chart</span> ADD PARAMETER TRACE
+            </button>
+</div>
+<span class="font-code-cell text-code-cell text-on-surface-variant">SAMPLES SAMPLED AT 100Hz RAW • DECIMATED TO 10Hz PINN</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: HISTORICAL MISSION SUMMARY & REPLAY DOSSIER (Cols 4) -->
+<div class="lg:col-span-4 flex flex-col gap-space-md min-w-0">
+<!-- Dossier Header & Flight Summary Card -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment</span>
+<h2 class="font-headline-sm text-headline-sm text-primary">MISSION FLIGHT LOG &amp; INCIDENT DOSSIER</h2>
+</div>
+<span class="font-label-caps text-[10px] bg-surface-container text-on-surface-variant px-space-xs py-[2px] rounded-DEFAULT">LOG ID: FL-0814</span>
+</div>
+<!-- Flight Summary Meta Table -->
+<div class="grid grid-cols-2 gap-space-xs text-[12px] bg-surface-container-low p-space-sm rounded-DEFAULT">
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">UAV PLATFORM</div>
+<div class="font-telemetry-sm font-bold text-on-surface">UAV-07 (MALE ISR)</div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">PROPULSION</div>
+<div class="font-telemetry-sm font-bold text-on-surface">Rotax 915iSc (141 HP)</div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">MISSION DATE</div>
+<div class="font-telemetry-sm text-on-surface">2026-08-14 UTC</div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">COMMAND STATION</div>
+<div class="font-telemetry-sm text-on-surface">GCS Station-02 (Vance)</div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">FUEL CONSUMED</div>
+<div class="font-telemetry-sm font-bold text-primary">124.6 L <span class="font-normal text-on-surface-variant">/ 160 L</span></div>
+</div>
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant">MAX FLIGHT ALT</div>
+<div class="font-telemetry-sm font-bold text-primary">18,200 ft MSL</div>
+</div>
+</div>
+<!-- Health Score Delta Box -->
+<div class="p-space-sm bg-surface-container rounded-DEFAULT flex items-center justify-between">
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase">OVERALL ENGINE HEALTH INDEX</div>
+<div class="font-headline-md text-headline-md font-bold text-error">88.4% <span class="font-body-sm text-[12px] text-on-surface-variant font-normal">(-7.8% degradation)</span></div>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-[10px] bg-error-container text-on-error-container px-space-xs py-[2px] rounded-DEFAULT font-bold">DEGRADED</span>
+<div class="font-telemetry-sm text-[10px] text-on-surface-variant mt-1">Pre-flight: 96.2%</div>
+</div>
+</div>
+</div>
+<!-- Key Events & Interactive Timeline Markers -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary">KEY MISSION EVENTS</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">CLICK TO JUMP</span>
+</div>
+<div class="flex flex-col gap-space-xs font-body-sm text-body-sm">
+<!-- Event 1 -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT hover:bg-surface-container cursor-pointer transition-colors" data-time="00:00:00">
+<span class="font-telemetry-sm text-[11px] text-outline font-semibold bg-surface-container-low px-1 rounded-DEFAULT mt-[2px]">00:00:00</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-on-surface leading-tight">Engine Start &amp; BITE Built-in Test</div>
+<div class="text-[11px] text-on-surface-variant">All 4 cylinders pass ignition timing check. 100% nominal.</div>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT hover:bg-surface-container cursor-pointer transition-colors" data-time="00:18:22">
+<span class="font-telemetry-sm text-[11px] text-outline font-semibold bg-surface-container-low px-1 rounded-DEFAULT mt-[2px]">00:18:22</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-on-surface leading-tight">Max Continuous Power Climb</div>
+<div class="text-[11px] text-on-surface-variant">2,800 RPM, 38.0 inHg boost to FL180. Peak CHT 114°C.</div>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT hover:bg-surface-container cursor-pointer transition-colors" data-time="02:30:14">
+<span class="font-telemetry-sm text-[11px] text-outline font-semibold bg-surface-container-low px-1 rounded-DEFAULT mt-[2px]">02:30:14</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-on-surface leading-tight">Station Arrival &amp; Orbit Establishment</div>
+<div class="text-[11px] text-on-surface-variant">FL180 loiter speed 92 KTAS, fuel flow stabilized at 21.1 L/h.</div>
+</div>
+</div>
+<!-- Event 4 (Anomaly Highlighted) -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT bg-surface-container hover:bg-surface-container-high cursor-pointer transition-colors border-l-2 border-secondary" data-time="03:18:02">
+<span class="font-telemetry-sm text-[11px] text-secondary font-bold bg-surface-container-lowest px-1 rounded-DEFAULT mt-[2px]">03:18:02</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-primary leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">bolt</span> AI Anomaly Detected (Cyl #3)
+              </div>
+<div class="text-[11px] text-on-surface-variant">EGT residual deviation (+14°C) vs Twin physics simulation.</div>
+</div>
+</div>
+<!-- Event 5 (Warning Alert ALT-084) -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT bg-error-container/40 hover:bg-error-container/70 cursor-pointer transition-colors border-l-2 border-error" data-time="03:21:40">
+<span class="font-telemetry-sm text-[11px] text-error font-bold bg-surface-container-lowest px-1 rounded-DEFAULT mt-[2px]">03:21:40</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-error leading-tight flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Alert ALT-084: Injector #3 Abnormality
+              </div>
+<div class="text-[11px] text-on-error-container">Pulse width compensation peaked at +12%. Closed loop trigger.</div>
+</div>
+</div>
+<!-- Event 6 (Current Playhead Near Here) -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors" data-time="03:45:10">
+<span class="font-telemetry-sm text-[11px] text-primary font-semibold bg-surface-container-lowest px-1 rounded-DEFAULT mt-[2px]">03:45:10</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-on-surface leading-tight">Operator Throttle Stepdown</div>
+<div class="text-[11px] text-on-surface-variant">Manifold reduced to 34.0 inHg. CHT Cyl #3 stabilized at 116°C.</div>
+</div>
+</div>
+<!-- Event 7 -->
+<div class="event-marker-row flex items-start gap-space-xs p-space-xs rounded-DEFAULT hover:bg-surface-container cursor-pointer transition-colors" data-time="06:42:18">
+<span class="font-telemetry-sm text-[11px] text-outline font-semibold bg-surface-container-low px-1 rounded-DEFAULT mt-[2px]">06:42:18</span>
+<div class="flex-1 min-w-0">
+<div class="font-semibold text-on-surface leading-tight">Touchdown &amp; Engine Cooldown</div>
+<div class="text-[11px] text-on-surface-variant">Full runway recovery. Post-shutdown telemetry dump completed.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparative Delta Analysis (Mission Actual vs Golden Baseline) -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary">COMPARATIVE DELTA (ACTUAL vs BASELINE)</h3>
+<div class="flex flex-col gap-space-xs">
+<!-- Metric 1 -->
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Avg Fuel Flow Variance</span>
+<div class="font-telemetry-sm text-telemetry-sm font-bold text-error">+4.8% <span class="font-normal text-on-surface-variant text-[10px]">(+6.1 L total)</span></div>
+</div>
+<!-- Metric 2 -->
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Peak Thermal Deviation</span>
+<div class="font-telemetry-sm text-telemetry-sm font-bold text-error">+22°C <span class="font-normal text-on-surface-variant text-[10px]">(Cyl 3 Exhaust)</span></div>
+</div>
+<!-- Metric 3 -->
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Crankcase Vibration RMS</span>
+<div class="font-telemetry-sm text-telemetry-sm font-bold text-tertiary">0.02 mm/s Delta <span class="font-normal text-[10px]">(Pass)</span></div>
+</div>
+<!-- Metric 4 -->
+<div class="flex items-center justify-between p-space-xs bg-surface-container-low rounded-DEFAULT">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cumulative Wear Consumption</span>
+<div class="font-telemetry-sm text-telemetry-sm font-bold text-primary">+1.4x Equivalent Cycles</div>
+</div>
+</div>
+<!-- AI Diagnostics Post-Sortie Conclusion Box -->
+<div class="p-space-sm bg-surface-container rounded-DEFAULT flex flex-col gap-space-xs mt-space-xs">
+<div class="flex items-center gap-1 font-label-caps text-label-caps text-secondary font-bold">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+<span>AI DIAGNOSTIC POST-SORTIE CONCLUSION</span>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface leading-relaxed">
+            "Injector #3 nozzle micro-coking identified at T+03:18:02 during high-altitude cruise phase. Closed-loop enrichment prevented knock or cylinder seizure. No catastrophic hardware damage sustained. Corrective borescope inspection and nozzle ultrasonic cleaning recommended before Sortie 08-15."
+          </p>
+<div class="flex items-center justify-between pt-1 font-label-caps text-[10px] text-on-surface-variant">
+<span>MODEL: AERO-PINN-V4.2</span>
+<span class="font-telemetry-sm font-semibold text-tertiary">CONFIDENCE: 94.6%</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons & Incident Dossier Actions -->
+<div class="bg-surface-container-lowest rounded-DEFAULT p-space-md shadow-sm flex flex-col gap-space-xs">
+<button class="w-full flex items-center justify-center gap-space-xs py-space-sm bg-primary hover:bg-primary-container text-on-primary font-label-caps text-label-caps rounded-DEFAULT shadow-sm transition-all">
+<span class="material-symbols-outlined text-[17px]">download</span>
+<span>EXPORT TELEMETRY (.CSV / .HDF5)</span>
+</button>
+<button class="w-full flex items-center justify-center gap-space-xs py-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps rounded-DEFAULT transition-all">
+<span class="material-symbols-outlined text-[17px] text-secondary">picture_as_pdf</span>
+<span>GENERATE MISSION INCIDENT PDF REPORT</span>
+</button>
+<button class="w-full flex items-center justify-center gap-space-xs py-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface font-label-caps text-label-caps rounded-DEFAULT transition-all">
+<span class="material-symbols-outlined text-[17px] text-tertiary">forward_to_inbox</span>
+<span>FORWARD TO MAINTENANCE DESK (MX-DESK)</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript Behavior for Replay Controller & Jumps -->
+<script>
+    (function initReplayWorkspace() {
+      // Elements
+      const playPauseBtn = document.getElementById('play-pause-btn');
+      const playIcon = document.getElementById('play-icon');
+      const playText = document.getElementById('play-text');
+      const timecodeDisplay = document.getElementById('timecode-display');
+      const scrubberProgress = document.getElementById('scrubber-progress');
+      const scrubberHead = document.getElementById('scrubber-head');
+      const jumpAnomalyBtn = document.getElementById('jump-anomaly-btn');
+      const jumpAlertBtn = document.getElementById('jump-alert-btn');
+      const compareToggleBtn = document.getElementById('compare-toggle-btn');
+      const speedButtons = document.querySelectorAll('.speed-btn');
+      const eventRows = document.querySelectorAll('.event-marker-row');
+
+      let isPlaying = true;
+      let playbackSpeed = 1.0;
+      let totalSortieSeconds = 6 * 3600 + 42 * 60 + 18; // 24138 seconds
+      let currentSeconds = 3 * 3600 + 24 * 60 + 18;     // 12258 seconds (approx 50.8%)
+
+      function formatTimecode(secs) {
+        const h = Math.floor(secs / 3600);
+        const m = Math.floor((secs % 3600) / 60);
+        const s = Math.floor(secs % 60);
+        const pad = (n) => String(n).padStart(2, '0');
+        return `T+${pad(h)}:${pad(m)}:${pad(s)}`;
+      }
+
+      function updateScrubberUI() {
+        const percent = Math.min(100, Math.max(0, (currentSeconds / totalSortieSeconds) * 100));
+        scrubberProgress.style.width = percent + '%';
+        scrubberHead.style.left = percent + '%';
+        timecodeDisplay.textContent = formatTimecode(currentSeconds);
+      }
+
+      // Play / Pause Toggle
+      playPauseBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          playIcon.textContent = 'pause';
+          playText.textContent = 'PLAYING';
+          playPauseBtn.classList.remove('bg-primary');
+          playPauseBtn.classList.add('bg-secondary');
+        } else {
+          playIcon.textContent = 'play_arrow';
+          playText.textContent = 'PAUSED';
+          playPauseBtn.classList.remove('bg-secondary');
+          playPauseBtn.classList.add('bg-primary');
+        }
+      });
+
+      // Quick jumps
+      if (jumpAnomalyBtn) {
+        jumpAnomalyBtn.addEventListener('click', () => {
+          // Jump to 03:18:02
+          currentSeconds = 3 * 3600 + 18 * 60 + 2;
+          updateScrubberUI();
+        });
+      }
+
+      if (jumpAlertBtn) {
+        jumpAlertBtn.addEventListener('click', () => {
+          // Jump to 03:21:40
+          currentSeconds = 3 * 3600 + 21 * 60 + 40;
+          updateScrubberUI();
+        });
+      }
+
+      // Step Buttons
+      const stepBackBtn = document.getElementById('step-back-btn');
+      const stepFwdBtn = document.getElementById('step-fwd-btn');
+      if (stepBackBtn) {
+        stepBackBtn.addEventListener('click', () => {
+          currentSeconds = Math.max(0, currentSeconds - 10);
+          updateScrubberUI();
+        });
+      }
+      if (stepFwdBtn) {
+        stepFwdBtn.addEventListener('click', () => {
+          currentSeconds = Math.min(totalSortieSeconds, currentSeconds + 10);
+          updateScrubberUI();
+        });
+      }
+
+      // Speed selection
+      speedButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          speedButtons.forEach(b => {
+            b.classList.remove('bg-primary', 'text-on-primary', 'font-semibold');
+            b.classList.add('text-on-surface-variant');
+          });
+          btn.classList.add('bg-primary', 'text-on-primary', 'font-semibold');
+          btn.classList.remove('text-on-surface-variant');
+          playbackSpeed = parseFloat(btn.dataset.speed || '1.0');
+        });
+      });
+
+      // Baseline Toggle
+      let baselineActive = true;
+      if (compareToggleBtn) {
+        compareToggleBtn.addEventListener('click', () => {
+          baselineActive = !baselineActive;
+          if (baselineActive) {
+            compareToggleBtn.innerHTML = '<span class="material-symbols-outlined text-[15px] text-tertiary-fixed-dim">balance</span><span>BASELINE OVERLAY [ON]</span>';
+            compareToggleBtn.classList.remove('bg-surface-container', 'text-on-surface');
+            compareToggleBtn.classList.add('bg-primary-container', 'text-on-primary');
+          } else {
+            compareToggleBtn.innerHTML = '<span class="material-symbols-outlined text-[15px]">balance</span><span>BASELINE OVERLAY [OFF]</span>';
+            compareToggleBtn.classList.add('bg-surface-container', 'text-on-surface');
+            compareToggleBtn.classList.remove('bg-primary-container', 'text-on-primary');
+          }
+        });
+      }
+
+      // Clickable Timeline Event Markers
+      eventRows.forEach(row => {
+        row.addEventListener('click', () => {
+          const t = row.dataset.time;
+          if (!t) return;
+          const parts = t.split(':').map(Number);
+          currentSeconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+          updateScrubberUI();
+        });
+      });
+
+      // Periodic Playback simulation
+      setInterval(() => {
+        if (isPlaying && currentSeconds < totalSortieSeconds) {
+          currentSeconds += 1 * playbackSpeed;
+          updateScrubberUI();
+        }
+      }, 1000);
+
+    })();
+  </script>
+</div></main></div></body></html>

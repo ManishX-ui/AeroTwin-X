@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X | Screen 08: Mission Simulator</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            aero: {
+              navy: '#173a5e',
+              deep: '#002444',
+              soft: '#eef4ff',
+              container: '#e5effd',
+              border: '#dae3f1',
+              accent: '#0284c7',
+              warning: '#d97706',
+              danger: '#dc2626',
+              success: '#059669',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-layout">
+    body {
+      background-color: #f4f7fb;
+      color: #1e293b;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+<meta content="web_dashboard" name="shell-type"/></head>
+<body class="min-h-screen flex flex-col font-sans bg-[#f4f7fb] text-slate-800 antialiased selection:bg-sky-200">
+<!-- Top Navigation Bar -->
+<header class="bg-[#002444] text-white border-b border-slate-700/60 sticky top-0 z-50 shadow-md">
+<div class="px-4 py-2 flex items-center justify-between gap-4">
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2.5">
+<div class="h-7 w-7 rounded bg-sky-600 flex items-center justify-center font-bold text-white tracking-widest text-sm shadow-inner">
+            AX
+          </div>
+<div>
+<div class="flex items-center space-x-1.5 leading-none">
+<span class="font-bold text-base tracking-tight text-white">AeroTwin-X</span>
+<span class="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700/50">GCS V3.8</span>
+</div>
+<p class="text-[10px] text-slate-300 tracking-wider uppercase font-mono mt-0.5">AERO-PISTON PROPULSION TWIN</p>
+</div>
+</div>
+<div class="hidden lg:flex items-center space-x-3 text-xs pl-4 border-l border-slate-700">
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Vehicle Platform</span>
+<span class="font-medium text-slate-200 text-xs">UAV-07 (Hermes MALE)</span>
+</div>
+<div class="h-4 w-px bg-slate-700"></div>
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Powerplant Unit</span>
+<span class="font-medium text-sky-300 text-xs">ENGINE-AE-03 (Turbo Piston)</span>
+</div>
+<div class="h-4 w-px bg-slate-700"></div>
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Flight Mission Profile</span>
+<span class="font-medium text-slate-200 text-xs">LONG-ENDURANCE ISR</span>
+</div>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<div class="hidden xl:flex items-center space-x-2 text-[11px] font-mono bg-slate-900/60 px-3 py-1 rounded border border-slate-700/80">
+<span class="inline-flex items-center text-emerald-400 font-semibold">
+<span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
+            SIM CORE ONLINE
+          </span>
+<span class="text-slate-500">|</span>
+<span class="text-slate-300">RK4 100Hz</span>
+<span class="text-slate-500">|</span>
+<span class="text-sky-400">PINN SYNC 99.8%</span>
+<span class="text-slate-500">|</span>
+<span class="text-amber-400 font-mono">120x ACCEL</span>
+<span class="text-slate-500">|</span>
+<span class="text-slate-300">14:32:00 UTC</span>
+</div>
+<div class="flex items-center space-x-2 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700 text-xs">
+<div class="w-6 h-6 rounded-full bg-sky-700 text-white flex items-center justify-center font-bold text-[11px]">
+            KV
+          </div>
+<div class="text-left leading-tight hidden sm:block">
+<span class="block font-medium text-slate-100 text-xs">Maj. K. Vance</span>
+<span class="block text-[9px] font-mono text-slate-400">Lead Propulsion Eng</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Navigation Sidebar -->
+<aside class="w-60 bg-white border-r border-[#dae3f1] flex flex-col justify-between shrink-0 select-none hidden md:flex">
+<div class="py-3 overflow-y-auto">
+<div class="px-3 mb-3">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">MAIN</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Mission Control
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Digital Twin (3D State)
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Engine Health &amp; Matrix
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Sensor Monitoring
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              AI Diagnostics
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              RUL &amp; Degradation
+            </a>
+</nav>
+</div>
+<div class="px-3 mb-3">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">OPERATIONS</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              3D Engine Explorer
+            </a>
+<!-- Active Mission Simulator link -->
+<a class="flex items-center px-2 py-1.5 rounded bg-[#173a5e] text-white font-medium shadow-sm transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Mission Simulator
+            </a>
+<a class="flex items-center justify-between px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-amber-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Alerts &amp; Faults
+              </span>
+<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded font-mono">1</span>
+</a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Maintenance (NDI)
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Logbooks &amp; Reports
+            </a>
+</nav>
+</div>
+<div class="px-3 mb-2">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">ENGINEERING</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              CAN Bus Telemetry
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              Edge AI Inference Engine
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              System Architecture (FADEC)
+            </a>
+</nav>
+</div>
+</div>
+<div class="p-3 bg-[#eef4ff] border-t border-[#dae3f1] text-[11px] font-mono">
+<div class="flex items-center justify-between text-slate-700 font-semibold mb-1">
+<span>CAN BUS A/B</span>
+<span class="text-emerald-700">ONLINE</span>
+</div>
+<div class="grid grid-cols-3 gap-1 text-[10px] text-slate-500">
+<div>LOAD: <span class="text-slate-800 font-bold">42%</span></div>
+<div>LOSS: <span class="text-emerald-600 font-bold">0.00%</span></div>
+<div>LAT: <span class="text-slate-800 font-bold">14ms</span></div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6"><div class="flex flex-col w-full">
+<!-- Header & Quick Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">
+          STANAG 4586 // CAN-FD ARBITRATION
+        </span>
+<span class="text-outline text-telemetry-sm font-telemetry-sm">ISO 11898-1:2015</span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-label-caps">
+<span class="h-1.5 w-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>
+          29-BIT EXTENDED ID PASS
+        </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">
+        Live Telemetry &amp; CAN Bus Diagnostics
+      </h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+        Dual-redundant high-speed deterministic bus transceiver monitor, hardware frame decoding, and physics-informed PINN telemetry pipeline.
+      </p>
+</div>
+<!-- Quick Engineering Actions -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container transition shadow-sm" id="btn-export-pcap">
+<span class="material-symbols-outlined text-[16px] text-primary">sim_card_download</span>
+<span>Export PCAP/CSV</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container transition shadow-sm" id="btn-pause-toggle">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" id="pause-icon">pause_circle</span>
+<span id="pause-text">Pause Stream</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container transition shadow-sm" id="btn-inject-frame">
+<span class="material-symbols-outlined text-[16px] text-secondary">alt_route</span>
+<span>Inject Test Frame</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-primary text-on-primary font-body-sm text-body-sm hover:bg-secondary transition shadow-sm" id="btn-filter-modal">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Configure Masks</span>
+</button>
+</div>
+</div>
+<!-- Top Status & KPI Deck (6 Cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mb-4">
+<!-- Card 1: CAN Status -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">CAN Status</span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/15 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-ping"></span>
+          ONLINE
+        </span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-md text-telemetry-md text-primary font-semibold truncate">DUAL-REDUNDANT</div>
+<div class="font-telemetry-sm text-telemetry-sm text-on-tertiary-container mt-0.5 font-medium">BUS A+B HARMONIZED</div>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant truncate">Bitrate: 1.0M arb / 5.0M data</div>
+</div>
+<!-- Card 2: Message Rate -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Message Rate</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant font-medium">100Hz BASE</span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-hero text-telemetry-hero text-primary leading-none" id="kpi-rate">2,840</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-1">msg/s (Peak: 3,120 msg/s)</div>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1 overflow-hidden">
+<div class="bg-secondary-container h-full w-[72%]"></div>
+</div>
+</div>
+<!-- Card 3: Total Packets -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Packets Received</span>
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">inbox</span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-md text-telemetry-md text-primary font-bold" id="kpi-total">14,892,410</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-0.5">Frame error rate: &lt; 0.0001%</div>
+</div>
+<div class="font-telemetry-sm text-[10px] text-on-surface-variant flex justify-between">
+<span>SOF Lock: 100%</span>
+<span>EOF Sync: OK</span>
+</div>
+</div>
+<!-- Card 4: Dropped / CRC -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Dropped / Errors</span>
+<span class="inline-flex items-center px-1.5 py-0.2 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">ZERO FAULT</span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-hero text-telemetry-hero text-on-tertiary-container leading-none">0 <span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">pkts</span></div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-1">Stuff err: 0 | Form err: 0</div>
+</div>
+<div class="font-telemetry-sm text-[10px] text-on-surface-variant">CRC Polynomial: 0x11021 Valid</div>
+</div>
+<!-- Card 5: Bus Latency -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Bus Latency</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">Jitter ±0.18ms</span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-hero text-telemetry-hero text-primary leading-none">1.42 <span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">ms</span></div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-1">CAN-Ethernet UDP bridge</div>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1 overflow-hidden">
+<div class="bg-secondary-container h-full w-[28%]"></div>
+</div>
+</div>
+<!-- Card 6: Signal Quality / Physical Layer -->
+<div class="bg-surface-container-lowest rounded p-3 flex flex-col justify-between shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Signal Quality</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-tertiary-container font-semibold">SNR HIGH</span>
+</div>
+<div class="my-1.5">
+<div class="font-telemetry-hero text-telemetry-hero text-primary leading-none">99.8%</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-1">Eye Margin: +380mV</div>
+</div>
+<div class="font-telemetry-sm text-[10px] text-on-surface-variant flex justify-between">
+<span>Z₀: 120.2 Ω</span>
+<span>Vdiff: 2.25V</span>
+</div>
+</div>
+</div>
+<!-- End-to-End Avionics Data Pipeline Architecture Ribbon -->
+<div class="bg-surface-container-lowest rounded p-3 mb-4 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">account_tree</span>
+<span class="font-headline-sm text-headline-sm text-primary">STANAG 4586 Telemetry &amp; Physics Digital Twin Pipeline</span>
+</div>
+<div class="flex items-center gap-3 font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span> Synchronized
+        </span>
+<span class="text-outline">|</span>
+<span>End-to-End Propagation: <strong class="text-primary">18.6ms</strong></span>
+</div>
+</div>
+<!-- Horizontal Flow Diagram -->
+<div class="overflow-x-auto pb-1">
+<div class="min-w-[980px] grid grid-cols-7 gap-2 items-stretch text-center relative">
+<!-- Node 1: Engine -->
+<div class="bg-surface-container-low rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold">NODE 01</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">ROTAX 915iSc</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">Hall crank, MAP, K-type thermocouples</p>
+<div class="mt-2 pt-2 bg-surface-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Sampling:</span>
+<span class="text-primary font-semibold">1 kHz Raw</span>
+</div>
+</div>
+<!-- Node 2: ECU / FADEC -->
+<div class="bg-surface-container-low rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold">NODE 02</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">FADEC DUAL-LANE</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">Lane A / Lane B Bosch Motorsport cross-check</p>
+<div class="mt-2 pt-2 bg-surface-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Update:</span>
+<span class="text-primary font-semibold">100Hz Inj PWM</span>
+</div>
+</div>
+<!-- Node 3: CAN BUS -->
+<div class="bg-surface-container rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-secondary font-bold">PHYSICAL BUS</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">CAN-FD A &amp; B</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">Dual STP ISO 11898-1 29-bit Extended IDs</p>
+<div class="mt-2 pt-2 bg-surface-container-low rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Throughput:</span>
+<span class="text-secondary font-semibold">1,420 kbps</span>
+</div>
+</div>
+<!-- Node 4: MOXA Gateway -->
+<div class="bg-surface-container-low rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold">NODE 04</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">TEL GATEWAY</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">Moxa Serial-ETH &amp; STANAG 4586 datalink</p>
+<div class="mt-2 pt-2 bg-surface-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Encapsulation:</span>
+<span class="text-primary font-semibold">UDP Multicast</span>
+</div>
+</div>
+<!-- Node 5: EDGE AI -->
+<div class="bg-surface-container-low rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold">NODE 05</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">JETSON TX2-NX</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">PINN inference &amp; autoencoder anomaly filter</p>
+<div class="mt-2 pt-2 bg-surface-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Infer Latency:</span>
+<span class="text-primary font-semibold">4.8 ms</span>
+</div>
+</div>
+<!-- Node 6: DIGITAL TWIN -->
+<div class="bg-surface-container-low rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant font-bold">NODE 06</span>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</div>
+<div class="font-body-lg text-body-lg text-primary font-bold leading-tight">DIGITAL TWIN</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mt-0.5">Thermo-mechanical RK4 state convergence</p>
+<div class="mt-2 pt-2 bg-surface-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between">
+<span class="text-on-surface-variant">Convergence:</span>
+<span class="text-primary font-semibold">50Hz (0.998)</span>
+</div>
+</div>
+<!-- Node 7: GCS Console -->
+<div class="bg-primary text-on-primary rounded p-2.5 flex flex-col justify-between text-left">
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-primary-container font-bold">NODE 07 (OPERATOR)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed"></span>
+</div>
+<div class="font-body-lg text-body-lg font-bold leading-tight text-white">GCS CONSOLE</div>
+<p class="font-body-sm text-[11px] text-surface-container-high mt-0.5">AeroTwin-X avionics telemetry viewer</p>
+<div class="mt-2 pt-2 bg-primary-container rounded px-2 py-1 font-telemetry-sm text-[10px] flex justify-between text-white">
+<span class="text-on-primary-container">Render FPS:</span>
+<span class="text-white font-semibold">60.0 FPS</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Multi-View Mode Tabs -->
+<div class="flex items-center gap-1 mb-3 overflow-x-auto">
+<button class="px-3.5 py-1.5 rounded bg-primary text-on-primary font-body-sm text-body-sm font-semibold flex items-center gap-1.5 shrink-0 shadow-sm" id="tab-raw">
+<span class="material-symbols-outlined text-[16px]">data_table</span>
+<span>RAW CAN-FD STREAM</span>
+<span class="bg-primary-container text-white px-1.5 py-0.2 rounded font-telemetry-sm text-[10px]">LIVE</span>
+</button>
+<button class="px-3.5 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container flex items-center gap-1.5 shrink-0 transition" id="tab-decoded">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">transform</span>
+<span>DECODED SIGNALS</span>
+</button>
+<button class="px-3.5 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container flex items-center gap-1.5 shrink-0 transition" id="tab-matrix">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">grid_view</span>
+<span>SENSOR DATA MATRIX</span>
+</button>
+<button class="px-3.5 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container flex items-center gap-1.5 shrink-0 transition" id="tab-arbitration">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">speed</span>
+<span>BUS ARBITRATION &amp; LOAD</span>
+</button>
+<button class="px-3.5 py-1.5 rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm hover:bg-surface-container flex items-center gap-1.5 shrink-0 transition" id="tab-faults">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">bug_report</span>
+<span>ERROR COUNTERS &amp; FAULT INJECTION</span>
+</button>
+</div>
+<!-- Filter & Search Toolbar -->
+<div class="bg-surface-container-lowest rounded p-2.5 mb-3 shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
+<div class="flex-1 flex flex-wrap items-center gap-2">
+<!-- Search Input -->
+<div class="relative flex-1 min-w-[240px]">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 text-body-sm font-body-sm bg-surface-container-low text-on-surface rounded focus:outline-none focus:bg-surface-bright placeholder-on-surface-variant/70" id="can-search-input" placeholder="Filter by CAN ID (e.g. 0x18FEE004), Subsystem, PGN or Signal Name..." type="text"/>
+</div>
+<!-- Bus Selector Buttons -->
+<div class="flex items-center bg-surface-container-low p-0.5 rounded">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-label-caps text-label-caps shadow-sm" id="btn-bus-all">ALL BUSES</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-caps text-label-caps hover:text-on-surface" id="btn-bus-a">BUS A (PRI)</button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant font-label-caps text-label-caps hover:text-on-surface" id="btn-bus-b">BUS B (SEC)</button>
+</div>
+<!-- Mask Filter Input -->
+<div class="flex items-center gap-1.5 bg-surface-container-low px-2 py-1 rounded">
+<span class="font-telemetry-sm text-[10px] text-on-surface-variant uppercase">MASK:</span>
+<input class="w-24 bg-transparent font-telemetry-sm text-telemetry-sm text-primary font-bold focus:outline-none" type="text" value="0x1FFFFFFF"/>
+</div>
+</div>
+<!-- Toggles / Display options -->
+<div class="flex items-center gap-2 font-telemetry-sm text-telemetry-sm">
+<label class="flex items-center gap-1.5 cursor-pointer text-on-surface select-none">
+<input checked="" class="rounded text-primary focus:ring-0 w-3.5 h-3.5" id="toggle-autoscroll" type="checkbox"/>
+<span class="font-body-sm text-[11px]">Auto-scroll</span>
+</label>
+<div class="h-3 w-px bg-surface-variant"></div>
+<button class="px-2 py-1 rounded bg-surface-container-low text-primary font-body-sm text-[11px] hover:bg-surface-container" id="toggle-hex-dec">
+        VIEW: <span class="font-bold">HEX</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-low text-primary font-body-sm text-[11px] hover:bg-surface-container" id="toggle-delta-time">
+        DELTA μs: <span class="font-bold">ON</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-surface-container" id="btn-clear-table" title="Clear table stream">
+<span class="material-symbols-outlined text-[18px]">clear_all</span>
+</button>
+</div>
+</div>
+<!-- Main Work Area: Live Frame Inspector Table + Side Telemetry Deck -->
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-4 mb-4">
+<!-- Live Table: 3 Cols on XL -->
+<div class="xl:col-span-3 bg-surface-container-lowest rounded shadow-sm flex flex-col overflow-hidden">
+<!-- Table Header Status Strip -->
+<div class="px-3 py-2 bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-primary uppercase">INSPECTOR FEED</span>
+<span class="text-on-surface-variant font-telemetry-sm text-[11px]">Displaying buffer: <strong class="text-on-surface" id="visible-count">7</strong> of 2,400 cached frames</span>
+</div>
+<div class="flex items-center gap-2 font-telemetry-sm text-[11px] text-on-surface-variant">
+<span>MATCHING ID MASK: <code class="text-primary font-bold">0x1FFFFFFF</code></span>
+<span class="text-outline">|</span>
+<span class="text-on-tertiary-container font-medium">CRC ERRORS: 0</span>
+</div>
+</div>
+<!-- Tabular Frame Table -->
+<div class="overflow-x-auto max-h-[520px] overflow-y-auto" id="frame-scroll-container">
+<table class="w-full text-left border-collapse" id="can-table">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-caps text-[11px] uppercase sticky top-0 z-10 shadow-sm">
+<th class="py-2 px-2.5 whitespace-nowrap">Timestamp / Δt</th>
+<th class="py-2 px-2 whitespace-nowrap">Bus</th>
+<th class="py-2 px-2.5 whitespace-nowrap">CAN ID &amp; Symbolic Name</th>
+<th class="py-2 px-2 whitespace-nowrap">DLC / Format</th>
+<th class="py-2 px-2.5 whitespace-nowrap">Raw Payload (HEX)</th>
+<th class="py-2 px-3 whitespace-nowrap">Decoded Engineering Telemetry</th>
+<th class="py-2 px-2.5 whitespace-nowrap text-right">Validation</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-code-cell text-code-cell text-on-surface" id="table-body">
+<!-- Row 1: Engine Torque / RPM -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors" data-id="0x18FEE004">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.812 <span class="text-primary font-semibold">+984μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS A</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x18FEE004</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">FADEC_ENG_TRQ_RPM</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">FD 64B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+<span class="text-primary font-semibold">8C 12</span> 00 4F 32 A0 B1 FF 04 22 10 9A ...
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Engine Speed: <strong class="text-on-surface font-telemetry-sm">4,820 RPM</strong> | MAP: <strong class="text-on-surface font-telemetry-sm">36.4 inHg</strong>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Torque demand: 84.2% | Throttle plate: 62.4°</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">check</span> VALID
+                </span>
+</td>
+</tr>
+<!-- Row 2: Fuel Flow Injection -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-bright" data-id="0x18FEF200">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.814 <span class="text-primary font-semibold">+1,012μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS B</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x18FEF200</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">FUEL_FLOW_INJ_PULSE</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">STD 8B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+<span class="text-secondary font-semibold">17 38</span> 4A 00 24 11 02 AC
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Fuel Flow: <strong class="text-on-surface font-telemetry-sm">23.4 L/h</strong> | Inj #3 Pulse: <strong class="text-on-surface font-telemetry-sm">4.82 ms</strong>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Rail Pressure: 3.10 bar | Fuel Density: 0.742 kg/L</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">verified</span> VERIFIED
+                </span>
+</td>
+</tr>
+<!-- Row 3: EGT Port Bank 01 (Advisory highlight) -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-container-lowest" data-id="0x0CFE6CEE">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.816 <span class="text-primary font-semibold">+998μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS A</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x0CFE6CEE</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">EGT_PORT_BANK_01</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">FD 64B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+<span class="text-error font-semibold">02 D4</span> 02 C8 02 BC 02 D0 AA BB CC ...
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Cyl #3 EGT: <strong class="text-error font-telemetry-sm">724.0°C</strong> <span class="text-error font-semibold text-[10px]">[RESIDUAL +18°C]</span>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Cyl #1: 712°C | Cyl #2: 700°C | Cyl #4: 720°C</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">warning</span> DELTA +18°
+                </span>
+</td>
+</tr>
+<!-- Row 4: Coolant & CHT -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-bright" data-id="0x18FEEE00">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.817 <span class="text-primary font-semibold">+980μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS B</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x18FEEE00</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">ENG_COOLANT_CHT</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">STD 8B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+                55 64 5A 58 10 00 FE 01
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Coolant Temp: <strong class="text-on-surface font-telemetry-sm">85.4°C</strong> | CHT Max: <strong class="text-on-surface font-telemetry-sm">104.2°C</strong>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Expansion tank pressure: 1.14 bar (Nominal)</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">check</span> VALID
+                </span>
+</td>
+</tr>
+<!-- Row 5: Oil Pressure & Sump -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-container-lowest" data-id="0x18FEEF00">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.819 <span class="text-primary font-semibold">+1,020μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS A</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x18FEEF00</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">ENG_OIL_PRESS_SUMP_TEMP</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">STD 8B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+                A4 01 62 00 3C 00 FF 11
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Oil Press: <strong class="text-on-surface font-telemetry-sm">4.20 bar</strong> | Sump: <strong class="text-on-surface font-telemetry-sm">98.6°C</strong>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Oil pump scavenge delta: 0.14 bar | Filter dP: 0.08 bar</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">check</span> VALID
+                </span>
+</td>
+</tr>
+<!-- Row 6: Edge AI PINN Residual Flag -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-bright" data-id="0x08FF3101">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.820 <span class="text-primary font-semibold">+992μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS A</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x08FF3101</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">EDGE_PINN_RESIDUAL_FLAG</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">FD 64B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+<span class="text-secondary font-semibold">00 B6</span> 12 30 FE 10 99 22 01 44 ...
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  PINN Latent Chi-Sq: <strong class="text-primary font-telemetry-sm">0.182</strong> <span class="text-on-surface-variant text-[10px]">[ANOMALY THRESH: 0.250]</span>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Physics conservation loss: 1.4e-4 | State vector conf: 99.2%</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-secondary/10 text-secondary font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">psychology</span> INFERRED
+                </span>
+</td>
+</tr>
+<!-- Row 7: Turbo Wastegate PWM -->
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-container-lowest" data-id="0x18FE0500">
+<td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+                14:32:00.822 <span class="text-primary font-semibold">+1,005μs</span>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">BUS B</span>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap">
+<div class="font-telemetry-sm text-primary font-bold">0x18FE0500</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">TURBO_WASTEGATE_PWM</div>
+</td>
+<td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+<span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">STD 8B</span>
+</td>
+<td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+                4C 2A 1E 00 12 00 00 00
+              </td>
+<td class="py-2 px-3">
+<div class="text-primary font-medium font-body-sm text-body-sm">
+                  Wastegate Duty: <strong class="text-on-surface font-telemetry-sm">48.2%</strong> | Boost: <strong class="text-on-surface font-telemetry-sm">1.82 bar abs</strong>
+</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant">Compressor In Temp: 34.2°C | Intercooler Out: 41.8°C</div>
+</td>
+<td class="py-2 px-2.5 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">check</span> VALID
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Live Stream Bar footer -->
+<div class="p-2 bg-surface-container-low flex flex-wrap items-center justify-between gap-2 text-on-surface-variant font-telemetry-sm text-[11px]">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
+            Streaming at 100Hz Hardware Timebase
+          </span>
+<span class="text-outline">|</span>
+<span>DBC Hash: <code class="text-primary font-bold">0xA9F3B1</code> (STANAG_UAV07_REV4)</span>
+</div>
+<div class="flex items-center gap-3">
+<span>Buffer: 2,400 / 100,000 pkts</span>
+<button class="text-secondary font-semibold hover:underline" id="btn-snap-latest">Snap to Latest</button>
+</div>
+</div>
+</div>
+<!-- Diagnostic & Signal Inspection Side Panel: 1 Col on XL -->
+<div class="space-y-3">
+<!-- Card: Selected Frame Oscilloscope / Bit Inspection -->
+<div class="bg-surface-container-lowest rounded p-3 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">show_chart</span>
+<span class="font-headline-sm text-headline-sm text-primary">CAN-FD Physical Eye</span>
+</div>
+<span class="font-telemetry-sm text-[10px] text-on-tertiary-container font-bold bg-tertiary/10 px-1.5 py-0.2 rounded">
+            LOCKED: 5.0 Mbps
+          </span>
+</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant mb-2">
+          Differential signal wave (CAN_H - CAN_L) on Bus A Transceiver TJA1044GT:
+        </p>
+<!-- Oscilloscope Waveform SVG (Clean Technical Inline SVG) -->
+<div class="bg-surface-container-low rounded p-2 mb-2 relative overflow-hidden">
+<svg class="w-full h-24" fill="none" viewbox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid lines -->
+<path class="text-surface-variant" d="M0 15 H320 M0 30 H320 M0 45 H320 M0 60 H320 M0 75 H320" stroke="currentColor" stroke-dasharray="2 2" stroke-width="0.75"></path>
+<path class="text-surface-variant" d="M40 0 V90 M80 0 V90 M120 0 V90 M160 0 V90 M200 0 V90 M240 0 V90 M280 0 V90" stroke="currentColor" stroke-dasharray="2 2" stroke-width="0.75"></path>
+<!-- Reference thresholds -->
+<line class="text-error/30" stroke="currentColor" stroke-width="0.75" x1="0" x2="320" y1="25" y2="25"></line>
+<line class="text-error/30" stroke="currentColor" stroke-width="0.75" x1="0" x2="320" y1="65" y2="65"></line>
+<!-- Differential CAN eye pattern waveform -->
+<path class="text-secondary" d="M0 65 L20 65 L24 25 L45 25 L49 65 L70 65 L73 25 L95 25 L98 65 L115 65 L118 25 L140 25 L144 65 L160 65 L164 25 L190 25 L194 65 L210 65 L214 25 L235 25 L239 65 L260 65 L263 25 L285 25 L289 65 L320 65" stroke="currentColor" stroke-linejoin="round" stroke-width="1.75"></path>
+<!-- Eye margin markers -->
+<circle class="text-on-tertiary-container" cx="34" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+<circle class="text-on-tertiary-container" cx="84" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+<circle class="text-on-tertiary-container" cx="129" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+<circle class="text-on-tertiary-container" cx="177" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+<circle class="text-on-tertiary-container" cx="224" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+<circle class="text-on-tertiary-container" cx="274" cy="45" r="8" stroke="currentColor" stroke-dasharray="1 1" stroke-width="1"></circle>
+</svg>
+<div class="flex justify-between font-telemetry-sm text-[9px] text-on-surface-variant mt-1">
+<span>Dominant (Vdiff: 2.25V)</span>
+<span>Eye Margin: +380mV</span>
+<span>Recessive (0.02V)</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 text-center font-telemetry-sm text-[11px] mb-2">
+<div class="bg-surface-container-low p-1.5 rounded">
+<div class="text-on-surface-variant text-[10px]">Prop Delay</div>
+<div class="text-primary font-bold">142 ns</div>
+</div>
+<div class="bg-surface-container-low p-1.5 rounded">
+<div class="text-on-surface-variant text-[10px]">Bit Stuffing Ratio</div>
+<div class="text-primary font-bold">1 : 4.88</div>
+</div>
+</div>
+<div class="flex gap-1.5">
+<button class="flex-1 py-1 px-2 rounded bg-surface-container text-primary font-body-sm text-[11px] font-medium hover:bg-surface-variant transition text-center" id="btn-freeze-frame">
+            Freeze Frame
+          </button>
+<button class="flex-1 py-1 px-2 rounded bg-surface-container text-primary font-body-sm text-[11px] font-medium hover:bg-surface-variant transition text-center" id="btn-trace-scope">
+            Trace Scope
+          </button>
+</div>
+</div>
+<!-- Card: Node Heartbeat & Bus Arbitration Load -->
+<div class="bg-surface-container-lowest rounded p-3 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">pie_chart</span>
+<span class="font-headline-sm text-headline-sm text-primary">Arbitration &amp; Bus Load</span>
+</div>
+<span class="font-telemetry-sm text-telemetry-sm text-primary font-bold">BUS TOTAL: 56.4%</span>
+</div>
+<!-- Node Load Bars -->
+<div class="space-y-2.5 font-body-sm text-[11px]">
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span class="font-medium">FADEC Lane A (Bosch Mot.)</span>
+<span class="font-telemetry-sm font-semibold">42.1%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 42.1%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span class="font-medium">FADEC Lane B (Backup Sync)</span>
+<span class="font-telemetry-sm font-semibold">41.6%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 41.6%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span class="font-medium">Edge AI Gateway (Jetson TX2)</span>
+<span class="font-telemetry-sm font-semibold">14.8%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-on-tertiary-container h-full rounded-full" style="width: 14.8%;"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-on-surface mb-1">
+<span class="font-medium">Avionics DAQ &amp; Thermo Sens</span>
+<span class="font-telemetry-sm font-semibold">18.2%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+<div class="bg-surface-tint h-full rounded-full" style="width: 18.2%;"></div>
+</div>
+</div>
+</div>
+<!-- Export DBC and CAN Calibration Button -->
+<div class="mt-3 pt-2.5 bg-surface-bright rounded p-2 flex items-center justify-between">
+<div>
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase">DBC CALIBRATION</div>
+<div class="font-telemetry-sm text-[11px] text-primary font-semibold">STANAG4586_V3.8.dbc</div>
+</div>
+<button class="px-2 py-1 rounded bg-surface-container text-primary font-body-sm text-[11px] hover:bg-surface-variant transition font-medium" id="btn-export-dbc">
+            Export DBC
+          </button>
+</div>
+</div>
+<!-- Card: Embedded Hardware Node Status Cards (Small Grid) -->
+<div class="bg-surface-container-lowest rounded p-3 shadow-sm">
+<div class="font-headline-sm text-headline-sm text-primary mb-2 flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">developer_board</span>
+<span>Transceiver Controllers</span>
+</div>
+<div class="grid grid-cols-2 gap-2 text-left font-body-sm text-[11px]">
+<div class="bg-surface-container-low p-2 rounded">
+<div class="font-bold text-primary">Microchip MCP2518FD</div>
+<div class="text-on-surface-variant text-[10px] mt-0.5">SPI Core Clock: 40 MHz</div>
+<div class="text-on-tertiary-container font-telemetry-sm font-semibold mt-1">FIFO Depth: 32</div>
+</div>
+<div class="bg-surface-container-low p-2 rounded">
+<div class="font-bold text-primary">Bosch C_CAN IP Core</div>
+<div class="text-on-surface-variant text-[10px] mt-0.5">Dual RAM Mailbox Sync</div>
+<div class="text-on-tertiary-container font-telemetry-sm font-semibold mt-1">Auto Retransmit: ON</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Detailed Signal Inspector Drawer -->
+<div class="bg-surface-container-lowest rounded p-3.5 shadow-sm" id="signal-inspector-panel">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 mb-2 gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">troubleshoot</span>
+<div>
+<span class="font-headline-sm text-headline-sm text-primary">Deep Signal Bit-Field Inspector:</span>
+<span class="font-telemetry-md text-telemetry-md text-secondary font-bold ml-1" id="inspect-id">0x18FEE004</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-1" id="inspect-name">(FADEC_ENG_TRQ_RPM)</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-telemetry-sm text-[11px]">PGN: 61444</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-telemetry-sm text-[11px]">Source Addr: 0x00 (ECU Lane A)</span>
+<span class="px-2 py-0.5 rounded bg-tertiary/10 text-on-tertiary-container font-telemetry-sm text-[11px] font-semibold">Priority: 6</span>
+</div>
+</div>
+<!-- Bit Allocation Matrix Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-3 font-telemetry-sm text-telemetry-sm">
+<div class="bg-surface-container-low rounded p-2.5">
+<div class="flex justify-between text-on-surface-variant text-[10px] uppercase font-bold mb-1">
+<span>SPN 190 (Bits 24-39)</span>
+<span class="text-primary">Factor 0.125</span>
+</div>
+<div class="font-body-sm text-body-sm font-semibold text-primary">Engine Speed (RPM)</div>
+<div class="font-telemetry-lg text-telemetry-lg text-primary font-bold mt-1">4,820.0 <span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">RPM</span></div>
+<div class="text-[10px] text-on-surface-variant mt-1">Raw: 0x96A0 (38,560 dec)</div>
+</div>
+<div class="bg-surface-container-low rounded p-2.5">
+<div class="flex justify-between text-on-surface-variant text-[10px] uppercase font-bold mb-1">
+<span>SPN 513 (Bits 16-23)</span>
+<span class="text-primary">Factor 1.0%</span>
+</div>
+<div class="font-body-sm text-body-sm font-semibold text-primary">Actual Engine - Pct Torque</div>
+<div class="font-telemetry-lg text-telemetry-lg text-primary font-bold mt-1">84.0 <span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">%</span></div>
+<div class="text-[10px] text-on-surface-variant mt-1">Raw: 0x77 (Offset -125%)</div>
+</div>
+<div class="bg-surface-container-low rounded p-2.5">
+<div class="flex justify-between text-on-surface-variant text-[10px] uppercase font-bold mb-1">
+<span>SPN 898 (Bits 08-15)</span>
+<span class="text-primary">Factor 0.4%</span>
+</div>
+<div class="font-body-sm text-body-sm font-semibold text-primary">Engine Demand - Pct Torque</div>
+<div class="font-telemetry-lg text-telemetry-lg text-primary font-bold mt-1">84.2 <span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant">%</span></div>
+<div class="text-[10px] text-on-surface-variant mt-1">Raw: 0x82 (130 dec)</div>
+</div>
+<div class="bg-surface-container-low rounded p-2.5">
+<div class="flex justify-between text-on-surface-variant text-[10px] uppercase font-bold mb-1">
+<span>SPN 1483 (Bits 00-07)</span>
+<span class="text-primary">Discrete Bitfield</span>
+</div>
+<div class="font-body-sm text-body-sm font-semibold text-primary">Source FADEC Mode</div>
+<div class="font-telemetry-lg text-telemetry-lg text-on-tertiary-container font-bold mt-1">CLOSED-LOOP</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Lane A Active (Lane B in Standby Hot)</div>
+</div>
+</div>
+</div>
+<!-- Interactive JavaScript for Live Simulation & Table Filtering -->
+<script>
+    (function initCanBusInspector() {
+      let isPaused = false;
+      let isHex = true;
+      let showDelta = true;
+      let activeBusFilter = 'ALL';
+      let messageRate = 2840;
+      let totalPackets = 14892410;
+
+      const rateEl = document.getElementById('kpi-rate');
+      const totalEl = document.getElementById('kpi-total');
+      const tableBody = document.getElementById('table-body');
+      const scrollContainer = document.getElementById('frame-scroll-container');
+      const pauseBtn = document.getElementById('btn-pause-toggle');
+      const pauseIcon = document.getElementById('pause-icon');
+      const pauseText = document.getElementById('pause-text');
+      const searchInput = document.getElementById('can-search-input');
+      const visibleCountEl = document.getElementById('visible-count');
+      const hexToggleBtn = document.getElementById('toggle-hex-dec');
+      const deltaToggleBtn = document.getElementById('toggle-delta-time');
+      const snapBtn = document.getElementById('btn-snap-latest');
+      const autoscrollCheck = document.getElementById('toggle-autoscroll');
+
+      // Sample mock stream generator pool
+      const mockFrames = [
+        {
+          id: '0x18FEE004',
+          name: 'FADEC_ENG_TRQ_RPM',
+          bus: 'BUS A',
+          dlc: 'FD 64B',
+          hex: '8C 12 00 4F 32 A0 B1 FF 04 22 10 9A',
+          decoded: 'Engine Speed: <strong class="text-on-surface font-telemetry-sm">4,822 RPM</strong> | MAP: <strong class="text-on-surface font-telemetry-sm">36.5 inHg</strong>',
+          sub: 'Torque demand: 84.3% | Throttle: 62.5°',
+          status: 'VALID',
+          statusClass: 'bg-tertiary/10 text-on-tertiary-container'
+        },
+        {
+          id: '0x18FEF200',
+          name: 'FUEL_FLOW_INJ_PULSE',
+          bus: 'BUS B',
+          dlc: 'STD 8B',
+          hex: '17 38 4A 00 24 11 02 AC',
+          decoded: 'Fuel Flow: <strong class="text-on-surface font-telemetry-sm">23.5 L/h</strong> | Inj #2 Pulse: <strong class="text-on-surface font-telemetry-sm">4.81 ms</strong>',
+          sub: 'Rail Pressure: 3.11 bar | Temp: 38.2°C',
+          status: 'VERIFIED',
+          statusClass: 'bg-tertiary/10 text-on-tertiary-container'
+        },
+        {
+          id: '0x0CFE6CEE',
+          name: 'EGT_PORT_BANK_01',
+          bus: 'BUS A',
+          dlc: 'FD 64B',
+          hex: '02 D5 02 C8 02 BC 02 D0 AA BB',
+          decoded: 'Cyl #3 EGT: <strong class="text-error font-telemetry-sm">725.2°C</strong> <span class="text-error font-semibold text-[10px]">[RESIDUAL +19°C]</span>',
+          sub: 'Cyl #1: 713°C | Cyl #2: 701°C | Cyl #4: 721°C',
+          status: 'DELTA +19°',
+          statusClass: 'bg-error-container text-on-error-container'
+        },
+        {
+          id: '0x18FEEF00',
+          name: 'ENG_OIL_PRESS_SUMP_TEMP',
+          bus: 'BUS B',
+          dlc: 'STD 8B',
+          hex: 'A5 01 63 00 3C 00 FF 11',
+          decoded: 'Oil Press: <strong class="text-on-surface font-telemetry-sm">4.19 bar</strong> | Sump: <strong class="text-on-surface font-telemetry-sm">98.8°C</strong>',
+          sub: 'Filter dP: 0.08 bar | Level: NOMINAL',
+          status: 'VALID',
+          statusClass: 'bg-tertiary/10 text-on-tertiary-container'
+        },
+        {
+          id: '0x08FF3101',
+          name: 'EDGE_PINN_RESIDUAL_FLAG',
+          bus: 'BUS A',
+          dlc: 'FD 64B',
+          hex: '00 B7 12 30 FE 10 99 22 01 44',
+          decoded: 'PINN Latent Chi-Sq: <strong class="text-primary font-telemetry-sm">0.184</strong> <span class="text-on-surface-variant text-[10px]">[THRESH: 0.250]</span>',
+          sub: 'Physics conservation: 1.2e-4 | Convergence 50Hz',
+          status: 'INFERRED',
+          statusClass: 'bg-secondary/10 text-secondary'
+        }
+      ];
+
+      // Live tick simulation every 1.2s to simulate continuous 100Hz streaming without blowing memory
+      setInterval(() => {
+        if (isPaused) return;
+
+        // Slight jitter in message rate
+        const jitter = Math.floor((Math.random() - 0.5) * 80);
+        messageRate = 2840 + jitter;
+        totalPackets += Math.floor(messageRate * 1.2);
+        
+        if (rateEl) rateEl.textContent = messageRate.toLocaleString();
+        if (totalEl) totalEl.textContent = totalPackets.toLocaleString();
+
+        // Append a mock frame row to table
+        const sample = mockFrames[Math.floor(Math.random() * mockFrames.length)];
+        
+        // Filter check
+        if (activeBusFilter !== 'ALL') {
+          if (activeBusFilter === 'A' && sample.bus !== 'BUS A') return;
+          if (activeBusFilter === 'B' && sample.bus !== 'BUS B') return;
+        }
+
+        const now = new Date();
+        const timeStr = now.toISOString().substring(11, 23);
+        const deltaUs = Math.floor(950 + Math.random() * 80);
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-surface-container-low cursor-pointer transition-colors bg-surface-container-lowest animate-fadeIn';
+        tr.setAttribute('data-id', sample.id);
+        tr.innerHTML = `
+          <td class="py-2 px-2.5 whitespace-nowrap font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+            ${timeStr} <span class="text-primary font-semibold">+${deltaUs}μs</span>
+          </td>
+          <td class="py-2 px-2 whitespace-nowrap font-telemetry-sm">
+            <span class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-bold">${sample.bus}</span>
+          </td>
+          <td class="py-2 px-2.5 whitespace-nowrap">
+            <div class="font-telemetry-sm text-primary font-bold">${sample.id}</div>
+            <div class="font-body-sm text-[10px] text-on-surface-variant">${sample.name}</div>
+          </td>
+          <td class="py-2 px-2 whitespace-nowrap font-telemetry-sm text-on-surface-variant">
+            <span class="px-1 py-0.5 rounded bg-surface-container font-mono text-[10px]">${sample.dlc}</span>
+          </td>
+          <td class="py-2 px-2.5 font-telemetry-sm text-on-surface tracking-wider text-[11px]">
+            ${sample.hex}
+          </td>
+          <td class="py-2 px-3">
+            <div class="text-primary font-medium font-body-sm text-body-sm">${sample.decoded}</div>
+            <div class="font-body-sm text-[10px] text-on-surface-variant">${sample.sub}</div>
+          </td>
+          <td class="py-2 px-2.5 whitespace-nowrap text-right">
+            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded ${sample.statusClass} font-label-caps text-[10px]">
+              ${sample.status}
+            </span>
+          </td>
+        `;
+
+        // Row click to deep inspect
+        tr.addEventListener('click', () => selectRowForInspection(sample.id, sample.name));
+
+        tableBody.appendChild(tr);
+
+        // Cap table rows at 40
+        while (tableBody.children.length > 40) {
+          tableBody.removeChild(tableBody.firstChild);
+        }
+
+        if (visibleCountEl) visibleCountEl.textContent = tableBody.children.length;
+
+        // Auto-scroll to bottom if active
+        if (autoscrollCheck && autoscrollCheck.checked) {
+          scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        }
+      }, 1200);
+
+      // Deep inspection handler
+      function selectRowForInspection(id, name) {
+        const inspectId = document.getElementById('inspect-id');
+        const inspectName = document.getElementById('inspect-name');
+        if (inspectId) inspectId.textContent = id;
+        if (inspectName) inspectName.textContent = `(${name})`;
+      }
+
+      // Attach row click listeners for existing rows
+      document.querySelectorAll('#table-body tr').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.getAttribute('data-id');
+          const nameEl = row.querySelector('.font-body-sm.text-\\[10px\\]');
+          const name = nameEl ? nameEl.textContent : 'FRAME';
+          selectRowForInspection(id, name);
+        });
+      });
+
+      // Pause toggle
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+          isPaused = !isPaused;
+          if (isPaused) {
+            pauseIcon.textContent = 'play_circle';
+            pauseText.textContent = 'Resume Stream';
+            pauseBtn.classList.add('bg-error-container', 'text-on-error-container');
+          } else {
+            pauseIcon.textContent = 'pause_circle';
+            pauseText.textContent = 'Pause Stream';
+            pauseBtn.classList.remove('bg-error-container', 'text-on-error-container');
+          }
+        });
+      }
+
+      // Bus selector tabs
+      const btnAll = document.getElementById('btn-bus-all');
+      const btnA = document.getElementById('btn-bus-a');
+      const btnB = document.getElementById('btn-bus-b');
+
+      function updateBusButtons(active) {
+        activeBusFilter = active;
+        [btnAll, btnA, btnB].forEach(b => {
+          b.className = 'px-2.5 py-1 rounded text-on-surface-variant font-label-caps text-label-caps hover:text-on-surface';
+        });
+        if (active === 'ALL') btnAll.className = 'px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-label-caps text-label-caps shadow-sm font-bold';
+        if (active === 'A') btnA.className = 'px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-label-caps text-label-caps shadow-sm font-bold';
+        if (active === 'B') btnB.className = 'px-2.5 py-1 rounded bg-surface-container-lowest text-primary font-label-caps text-label-caps shadow-sm font-bold';
+
+        // Filter currently visible rows
+        document.querySelectorAll('#table-body tr').forEach(row => {
+          const busCell = row.children[1]?.textContent || '';
+          if (active === 'ALL') {
+            row.style.display = '';
+          } else if (active === 'A') {
+            row.style.display = busCell.includes('BUS A') ? '' : 'none';
+          } else if (active === 'B') {
+            row.style.display = busCell.includes('BUS B') ? '' : 'none';
+          }
+        });
+      }
+
+      if (btnAll) btnAll.addEventListener('click', () => updateBusButtons('ALL'));
+      if (btnA) btnA.addEventListener('click', () => updateBusButtons('A'));
+      if (btnB) btnB.addEventListener('click', () => updateBusButtons('B'));
+
+      // Search input filter
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          let count = 0;
+          document.querySelectorAll('#table-body tr').forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const matches = !query || text.includes(query);
+            row.style.display = matches ? '' : 'none';
+            if (matches) count++;
+          });
+          if (visibleCountEl) visibleCountEl.textContent = count;
+        });
+      }
+
+      // Clear table
+      const clearBtn = document.getElementById('btn-clear-table');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+          tableBody.innerHTML = '';
+          if (visibleCountEl) visibleCountEl.textContent = 0;
+        });
+      }
+
+      // Snap latest
+      if (snapBtn) {
+        snapBtn.addEventListener('click', () => {
+          scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        });
+      }
+
+      // Hex / Dec toggle
+      if (hexToggleBtn) {
+        hexToggleBtn.addEventListener('click', () => {
+          isHex = !isHex;
+          hexToggleBtn.innerHTML = `VIEW: <span class="font-bold">${isHex ? 'HEX' : 'DEC'}</span>`;
+        });
+      }
+
+      // Delta time toggle
+      if (deltaToggleBtn) {
+        deltaToggleBtn.addEventListener('click', () => {
+          showDelta = !showDelta;
+          deltaToggleBtn.innerHTML = `DELTA μs: <span class="font-bold">${showDelta ? 'ON' : 'OFF'}</span>`;
+        });
+      }
+
+      // Button feedback triggers
+      const injectBtn = document.getElementById('btn-inject-frame');
+      if (injectBtn) {
+        injectBtn.addEventListener('click', () => {
+          const originalText = injectBtn.innerHTML;
+          injectBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">check</span><span>Frame Injected (0x0CF004FE)</span>`;
+          setTimeout(() => { injectBtn.innerHTML = originalText; }, 1500);
+        });
+      }
+
+      const exportPcapBtn = document.getElementById('btn-export-pcap');
+      if (exportPcapBtn) {
+        exportPcapBtn.addEventListener('click', () => {
+          const original = exportPcapBtn.innerHTML;
+          exportPcapBtn.innerHTML = `<span class="material-symbols-outlined text-[16px] text-on-tertiary-container">download_done</span><span>PCAP Ready (42MB)</span>`;
+          setTimeout(() => { exportPcapBtn.innerHTML = original; }, 1800);
+        });
+      }
+    })();
+  </script>
+</div></main>
+</div>
+</body></html>

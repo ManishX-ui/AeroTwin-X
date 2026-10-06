@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">  tailwind.config = {    darkMode: "class",    theme: {      extend: {        "colors": {          "surface-container-low": "#eef4ff",          "primary-container": "#173a5e",          "surface-container": "#e5effd",          "on-tertiary": "#ffffff",          "on-secondary": "#ffffff",          "secondary": "#0051d5",          "inverse-on-surface": "#e9f1ff",          "surface-container-high": "#e0e9f7",          "secondary-container": "#316bf3",          "surface-bright": "#f8f9ff",          "background": "#f8f9ff",          "tertiary-container": "#004138",          "tertiary": "#002923",          "surface": "#f8f9ff",          "surface-container-highest": "#dae3f1",          "on-tertiary-container": "#3ab5a1",          "on-secondary-fixed": "#00174b",          "inverse-primary": "#a9c9f4",          "on-surface": "#131c26",          "on-secondary-container": "#fefcff",          "error": "#ba1a1a",          "on-primary": "#ffffff",          "on-primary-fixed-variant": "#28486d",          "on-primary-container": "#85a4ce",          "secondary-fixed": "#dbe1ff",          "tertiary-fixed": "#83f6e0",          "on-tertiary-fixed-variant": "#005046",          "on-error": "#ffffff",          "surface-variant": "#dae3f1",          "on-background": "#131c26",          "outline": "#73777f",          "surface-dim": "#d2dbe9",          "on-error-container": "#93000a",          "on-primary-fixed": "#001c37",          "primary": "#002444",          "primary-fixed": "#d2e4ff",          "tertiary-fixed-dim": "#65dac4",          "primary-fixed-dim": "#a9c9f4",          "outline-variant": "#c3c6cf",          "on-secondary-fixed-variant": "#003ea8",          "inverse-surface": "#28313c",          "surface-tint": "#416086",          "secondary-fixed-dim": "#b4c5ff",          "on-tertiary-fixed": "#00201b",          "on-surface-variant": "#43474e",          "error-container": "#ffdad6",          "surface-container-lowest": "#ffffff"        },        "borderRadius": {          "DEFAULT": "0.125rem",          "lg": "0.25rem",          "xl": "0.5rem",          "full": "0.75rem"        },        "spacing": {          "space-md": "0.75rem",          "space-lg": "1rem",          "space-xl": "1.5rem",          "margin": "1rem",          "space-sm": "0.375rem",          "gutter": "0.75rem",          "space-xs": "0.25rem"        },        "fontFamily": {          "headline-md": ["IBM Plex Sans"],          "telemetry-lg": ["JetBrains Mono"],          "code-cell": ["JetBrains Mono"],          "label-caps": ["IBM Plex Sans"],          "body-md": ["IBM Plex Sans"],          "display": ["IBM Plex Sans"],          "telemetry-sm": ["JetBrains Mono"],          "body-sm": ["IBM Plex Sans"],          "body-lg": ["IBM Plex Sans"],          "telemetry-hero": ["JetBrains Mono"],          "headline-lg": ["IBM Plex Sans"],          "telemetry-md": ["JetBrains Mono"],          "headline-sm": ["IBM Plex Sans"]        },        "fontSize": {          "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],          "telemetry-lg": ["20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500" }],          "code-cell": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],          "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "600" }],          "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],          "display": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],          "telemetry-sm": ["11px", { "lineHeight": "14px", "fontWeight": "400" }],          "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],          "body-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],          "telemetry-hero": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }],          "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],          "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],          "telemetry-md": ["14px", { "lineHeight": "18px", "fontWeight": "500" }],          "headline-sm": ["15px", { "lineHeight": "20px", "fontWeight": "600" }]        }      }    }  }</script></head><body class="bg-surface font-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col pt-6 pb-8"><div class="px-6 mb-8 flex items-center gap-3"><img alt="Brand logo. - Primary color: #173a5e - Font: ibmPlexSans - Mode: light - Roundness: rounded-sm" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPpddBdBH4eXLJ7wWtwmRfcobVah4lcFuiSHWy_ZFnnuxgdRPiz0zYObNNDaEM3PwD7PMFKrmg-ycdkskHoNuBmprBji7wB4zaKeHUhAKlVUMMNOe4qXxSA_AoKdN4j0FcVPgDoBHaPYJj8Xf5H8BD6RwhhhEnFBKyIX2KKZoOBXKHbApWj_KykWpoV3p_AW4DgaWE307N15BEmGi4zYeh51bT9rTxGWS_NXXHjbLA5bN1zWpkli53"/><span class="text-headline-sm font-headline-sm text-primary uppercase">AeroTwin-X</span></div><nav class="flex-1 px-3 space-y-1" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a aria-current="page" class="flex items-center px-4 py-2.5 transition-all bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="mission-telemetry" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">analytics</span>Mission Telemetry</a><a class="flex items-center px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="digital-twin" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">view_in_ar</span>Digital Twin Core</a><a class="flex items-center px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ai-diagnostics" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">psychology</span>AI Diagnostics</a><a class="flex items-center px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="can-bus" href="#"><span class="material-symbols-outlined mr-3 text-[20px]">hub</span>CAN Bus Matrix</a></nav></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface/90 backdrop-blur-xl z-40 flex items-center justify-between px-6 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-4 text-telemetry-sm font-telemetry-sm text-on-surface-variant"><span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>UTC: 14:22:09</span><span>ENG-ID: MALE-AP-09</span><span>LINK: 99.8% (50Hz)</span></div><div class="flex items-center gap-3"><button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[20px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 bg-surface min-h-screen"><div class="flex flex-col w-full p-6 space-y-6">
+<!-- Fleet Level Overview Metrics Banner -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant">TOTAL FLEET</span>
+<span class="material-symbols-outlined text-primary text-[20px]">flight</span>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="text-telemetry-hero font-telemetry-hero text-on-surface">24</span>
+<span class="text-body-sm font-body-sm text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">+2 active</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant">HEALTHY (NOMINAL)</span>
+<span class="material-symbols-outlined text-[#0F9D8A] text-[20px]">check_circle</span>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="text-telemetry-hero font-telemetry-hero text-on-surface">18</span>
+<span class="text-body-sm font-body-sm text-[#0F9D8A]">75% index</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant">ATTENTION REQUIRED</span>
+<span class="material-symbols-outlined text-[#D97706] text-[20px]">warning</span>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="text-telemetry-hero font-telemetry-hero text-on-surface">04</span>
+<span class="text-body-sm font-body-sm text-[#D97706] bg-amber-50 px-2 py-0.5 rounded">Thermal delta</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant">CRITICAL FAULTS</span>
+<span class="material-symbols-outlined text-[#D92D20] text-[20px]">error</span>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="text-telemetry-hero font-telemetry-hero text-[#D92D20]">01</span>
+<span class="text-body-sm font-body-sm text-[#D92D20] bg-rose-50 px-2 py-0.5 rounded">Immediate RTB</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant">OFFLINE / BAY</span>
+<span class="material-symbols-outlined text-outline text-[20px]">power_off</span>
+</div>
+<div class="mt-4 flex items-baseline justify-between">
+<span class="text-telemetry-hero font-telemetry-hero text-on-surface-variant">01</span>
+<span class="text-body-sm font-body-sm text-outline">Scheduled Maint</span>
+</div>
+</div>
+</div>
+<!-- Operational Interactive Map & Quick Filters -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Map Section (2 cols) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Active Sector Telemetry Map</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Restricted Test Range Alpha-4 • Real-time GPS/CAN Sync</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 bg-surface-container-low hover:bg-surface-container text-on-surface text-body-sm font-body-sm rounded-lg transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">layers</span>Sectors
+          </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary text-body-sm font-body-sm rounded-lg transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">my_location</span>Recenter
+          </button>
+</div>
+</div>
+<!-- Interactive Map Simulation Box -->
+<div class="relative w-full h-[380px] rounded-lg overflow-hidden bg-surface-container-high" data-location="Edwards AFB Test Range, California" style="">
+<!-- Map Background Image Placeholder -->
+<div class="absolute inset-0 bg-cover bg-center opacity-75" data-alt="High-contrast aerial tactical map of a desert flight test range with coordinate grid lines, waypoint markers in blue and red, telemetry vectors, and topographical contours rendered in clean aerospace design colors of deep navy and crisp slate." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDtReSl-aYiN3it90E3s_6HkhJSjv_Rj-zaIl4v75CDGLpFyzePBzFQzVk2V594BOJ8elgn-8V2QxfLU12uAdKs0Xmmw0SI9RnfXtC1S71-wmiiHd0OvDHJ2Lf1LDRGS_0TB4ui7zYaz8OqgskhK_QHV2IgIVvL4tjkkV3a-jBOsJ5EzZS37XLYGgRkrYR3833a5XOHoZCyXJSxLiTtRLi-aI_MXR1vu2Gm902FWoNx3tM2z77uKVyY')"></div>
+<!-- Grid Overlays & Waypoints -->
+<div class="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent pointer-events-none"></div>
+<!-- Aircraft Waypoint Pins -->
+<div class="absolute top-[28%] left-[35%] cursor-pointer group" onclick="window.location.href='#digital-twin'">
+<div class="flex items-center gap-1.5 bg-surface/90 backdrop-blur px-2.5 py-1 rounded shadow border border-primary/20 group-hover:bg-primary group-hover:text-on-primary transition-all">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+<span class="text-telemetry-sm font-telemetry-sm font-semibold">MALE-AP-09</span>
+</div>
+</div>
+<div class="absolute top-[55%] left-[62%] cursor-pointer group" onclick="window.location.href='#digital-twin'">
+<div class="flex items-center gap-1.5 bg-surface/90 backdrop-blur px-2.5 py-1 rounded shadow border border-[#D92D20]/40 group-hover:bg-[#D92D20] group-hover:text-on-primary transition-all">
+<span class="w-2 h-2 rounded-full bg-[#D92D20] animate-pulse"></span>
+<span class="text-telemetry-sm font-telemetry-sm font-semibold text-[#D92D20] group-hover:text-on-primary">MALE-AP-02 (RTB)</span>
+</div>
+</div>
+<div class="absolute top-[20%] left-[70%] cursor-pointer group" onclick="window.location.href='#digital-twin'">
+<div class="flex items-center gap-1.5 bg-surface/90 backdrop-blur px-2.5 py-1 rounded shadow border border-amber-500/40 group-hover:bg-amber-600 group-hover:text-on-primary transition-all">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="text-telemetry-sm font-telemetry-sm font-semibold">MALE-AP-14</span>
+</div>
+</div>
+<!-- Map Controls Legend Footer -->
+<div class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur px-3 py-1.5 rounded text-telemetry-sm font-telemetry-sm text-on-surface-variant flex items-center gap-4">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>Nominal</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Attention</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#D92D20]"></span>Critical</span>
+<span class="text-outline">| Lat: 34.9014° N, Lon: 117.8824° W</span>
+</div>
+</div>
+</div>
+<!-- Quick Diagnostics Feed (1 col) -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-headline-md font-headline-md text-on-surface">Fleet AI Alerts</h2>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Real-time Stream</span>
+</div>
+<div class="space-y-3">
+<!-- Alert Item 1 -->
+<div class="p-3 bg-rose-50 border border-[#FECDCA] rounded-lg">
+<div class="flex items-center justify-between mb-1">
+<span class="text-body-sm font-semibold text-[#D92D20]">MALE-AP-02 • ENG #4</span>
+<span class="text-telemetry-sm text-[#D92D20]">14:21 UTC</span>
+</div>
+<p class="text-body-sm text-on-surface">CHT Spike detected (+14.2°C delta). Exhaust valve thermal gradient exceedance.</p>
+</div>
+<!-- Alert Item 2 -->
+<div class="p-3 bg-amber-50 border border-[#FCD34D] rounded-lg">
+<div class="flex items-center justify-between mb-1">
+<span class="text-body-sm font-semibold text-[#D97706]">MALE-AP-14 • ENG #1</span>
+<span class="text-telemetry-sm text-[#D97706]">14:18 UTC</span>
+</div>
+<p class="text-body-sm text-on-surface">Oil pressure variance detected during climb sequence at FL220.</p>
+</div>
+<!-- Alert Item 3 -->
+<div class="p-3 bg-surface-container-low rounded-lg">
+<div class="flex items-center justify-between mb-1">
+<span class="text-body-sm font-semibold text-primary">MALE-AP-09 • ENG #2</span>
+<span class="text-telemetry-sm text-on-surface-variant">14:12 UTC</span>
+</div>
+<p class="text-body-sm text-on-surface">Ignition timing synchronized across all 8 cylinders. Nominal efficiency.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-4 py-2 bg-surface-container-low hover:bg-surface-container text-primary font-headline-sm text-headline-sm rounded-lg transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">psychology</span>View All AI Diagnostics
+      </button>
+</div>
+</div>
+<!-- Fleet UAV Rich Cards Grid -->
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Active Fleet Units &amp; Digital Twin Status</h2>
+<div class="flex items-center gap-3">
+<div class="relative">
+<input class="h-9 px-3 pl-9 rounded-lg border border-outline-variant bg-surface text-body-md text-on-surface focus:outline-none focus:border-secondary" placeholder="Filter UAV ID or Engine..." type="text"/>
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-outline text-[18px]">search</span>
+</div>
+<button class="px-4 py-2 bg-primary text-on-primary font-headline-sm text-headline-sm rounded-lg transition-colors hover:bg-primary-container">
+          Export Telemetry CSV
+        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1: Nominal UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-primary/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">flight_takeoff</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface">MALE-AP-09</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-09-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-emerald-50 text-[#0F9D8A] border border-[#BCE3DC] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0F9D8A]"></span>NORMAL
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-on-surface">Recon Alpha-Scan</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-[#0F9D8A]">98.4%</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-[#0F9D8A] h-full rounded-full" style="width: 98.4%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface mt-0.5">1,420 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-emerald-600 mt-0.5">99.8% <span class="text-body-sm">50Hz</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-primary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">hub</span>CAN Bus Matrix Active</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2: Attention UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-amber-500/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-600 text-[22px]">flight</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface">MALE-AP-14</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-14-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-amber-50 text-[#D97706] border border-[#FCD34D] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#D97706]"></span>ATTENTION
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-on-surface">Long-Endurance Patrol</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-[#D97706]">87.2%</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-[#D97706] h-full rounded-full" style="width: 87.2%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface mt-0.5">840 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-amber-600 mt-0.5">94.2% <span class="text-body-sm">50Hz</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-amber-700">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">warning</span>Thermal gradient warning</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 3: Critical UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-[#D92D20]/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#D92D20] text-[22px]">flight_land</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface">MALE-AP-02</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-02-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-rose-50 text-[#D92D20] border border-[#FECDCA] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#D92D20] animate-pulse"></span>CRITICAL
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-[#D92D20]">Return to Base (RTB)</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-[#D92D20]">62.1%</span>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-[#D92D20] h-full rounded-full" style="width: 62.1%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface mt-0.5">180 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-[#D92D20] mt-0.5">88.4% <span class="text-body-sm">25Hz</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-[#D92D20]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">error</span>Exhaust Valve Seat Erosion</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 4: Nominal UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-primary/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">flight_takeoff</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface">MALE-AP-19</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-19-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-emerald-50 text-[#0F9D8A] border border-[#BCE3DC] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0F9D8A]"></span>NORMAL
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-on-surface">Boundary Mapping</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-[#0F9D8A]">96.8%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-[#0F9D8A] h-full rounded-full" style="width: 96.8%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface mt-0.5">1,310 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-emerald-600 mt-0.5">99.9% <span class="text-body-sm">50Hz</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-primary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">hub</span>CAN Bus Matrix Active</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 5: Nominal UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-primary/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">flight_takeoff</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface">MALE-AP-22</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-22-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-emerald-50 text-[#0F9D8A] border border-[#BCE3DC] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-[#0F9D8A]"></span>NORMAL
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-on-surface">Sigint Relay Beta</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-[#0F9D8A]">94.5%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-[#0F9D8A] h-full rounded-full" style="width: 94.5%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface mt-0.5">1,150 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-emerald-600 mt-0.5">99.5% <span class="text-body-sm">50Hz</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-primary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">hub</span>CAN Bus Matrix Active</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+<!-- Card 6: Offline UAV -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-outline/40 flex flex-col justify-between" onclick="window.location.href='#digital-twin'">
+<div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[22px]">flight</span>
+<div>
+<span class="text-headline-sm font-headline-sm text-on-surface-variant">MALE-AP-01</span>
+<p class="text-telemetry-sm text-on-surface-variant font-telemetry-sm">ENG-ID: MALE-AP-01-V8</p>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full text-label-caps font-label-caps bg-surface-container text-outline border border-outline-variant flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>OFFLINE
+            </span>
+</div>
+<div class="space-y-3 my-4">
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Mission Profile</span>
+<span class="font-medium text-on-surface-variant">Scheduled Maintenance</span>
+</div>
+<div class="flex justify-between text-body-md">
+<span class="text-on-surface-variant">Engine Health Index</span>
+<span class="font-telemetry-md font-telemetry-md text-outline">91.0%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="bg-outline h-full rounded-full" style="width: 91.0%"></div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 border-t border-surface-container-high">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">REMAINING USEFUL LIFE</span>
+<p class="text-telemetry-lg font-telemetry-lg text-on-surface-variant mt-0.5">1,200 <span class="text-body-sm">hrs</span></p>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK STATUS</span>
+<p class="text-telemetry-lg font-telemetry-lg text-outline mt-0.5">0.0% <span class="text-body-sm">Bay</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-surface-container-high text-body-sm font-body-sm text-outline">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">build</span>Bay Hangar 3 • Overhaul</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Fleet Detailed Telemetry Matrix Summary Table -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Comprehensive CAN Bus Fleet Registry</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Live telemetry stream across active aviation test platforms</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-telemetry-sm font-telemetry-sm text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>All bus streams nominal (50Hz)
+        </span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-container-high text-label-caps font-label-caps text-on-surface-variant">
+<th class="py-3 px-4">UAV ID</th>
+<th class="py-3 px-4">Engine Model</th>
+<th class="py-3 px-4">Active Mission</th>
+<th class="py-3 px-4">Health %</th>
+<th class="py-3 px-4">RUL (Hrs)</th>
+<th class="py-3 px-4">Oil Press (PSI)</th>
+<th class="py-3 px-4">CHT Mean (°C)</th>
+<th class="py-3 px-4">Status</th>
+<th class="py-3 px-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md">
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low cursor-pointer transition-colors h-[28px]" onclick="window.location.href='#digital-twin'">
+<td class="py-2.5 px-4 font-semibold text-primary">MALE-AP-09</td>
+<td class="py-2.5 px-4 font-telemetry-sm text-on-surface-variant">Aero-V8-Turbo</td>
+<td class="py-2.5 px-4">Recon Alpha-Scan</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#0F9D8A]">98.4%</td>
+<td class="py-2.5 px-4 font-telemetry-md">1,420</td>
+<td class="py-2.5 px-4 font-telemetry-md">78.2</td>
+<td class="py-2.5 px-4 font-telemetry-md">184.2</td>
+<td class="py-2.5 px-4"><span class="px-2 py-0.5 rounded text-label-caps bg-emerald-50 text-[#0F9D8A]">NORMAL</span></td>
+<td class="py-2.5 px-4 text-right"><span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span></td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low cursor-pointer transition-colors h-[28px]" onclick="window.location.href='#digital-twin'">
+<td class="py-2.5 px-4 font-semibold text-primary">MALE-AP-14</td>
+<td class="py-2.5 px-4 font-telemetry-sm text-on-surface-variant">Aero-V8-Turbo</td>
+<td class="py-2.5 px-4">Long-Endurance Patrol</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#D97706]">87.2%</td>
+<td class="py-2.5 px-4 font-telemetry-md">840</td>
+<td class="py-2.5 px-4 font-telemetry-md">71.0</td>
+<td class="py-2.5 px-4 font-telemetry-md">204.6</td>
+<td class="py-2.5 px-4"><span class="px-2 py-0.5 rounded text-label-caps bg-amber-50 text-[#D97706]">ATTENTION</span></td>
+<td class="py-2.5 px-4 text-right"><span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span></td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low cursor-pointer transition-colors h-[28px]" onclick="window.location.href='#digital-twin'">
+<td class="py-2.5 px-4 font-semibold text-[#D92D20]">MALE-AP-02</td>
+<td class="py-2.5 px-4 font-telemetry-sm text-on-surface-variant">Aero-V8-Turbo</td>
+<td class="py-2.5 px-4 font-medium text-[#D92D20]">Return to Base (RTB)</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#D92D20]">62.1%</td>
+<td class="py-2.5 px-4 font-telemetry-md">180</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#D92D20]">54.4</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#D92D20]">232.8</td>
+<td class="py-2.5 px-4"><span class="px-2 py-0.5 rounded text-label-caps bg-rose-50 text-[#D92D20]">CRITICAL</span></td>
+<td class="py-2.5 px-4 text-right"><span class="material-symbols-outlined text-[#D92D20] text-[18px]">chevron_right</span></td>
+</tr>
+<tr class="border-b border-surface-container-low hover:bg-surface-container-low cursor-pointer transition-colors h-[28px]" onclick="window.location.href='#digital-twin'">
+<td class="py-2.5 px-4 font-semibold text-primary">MALE-AP-19</td>
+<td class="py-2.5 px-4 font-telemetry-sm text-on-surface-variant">Aero-V8-Turbo</td>
+<td class="py-2.5 px-4">Boundary Mapping</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#0F9D8A]">96.8%</td>
+<td class="py-2.5 px-4 font-telemetry-md">1,310</td>
+<td class="py-2.5 px-4 font-telemetry-md">77.9</td>
+<td class="py-2.5 px-4 font-telemetry-md">185.0</td>
+<td class="py-2.5 px-4"><span class="px-2 py-0.5 rounded text-label-caps bg-emerald-50 text-[#0F9D8A]">NORMAL</span></td>
+<td class="py-2.5 px-4 text-right"><span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low cursor-pointer transition-colors h-[28px]" onclick="window.location.href='#digital-twin'">
+<td class="py-2.5 px-4 font-semibold text-primary">MALE-AP-22</td>
+<td class="py-2.5 px-4 font-telemetry-sm text-on-surface-variant">Aero-V8-Turbo</td>
+<td class="py-2.5 px-4">Sigint Relay Beta</td>
+<td class="py-2.5 px-4 font-telemetry-md text-[#0F9D8A]">94.5%</td>
+<td class="py-2.5 px-4 font-telemetry-md">1,150</td>
+<td class="py-2.5 px-4 font-telemetry-md">76.5</td>
+<td class="py-2.5 px-4 font-telemetry-md">188.1</td>
+<td class="py-2.5 px-4"><span class="px-2 py-0.5 rounded text-label-caps bg-emerald-50 text-[#0F9D8A]">NORMAL</span></td>
+<td class="py-2.5 px-4 text-right"><span class="material-symbols-outlined text-primary text-[18px]">chevron_right</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div></main></div></body></html>

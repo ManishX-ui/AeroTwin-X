@@ -1,0 +1,553 @@
+{
+  "Overview": {
+    "file": "23_Mission Control _ Overview Dashboard _Ai_c79d5ee8.html",
+    "size_chars": 66990,
+    "sections": [
+      "1. TOP MISSION BAR & HIGH-DENSITY KPI STRIP",
+      "KPI 1: ENGINE HEALTH",
+      "KPI 2: DIGITAL TWIN SYNC",
+      "KPI 3: REMAINING USEFUL LIFE",
+      "KPI 4: ANOMALY SCORE",
+      "KPI 5: ENGINE EFFICIENCY",
+      "KPI 6: DATA QUALITY / CAN BUS",
+      "2. MAIN COCKPIT WORKSPACE (3-COLUMN DOCK)",
+      "[LEFT COLUMN] LIVE ENGINE TELEMETRY (CAN BUS A/B)",
+      "[CENTER COLUMN] INTERACTIVE DIGITAL TWIN VIEW"
+    ],
+    "headings": [],
+    "buttons": [
+      "Filter 24 Nodes",
+      "thermostat THERMAL MESH",
+      "grid_4x4 WIREFRAME",
+      "zoom_in",
+      "zoom_out",
+      "restart_alt",
+      "[ENGINE: BLOCK 92%]",
+      "[CYL 3: EGT \u0394+18\u00b0]",
+      "[FUEL RAIL]",
+      "[OIL SCAVENGE]",
+      "[COOLING BAFFLES]",
+      "[ECU A/B]"
+    ],
+    "table_headers": [
+      "Propulsion Parameter",
+      "Observed Live",
+      "Digital Twin Model",
+      "Residual (\u0394)",
+      "Error %",
+      "Tolerance Band",
+      "Validation State"
+    ],
+    "metrics": [
+      "ALTERNATOR",
+      "ANOMALY SCORE",
+      "BATTERY",
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "EVIDENCE",
+      "FUEL FLOW",
+      "INJECTION TIMING",
+      "MAP",
+      "OIL PRESSURE",
+      "OIL TEMP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "3D Engine Explorer": {
+    "file": "05_3D Engine Digital Twin Explorer_97b5f472.html",
+    "size_chars": 43181,
+    "sections": [
+      "SUBHEADER OPERATIONAL TOOLBAR",
+      "Camera, Presets & Mode Controls",
+      "2-COLUMN CORE WORKSPACE: 70% 3D CAD VIEWPORT & 30% DEEP COMPONENT INSPECTOR",
+      "LEFT 70% (8 COLS): INTERACTIVE 3D CAD ENGINE VIEWPORT & HUD",
+      "Coordinate alignment background grid",
+      "RIGHT 30% (4 COLS): DEDICATED COMPONENT INSPECTOR PANEL",
+      "Inspector Header & Identification",
+      "Key Metrics 2x2 Grid",
+      "Live Trend & Residual Chart (Past 15 Min)",
+      "SVG Strip Chart"
+    ],
+    "headings": [
+      "3D ENGINE DIGITAL TWIN EXPLORER",
+      "CYLINDER #3 SUB-ASSEMBLY",
+      "ENGINE SUB-ASSEMBLY FLEET HEALTH &amp; DIGITAL TWIN MATRIX"
+    ],
+    "buttons": [
+      "ISOMETRIC",
+      "FRONT (PRGB)",
+      "TOP (CYL)",
+      "SIDE (TURBO)",
+      "SECTION A-A",
+      "EXPLODED",
+      "THERMAL",
+      "STRESS (FEA)",
+      "CAD WIRE",
+      "PHYSICAL",
+      "ROT: ON",
+      "ALL ASSEMBLY"
+    ],
+    "table_headers": [
+      "Sub-Assembly",
+      "Kinematic Node",
+      "Health Score",
+      "Operating Temp",
+      "Stress / MAP",
+      "Remaining Life (RUL)",
+      "Status",
+      "Action"
+    ],
+    "metrics": [
+      "ANOMALY SCORE",
+      "CHT",
+      "DEGRADATION",
+      "EGT",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "Live Telemetry": {
+    "file": "32_Screen 10_ Live Telemetry _ CAN Bus_26295ed4.html",
+    "size_chars": 54830,
+    "sections": [
+      "Top Context Ribbon & Controls",
+      "Live Control Deck",
+      "KPI Row: 6 Mission Cards",
+      "Card 1: CAN Status",
+      "Card 2: Message Rate",
+      "Card 3: Packets Received",
+      "Card 4: Dropped / Error Frames",
+      "Card 5: Round-Trip Latency",
+      "Card 6: Signal Quality / Bit Timing",
+      "End-to-End Aero-Propulsion Telemetry & Digital Twin Pipeline Flowchart"
+    ],
+    "headings": [
+      "Live Propulsion Telemetry &amp; CAN-FD Bus Protocol Analyzer",
+      "End-to-End Aero-Propulsion Telemetry &amp; Digital Twin Pipeline",
+      "Bus Load &amp; Bandwidth",
+      "Frame Priority Distribution",
+      "Physical Layer Oscilloscope",
+      "Diagnostic Commands &amp; Tools"
+    ],
+    "buttons": [
+      "pause \n PAUSE STREAM",
+      "mop \n CLEAR BUFFER",
+      "fiber_manual_record \n RECORD PCAP",
+      "file_download \n EXPORT LOG \n expand_more",
+      "tune \n FILTER CONFIG",
+      "code \n              DECODED DATA",
+      "data_object \n              RAW DATA (HEX)",
+      "show_chart \n              SENSOR VOLTAGES / ADC",
+      "Dual A+B",
+      "Bus A Only",
+      "Bus B Only",
+      "Reset Filters"
+    ],
+    "table_headers": [
+      "Timestamp",
+      "Bus",
+      "Arbitration ID",
+      "DLC",
+      "Payload (Hex)",
+      "Decoded Signals &amp; Engineering Units",
+      "Status",
+      "Inspect"
+    ],
+    "metrics": [
+      "CHT",
+      "EGT",
+      "INJECTION TIMING",
+      "MAP",
+      "RPM"
+    ]
+  },
+  "AI Diagnostics": {
+    "file": "19_Screen 04_ AI Diagnostics _ Fault Predic_88451337.html",
+    "size_chars": 52998,
+    "sections": [
+      "6 Key AI Metrics Cards",
+      "Large Vector Timeline Visualizer",
+      "Key Timeline Markers",
+      "Timeline Metric Summary Pills",
+      "LEFT: 8 FAULT HYPOTHESES CARDS (7 of 12 cols)",
+      "8 Hypotheses Cards Grid (2 cols x 4 rows)",
+      "RIGHT: EXPLAINABLE AI ATTRIBUTION & 6D EVIDENCE (5 of 12 cols)",
+      "AI Interpretation Statement Card",
+      "5 Horizon Cards Row",
+      "Bottom Action Commands Strip"
+    ],
+    "headings": [],
+    "buttons": [
+      "play_circle \n                 Run Ad-Hoc Inference",
+      "download \n                 Export Dossier (JSON/PDF)",
+      "account_tree \n                 Model Weight Details",
+      "Isolate Node",
+      "troubleshoot \n                 Investigate Root Cause",
+      "check_circle \n                 Acknowledge Alert (ALT-084)",
+      "assignment \n                 Open Maintenance Task",
+      "post_add \n                 Add to Mission Report"
+    ],
+    "table_headers": [],
+    "metrics": [
+      "ALTERNATOR",
+      "ANOMALY SCORE",
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "EVIDENCE",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "RUL & Degradation": {
+    "file": "02_Screen 05_ RUL _ Engine Degradation_7f7479c8.html",
+    "size_chars": 25131,
+    "sections": [
+      "BEGIN: HeroKPIBlock",
+      "Main Massive RUL Box (7 cols)",
+      "Auxiliary KPIs (5 cols)",
+      "END: HeroKPIBlock",
+      "BEGIN: PowerplantDegradationTrajectoryChart",
+      "SVG Line Chart Canvas Area",
+      "Grid Lines Horizontal",
+      "END: PowerplantDegradationTrajectoryChart",
+      "BEGIN: SubsystemsAndScenariosGrid",
+      "Subsystems Degradation Matrix (8 cols)"
+    ],
+    "headings": [
+      "Prognostics &amp; Remaining Useful Life (RUL)",
+      "Powerplant Degradation Trajectory (Past \u2022 NOW \u2022 Future)",
+      "Subsystems Degradation Matrix (7 Core Subsystems)",
+      "RUL Mission Profile Sensitivity",
+      "Optimal Maintenance Scheduling Window: Turnaround 14"
+    ],
+    "buttons": [
+      "Export Prognostics Dossier (PDF/JSON)",
+      "Recalibrate Prior",
+      "Lock Maintenance Window at T-14",
+      "Generate Work Order",
+      "Review Borescope Archive"
+    ],
+    "table_headers": [
+      "Subsystem",
+      "Health Index",
+      "Degradation Trend",
+      "Wear Rate",
+      "Confidence",
+      "Telemetry Key Signature"
+    ],
+    "metrics": [
+      "ALTERNATOR",
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "EVIDENCE",
+      "HEALTH INDEX",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "Alerts Center": {
+    "file": "10_Screen 06_ Alerts _ Events Center_211b10e2.html",
+    "size_chars": 32328,
+    "sections": [
+      "1. Header & Quick Summary KPI Row",
+      "Metric KPI Cards",
+      "Active Alerts Card",
+      "2. Event Chronology & Alert Timeline",
+      "Visual Timeline Bar",
+      "Timeline Track Base",
+      "Markers along the timeline",
+      "BEGIN: LeftAlertsFeed (Col 8)",
+      "Alert Card 1: ALT-084 [WARNING - PRIMARY ACTIVE ISSUE]",
+      "Header bar"
+    ],
+    "headings": [
+      "ALERTS &amp; EVENTS CENTER",
+      "THERMAL DEVIATION: CYLINDER #3 EGT RESIDUAL EXCEEDANCE",
+      "Fuel Flow Asymmetry / Positive Bias Exceedance",
+      "Weibull Hazard Rate Recalibration (RUL 1,284 h)",
+      "Type-K Thermocouple Drift Check: PASS (+0.14\u00b0C)",
+      "Waypoint #04 Cruise Ceiling 14,500 ft Reached"
+    ],
+    "buttons": [
+      "Export Dossier (CSV/JSON)",
+      "Silence Non-Critical (15m)",
+      "Batch Acknowledge (3)",
+      "Audit Logbook",
+      "ALT-084 (T-14m EGT)",
+      "ALT-082 (T-40m FF)",
+      "EVT-098 (T-6h WPT)",
+      "ALL \n 7",
+      "CRITICAL \n 0",
+      "WARNING \n 2",
+      "INFORMATION \n 4",
+      "SENSOR (3)"
+    ],
+    "table_headers": [],
+    "metrics": [
+      "CHT",
+      "CONFIDENCE",
+      "EGT",
+      "FUEL FLOW",
+      "MAP",
+      "RESIDUAL",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "Predictive Maint": {
+    "file": "24_Screen 07_ Predictive Maintenance _ CBM__9a0c66f4.html",
+    "size_chars": 41866,
+    "sections": [
+      "BEGIN: HeaderBar",
+      "Header Action Buttons",
+      "END: HeaderBar",
+      "BEGIN: KPICardsGrid",
+      "KPI 1: Propulsion Score",
+      "KPI 2: Dispatch Queue",
+      "KPI 3: Fleet MTBUR",
+      "KPI 4: PINN Physics Sync",
+      "END: KPICardsGrid",
+      "BEGIN: SubsystemFilterStrip"
+    ],
+    "headings": [
+      "Predictive Maintenance &amp; CBM+ Workspace",
+      "Immediate Attention \u2014 Subsystem Advisory",
+      "Upcoming Maintenance &amp; Condition Monitoring",
+      "TURBO &amp; ELECTRONIC WASTEGATE",
+      "PRGB REDUCTION GEARBOX (2.54:1)",
+      "CYLINDER #1 - #4 PISTON &amp; BARREL",
+      "HP DUAL FUEL RAIL &amp; BOOST PUMPS",
+      "IGNITION &amp; DUAL FADEC SPARK",
+      "OIL SCAVENGE PUMP &amp; HEAT EXCHANGER",
+      "Maintenance Schedule &amp; Work Windows"
+    ],
+    "buttons": [
+      "Export Dispatch Pack",
+      "Generate Work Order",
+      "All Subsystems (8)",
+      "Propulsion Core",
+      "Fuel &amp; Metering \n 1",
+      "Thermal Management",
+      "Lubrication &amp; Gearbox",
+      "Avionics &amp; FADEC",
+      "CREATE TASK / WORK ORDER",
+      "VIEW HISTORY",
+      "FAULT EVIDENCE",
+      "CREATE TASK"
+    ],
+    "table_headers": [
+      "Event ID / Order",
+      "Date / UTC",
+      "Aircraft TTSN",
+      "Task Description &amp; Corrective Action",
+      "Certifying Authority",
+      "Status",
+      "Audit Proof"
+    ],
+    "metrics": [
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "EVIDENCE",
+      "FUEL FLOW",
+      "RESIDUAL",
+      "RUL"
+    ]
+  },
+  "Mission Sim": {
+    "file": "15_Screen 08_ Mission Simulator_9f1d8582.html",
+    "size_chars": 39822,
+    "sections": [
+      "1. Header & Quick Controls",
+      "3. Multi-Phase Flight Timeline & Profile",
+      "8 Flight Phases Cards Ribbon",
+      "Grid Lines",
+      "9 Side-by-Side KPI Cards Grid",
+      "Comparative Multi-Trace Waveform Charts (Simulated vs Baseline)",
+      "Chart 1: Dual Thermal Response (EGT & CHT)",
+      "Chart 2: Specific Fuel Consumption & Boost Pressure"
+    ],
+    "headings": [
+      "Mission Simulator & Flight Propulsion Emulation",
+      "A. Mission Type & Payload",
+      "B. Atmospheric Boundaries",
+      "C. Powertrain & FADEC Schedule",
+      "Multi-Phase Mission Flight Profile Timeline",
+      "Simulation Output: Predicted Engine Behaviour (Simulated vs Baseline)",
+      "Thermal Profile: Simulated (Dashed Red) vs Baseline (Solid Blue)",
+      "Fuel Burn Rate & Manifold Pressure (MAP)"
+    ],
+    "buttons": [
+      "play_arrow \n             RUN SIMULATION (50x)",
+      "bookmark \n             Save Scenario",
+      "ios_share \n             Export Telemetry",
+      "restart_alt \n             Reset Baseline",
+      "ISR \n                 check",
+      "Maritime Surv.",
+      "Comm Relay",
+      "Long Patrol",
+      "Apply FADEC Mitigation",
+      "Commit to Mission Log"
+    ],
+    "table_headers": [],
+    "metrics": [
+      "CHT",
+      "EGT",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MAP",
+      "OIL PRESSURE",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "VIBRATION"
+    ]
+  },
+  "Mission Replay": {
+    "file": "27_Screen 09_ Mission Replay _ Historical T_1dab415f.html",
+    "size_chars": 46764,
+    "sections": [
+      "TOP REPLAY CONTROLLER & SCRUBBER SECTION",
+      "Header & Flight Meta",
+      "Active Transport Controls",
+      "Multi-Track Timeline Scrubber Container",
+      "Track 2: Mahalanobis Anomaly Heatmap / Density Strip",
+      "MAIN DUAL WORKSPACE SPLIT (Left 2D/3D Twin + Charts | Right Incident Dossier)",
+      "LEFT / CENTER COLUMN: DIGITAL TWIN SYNCHRONIZATION & MULTI-CHANNEL GRAPHS (Cols 8)",
+      "SECTION 2A: SYNCHRONIZED 3D DIGITAL TWIN & CUTAWAY STATE",
+      "Background Atmospheric Aerospace Grid",
+      "Realtime Spatial Telemetry Callout Overlay Cards"
+    ],
+    "headings": [
+      "MISSION REPLAY // FLIGHT AE-2026-0814 \"GHOST HAWK\" ISR",
+      "SYNCHRONIZED DIGITAL TWIN CUTAWAY // ROTAX 915iSc",
+      "SYNCHRONIZED TELEMETRY CHANNELS vs NOMINAL BASELINE",
+      "MISSION FLIGHT LOG &amp; INCIDENT DOSSIER",
+      "COMPARATIVE DELTA (ACTUAL vs BASELINE)"
+    ],
+    "buttons": [
+      "bolt \n JUMP ANOMALY (03:18:02)",
+      "warning \n JUMP ALERT (03:21:40)",
+      "balance \n BASELINE OVERLAY [ON]",
+      "replay_10",
+      "pause \n PLAYING",
+      "forward_10",
+      "0.5x",
+      "1.0x",
+      "2x",
+      "5x",
+      "10x",
+      "ISOMETRIC 3/4"
+    ],
+    "table_headers": [],
+    "metrics": [
+      "ANOMALY SCORE",
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "FUEL FLOW",
+      "HEALTH INDEX",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "VIBRATION"
+    ]
+  },
+  "Edge AI / Models": {
+    "file": "22_Screen 11_ Edge AI Monitoring_d9a3858f.html",
+    "size_chars": 13111,
+    "sections": [
+      "Local Anomaly Table",
+      "Local Autonomous Buffering & Offline Resilience panel"
+    ],
+    "headings": [
+      "Edge AI Processing Node",
+      "End-to-End Edge AI Telemetry Pipeline",
+      "Local Anomaly Detection &amp; Surrogate Health",
+      "Model Metrics &amp; Performance",
+      "Local Autonomous Buffering &amp; Offline Resilience"
+    ],
+    "buttons": [],
+    "table_headers": [
+      "TIMESTAMP (UTC)",
+      "SUBSYSTEM",
+      "RESIDUAL CHI-SQ",
+      "LOCAL STATUS"
+    ],
+    "metrics": [
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "RESIDUAL"
+    ]
+  },
+  "About": {
+    "file": "03_Screen 16_ About AeroTwin-X_a19983d2.html",
+    "size_chars": 54914,
+    "sections": [
+      "Interactive & Operational State Controller Script",
+      "Aerospace Coordinate Grid Lines Overlay",
+      "Tab View 1: Comparative Cards",
+      "THE PROBLEM CARD",
+      "THE SOLUTION CARD",
+      "Horizontal Step Flow Cards",
+      "Technical Leadership Roster (5 Cols)",
+      "Documentation & Technical Library (7 Cols)"
+    ],
+    "headings": [
+      "\u201cContinuously compare the observed engine with its expected Digital Twin state, understand deviations using physics and sensor fusion, and provide explainable predictive health intelligence.\u201d",
+      "Reactive Time-Based Maintenance vs. AeroTwin-X Condition-Based Intelligence",
+      "Unscheduled In-Flight Propulsion Degradation",
+      "Edge-Fused Digital Twin &amp; Condition-Based Maintenance",
+      "Core Engineering Pillars of AeroTwin-X",
+      "Digital Twin Physics",
+      "Physics + AI Synthesis",
+      "Edge AI Computing",
+      "Predictive CBM+ Action",
+      "Rotax 915iSc Physical Engine to Cloud &amp; GCS Telemetry Pipeline"
+    ],
+    "buttons": [
+      "Comparative Matrix",
+      "Bandwidth &amp; SATCOM Optimization",
+      "download \n ICD PKG",
+      "download \n DBC / JSON",
+      "download \n SAFETY DOC",
+      "download \n PROTO API"
+    ],
+    "table_headers": [],
+    "metrics": [
+      "CHT",
+      "CONFIDENCE",
+      "DEGRADATION",
+      "EGT",
+      "MAP",
+      "RESIDUAL",
+      "RPM",
+      "RUL",
+      "SHAP",
+      "VIBRATION"
+    ]
+  }
+}

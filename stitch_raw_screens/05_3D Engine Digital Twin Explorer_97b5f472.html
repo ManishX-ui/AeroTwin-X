@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AeroTwin-X - 3D Engine Digital Twin Explorer</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Google Fonts: IBM Plex Sans & IBM Plex Mono & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet"/>
+  <!-- FontAwesome for technical icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0B1F33",
+            "primary-dark": "#071524",
+            "primary-container": "#173A5E",
+            secondary: "#2563EB",
+            "secondary-light": "#EAF2FF",
+            surface: "#F8F9FF",
+            "surface-dim": "#D2DBE9",
+            "surface-container": "#EEF4FF",
+            "surface-card": "#FFFFFF",
+            outline: "#73777F",
+            "outline-light": "#E4E7EC",
+            success: "#0F9D8A",
+            warning: "#D97706",
+            danger: "#D92D20",
+            "on-surface": "#131C26",
+            "on-surface-variant": "#43474E"
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace'],
+            telemetry: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #F8F9FF;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+      -webkit-font-smoothing: antialiased;
+    }
+    .bg-tech-grid {
+      background-size: 20px 20px;
+      background-image: 
+        linear-gradient(to right, rgba(23, 58, 94, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(23, 58, 94, 0.04) 1px, transparent 1px);
+    }
+    .live-dot {
+      animation: pulse-live 2s infinite ease-in-out;
+    }
+    @keyframes pulse-live {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.15); }
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F0F2F7;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ADC8FF;
+      border-radius: 2px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563EB;
+    }
+  </style>
+</head>
+<body class="text-on-surface font-sans min-h-screen flex flex-col antialiased selection:bg-secondary selection:text-white">
+
+  <!-- TOP COMMAND & HEADER NAVIGATION -->
+  <header class="bg-white border-b border-outline-light px-4 py-2 sticky top-0 z-50 flex items-center justify-between shadow-xs">
+    <div class="flex items-center space-x-6">
+      <!-- AeroTwin-X Logo -->
+      <div class="flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded bg-primary text-white flex items-center justify-center font-bold tracking-tighter text-base shadow-sm">
+          <i class="fa-solid fa-cube text-secondary"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5 leading-none">
+            <span class="font-bold text-base tracking-tight text-primary font-mono">AeroTwin<span class="text-secondary">-X</span></span>
+            <span class="text-[9px] bg-secondary-light text-secondary px-1 py-0.5 rounded font-mono font-semibold uppercase">v4.2-Pro</span>
+          </div>
+          <p class="text-[10px] text-outline font-mono tracking-wider uppercase mt-0.5">AERO-PISTON GCS DIGITAL TWIN</p>
+        </div>
+      </div>
+
+      <!-- Vehicle & Mission Profile Details -->
+      <div class="hidden lg:flex items-center space-x-3 border-l border-outline-light pl-6 text-xs font-mono">
+        <div class="bg-white border border-outline-light rounded px-2.5 py-1 flex items-center space-x-2 shadow-2xs">
+          <i class="fa-solid fa-plane-up text-secondary text-xs"></i>
+          <div>
+            <span class="text-[9px] text-outline uppercase block leading-none">Vehicle Platform</span>
+            <span class="font-semibold text-on-surface">UAV-07 (Hermes MALE)</span>
+          </div>
+        </div>
+        <div class="bg-white border border-outline-light rounded px-2.5 py-1 flex items-center space-x-2 shadow-2xs">
+          <i class="fa-solid fa-gears text-secondary text-xs"></i>
+          <div>
+            <span class="text-[9px] text-outline uppercase block leading-none">Powerplant Unit</span>
+            <span class="font-semibold text-on-surface">AE-03 (Turbo Piston 915iSc)</span>
+          </div>
+        </div>
+        <div class="bg-white border border-outline-light rounded px-2.5 py-1 flex items-center space-x-2 shadow-2xs">
+          <i class="fa-solid fa-bullseye text-success text-xs"></i>
+          <div>
+            <span class="text-[9px] text-outline uppercase block leading-none">Mission Assignment</span>
+            <span class="font-semibold text-on-surface">LONG-ENDURANCE ISR #842</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Status Hub & Officer Profile -->
+    <div class="flex items-center space-x-4">
+      <div class="hidden xl:flex items-center space-x-3 text-[11px] font-mono">
+        <!-- Live Indicator -->
+        <div class="flex items-center space-x-1.5 bg-primary text-white px-2.5 py-1 rounded shadow-xs">
+          <span class="w-2 h-2 rounded-full bg-[#00B86B] live-dot"></span>
+          <span class="font-bold tracking-wider">LIVE</span>
+          <span class="text-outline">|</span>
+          <span class="text-slate-400">SIMULATION</span>
+        </div>
+        <!-- Telemetry Sync -->
+        <div class="flex items-center space-x-1.5 bg-[#EAFDF5] border border-[#CEF9E5] text-[#007A46] px-2 py-1 rounded">
+          <i class="fa-solid fa-satellite-dish text-[10px]"></i>
+          <span class="font-semibold">TELEMETRY: CONNECTED</span>
+        </div>
+        <!-- Twin Sync Ratio -->
+        <div class="flex items-center space-x-1.5 bg-surface-container border border-outline-light text-secondary px-2 py-1 rounded">
+          <i class="fa-solid fa-arrows-rotate text-[10px] animate-spin" style="animation-duration: 6s;"></i>
+          <span>TWIN: <strong class="font-bold text-primary">99.7%</strong> SYNC</span>
+        </div>
+        <!-- PINN & Edge AI Status -->
+        <div class="flex items-center space-x-2 px-2 py-1 bg-surface-container rounded text-on-surface">
+          <span class="flex items-center space-x-1"><span class="w-1.5 h-1.5 rounded-full bg-[#00B86B]"></span><span>AI: ONLINE</span></span>
+          <span class="text-slate-300">|</span>
+          <span class="flex items-center space-x-1"><span class="w-1.5 h-1.5 rounded-full bg-[#00B86B]"></span><span>EDGE: 50Hz</span></span>
+        </div>
+      </div>
+      <!-- Real-time Mission UTC Clock -->
+      <div class="text-right font-mono pr-2 border-r border-outline-light">
+        <div class="text-xs font-bold text-on-surface tracking-tight">14:28:42 <span class="text-[10px] text-outline">UTC</span></div>
+        <div class="text-[10px] text-outline">2025-05-18</div>
+      </div>
+      <!-- Flight Eng Identity -->
+      <div class="flex items-center space-x-2.5">
+        <div class="relative">
+          <div class="w-8 h-8 rounded-full bg-secondary-light border border-secondary text-primary font-bold text-xs flex items-center justify-center">
+            MV
+          </div>
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#00B86B] border-2 border-white rounded-full"></span>
+        </div>
+        <div class="hidden sm:block text-left text-xs leading-tight">
+          <div class="font-bold text-on-surface">Maj. K. Vance</div>
+          <div class="text-[10px] text-outline font-mono">Lead Propulsion Eng</div>
+        </div>
+        <button class="relative p-1.5 text-outline hover:text-on-surface rounded transition-colors" title="System Alerts">
+          <i class="fa-regular fa-bell text-sm"></i>
+          <span class="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BODY CONTENT WITH SIDEBAR & MAIN VIEWPORT -->
+  <div class="flex-1 flex overflow-hidden">
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-56 bg-white border-r border-outline-light flex flex-col justify-between shrink-0 select-none overflow-y-auto">
+      <div class="py-4">
+        <!-- Main Navigation Group -->
+        <div class="px-3 mb-2">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-outline px-3 py-1 font-mono">Main Operations</p>
+          <nav class="space-y-0.5 mt-1">
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-gauge w-4 text-center text-outline"></i>
+              <span>Mission Control</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-cube w-4 text-center text-outline"></i>
+              <span>Digital Twin</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-heart-pulse w-4 text-center text-outline"></i>
+              <span>Engine Health</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-wave-square w-4 text-center text-outline"></i>
+              <span>Sensor Monitoring</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-brain w-4 text-center text-outline"></i>
+              <span>AI Diagnostics</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-triangle-exclamation w-4 text-center text-outline"></i>
+              <span>Fault Prediction</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-clock-rotate-left w-4 text-center text-outline"></i>
+              <span>RUL &amp; Degradation</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Operations Navigation Group -->
+        <div class="px-3 mb-2 pt-3 border-t border-outline-light">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-outline px-3 py-1 font-mono">Operations</p>
+          <nav class="space-y-0.5 mt-1">
+            <!-- ACTIVE ITEM -->
+            <a aria-current="page" class="flex items-center justify-between px-3 py-2 rounded bg-primary text-white shadow-xs font-semibold text-xs" href="#">
+              <div class="flex items-center space-x-2.5">
+                <i class="fa-solid fa-compass-drafting w-4 text-center text-secondary"></i>
+                <span>3D Engine Explorer</span>
+              </div>
+              <span class="w-1.5 h-1.5 rounded-full bg-[#00B86B]"></span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-vr-cardboard w-4 text-center text-outline"></i>
+              <span>Mission Simulator</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-film w-4 text-center text-outline"></i>
+              <span>Mission Replay</span>
+            </a>
+            <a class="flex items-center justify-between px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <div class="flex items-center space-x-2.5">
+                <i class="fa-solid fa-bell w-4 text-center text-outline"></i>
+                <span>Alerts</span>
+              </div>
+              <span class="text-[10px] bg-red-100 text-danger px-1.5 py-0.2 rounded font-mono font-bold">1</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-wrench w-4 text-center text-outline"></i>
+              <span>Maintenance</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-regular fa-file-lines w-4 text-center text-outline"></i>
+              <span>Reports</span>
+            </a>
+          </nav>
+        </div>
+
+        <!-- Engineering Architecture Group -->
+        <div class="px-3 mb-2 pt-3 border-t border-outline-light">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-outline px-3 py-1 font-mono">Engineering</p>
+          <nav class="space-y-0.5 mt-1">
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-network-wired w-4 text-center text-outline"></i>
+              <span>Telemetry / CAN</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-chart-line w-4 text-center text-outline"></i>
+              <span>Data Quality</span>
+            </a>
+            <a class="flex items-center space-x-2.5 px-3 py-2 rounded text-xs font-medium text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#">
+              <i class="fa-solid fa-microchip w-4 text-center text-outline"></i>
+              <span>Edge AI Models</span>
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Bottom Hardware Status -->
+      <div class="p-3 bg-surface-container border-t border-outline-light font-mono text-[11px]">
+        <div class="flex items-center justify-between text-on-surface-variant mb-1">
+          <span class="text-[10px] uppercase font-bold tracking-tight">CAN BUS STATUS</span>
+          <span class="text-success font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#00B86B]"></span>HEALTHY
+          </span>
+        </div>
+        <div class="grid grid-cols-3 gap-1 text-center bg-white p-2 rounded border border-outline-light">
+          <div>
+            <div class="text-[9px] text-outline">LOAD</div>
+            <div class="font-bold text-on-surface">42%</div>
+          </div>
+          <div>
+            <div class="text-[9px] text-outline">LOSS</div>
+            <div class="font-bold text-success">0.00%</div>
+          </div>
+          <div>
+            <div class="text-[9px] text-outline">LAT</div>
+            <div class="font-bold text-on-surface">14ms</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN SCROLLABLE DASHBOARD WORKSPACE -->
+    <main class="flex-1 overflow-y-auto p-4 lg:p-5 space-y-4">
+      
+      <!-- SUBHEADER OPERATIONAL TOOLBAR -->
+      <section class="bg-white p-3 rounded-lg border border-outline-light shadow-2xs flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+        <div class="flex flex-col gap-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base font-bold text-primary flex items-center gap-2 tracking-tight">
+              <i class="fa-solid fa-cube text-secondary"></i>
+              3D ENGINE DIGITAL TWIN EXPLORER
+            </h1>
+            <span class="bg-surface-container text-primary font-mono text-xs px-2 py-0.5 rounded border border-outline-light font-medium">
+              ROTAX 915iSc HORIZONTALLY-OPPOSED 4-CYL TURBOCHARGED AERO-PISTON
+            </span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+            <span class="inline-flex items-center gap-1.5 bg-surface-container px-2 py-0.5 rounded text-on-surface border border-outline-light">
+              <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+              PHYSICS MODEL LOCKED: <strong class="text-primary font-semibold">50Hz CAN-FD SYNC</strong>
+            </span>
+            <span class="inline-flex items-center gap-1 bg-surface-container px-2 py-0.5 rounded text-on-surface border border-outline-light">
+              KINEMATIC RIGIDITY: <strong class="text-success font-semibold">99.8%</strong>
+            </span>
+            <span class="inline-flex items-center gap-1 bg-amber-50 text-warning px-2 py-0.5 rounded border border-amber-200 font-semibold">
+              <i class="fa-solid fa-crosshairs text-[10px]"></i>
+              ACTIVE ISOLATION: CYLINDER #3 ASSEMBLY
+            </span>
+          </div>
+        </div>
+
+        <!-- Camera, Presets & Mode Controls -->
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- View Presets -->
+          <div class="flex items-center bg-surface-container p-0.5 rounded border border-outline-light text-xs font-mono">
+            <button class="px-2 py-1 bg-primary text-white rounded font-medium shadow-xs">ISOMETRIC</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">FRONT (PRGB)</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">TOP (CYL)</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">SIDE (TURBO)</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">SECTION A-A</button>
+            <button class="px-2 py-1 text-secondary font-medium hover:text-primary transition-colors flex items-center gap-1">
+              <i class="fa-solid fa-arrows-split-up-and-left text-[10px]"></i> EXPLODED
+            </button>
+          </div>
+
+          <!-- Render Mode Pills -->
+          <div class="flex items-center bg-surface-container p-0.5 rounded border border-outline-light text-xs font-mono">
+            <button class="px-2.5 py-1 bg-secondary text-white rounded font-medium shadow-xs flex items-center gap-1">
+              <i class="fa-solid fa-fire text-[10px]"></i> THERMAL
+            </button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">STRESS (FEA)</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">CAD WIRE</button>
+            <button class="px-2 py-1 text-on-surface-variant hover:text-primary transition-colors">PHYSICAL</button>
+          </div>
+
+          <!-- Viewport Utility Actions -->
+          <div class="flex items-center gap-1 border-l border-outline-light pl-2">
+            <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors" title="Reset Camera">
+              <i class="fa-solid fa-arrows-rotate text-xs"></i>
+            </button>
+            <button class="px-2 py-1 text-success bg-[#EAFDF5] border border-[#CEF9E5] hover:bg-[#D4FAEA] rounded flex items-center gap-1 text-xs font-mono font-medium" title="Auto-Rotate">
+              <span class="w-1.5 h-1.5 rounded-full bg-success live-dot"></span> ROT: ON
+            </button>
+            <button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded transition-colors" title="Fullscreen">
+              <i class="fa-solid fa-expand text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2-COLUMN CORE WORKSPACE: 70% 3D CAD VIEWPORT & 30% DEEP COMPONENT INSPECTOR -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        
+        <!-- LEFT 70% (8 COLS): INTERACTIVE 3D CAD ENGINE VIEWPORT & HUD -->
+        <div class="lg:col-span-8 flex flex-col space-y-3">
+          
+          <!-- Viewport Box -->
+          <div class="relative bg-white rounded-lg border border-outline-light shadow-2xs overflow-hidden flex flex-col h-[530px] select-none">
+            
+            <!-- Top CAD HUD Floating Overlay -->
+            <div class="absolute top-3 left-3 right-3 z-20 flex items-center justify-between pointer-events-none">
+              <div class="flex items-center gap-2 pointer-events-auto">
+                <span class="bg-primary/95 text-white backdrop-blur text-xs font-mono px-2.5 py-1 rounded flex items-center gap-1.5 shadow-sm">
+                  <i class="fa-solid fa-cube text-secondary"></i>
+                  ROTAX 915iSc AERO-TWIN MESH [v4.2]
+                </span>
+                <span class="bg-white/90 border border-outline-light text-primary backdrop-blur text-xs font-mono px-2 py-1 rounded shadow-2xs">
+                  NODES: 842,910 | KINEMATIC FREQ: 50Hz
+                </span>
+              </div>
+
+              <!-- Real-time Gimbal Readout -->
+              <div class="bg-primary/95 text-white backdrop-blur px-3 py-1 rounded flex items-center gap-3 text-xs font-mono shadow-sm pointer-events-auto">
+                <span>AZ: <strong class="text-blue-300">042°</strong></span>
+                <span>EL: <strong class="text-blue-300">28°</strong></span>
+                <span>ROLL: <strong class="text-blue-300">00°</strong></span>
+                <span class="text-outline">|</span>
+                <span class="text-success flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-success live-dot"></span> 60.0 FPS
+                </span>
+              </div>
+            </div>
+
+            <!-- Aerospace 3D Viewport Coordinate Compass (Top Right) -->
+            <div class="absolute top-14 right-4 w-20 h-20 pointer-events-none z-10">
+              <svg class="w-full h-full drop-shadow-sm" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="none" stroke="#E4E7EC" stroke-width="1" stroke-dasharray="2,2"/>
+                <line x1="50" y1="50" x2="50" y2="12" stroke="#D92D20" stroke-width="2"/>
+                <text x="50" y="8" font-family="IBM Plex Mono" font-size="9" font-weight="bold" fill="#D92D20" text-anchor="middle">Y (Pitch)</text>
+                <line x1="50" y1="50" x2="84" y2="68" stroke="#D97706" stroke-width="2"/>
+                <text x="86" y="74" font-family="IBM Plex Mono" font-size="9" font-weight="bold" fill="#D97706">X (Roll)</text>
+                <line x1="50" y1="50" x2="18" y2="70" stroke="#2563EB" stroke-width="2"/>
+                <text x="8" y="76" font-family="IBM Plex Mono" font-size="9" font-weight="bold" fill="#2563EB">Z (Yaw)</text>
+                <circle cx="50" cy="50" r="3" fill="#173A5E"/>
+              </svg>
+            </div>
+
+            <!-- Floating Viewport Navigation Toolbar (Left Overlay) -->
+            <div class="absolute left-3 top-14 z-20 flex flex-col gap-1 bg-white/90 backdrop-blur p-1 rounded-md border border-outline-light shadow-xs">
+              <button class="w-7 h-7 flex items-center justify-center text-primary hover:bg-surface-container rounded text-xs transition-colors" title="Orbit 360°">
+                <i class="fa-solid fa-arrows-spin"></i>
+              </button>
+              <button class="w-7 h-7 flex items-center justify-center text-primary hover:bg-surface-container rounded text-xs transition-colors" title="Zoom In (+)">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+              </button>
+              <button class="w-7 h-7 flex items-center justify-center text-primary hover:bg-surface-container rounded text-xs transition-colors" title="Zoom Out (-)">
+                <i class="fa-solid fa-magnifying-glass-minus"></i>
+              </button>
+              <button class="w-7 h-7 flex items-center justify-center text-primary hover:bg-surface-container rounded text-xs transition-colors" title="Pan Camera">
+                <i class="fa-solid fa-hand"></i>
+              </button>
+              <div class="border-t border-outline-light my-0.5"></div>
+              <button class="w-7 h-7 flex items-center justify-center text-secondary hover:bg-surface-container rounded text-xs transition-colors" title="Toggle Sensor Overlay">
+                <i class="fa-solid fa-satellite-dish"></i>
+              </button>
+              <button class="w-7 h-7 flex items-center justify-center text-warning hover:bg-surface-container rounded text-xs transition-colors" title="Section Cut Plane">
+                <i class="fa-solid fa-scissors"></i>
+              </button>
+            </div>
+
+            <!-- INTERACTIVE AERO-PISTON ENGINE CANVAS (SVG CAD SCHEMATIC) -->
+            <div class="relative w-full flex-1 bg-tech-grid flex items-center justify-center overflow-hidden cursor-grab active:cursor-grabbing p-4">
+              <svg class="w-full max-w-[820px] h-full object-contain" viewBox="0 0 880 430">
+                <defs>
+                  <!-- Metal gradients for casing -->
+                  <linearGradient id="crankMetal" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#C5D3E8"/>
+                    <stop offset="50%" stop-color="#EBF1FA"/>
+                    <stop offset="100%" stop-color="#A5B8D2"/>
+                  </linearGradient>
+                  <!-- Thermal Anomaly glow for Cyl 3 -->
+                  <linearGradient id="alertThermal" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FEE4E2"/>
+                    <stop offset="50%" stop-color="#FFDAD6"/>
+                    <stop offset="100%" stop-color="#FED7AA"/>
+                  </linearGradient>
+                  <!-- Normal Nominal Thermal gradient -->
+                  <linearGradient id="nominalThermal" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#EFF6FF"/>
+                    <stop offset="100%" stop-color="#DBEAFE"/>
+                  </linearGradient>
+                  <!-- Halo filter for active cylinder selection -->
+                  <filter id="activeHalo" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#D97706" flood-opacity="0.5"/>
+                  </filter>
+                </defs>
+
+                <!-- Coordinate alignment background grid -->
+                <g opacity="0.35">
+                  <line x1="40" y1="215" x2="840" y2="215" stroke="#ADC8FF" stroke-width="0.75" stroke-dasharray="4,4"/>
+                  <line x1="440" y1="30" x2="440" y2="400" stroke="#ADC8FF" stroke-width="0.75" stroke-dasharray="4,4"/>
+                  <circle cx="440" cy="215" r="170" fill="none" stroke="#DAE3F1" stroke-width="1" stroke-dasharray="4,4"/>
+                </g>
+
+                <!-- Propeller Reduction Gearbox (PRGB) Housing [FRONT NOSE - LEFT] -->
+                <g id="prgb-housing" class="cursor-pointer hover:opacity-90">
+                  <rect x="70" y="165" width="80" height="100" rx="4" fill="url(#crankMetal)" stroke="#43474E" stroke-width="1.5"/>
+                  <path d="M 50 185 L 70 175 L 70 255 L 50 245 Z" fill="#9FB4D0" stroke="#43474E" stroke-width="1"/>
+                  <circle cx="45" cy="215" r="14" fill="#173A5E" stroke="#2563EB" stroke-width="2"/>
+                  <circle cx="45" cy="215" r="5" fill="#FFFFFF"/>
+                  <!-- Propeller Drive Flange -->
+                  <rect x="22" y="209" width="22" height="12" fill="#43474E" rx="1"/>
+                  <!-- Label -->
+                  <rect x="55" y="145" width="110" height="18" rx="2" fill="#FFFFFF" stroke="#ADC8FF" stroke-width="0.8"/>
+                  <text x="110" y="157" font-family="IBM Plex Mono" font-size="8.5" font-weight="600" fill="#0B1F33" text-anchor="middle">PRGB GEARBOX 1:2.43</text>
+                  <circle cx="62" cy="154" r="2.5" fill="#0F9D8A"/>
+                </g>
+
+                <!-- Central Engine Crankcase Tunnel & Oil Gallery -->
+                <rect x="150" y="155" width="410" height="120" rx="6" fill="#DAE3F1" stroke="#43474E" stroke-width="2"/>
+                <line x1="155" y1="215" x2="555" y2="215" stroke="#173A5E" stroke-width="2.5" stroke-dasharray="10,3"/>
+                <!-- Crankshaft Kinematic Shaft Label -->
+                <text x="350" y="219" font-family="IBM Plex Mono" font-size="9" font-weight="bold" fill="#173A5E" text-anchor="middle" letter-spacing="1">CRANKSHAFT AXIS [50Hz SYNC: 2740 RPM]</text>
+
+                <!-- CYLINDER BANK LEFT (TOP IN ISO VIEW): CYLINDER #2 & CYLINDER #4 -->
+                <!-- CYLINDER #2 (FORWARD LEFT) -->
+                <g id="cyl-2" class="cursor-pointer hover:opacity-95 transition-opacity">
+                  <rect x="210" y="65" width="105" height="90" rx="3" fill="url(#nominalThermal)" stroke="#73777F" stroke-width="1.5"/>
+                  <!-- Cooling Fins -->
+                  <line x1="205" y1="80" x2="320" y2="80" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="205" y1="95" x2="320" y2="95" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="205" y1="110" x2="320" y2="110" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="205" y1="125" x2="320" y2="125" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="205" y1="140" x2="320" y2="140" stroke="#43474E" stroke-width="1.5"/>
+                  <!-- Sensor Node -->
+                  <circle cx="262" cy="55" r="4.5" fill="#0F9D8A"/>
+                  <line x1="262" y1="55" x2="262" y2="65" stroke="#0F9D8A" stroke-width="1.5"/>
+                  <rect x="215" y="38" width="95" height="15" rx="2" fill="#FFFFFF" stroke="#0F9D8A" stroke-width="0.8"/>
+                  <text x="262" y="49" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#0B1F33" text-anchor="middle">CYL #2: 174°C [● OK]</text>
+                </g>
+
+                <!-- CYLINDER #4 (AFT LEFT) -->
+                <g id="cyl-4" class="cursor-pointer hover:opacity-95 transition-opacity">
+                  <rect x="375" y="65" width="105" height="90" rx="3" fill="url(#nominalThermal)" stroke="#73777F" stroke-width="1.5"/>
+                  <line x1="370" y1="80" x2="485" y2="80" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="370" y1="95" x2="485" y2="95" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="370" y1="110" x2="485" y2="110" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="370" y1="125" x2="485" y2="125" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="370" y1="140" x2="485" y2="140" stroke="#43474E" stroke-width="1.5"/>
+                  <circle cx="427" cy="55" r="4.5" fill="#0F9D8A"/>
+                  <line x1="427" y1="55" x2="427" y2="65" stroke="#0F9D8A" stroke-width="1.5"/>
+                  <rect x="380" y="38" width="95" height="15" rx="2" fill="#FFFFFF" stroke="#0F9D8A" stroke-width="0.8"/>
+                  <text x="427" y="49" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#0B1F33" text-anchor="middle">CYL #4: 176°C [● OK]</text>
+                </g>
+
+                <!-- CYLINDER BANK RIGHT (BOTTOM IN ISO VIEW): CYLINDER #1 & CYLINDER #3 -->
+                <!-- CYLINDER #1 (FORWARD RIGHT) -->
+                <g id="cyl-1" class="cursor-pointer hover:opacity-95 transition-opacity">
+                  <rect x="235" y="275" width="105" height="90" rx="3" fill="url(#nominalThermal)" stroke="#73777F" stroke-width="1.5"/>
+                  <line x1="230" y1="290" x2="345" y2="290" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="230" y1="305" x2="345" y2="305" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="230" y1="320" x2="345" y2="320" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="230" y1="335" x2="345" y2="335" stroke="#43474E" stroke-width="1.5"/>
+                  <line x1="230" y1="350" x2="345" y2="350" stroke="#43474E" stroke-width="1.5"/>
+                  <circle cx="287" cy="375" r="4.5" fill="#0F9D8A"/>
+                  <line x1="287" y1="365" x2="287" y2="375" stroke="#0F9D8A" stroke-width="1.5"/>
+                  <rect x="240" y="378" width="95" height="15" rx="2" fill="#FFFFFF" stroke="#0F9D8A" stroke-width="0.8"/>
+                  <text x="287" y="389" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#0B1F33" text-anchor="middle">CYL #1: 175°C [● OK]</text>
+                </g>
+
+                <!-- CYLINDER #3 (AFT RIGHT) - HIGHLIGHTED ACTIVE ISOLATION / ATTENTION HEATMAP -->
+                <g id="cyl-3" class="cursor-pointer" filter="url(#activeHalo)">
+                  <!-- Amber/Red Warning Body -->
+                  <rect x="400" y="275" width="112" height="94" rx="4" fill="url(#alertThermal)" stroke="#D97706" stroke-width="2.5"/>
+                  <!-- Thermal Exceedance Heat lines -->
+                  <line x1="394" y1="290" x2="518" y2="290" stroke="#D92D20" stroke-width="2"/>
+                  <line x1="394" y1="305" x2="518" y2="305" stroke="#D97706" stroke-width="2"/>
+                  <line x1="394" y1="320" x2="518" y2="320" stroke="#D97706" stroke-width="2"/>
+                  <line x1="394" y1="335" x2="518" y2="335" stroke="#D97706" stroke-width="2"/>
+                  <line x1="394" y1="350" x2="518" y2="350" stroke="#D97706" stroke-width="2"/>
+                  <!-- Active Sensor Node Indicator with Ping -->
+                  <circle cx="456" cy="380" r="5" fill="#D92D20"/>
+                  <circle cx="456" cy="380" r="10" fill="none" stroke="#D92D20" stroke-width="1.5" class="animate-ping" style="animation-duration: 2.2s;"/>
+                  <line x1="456" y1="369" x2="456" y2="380" stroke="#D92D20" stroke-width="2"/>
+                  <!-- Highlight Floating CAD Badge -->
+                  <rect x="382" y="385" width="148" height="22" rx="3" fill="#D92D20" stroke="#FFFFFF" stroke-width="1"/>
+                  <text x="456" y="399" font-family="IBM Plex Mono" font-size="9" font-weight="bold" fill="#FFFFFF" text-anchor="middle">
+                    ▲ CYL #3: EGT 724°C (+18°C)
+                  </text>
+                  <!-- Selection Corner CAD Brackets -->
+                  <path d="M 390 282 L 390 273 L 399 273" fill="none" stroke="#D97706" stroke-width="2"/>
+                  <path d="M 522 282 L 522 273 L 513 273" fill="none" stroke="#D97706" stroke-width="2"/>
+                  <path d="M 390 361 L 390 370 L 399 370" fill="none" stroke="#D97706" stroke-width="2"/>
+                  <path d="M 522 361 L 522 370 L 513 370" fill="none" stroke="#D97706" stroke-width="2"/>
+                </g>
+
+                <!-- TURBOCHARGER & EXHAUST SYSTEM [AFT REAR - RIGHT] -->
+                <g id="turbo-assembly" class="cursor-pointer hover:opacity-90">
+                  <ellipse cx="610" cy="215" rx="42" ry="50" fill="#9FB4D0" stroke="#43474E" stroke-width="2"/>
+                  <circle cx="610" cy="215" r="22" fill="#173A5E" stroke="#ADC8FF" stroke-width="2"/>
+                  <circle cx="610" cy="215" r="7" fill="#FFFFFF"/>
+                  <!-- Turbine Impeller Blades Representation -->
+                  <line x1="610" y1="195" x2="610" y2="235" stroke="#FFFFFF" stroke-width="1.5"/>
+                  <line x1="590" y1="215" x2="630" y2="215" stroke="#FFFFFF" stroke-width="1.5"/>
+                  <!-- Exhaust Wastegate Pipe -->
+                  <path d="M 645 200 L 710 185 L 750 185" fill="none" stroke="#D97706" stroke-width="8" stroke-linecap="round"/>
+                  <path d="M 645 230 L 710 245 L 750 245" fill="none" stroke="#73777F" stroke-width="8" stroke-linecap="round"/>
+                  <!-- Turbo Label -->
+                  <rect x="555" y="145" width="110" height="18" rx="2" fill="#FFFFFF" stroke="#ADC8FF" stroke-width="0.8"/>
+                  <text x="610" y="157" font-family="IBM Plex Mono" font-size="8.5" font-weight="600" fill="#0B1F33" text-anchor="middle">TURBOCHARGER 36.4" MAP</text>
+                  <circle cx="562" cy="154" r="2.5" fill="#0F9D8A"/>
+                </g>
+
+                <!-- DUAL HIGH PRESSURE FUEL RAIL & INJECTORS -->
+                <g id="fuel-rail">
+                  <path d="M 230 185 L 530 185" stroke="#2563EB" stroke-width="3" stroke-dasharray="6,2"/>
+                  <circle cx="260" cy="185" r="3" fill="#2563EB"/>
+                  <circle cx="420" cy="185" r="3" fill="#2563EB"/>
+                  <!-- Fuel rail tag -->
+                  <rect x="300" y="172" width="105" height="14" rx="2" fill="#2563EB"/>
+                  <text x="352" y="182" font-family="IBM Plex Mono" font-size="7.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">DUAL FUEL RAIL 18.6 L/h</text>
+                </g>
+              </svg>
+            </div>
+
+            <!-- COMPONENT SELECTOR BUTTONS BAR -->
+            <div class="bg-surface-container/70 border-t border-outline-light px-3 py-2 flex items-center gap-1.5 overflow-x-auto text-xs font-mono">
+              <span class="text-[10px] text-outline uppercase font-semibold mr-1 shrink-0">ISOLATE:</span>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">ALL ASSEMBLY</button>
+              <button class="px-2.5 py-1 bg-amber-500 text-white rounded font-bold shadow-xs shrink-0 flex items-center gap-1">
+                <i class="fa-solid fa-crosshairs text-[10px]"></i> CYLINDER #3 (ACTIVE)
+              </button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">CYLINDER HEAD</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">PISTONS &amp; RODS</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">CRANKSHAFT</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">INJECTORS</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">TURBOCHARGER</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">OIL CIRCUIT</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">COOLING BAFFLES</button>
+              <button class="px-2 py-1 bg-white border border-outline-light rounded hover:bg-slate-50 text-on-surface shrink-0">SENSORS</button>
+            </div>
+          </div>
+
+          <!-- PHYSICAL ENGINE VS VIRTUAL ENGINE (DIGITAL TWIN COMPARISON BAR) -->
+          <div class="bg-white rounded-lg border border-outline-light p-3 shadow-2xs">
+            <div class="flex items-center justify-between border-b border-outline-light pb-2 mb-2.5">
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                <span class="text-xs font-bold font-mono tracking-tight text-primary">DIGITAL TWIN COMPARISON: PHYSICAL TELEMETRY vs. VIRTUAL PINN STATE</span>
+              </div>
+              <span class="text-[11px] font-mono text-outline">Synchronized CAN Window (250 Samples @ 50Hz)</span>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs font-mono">
+              <!-- Param 1: EGT Cyl #3 -->
+              <div class="p-2 rounded bg-amber-50/60 border border-amber-200">
+                <div class="text-[10px] text-outline flex items-center justify-between">
+                  <span>EGT CYL #3 (EXHAUST)</span>
+                  <span class="text-danger font-bold">▲ ATTENTION</span>
+                </div>
+                <div class="flex items-baseline justify-between mt-1">
+                  <span class="text-sm font-bold text-danger">724.0 °C</span>
+                  <span class="text-[10px] text-outline">Exp: 706.0 °C</span>
+                </div>
+                <div class="mt-1 pt-1 border-t border-amber-200 text-[10px] flex justify-between font-semibold">
+                  <span class="text-danger">Residual: +18.0 °C</span>
+                  <span class="text-danger">(+2.55%)</span>
+                </div>
+              </div>
+
+              <!-- Param 2: CHT Cyl #3 -->
+              <div class="p-2 rounded bg-surface-container/60 border border-outline-light">
+                <div class="text-[10px] text-outline flex items-center justify-between">
+                  <span>CHT CYL #3 (HEAD)</span>
+                  <span class="text-success font-bold">● NORMAL</span>
+                </div>
+                <div class="flex items-baseline justify-between mt-1">
+                  <span class="text-sm font-bold text-primary">178.4 °C</span>
+                  <span class="text-[10px] text-outline">Exp: 175.2 °C</span>
+                </div>
+                <div class="mt-1 pt-1 border-t border-outline-light text-[10px] flex justify-between font-medium">
+                  <span class="text-success">Residual: +3.2 °C</span>
+                  <span class="text-success">(+1.82%)</span>
+                </div>
+              </div>
+
+              <!-- Param 3: Vibration Harmonics -->
+              <div class="p-2 rounded bg-surface-container/60 border border-outline-light">
+                <div class="text-[10px] text-outline flex items-center justify-between">
+                  <span>BLOCK VIBRATION RMS</span>
+                  <span class="text-success font-bold">● NORMAL</span>
+                </div>
+                <div class="flex items-baseline justify-between mt-1">
+                  <span class="text-sm font-bold text-primary">1.42 mm/s</span>
+                  <span class="text-[10px] text-outline">Exp: 1.10 mm/s</span>
+                </div>
+                <div class="mt-1 pt-1 border-t border-outline-light text-[10px] flex justify-between font-medium">
+                  <span class="text-on-surface">Residual: +0.32</span>
+                  <span class="text-outline">(Limit: 2.20)</span>
+                </div>
+              </div>
+
+              <!-- Param 4: Manifold Boost Pressure -->
+              <div class="p-2 rounded bg-surface-container/60 border border-outline-light">
+                <div class="text-[10px] text-outline flex items-center justify-between">
+                  <span>MAP (TURBO BOOST)</span>
+                  <span class="text-success font-bold">● NORMAL</span>
+                </div>
+                <div class="flex items-baseline justify-between mt-1">
+                  <span class="text-sm font-bold text-primary">36.4 inHg</span>
+                  <span class="text-[10px] text-outline">Exp: 36.2 inHg</span>
+                </div>
+                <div class="mt-1 pt-1 border-t border-outline-light text-[10px] flex justify-between font-medium">
+                  <span class="text-success">Residual: +0.2 inHg</span>
+                  <span class="text-success">(+0.55%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT 30% (4 COLS): DEDICATED COMPONENT INSPECTOR PANEL -->
+        <div class="lg:col-span-4 flex flex-col space-y-3">
+          <div class="bg-white rounded-lg border border-outline-light p-4 shadow-2xs flex-1 flex flex-col space-y-3">
+            
+            <!-- Inspector Header & Identification -->
+            <div class="border-b border-outline-light pb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-outline font-mono">COMPONENT INSPECTOR</span>
+                <span class="bg-amber-100 text-warning border border-amber-300 font-mono text-[10px] px-2 py-0.5 rounded font-bold flex items-center gap-1">
+                  <i class="fa-solid fa-triangle-exclamation"></i> ▲ ATTENTION
+                </span>
+              </div>
+              <h2 class="text-base font-bold text-primary font-mono tracking-tight">CYLINDER #3 SUB-ASSEMBLY</h2>
+              <div class="flex items-center gap-2 mt-1 text-[11px] font-mono text-outline">
+                <span>PN: ROT-915-CYL-03B</span>
+                <span>•</span>
+                <span>SN: AERO-8841-B</span>
+              </div>
+              <div class="flex items-center justify-between mt-2 pt-2 border-t border-outline-light text-xs font-mono">
+                <span class="text-outline">Health Score:</span>
+                <span class="font-bold text-warning">91% (Degradation Nominal)</span>
+              </div>
+              <div class="flex items-center justify-between text-xs font-mono mt-0.5">
+                <span class="text-outline">Operating Hours:</span>
+                <span class="font-bold text-on-surface">1,842.6 h <span class="text-outline font-normal">/ 2,500 h TBO</span></span>
+              </div>
+            </div>
+
+            <!-- Key Metrics 2x2 Grid -->
+            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+              <div class="p-2.5 rounded bg-surface-container border border-outline-light">
+                <span class="text-[10px] text-outline uppercase block">Exhaust Temp (EGT)</span>
+                <div class="text-lg font-bold text-danger mt-0.5">724.0 <span class="text-xs font-normal">°C</span></div>
+                <div class="text-[10px] text-danger mt-0.5 font-semibold">▲ +18.0°C Residual</div>
+              </div>
+              <div class="p-2.5 rounded bg-surface-container border border-outline-light">
+                <span class="text-[10px] text-outline uppercase block">Head Temp (CHT)</span>
+                <div class="text-lg font-bold text-primary mt-0.5">178.4 <span class="text-xs font-normal">°C</span></div>
+                <div class="text-[10px] text-success mt-0.5 font-medium">● Nominal (+3.2°C)</div>
+              </div>
+              <div class="p-2.5 rounded bg-surface-container border border-outline-light">
+                <span class="text-[10px] text-outline uppercase block">Kinematic Vibration</span>
+                <div class="text-lg font-bold text-primary mt-0.5">1.42 <span class="text-xs font-normal">mm/s</span></div>
+                <div class="text-[10px] text-success mt-0.5 font-medium">● Below Threshold</div>
+              </div>
+              <div class="p-2.5 rounded bg-surface-container border border-outline-light">
+                <span class="text-[10px] text-outline uppercase block">Anomaly Score</span>
+                <div class="text-lg font-bold text-warning mt-0.5">0.18 <span class="text-xs font-normal">/ 1.0</span></div>
+                <div class="text-[10px] text-outline mt-0.5">Limit: 0.35 Max</div>
+              </div>
+            </div>
+
+            <!-- Live Trend & Residual Chart (Past 15 Min) -->
+            <div class="p-3 bg-surface-container/60 rounded border border-outline-light space-y-1.5 font-mono">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="font-bold text-primary">LIVE EGT OBSERVED vs. DIGITAL TWIN</span>
+                <span class="text-[10px] text-outline">T - 15m to Now</span>
+              </div>
+              
+              <!-- SVG Strip Chart -->
+              <div class="h-24 w-full bg-white rounded border border-outline-light p-1 relative flex items-center">
+                <svg class="w-full h-full" viewBox="0 0 300 80" preserveAspectRatio="none">
+                  <!-- Shaded tolerance zone (±25°C) -->
+                  <rect x="0" y="20" width="300" height="40" fill="#EAF2FF" opacity="0.6"/>
+                  <!-- Baseline Digital Twin Curve (Blue) -->
+                  <path d="M 0 45 Q 75 44, 150 45 T 300 44" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-dasharray="3,3"/>
+                  <!-- Observed EGT Curve (Red rising) -->
+                  <path d="M 0 45 Q 60 44, 120 40 T 200 32 T 300 22" fill="none" stroke="#D92D20" stroke-width="2"/>
+                  <!-- Exceedance Point -->
+                  <circle cx="295" cy="22" r="3.5" fill="#D92D20"/>
+                </svg>
+                <div class="absolute bottom-1 right-2 text-[9px] bg-red-100 text-danger px-1 rounded font-bold">
+                  +18°C Exceedance
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-outline">
+                <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-danger"></span> Observed Sensor</span>
+                <span class="flex items-center gap-1"><span class="w-2.5 h-0.5 bg-secondary stroke-dasharray"></span> Physics Model</span>
+                <span>±25°C Band</span>
+              </div>
+            </div>
+
+            <!-- Active Related Alerts -->
+            <div class="p-2.5 rounded bg-red-50/70 border border-red-200 font-mono text-xs">
+              <div class="flex items-center justify-between text-danger font-bold text-[11px] mb-1">
+                <span class="flex items-center gap-1.5">
+                  <i class="fa-solid fa-bell text-danger"></i> ALT-084: Sustained EGT Elevation
+                </span>
+                <span class="text-[9px] bg-red-200 px-1 py-0.2 rounded">CRIT: ATTN</span>
+              </div>
+              <p class="text-[11px] text-on-surface leading-relaxed">
+                Exhaust gas temperature offset of +18.0°C exceeds thermodynamic equilibrium model for >180s. Localized to Cylinder #3 exhaust valve bank.
+              </p>
+            </div>
+
+            <!-- Maintenance & Service Log -->
+            <div class="space-y-1.5 font-mono text-xs">
+              <span class="text-[10px] text-outline uppercase font-bold tracking-tight block">MAINTENANCE &amp; COMPLIANCE HISTORY</span>
+              <div class="bg-surface-container p-2 rounded border border-outline-light text-[11px] space-y-1">
+                <div class="flex justify-between font-semibold text-primary">
+                  <span>Turnaround 12 (128h ago)</span>
+                  <span class="text-success">COMPLETED</span>
+                </div>
+                <p class="text-[10px] text-on-surface-variant">Spark plugs gapped to 0.65mm; cold compression 78/80 psi (Nominal).</p>
+              </div>
+              <div class="bg-surface-container p-2 rounded border border-outline-light text-[11px] space-y-1">
+                <div class="flex justify-between font-semibold text-primary">
+                  <span>Turnaround 08 (280h ago)</span>
+                  <span class="text-success">COMPLETED</span>
+                </div>
+                <p class="text-[10px] text-on-surface-variant">Boroscope inspection nominal; cylinder cross-hatch hone intact.</p>
+              </div>
+            </div>
+
+            <!-- Operator Action Buttons -->
+            <div class="pt-2 space-y-1.5 font-mono text-xs mt-auto">
+              <button class="w-full py-2 bg-primary text-white rounded hover:bg-primary-dark font-medium shadow-xs flex items-center justify-center gap-2 transition-colors">
+                <i class="fa-solid fa-chart-line text-xs"></i> VIEW SENSOR HISTORY
+              </button>
+              <button class="w-full py-2 bg-surface-container text-primary border border-outline-light rounded hover:bg-slate-100 font-medium flex items-center justify-center gap-2 transition-colors">
+                <i class="fa-solid fa-cube text-secondary text-xs"></i> VIEW DIGITAL TWIN PINN WEIGHTS
+              </button>
+              <button class="w-full py-2 bg-white text-danger border border-red-200 rounded hover:bg-red-50 font-medium flex items-center justify-center gap-2 transition-colors">
+                <i class="fa-solid fa-clipboard-check text-xs"></i> VIEW FAULT HISTORY &amp; ADVISORY
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM SECTION: COMPONENT HEALTH & PHYSICAL RIGIDITY TABLE -->
+      <section class="bg-white rounded-lg border border-outline-light p-4 shadow-2xs">
+        <div class="flex items-center justify-between border-b border-outline-light pb-2 mb-3">
+          <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-microchip text-primary text-xs"></i>
+            <h3 class="text-xs font-bold font-mono text-primary uppercase tracking-tight">ENGINE SUB-ASSEMBLY FLEET HEALTH &amp; DIGITAL TWIN MATRIX</h3>
+          </div>
+          <span class="text-[11px] font-mono text-outline">10 Critical Assemblies Monitored</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left font-mono text-xs">
+            <thead class="bg-surface-container text-[10px] text-outline uppercase border-b border-outline-light">
+              <tr>
+                <th class="py-2 px-3">Sub-Assembly</th>
+                <th class="py-2 px-3">Kinematic Node</th>
+                <th class="py-2 px-3">Health Score</th>
+                <th class="py-2 px-3">Operating Temp</th>
+                <th class="py-2 px-3">Stress / MAP</th>
+                <th class="py-2 px-3">Remaining Life (RUL)</th>
+                <th class="py-2 px-3">Status</th>
+                <th class="py-2 px-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-light">
+              <tr class="hover:bg-surface-container/50">
+                <td class="py-2.5 px-3 font-semibold text-primary">Cylinder #1 Assembly</td>
+                <td class="py-2.5 px-3 text-outline">NODE_CYL_01</td>
+                <td class="py-2.5 px-3 text-success font-bold">99%</td>
+                <td class="py-2.5 px-3">175.2 °C</td>
+                <td class="py-2.5 px-3">41.8 MPa</td>
+                <td class="py-2.5 px-3">1,284 h</td>
+                <td class="py-2.5 px-3"><span class="bg-emerald-50 text-success border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] font-bold">● NORMAL</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary hover:underline">Inspect</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container/50">
+                <td class="py-2.5 px-3 font-semibold text-primary">Cylinder #2 Assembly</td>
+                <td class="py-2.5 px-3 text-outline">NODE_CYL_02</td>
+                <td class="py-2.5 px-3 text-success font-bold">98%</td>
+                <td class="py-2.5 px-3">174.0 °C</td>
+                <td class="py-2.5 px-3">42.1 MPa</td>
+                <td class="py-2.5 px-3">1,284 h</td>
+                <td class="py-2.5 px-3"><span class="bg-emerald-50 text-success border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] font-bold">● NORMAL</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary hover:underline">Inspect</button></td>
+              </tr>
+              <tr class="bg-amber-50/70 hover:bg-amber-50">
+                <td class="py-2.5 px-3 font-bold text-danger flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-danger"></span> Cylinder #3 Assembly (Isolated)
+                </td>
+                <td class="py-2.5 px-3 text-outline font-bold">NODE_CYL_03</td>
+                <td class="py-2.5 px-3 text-warning font-bold">91%</td>
+                <td class="py-2.5 px-3 font-bold text-danger">724.0 °C (EGT)</td>
+                <td class="py-2.5 px-3">42.4 MPa</td>
+                <td class="py-2.5 px-3">1,284 h</td>
+                <td class="py-2.5 px-3"><span class="bg-amber-100 text-warning border border-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">▲ ATTENTION</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary font-bold hover:underline">Active</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container/50">
+                <td class="py-2.5 px-3 font-semibold text-primary">Cylinder #4 Assembly</td>
+                <td class="py-2.5 px-3 text-outline">NODE_CYL_04</td>
+                <td class="py-2.5 px-3 text-success font-bold">99%</td>
+                <td class="py-2.5 px-3">176.1 °C</td>
+                <td class="py-2.5 px-3">41.9 MPa</td>
+                <td class="py-2.5 px-3">1,284 h</td>
+                <td class="py-2.5 px-3"><span class="bg-emerald-50 text-success border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] font-bold">● NORMAL</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary hover:underline">Inspect</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container/50">
+                <td class="py-2.5 px-3 font-semibold text-primary">Propeller Reduction Gearbox (PRGB)</td>
+                <td class="py-2.5 px-3 text-outline">NODE_PRGB_FRONT</td>
+                <td class="py-2.5 px-3 text-success font-bold">100%</td>
+                <td class="py-2.5 px-3">88.5 °C</td>
+                <td class="py-2.5 px-3">18.2 MPa</td>
+                <td class="py-2.5 px-3">2,100 h</td>
+                <td class="py-2.5 px-3"><span class="bg-emerald-50 text-success border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] font-bold">● NORMAL</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary hover:underline">Inspect</button></td>
+              </tr>
+              <tr class="hover:bg-surface-container/50">
+                <td class="py-2.5 px-3 font-semibold text-primary">Turbocharger &amp; Wastegate</td>
+                <td class="py-2.5 px-3 text-outline">NODE_TURBO_AFT</td>
+                <td class="py-2.5 px-3 text-success font-bold">97%</td>
+                <td class="py-2.5 px-3">680.0 °C</td>
+                <td class="py-2.5 px-3">36.4 inHg</td>
+                <td class="py-2.5 px-3">1,450 h</td>
+                <td class="py-2.5 px-3"><span class="bg-emerald-50 text-success border border-emerald-200 px-1.5 py-0.5 rounded text-[10px] font-bold">● NORMAL</span></td>
+                <td class="py-2.5 px-3 text-right"><button class="text-secondary hover:underline">Inspect</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

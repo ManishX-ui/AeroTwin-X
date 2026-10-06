@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X | Screen 05: RUL &amp; Engine Degradation</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#173a5e',
+              deep: '#0e243a',
+              light: '#f4f6f9',
+              slate: '#475569',
+              accent: '#0284c7',
+              warning: '#d97706',
+              danger: '#dc2626',
+              success: '#059669',
+              border: '#e2e8f0'
+            }
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-layout">
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#f4f6f9] text-slate-800 antialiased text-xs">
+<!-- BEGIN: TopBar -->
+<header class="bg-white border-b border-slate-200 px-4 py-2 flex items-center justify-between shadow-sm sticky top-0 z-50">
+<!-- Left telemetry status group -->
+<div class="flex items-center space-x-3 divide-x divide-slate-200">
+<div class="flex items-center space-x-2">
+<span class="font-bold text-sm tracking-tight text-[#173a5e] flex items-center gap-1.5">
+<svg class="w-4 h-4 text-[#173a5e]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+          UAV-07 (Hermes MALE)
+        </span>
+</div>
+<div class="pl-3 flex items-center gap-1.5 font-mono text-[11px] text-slate-600">
+<span class="text-slate-400">ENGINE:</span>
+<span class="font-semibold text-slate-700">AE-03 (Rotax 915iSc Turbo)</span>
+</div>
+<div class="pl-3 flex items-center gap-1.5 text-[11px] text-slate-600">
+<span class="text-slate-400">MISSION:</span>
+<span class="font-medium text-slate-700">LONG-ENDURANCE ISR #842</span>
+</div>
+<div class="pl-3 flex items-center space-x-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 tracking-wider">
+<span class="w-1.5 h-1.5 mr-1.5 rounded-full bg-emerald-600 animate-pulse"></span>LIVE
+        </span>
+<span class="text-[10px] text-slate-400 uppercase font-mono tracking-tight">SIMULATION</span>
+</div>
+<div class="pl-3 flex items-center space-x-1.5 text-[11px]">
+<span class="text-emerald-700 font-medium">TELEMETRY:</span>
+<span class="font-bold text-emerald-800">CONNECTED</span>
+</div>
+</div>
+<!-- Right synchronisation and user stats -->
+<div class="flex items-center space-x-4">
+<div class="flex items-center gap-2 border-r border-slate-200 pr-3 font-mono text-[11px]">
+<span class="text-slate-500">TWIN:</span>
+<span class="font-bold text-slate-800">99.7% SYNC</span>
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-1"></span>
+</div>
+<div class="flex items-center gap-2 border-r border-slate-200 pr-3 font-mono text-[11px]">
+<span class="text-slate-500">EDGE:</span>
+<span class="font-bold text-sky-700">50Hz</span>
+</div>
+<div class="text-right font-mono text-[11px] leading-tight text-slate-600 pr-2 border-r border-slate-200">
+<div class="font-bold text-slate-800">14:28:42 UTC</div>
+<div class="text-[10px] text-slate-500">2025-05-18</div>
+</div>
+<!-- User profile info -->
+<div class="flex items-center gap-2.5">
+<div class="text-right">
+<div class="font-bold text-slate-800 text-[11px] leading-tight">Maj. K. Vance</div>
+<div class="text-[10px] text-slate-500">Propulsion Lead Eng</div>
+</div>
+<div class="w-7 h-7 rounded bg-[#173a5e] text-white flex items-center justify-center font-bold text-xs shadow-inner">
+          MV
+        </div>
+</div>
+</div>
+</header>
+<!-- END: TopBar -->
+<div class="flex flex-1 overflow-hidden">
+<!-- BEGIN: MainSidebar -->
+<aside class="w-60 bg-white border-r border-slate-200 flex flex-col justify-between shrink-0 select-none">
+<div class="py-3">
+<!-- Logo Header -->
+<div class="px-4 pb-3 mb-2 border-b border-slate-100 flex items-center space-x-2">
+<div class="w-7 h-7 rounded bg-[#173a5e] text-white flex items-center justify-center font-bold text-sm">
+            AX
+          </div>
+<div>
+<div class="font-bold text-slate-900 tracking-wide text-xs">AeroTwin-X</div>
+<div class="text-[9px] text-slate-500 font-mono tracking-tighter">AERO-PISTON GCS v4.8</div>
+</div>
+</div>
+<!-- Section: Main Operations -->
+<div class="px-3 mb-2">
+<p class="text-[10px] font-bold text-slate-400 tracking-wider uppercase px-2 mb-1">Main Operations</p>
+<nav class="space-y-0.5">
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="14" rx="2" width="20" x="2" y="3"></rect><path d="M8 21h8M12 17v4"></path></svg>
+              Mission Control
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+              Digital Twin
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+              Engine Health
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+              Sensor Monitoring
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.5h-2v-2h2zm0-4.5h-2V7h2z"></path></svg>
+              AI Diagnostics
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+              Fault Prediction
+            </a>
+<!-- Active Link: Screen 05 -->
+<a class="flex items-center px-2.5 py-1.5 rounded bg-[#173a5e] text-white font-medium shadow-sm" href="#">
+<svg class="w-4 h-4 mr-2 text-sky-300" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              RUL &amp; Degradation
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-400 ml-auto"></span>
+</a>
+</nav>
+</div>
+<!-- Section: Operations -->
+<div class="px-3 mb-2">
+<p class="text-[10px] font-bold text-slate-400 tracking-wider uppercase px-2 mb-1">Operations</p>
+<nav class="space-y-0.5">
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+              3D Engine Explorer
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"></path></svg>
+              Mission Simulator
+            </a>
+<a class="flex items-center justify-between px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<span class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path></svg>
+                Alerts
+              </span>
+<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded font-mono">1</span>
+</a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+              Maintenance
+            </a>
+</nav>
+</div>
+<!-- Section: Engineering -->
+<div class="px-3">
+<p class="text-[10px] font-bold text-slate-400 tracking-wider uppercase px-2 mb-1">Engineering</p>
+<nav class="space-y-0.5">
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path></svg>
+              Telemetry / CAN
+            </a>
+<a class="flex items-center px-2.5 py-1.5 rounded text-slate-600 hover:bg-slate-100 font-medium" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="16" rx="2" width="16" x="4" y="4"></rect><rect height="6" width="6" x="9" y="9"></rect></svg>
+              Edge AI Models
+            </a>
+</nav>
+</div>
+</div>
+<!-- CAN Bus Live Diagnostic Box in Footer -->
+<div class="p-3 bg-slate-50 border-t border-slate-200">
+<div class="flex items-center justify-between mb-1.5">
+<span class="text-[10px] font-bold uppercase text-slate-500 tracking-wider">CAN BUS STATUS</span>
+<span class="text-[10px] font-bold text-emerald-600 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>HEALTHY
+          </span>
+</div>
+<div class="grid grid-cols-3 text-center gap-1 font-mono text-[11px] bg-white p-1.5 rounded border border-slate-200">
+<div>
+<div class="text-[9px] text-slate-400 uppercase">Load</div>
+<div class="font-bold text-slate-700">42%</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-400 uppercase">Loss</div>
+<div class="font-bold text-slate-700">0.00%</div>
+</div>
+<div>
+<div class="text-[9px] text-slate-400 uppercase">Lat</div>
+<div class="font-bold text-slate-700">14ms</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- END: MainSidebar -->
+<!-- BEGIN: MainContentArea -->
+<main class="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin">
+<!-- BEGIN: TopPrognosticsBanner -->
+<section class="bg-white rounded-lg border border-slate-200 shadow-sm p-3.5" data-purpose="prognostics-banner">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+<div>
+<div class="flex items-center gap-2">
+<h1 class="text-base font-bold text-slate-900 tracking-tight">Prognostics &amp; Remaining Useful Life (RUL)</h1>
+<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-[#173a5e] text-white font-mono uppercase tracking-wide">
+                PINN-RUL v2.1 • 10k Monte Carlo • 50Hz Realtime • TBO 2,500 h Baseline
+              </span>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">
+              Powerplant: <span class="font-semibold text-slate-700">UAV-07 • Engine AE-03 (Rotax 915iSc Turbo)</span> • 
+              TTSN: <span class="font-mono font-medium text-slate-800">1,842.6 h</span> | 
+              TSOH: <span class="font-mono font-medium text-slate-800">342.6 h</span> | 
+              Thermal Duty Cycle: <span class="font-mono font-medium text-emerald-700">Nominal ISR</span>
+</p>
+</div>
+<div class="flex items-center gap-2 shrink-0">
+<button class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded text-xs border border-slate-300 flex items-center gap-1.5 transition">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+              Export Prognostics Dossier (PDF/JSON)
+            </button>
+<button class="px-3 py-1.5 bg-[#173a5e] hover:bg-slate-800 text-white font-semibold rounded text-xs flex items-center gap-1.5 shadow transition">
+<svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              Recalibrate Prior
+            </button>
+</div>
+</div>
+</section>
+<!-- END: TopPrognosticsBanner -->
+<!-- BEGIN: HeroKPIBlock -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-4" data-purpose="hero-rul-kpi">
+<!-- Main Massive RUL Box (7 cols) -->
+<div class="lg:col-span-7 bg-white rounded-lg border border-slate-200 p-4 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase tracking-wider text-slate-500">Predicted Time to Maintenance / TBO</span>
+<span class="bg-amber-100 text-amber-800 border border-amber-300 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-tight">
+                  MODEL ESTIMATE (NOT A GUARANTEE)
+                </span>
+</div>
+<span class="text-[11px] font-mono text-slate-500">Method: PINN + Weibull (β=1.78)</span>
+</div>
+<!-- Big Readout -->
+<div class="flex items-baseline gap-3 my-1">
+<span class="text-4xl font-extrabold font-mono text-slate-900 tracking-tight">1,284</span>
+<span class="text-xl font-bold text-slate-500 tracking-normal font-sans">HOURS REMAINING</span>
+<span class="ml-auto text-xs font-semibold px-2 py-1 rounded bg-sky-50 text-sky-800 border border-sky-200">
+                P50 Median Estimate
+              </span>
+</div>
+<p class="text-xs text-slate-600 mt-1 leading-relaxed">
+              Probabilistic remaining useful life derived from CAN-FD thermomechanical stress tensors, Weibull hazard model (β=1.78), and cylinder balance history. Confidence incorporates recent Injector #3 trim delta.
+            </p>
+</div>
+<!-- Credible Interval & Uncertainty Gauge -->
+<div class="mt-4 pt-3 border-t border-slate-100">
+<div class="flex justify-between items-center text-xs mb-1 font-mono">
+<span class="text-slate-500 font-sans">90% Bayesian Credible Interval:</span>
+<span class="font-bold text-slate-800">[ 1,192 h — 1,365 h ]</span>
+<span class="text-slate-500 text-[11px]">σ = ±42.8 h</span>
+</div>
+<!-- Gauge Graphic (SVG) -->
+<div class="relative py-2">
+<div class="h-3 w-full bg-slate-100 rounded-full relative overflow-hidden flex items-center">
+<!-- Credible Interval Band (from ~25% to 80%) -->
+<div class="absolute left-[20%] w-[58%] h-full bg-sky-200 border-x-2 border-sky-500"></div>
+<!-- P10 Mark -->
+<div class="absolute left-[20%] h-full w-0.5 bg-sky-700"></div>
+<!-- Median Marker -->
+<div class="absolute left-[52%] h-full w-1.5 bg-[#173a5e] z-10"></div>
+<!-- P90 Mark -->
+<div class="absolute left-[78%] h-full w-0.5 bg-sky-700"></div>
+</div>
+<div class="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
+<span>1,150 h (P05)</span>
+<span class="text-sky-700 font-bold">1,192 h (P10)</span>
+<span class="text-[#173a5e] font-bold">1,284 h (P50 Mode)</span>
+<span class="text-sky-700 font-bold">1,365 h (P90)</span>
+<span>1,420 h (P95)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Auxiliary KPIs (5 cols) -->
+<div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-2.5">
+<!-- KPI 1 -->
+<div class="bg-white rounded-lg border border-slate-200 p-3 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Global Engine Health</div>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-2xl font-bold font-mono text-slate-800">87.4</span>
+<span class="text-xs text-slate-400 font-mono">/ 100</span>
+</div>
+<div class="text-[11px] text-emerald-600 font-medium">Degradation within nominal fleet envelope</div>
+</div>
+<div class="w-12 h-12 rounded-full border-4 border-emerald-500 border-t-emerald-200 flex items-center justify-center font-mono font-bold text-xs text-slate-700">
+              87%
+            </div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-white rounded-lg border border-slate-200 p-3 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Equivalent Operating Hours (EOH)</div>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="text-2xl font-bold font-mono text-slate-800">1,988.4</span>
+<span class="text-xs text-slate-500 font-mono">EOH</span>
+</div>
+<div class="text-[11px] text-slate-600">
+                Stress factor: <span class="font-mono font-bold text-amber-700">1.079x</span> vs chronological (1,842.6 h)
+              </div>
+</div>
+<div class="text-right">
+<span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 font-mono">
+                +145.8 ΔEOH
+              </span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-white rounded-lg border border-slate-200 p-3 shadow-sm flex items-center justify-between">
+<div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Next Maintenance Window</div>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="text-xl font-bold text-[#173a5e]">Turnaround 14</span>
+<span class="text-xs font-mono font-bold text-amber-700">(Due in 57.4 h)</span>
+</div>
+<div class="text-[11px] text-slate-500">Service: Cyl #3 Injector calibration &amp; ultrasonic wash</div>
+</div>
+<div class="shrink-0">
+<span class="px-2 py-1 bg-amber-500 text-white font-bold rounded text-[11px]">SCHEDULED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroKPIBlock -->
+<!-- BEGIN: PowerplantDegradationTrajectoryChart -->
+<section class="bg-white rounded-lg border border-slate-200 p-4 shadow-sm" data-purpose="degradation-trajectory">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-slate-100 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<svg class="w-4 h-4 text-sky-700" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M19 9l-5 5-4-4-3 3"></path></svg>
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                Powerplant Degradation Trajectory (Past • NOW • Future)
+              </h2>
+</div>
+<p class="text-[11px] text-slate-500">Observed telemetry health index vs. Bayesian forecast envelope to TBO (2,500 h)</p>
+</div>
+<div class="flex items-center gap-3 font-mono text-[10px]">
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-emerald-600 inline-block"></span> Observed (0-1,842h)</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-sky-600 border-dashed border-b inline-block"></span> Projected Path</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-2 bg-sky-100 border border-sky-300 inline-block"></span> 90% Uncertainty Envelope</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-red-400 inline-block"></span> Action Limit (65%)</span>
+</div>
+</div>
+<!-- SVG Line Chart Canvas Area -->
+<div class="relative w-full h-64 mt-3">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 950 250">
+<!-- Grid Lines Horizontal -->
+<line stroke="#f1f5f9" stroke-width="1" x1="40" x2="930" y1="20" y2="20"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="40" x2="930" y1="65" y2="65"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="40" x2="930" y1="110" y2="110"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="40" x2="930" y1="155" y2="155"></line>
+<line stroke="#f1f5f9" stroke-width="1" x1="40" x2="930" y1="200" y2="200"></line>
+<!-- Y Axis Labels -->
+<text class="text-[9px] fill-slate-400 font-mono" x="5" y="24">100%</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="12" y="69">90%</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="12" y="114">80%</text>
+<text class="text-[9px] fill-amber-500 font-mono font-bold" x="12" y="159">75% Adv</text>
+<text class="text-[9px] fill-red-500 font-mono font-bold" x="12" y="204">65% Lmt</text>
+<!-- Advisory & Action Reference Lines -->
+<line opacity="0.6" stroke="#f59e0b" stroke-dasharray="4,4" stroke-width="1" x1="40" x2="930" y1="155" y2="155"></line>
+<line opacity="0.7" stroke="#ef4444" stroke-dasharray="4,4" stroke-width="1.2" x1="40" x2="930" y1="200" y2="200"></line>
+<!-- Shaded Future Uncertainty Polygon (Bayesian 90% Envelope from NOW 1842h ~ x=620 to 2500h ~ x=930) -->
+<!-- NOW at x=630, y=78 (87.4%) -->
+<polygon fill="#0284c7" fill-opacity="0.12" points="630,78 720,95 820,125 930,165 930,225 820,185 720,140 630,78"></polygon>
+<!-- Observed History Curve (0 to 1,842.6h) -->
+<path d="M 40,25 Q 180,30 320,40 T 480,55 T 580,68 L 630,78" fill="none" stroke="#059669" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Future Projected Path -->
+<path d="M 630,78 Q 740,110 830,150 T 930,195" fill="none" stroke="#0284c7" stroke-dasharray="5,4" stroke-width="2"></path>
+<!-- Vertical NOW Indicator Line -->
+<line stroke="#173a5e" stroke-dasharray="2,2" stroke-width="1.5" x1="630" x2="630" y1="10" y2="220"></line>
+<!-- Current Operating Point (NOW) -->
+<circle cx="630" cy="78" fill="#173a5e" r="5" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Turnaround 14 Marker -->
+<line stroke="#f59e0b" stroke-dasharray="2,2" stroke-width="1" x1="655" x2="655" y1="40" y2="220"></line>
+<circle cx="655" cy="85" fill="#f59e0b" r="3.5"></circle>
+<!-- TBO Boundary Line -->
+<line stroke="#94a3b8" stroke-width="1.5" x1="930" x2="930" y1="10" y2="220"></line>
+<!-- Callout: NOW -->
+<rect fill="#173a5e" height="20" rx="3" width="90" x="585" y="5"></rect>
+<text class="text-[10px] fill-white font-mono font-bold" text-anchor="middle" x="630" y="18">NOW: 1,842.6 h</text>
+<!-- Callout: T-14 -->
+<rect fill="#fef3c7" height="16" rx="2" stroke="#f59e0b" stroke-width="0.5" width="85" x="650" y="28"></rect>
+<text class="text-[9px] fill-amber-900 font-mono font-bold" text-anchor="middle" x="692" y="39">T-14 (+57.4h)</text>
+<!-- Callout: TBO Limit -->
+<text class="text-[10px] fill-slate-500 font-mono font-bold" text-anchor="end" x="925" y="240">TBO (2,500 h)</text>
+<!-- X Axis Labels -->
+<text class="text-[9px] fill-slate-400 font-mono" x="40" y="240">0 h</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="180" y="240">500 h</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="330" y="240">1,000 h</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="480" y="240">1,500 h</text>
+<text class="text-[9px] fill-slate-800 font-mono font-bold" x="630" y="240">1,842.6 h</text>
+<text class="text-[9px] fill-slate-400 font-mono" x="780" y="240">2,200 h</text>
+</svg>
+</div>
+<div class="mt-2 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between text-[11px] text-slate-500">
+<div class="flex items-center gap-4">
+<span><strong>Mean Degradation Slope:</strong> -0.046% / 100 Flight Hours</span>
+<span><strong>Accelerated Subsystem:</strong> Cyl #3 Fuel Injection (+0.12%/100h)</span>
+</div>
+<div class="font-mono text-slate-600">
+            Current State: <span class="text-emerald-700 font-bold">Health 87.4%</span> (Margin to Action Limit: +22.4%)
+          </div>
+</div>
+</section>
+<!-- END: PowerplantDegradationTrajectoryChart -->
+<!-- BEGIN: SubsystemsAndScenariosGrid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+<!-- Subsystems Degradation Matrix (8 cols) -->
+<section class="lg:col-span-8 bg-white rounded-lg border border-slate-200 shadow-sm p-4" data-purpose="subsystems-matrix">
+<div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-800">Subsystems Degradation Matrix (7 Core Subsystems)</h2>
+<p class="text-[11px] text-slate-500">Realtime Kalman filtered component decay vectors</p>
+</div>
+<span class="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-semibold">ALL 24 CAN NODES SYNCHRONIZED</span>
+</div>
+<!-- Table of Subsystems -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-slate-200 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">
+<th class="py-1.5 px-2">Subsystem</th>
+<th class="py-1.5 px-2">Health Index</th>
+<th class="py-1.5 px-2">Degradation Trend</th>
+<th class="py-1.5 px-2">Wear Rate</th>
+<th class="py-1.5 px-2">Confidence</th>
+<th class="py-1.5 px-2">Telemetry Key Signature</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 font-mono text-[11px]">
+<!-- Row 1: Combustion -->
+<tr class="hover:bg-amber-50/40 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span> Combustion System
+                  </td>
+<td class="py-2 px-2 font-bold text-amber-700">84.2%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[10px] font-sans font-semibold">Accelerated</span>
+</td>
+<td class="py-2 px-2 text-amber-700">Elevated</td>
+<td class="py-2 px-2 text-slate-600">92.4%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">Cyl #3 EGT residual +18.0°C; slight flame lag</td>
+</tr>
+<!-- Row 2: Lubrication -->
+<tr class="hover:bg-slate-50 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Lubrication &amp; Scavenge
+                  </td>
+<td class="py-2 px-2 font-bold text-emerald-700">93.8%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-sans font-semibold">Nominal</span>
+</td>
+<td class="py-2 px-2 text-emerald-700">Steady</td>
+<td class="py-2 px-2 text-slate-600">97.1%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">Oil press 4.82 bar, SOAP Fe &lt; 8 ppm (Clean)</td>
+</tr>
+<!-- Row 3: Thermal -->
+<tr class="hover:bg-slate-50 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Thermal &amp; Cooling
+                  </td>
+<td class="py-2 px-2 font-bold text-emerald-700">91.0%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-sans font-semibold">Nominal</span>
+</td>
+<td class="py-2 px-2 text-emerald-700">Steady</td>
+<td class="py-2 px-2 text-slate-600">95.0%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">CHT avg 178°C, ram air mass flow 1.42 kg/s</td>
+</tr>
+<!-- Row 4: Mechanical -->
+<tr class="hover:bg-slate-50 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Mechanical &amp; Gearbox (PRGB)
+                  </td>
+<td class="py-2 px-2 font-bold text-emerald-700">95.6%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-sans font-semibold">Low Wear</span>
+</td>
+<td class="py-2 px-2 text-emerald-700">Slow</td>
+<td class="py-2 px-2 text-slate-600">96.8%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">RMS vibration 1.22g; no sideband peaks in FFT</td>
+</tr>
+<!-- Row 5: Fuel Delivery -->
+<tr class="hover:bg-amber-50/40 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span> Fuel Delivery &amp; Injection
+                  </td>
+<td class="py-2 px-2 font-bold text-amber-700">82.5%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded text-[10px] font-sans font-semibold">Deviation</span>
+</td>
+<td class="py-2 px-2 text-amber-700">Elevated</td>
+<td class="py-2 px-2 text-slate-600">91.5%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">Nozzle #3 trim variance (+0.50 L/h vs target)</td>
+</tr>
+<!-- Row 6: Electrical & Bus -->
+<tr class="hover:bg-slate-50 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Electrical / Alternator
+                  </td>
+<td class="py-2 px-2 font-bold text-emerald-700">98.2%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-sans font-semibold">Flat</span>
+</td>
+<td class="py-2 px-2 text-emerald-700">Negligible</td>
+<td class="py-2 px-2 text-slate-600">99.0%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">28V dual bus ripple &lt;40mV; load 46.2A steady</td>
+</tr>
+<!-- Row 7: Sensors & Avionics -->
+<tr class="hover:bg-slate-50 transition">
+<td class="py-2 px-2 font-sans font-semibold text-slate-800 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Instrumentation &amp; CAN
+                  </td>
+<td class="py-2 px-2 font-bold text-emerald-700">96.4%</td>
+<td class="py-2 px-2">
+<span class="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-sans font-semibold">Stable</span>
+</td>
+<td class="py-2 px-2 text-emerald-700">Negligible</td>
+<td class="py-2 px-2 text-slate-600">97.8%</td>
+<td class="py-2 px-2 font-sans text-slate-600 text-[10px]">24/24 CAN nodes verified; zero missing packets</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Mission Sensitivity / RUL Scenarios (4 cols) -->
+<section class="lg:col-span-4 bg-white rounded-lg border border-slate-200 shadow-sm p-4 flex flex-col justify-between" data-purpose="mission-scenarios">
+<div>
+<div class="border-b border-slate-100 pb-2 mb-3">
+<h2 class="text-xs font-bold uppercase tracking-wider text-slate-800">RUL Mission Profile Sensitivity</h2>
+<div class="mt-1 text-[10px] text-amber-700 font-semibold bg-amber-50 p-1.5 rounded border border-amber-200">
+                Notice: Parametric mission intensity projections; not guaranteed outcomes.
+              </div>
+</div>
+<!-- Scenario Cards -->
+<div class="space-y-2.5">
+<!-- Conservative -->
+<div class="p-2.5 rounded border border-amber-200 bg-amber-50/50 hover:bg-amber-50 transition">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-slate-800 text-xs">Conservative (High Stress)</span>
+<span class="font-mono font-bold text-amber-800 text-sm">1,148 Hours</span>
+</div>
+<div class="text-[10px] text-slate-600 mb-1">Hot-day loiter, max climb rate &amp; payload weight.</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+<span>Confidence: 91.2%</span>
+<span class="text-red-600 font-semibold">Failure risk at TBO: 14.8%</span>
+</div>
+</div>
+<!-- Nominal (Current Base) -->
+<div class="p-2.5 rounded border-2 border-sky-600 bg-sky-50/40">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+                    Nominal (Standard ISR)
+                    <span class="text-[9px] bg-sky-600 text-white font-mono px-1 py-0.2 rounded">BASELINE</span>
+</span>
+<span class="font-mono font-bold text-[#173a5e] text-sm">1,284 Hours</span>
+</div>
+<div class="text-[10px] text-slate-600 mb-1">Standard 14,500 ft cruise, nominal MAP &amp; RPM settings.</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+<span>Confidence: 94.2%</span>
+<span class="text-emerald-700 font-semibold">Failure risk at TBO: 2.1%</span>
+</div>
+</div>
+<!-- Aggressive / Extended Eco -->
+<div class="p-2.5 rounded border border-emerald-200 bg-emerald-50/40 hover:bg-emerald-50 transition">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold text-slate-800 text-xs">Aggressive (Eco Derate)</span>
+<span class="font-mono font-bold text-emerald-800 text-sm">1,392 Hours</span>
+</div>
+<div class="text-[10px] text-slate-600 mb-1">Derated 85% continuous cruise power, optimal OAT altitude.</div>
+<div class="flex justify-between items-center text-[10px] font-mono text-slate-500">
+<span>Confidence: 88.5%</span>
+<span class="text-emerald-700 font-semibold">Extended life: +108 h</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-100 text-[10px] text-slate-400">
+            Model parameters updated automatically via Kalman Filter upon altitude/airspeed change.
+          </div>
+</section>
+</div>
+<!-- END: SubsystemsAndScenariosGrid -->
+<!-- BEGIN: MaintenanceDecisionWindow -->
+<section class="bg-white rounded-lg border border-slate-200 shadow-sm p-4" data-purpose="maintenance-decision-support">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+<!-- Maintenance Window Brief -->
+<div class="lg:w-2/3">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-800">
+                Optimal Maintenance Scheduling Window: Turnaround 14
+              </h3>
+<span class="font-mono text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold">
+                Est: 1,895 h — 1,910 h (in 57.4 Flight Hours)
+              </span>
+</div>
+<p class="text-xs text-slate-600 leading-relaxed">
+              Performing scheduled injector calibration and ultrasonic nozzle wash during Turnaround 14 arrests the accelerated wear rate on Cyl #3, restoring the projected fleet life to <strong>1,320+ Hours</strong> with an uncertainty envelope reduction of 28%.
+            </p>
+<div class="flex flex-wrap gap-4 mt-2 font-mono text-[11px] text-slate-600">
+<span><strong>Work Package:</strong> WP-2915-INJ</span>
+<span><strong>Downtime Est:</strong> 3.5 Hours</span>
+<span><strong>Supporting Evidence:</strong> Optical Borescope (92.4% hone retention) + Oil Spectroscopy</span>
+</div>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex flex-wrap lg:flex-col gap-2 shrink-0 justify-end">
+<button class="px-4 py-2 bg-[#173a5e] hover:bg-slate-800 text-white font-semibold rounded text-xs shadow flex items-center justify-center gap-2 transition">
+<svg class="w-3.5 h-3.5 text-sky-400" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+              Lock Maintenance Window at T-14
+            </button>
+<button class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded text-xs border border-slate-300 flex items-center justify-center gap-2 transition">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Generate Work Order
+            </button>
+<button class="px-4 py-2 bg-white hover:bg-slate-50 text-slate-600 font-medium rounded text-xs border border-slate-200 flex items-center justify-center gap-2 transition">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+              Review Borescope Archive
+            </button>
+</div>
+</div>
+</section>
+<!-- END: MaintenanceDecisionWindow -->
+</main>
+<!-- END: MainContentArea -->
+</div>
+<!-- BEGIN: BottomStatusBar -->
+<footer class="bg-white border-t border-slate-200 px-4 py-1.5 flex items-center justify-between text-[11px] text-slate-500 font-mono select-none">
+<div class="flex items-center space-x-4">
+<span class="flex items-center text-slate-700">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5"></span>
+        PINN Inference Engine: STABLE
+      </span>
+<span>Epoch: 184,200</span>
+<span>Loss (MSE): 0.00142</span>
+<span>MC Dropout Runs: 10,000 / cycle</span>
+</div>
+<div class="flex items-center space-x-3">
+<span>Edge Node: TX2-NX-01</span>
+<span class="text-slate-400">|</span>
+<span>Safety Envelope: CLASS 1 (AIRWORTHY)</span>
+</div>
+</footer>
+<!-- END: BottomStatusBar -->
+</body></html>

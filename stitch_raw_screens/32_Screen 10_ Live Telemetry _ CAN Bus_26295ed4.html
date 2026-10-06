@@ -1,0 +1,997 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-container":"#85a4ce","primary-container":"#173a5e","secondary-container":"#316bf3","background":"#f8f9ff","on-tertiary-fixed-variant":"#005046","on-surface":"#131c26","on-primary-fixed":"#001c37","error-container":"#ffdad6","on-secondary-container":"#fefcff","surface-bright":"#f8f9ff","surface-container-high":"#e0e9f7","surface-container-low":"#eef4ff","on-error-container":"#93000a","tertiary":"#002923","on-tertiary-container":"#3ab5a1","on-primary-fixed-variant":"#28486d","primary-fixed":"#d2e4ff","on-secondary-fixed-variant":"#003ea8","on-error":"#ffffff","primary-fixed-dim":"#a9c9f4","surface-container-lowest":"#ffffff","surface-tint":"#416086","tertiary-fixed":"#83f6e0","outline-variant":"#c3c6cf","on-primary":"#ffffff","on-secondary":"#ffffff","surface-container-highest":"#dae3f1","error":"#ba1a1a","secondary-fixed":"#dbe1ff","outline":"#73777f","on-tertiary-fixed":"#00201b","surface-variant":"#dae3f1","tertiary-fixed-dim":"#65dac4","surface":"#f8f9ff","secondary-fixed-dim":"#b4c5ff","on-tertiary":"#ffffff","primary":"#002444","surface-dim":"#d2dbe9","on-secondary-fixed":"#00174b","inverse-on-surface":"#e9f1ff","on-background":"#131c26","inverse-surface":"#28313c","secondary":"#0051d5","surface-container":"#e5effd","tertiary-container":"#004138","on-surface-variant":"#43474e","inverse-primary":"#a9c9f4"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"1.5rem","space-sm":"0.375rem","space-xs":"0.25rem","margin":"1rem","gutter":"0.75rem","space-md":"0.75rem","space-lg":"1rem"},"fontFamily":{"telemetry-sm":["JetBrains Mono"],"body-lg":["IBM Plex Sans"],"body-sm":["IBM Plex Sans"],"display":["IBM Plex Sans"],"code-cell":["JetBrains Mono"],"headline-sm":["IBM Plex Sans"],"telemetry-lg":["JetBrains Mono"],"headline-md":["IBM Plex Sans"],"headline-lg":["IBM Plex Sans"],"body-md":["IBM Plex Sans"],"telemetry-md":["JetBrains Mono"],"label-caps":["IBM Plex Sans"],"telemetry-hero":["JetBrains Mono"]},"fontSize":{"telemetry-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-lg":["14px",{"lineHeight":"20px","fontWeight":"500"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"display":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"code-cell":["11px",{"lineHeight":"16px","fontWeight":"400"}],"headline-sm":["15px",{"lineHeight":"20px","fontWeight":"600"}],"telemetry-lg":["20px",{"lineHeight":"24px","letterSpacing":"-0.02em","fontWeight":"500"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-md":["13px",{"lineHeight":"18px","fontWeight":"400"}],"telemetry-md":["14px",{"lineHeight":"18px","fontWeight":"500"}],"label-caps":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"600"}],"telemetry-hero":["28px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"600"}]}}}};</script><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.bottom-0{bottom:0px}.left-0{left:0px}.left-2\.5{left:0.625rem}.right-0{right:0px}.top-0{top:0px}.top-16{top:4rem}.top-2{top:0.5rem}.z-10{z-index:10}.z-40{z-index:40}.z-50{z-index:50}.mx-space-sm{margin-left:0.375rem;margin-right:0.375rem}.my-space-xs{margin-top:0.25rem;margin-bottom:0.25rem}.mb-1{margin-bottom:0.25rem}.mb-2{margin-bottom:0.5rem}.mb-space-lg{margin-bottom:1rem}.mb-space-md{margin-bottom:0.75rem}.mb-space-sm{margin-bottom:0.375rem}.mb-space-xs{margin-bottom:0.25rem}.mt-0\.5{margin-top:0.125rem}.mt-space-md{margin-top:0.75rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-1\.5{height:0.375rem}.h-16{height:4rem}.h-2{height:0.5rem}.h-2\.5{height:0.625rem}.h-20{height:5rem}.h-3{height:0.75rem}.h-3\.5{height:0.875rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-8{height:2rem}.h-full{height:100%}.max-h-\[580px\]{max-height:580px}.min-h-\[1024px\]{min-height:1024px}.w-1\.5{width:0.375rem}.w-16{width:4rem}.w-2{width:0.5rem}.w-2\.5{width:0.625rem}.w-20{width:5rem}.w-24{width:6rem}.w-28{width:7rem}.w-3\.5{width:0.875rem}.w-48{width:12rem}.w-64{width:16rem}.w-7{width:1.75rem}.w-8{width:2rem}.w-full{width:100%}.w-px{width:1px}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.border-collapse{border-collapse:collapse}@keyframes ping{75%, 100%{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0, 0, 0.2, 1) infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite}.cursor-pointer{cursor:pointer}.select-none{-webkit-user-select:none;user-select:none}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-0\.5{gap:0.125rem}.gap-1{gap:0.25rem}.gap-1\.5{gap:0.375rem}.gap-2{gap:0.5rem}.gap-space-lg{gap:1rem}.gap-space-md{gap:0.75rem}.gap-space-sm{gap:0.375rem}.gap-space-xs{gap:0.25rem}.divide-y > :not([hidden]) ~ :not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px * var(--tw-divide-y-reverse))}.divide-surface-container > :not([hidden]) ~ :not([hidden]){--tw-divide-opacity:1;border-color:rgb(229 239 253 / var(--tw-divide-opacity, 1))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.rounded{border-radius:0.125rem}.rounded-full{border-radius:0.75rem}.rounded-lg{border-radius:0.25rem}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199 / var(--tw-bg-opacity, 1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11 / var(--tw-bg-opacity, 1))}.bg-background{--tw-bg-opacity:1;background-color:rgb(248 249 255 / var(--tw-bg-opacity, 1))}.bg-error{--tw-bg-opacity:1;background-color:rgb(186 26 26 / var(--tw-bg-opacity, 1))}.bg-error-container{--tw-bg-opacity:1;background-color:rgb(255 218 214 / var(--tw-bg-opacity, 1))}.bg-error-container\/10{background-color:rgb(255 218 214 / 0.1)}.bg-on-tertiary-container{--tw-bg-opacity:1;background-color:rgb(58 181 161 / var(--tw-bg-opacity, 1))}.bg-primary{--tw-bg-opacity:1;background-color:rgb(0 36 68 / var(--tw-bg-opacity, 1))}.bg-primary-container{--tw-bg-opacity:1;background-color:rgb(23 58 94 / var(--tw-bg-opacity, 1))}.bg-primary\/10{background-color:rgb(0 36 68 / 0.1)}.bg-primary\/5{background-color:rgb(0 36 68 / 0.05)}.bg-secondary{--tw-bg-opacity:1;background-color:rgb(0 81 213 / var(--tw-bg-opacity, 1))}.bg-secondary-container\/20{background-color:rgb(49 107 243 / 0.2)}.bg-surface-container{--tw-bg-opacity:1;background-color:rgb(229 239 253 / var(--tw-bg-opacity, 1))}.bg-surface-container-high{--tw-bg-opacity:1;background-color:rgb(224 233 247 / var(--tw-bg-opacity, 1))}.bg-surface-container-high\/40{background-color:rgb(224 233 247 / 0.4)}.bg-surface-container-high\/60{background-color:rgb(224 233 247 / 0.6)}.bg-surface-container-highest{--tw-bg-opacity:1;background-color:rgb(218 227 241 / var(--tw-bg-opacity, 1))}.bg-surface-container-low{--tw-bg-opacity:1;background-color:rgb(238 244 255 / var(--tw-bg-opacity, 1))}.bg-surface-container-low\/70{background-color:rgb(238 244 255 / 0.7)}.bg-surface-container-lowest{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-tertiary-container{--tw-bg-opacity:1;background-color:rgb(0 65 56 / var(--tw-bg-opacity, 1))}.bg-tertiary-container\/10{background-color:rgb(0 65 56 / 0.1)}.bg-tertiary-container\/15{background-color:rgb(0 65 56 / 0.15)}.bg-tertiary-container\/20{background-color:rgb(0 65 56 / 0.2)}.fill-secondary{fill:#0051d5}.p-1{padding:0.25rem}.p-space-md{padding:0.75rem}.p-space-sm{padding:0.375rem}.p-space-xs{padding:0.25rem}.px-1{padding-left:0.25rem;padding-right:0.25rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-2\.5{padding-left:0.625rem;padding-right:0.625rem}.px-gutter{padding-left:0.75rem;padding-right:0.75rem}.px-space-lg{padding-left:1rem;padding-right:1rem}.px-space-md{padding-left:0.75rem;padding-right:0.75rem}.px-space-sm{padding-left:0.375rem;padding-right:0.375rem}.px-space-xs{padding-left:0.25rem;padding-right:0.25rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-space-md{padding-top:0.75rem;padding-bottom:0.75rem}.py-space-sm{padding-top:0.375rem;padding-bottom:0.375rem}.py-space-xs{padding-top:0.25rem;padding-bottom:0.25rem}.pb-12{padding-bottom:3rem}.pl-64{padding-left:16rem}.pl-8{padding-left:2rem}.pl-space-sm{padding-left:0.375rem}.pr-3{padding-right:0.75rem}.pt-16{padding-top:4rem}.pt-space-xs{padding-top:0.25rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.font-body-md{font-family:IBM Plex Sans}.font-body-sm{font-family:IBM Plex Sans}.font-code-cell{font-family:JetBrains Mono}.font-headline-lg{font-family:IBM Plex Sans}.font-headline-sm{font-family:IBM Plex Sans}.font-label-caps{font-family:IBM Plex Sans}.font-mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}.font-telemetry-hero{font-family:JetBrains Mono}.font-telemetry-sm{font-family:JetBrains Mono}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.text-\[14px\]{font-size:14px}.text-\[15px\]{font-size:15px}.text-\[16px\]{font-size:16px}.text-\[18px\]{font-size:18px}.text-\[20px\]{font-size:20px}.text-body-sm{font-size:12px;line-height:16px;font-weight:400}.text-code-cell{font-size:11px;line-height:16px;font-weight:400}.text-headline-lg{font-size:24px;line-height:32px;letter-spacing:-0.01em;font-weight:600}.text-headline-sm{font-size:15px;line-height:20px;font-weight:600}.text-label-caps{font-size:11px;line-height:14px;letter-spacing:0.06em;font-weight:600}.text-telemetry-hero{font-size:28px;line-height:32px;letter-spacing:-0.03em;font-weight:600}.text-telemetry-sm{font-size:11px;line-height:14px;font-weight:400}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-normal{font-weight:400}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-tight{line-height:1.25}.tracking-tight{letter-spacing:-0.025em}.tracking-wider{letter-spacing:0.05em}.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6 / var(--tw-text-opacity, 1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14 / var(--tw-text-opacity, 1))}.text-error{--tw-text-opacity:1;color:rgb(186 26 26 / var(--tw-text-opacity, 1))}.text-on-error{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-on-error-container{--tw-text-opacity:1;color:rgb(147 0 10 / var(--tw-text-opacity, 1))}.text-on-primary{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-on-primary-fixed-variant{--tw-text-opacity:1;color:rgb(40 72 109 / var(--tw-text-opacity, 1))}.text-on-surface{--tw-text-opacity:1;color:rgb(19 28 38 / var(--tw-text-opacity, 1))}.text-on-surface-variant{--tw-text-opacity:1;color:rgb(67 71 78 / var(--tw-text-opacity, 1))}.text-on-tertiary-container{--tw-text-opacity:1;color:rgb(58 181 161 / var(--tw-text-opacity, 1))}.text-on-tertiary-fixed-variant{--tw-text-opacity:1;color:rgb(0 80 70 / var(--tw-text-opacity, 1))}.text-outline{--tw-text-opacity:1;color:rgb(115 119 127 / var(--tw-text-opacity, 1))}.text-outline-variant{--tw-text-opacity:1;color:rgb(195 198 207 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(0 36 68 / var(--tw-text-opacity, 1))}.text-secondary{--tw-text-opacity:1;color:rgb(0 81 213 / var(--tw-text-opacity, 1))}.text-tertiary-container{--tw-text-opacity:1;color:rgb(0 65 56 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.accent-primary{accent-color:#002444}.shadow-\[0_1px_8px_rgba\(0\2c 0\2c 0\2c 0\.04\)\]{--tw-shadow:0 1px 8px rgba(0,0,0,0.04);--tw-shadow-colored:0 1px 8px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-500{transition-duration:500ms}.placeholder\:text-outline::placeholder{--tw-text-opacity:1;color:rgb(115 119 127 / var(--tw-text-opacity, 1))}.hover\:bg-error-container\/20:hover{background-color:rgb(255 218 214 / 0.2)}.hover\:bg-primary:hover{--tw-bg-opacity:1;background-color:rgb(0 36 68 / var(--tw-bg-opacity, 1))}.hover\:bg-primary\/10:hover{background-color:rgb(0 36 68 / 0.1)}.hover\:bg-secondary:hover{--tw-bg-opacity:1;background-color:rgb(0 81 213 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container:hover{--tw-bg-opacity:1;background-color:rgb(229 239 253 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container-high:hover{--tw-bg-opacity:1;background-color:rgb(224 233 247 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container-highest:hover{--tw-bg-opacity:1;background-color:rgb(218 227 241 / var(--tw-bg-opacity, 1))}.hover\:bg-surface-container-low:hover{--tw-bg-opacity:1;background-color:rgb(238 244 255 / var(--tw-bg-opacity, 1))}.hover\:text-on-error-container:hover{--tw-text-opacity:1;color:rgb(147 0 10 / var(--tw-text-opacity, 1))}.hover\:text-on-primary:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:text-on-secondary:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.hover\:text-on-surface:hover{--tw-text-opacity:1;color:rgb(19 28 38 / var(--tw-text-opacity, 1))}.hover\:text-primary:hover{--tw-text-opacity:1;color:rgb(0 36 68 / var(--tw-text-opacity, 1))}.focus\:bg-surface-container-lowest:focus{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-1:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-primary:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(0 36 68 / var(--tw-ring-opacity, 1))}@media (min-width: 640px){.sm\:col-span-2{grid-column:span 2 / span 2}.sm\:col-span-3{grid-column:span 3 / span 3}.sm\:col-span-4{grid-column:span 4 / span 4}.sm\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}}@media (min-width: 768px){.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:grid-cols-7{grid-template-columns:repeat(7, minmax(0, 1fr))}.lg\:flex-row{flex-direction:row}.lg\:items-center{align-items:center}}@media (min-width: 1280px){.xl\:col-span-8{grid-column:span 8 / span 8}.xl\:flex{display:flex}.xl\:grid-cols-6{grid-template-columns:repeat(6, minmax(0, 1fr))}}</style></head><body class="bg-background font-body-md text-on-surface antialiased min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen" data-mode="connect"><header class="fixed top-0 left-0 right-0 h-16 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 bg-primary rounded flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">memory</span></div><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">AeroTwin-X</span><span class="font-label-caps text-label-caps uppercase bg-surface-container text-on-primary-fixed-variant px-space-xs py-0.5 rounded">GCS v3.8 AERO-PISTON PROPULSION TWIN</span></div></div></div><div class="h-6 w-px bg-surface-container-highest"></div><div class="flex items-center gap-space-md"><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Platform</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-on-surface">UAV-07 (Hermes MALE)</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Powerplant</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-on-surface">ENGINE-AE-03 (Rotax 915iSc)</span></div><div class="flex flex-col"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Profile</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-secondary">LONG-ENDURANCE ISR #842</span></div></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container animate-pulse"></span><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">CAN:</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-on-surface">CONNECTED</span></div><span class="text-outline-variant font-telemetry-sm">|</span><div class="flex items-center gap-space-xs"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">BUS:</span><span class="font-telemetry-sm text-telemetry-sm font-medium text-on-surface">A/B 50Hz</span></div><span class="text-outline-variant font-telemetry-sm">|</span><div class="flex items-center gap-space-xs"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">LATENCY:</span><span class="font-telemetry-sm text-telemetry-sm font-medium text-on-surface">14ms</span></div><span class="text-outline-variant font-telemetry-sm">|</span><div class="flex items-center gap-space-xs"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">PINN SYNC:</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-on-tertiary-fixed-variant">99.7%</span></div><span class="text-outline-variant font-telemetry-sm">|</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[14px] text-on-surface-variant">schedule</span><span class="font-telemetry-sm text-telemetry-sm font-semibold text-primary">14:32:00 UTC</span></div></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-body-sm text-body-sm font-semibold text-on-surface">Maj. K. Vance</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Lead Propulsion / Controls Eng</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex flex-col justify-between overflow-y-auto"><div class="py-space-md"><div class="mb-space-lg"><div class="px-space-lg mb-space-xs font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Main</div><nav class="flex flex-col gap-0.5 px-space-sm" data-active-classes="bg-primary-container text-on-primary"><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="mission-control" href="#"><span>Mission Control</span><span class="material-symbols-outlined text-[16px]">terminal</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="digital-twin-3d-state" href="#"><span>Digital Twin (3D State)</span><span class="material-symbols-outlined text-[16px]">view_in_ar</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="engine-health-and-matrix" href="#"><span>Engine Health &amp; Matrix</span><span class="material-symbols-outlined text-[16px]">speed</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="sensor-monitoring" href="#"><span>Sensor Monitoring</span><span class="material-symbols-outlined text-[16px]">insights</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="ai-diagnostics" href="#"><span>AI Diagnostics</span><span class="material-symbols-outlined text-[16px]">neurology</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="rul-and-degradation" href="#"><span>RUL &amp; Degradation</span><span class="material-symbols-outlined text-[16px]">timelapse</span></a></nav></div><div class="mb-space-lg"><div class="px-space-lg mb-space-xs font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Operations</div><nav class="flex flex-col gap-0.5 px-space-sm" data-active-classes="bg-primary-container text-on-primary"><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="3d-engine-explorer" href="#"><span>3D Engine Explorer</span><span class="material-symbols-outlined text-[16px]">layers</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="mission-simulator" href="#"><span>Mission Simulator</span><span class="material-symbols-outlined text-[16px]">science</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="alerts-and-faults" href="#"><span>Alerts &amp; Faults</span><span class="font-telemetry-sm text-telemetry-sm bg-error-container text-on-error-container px-1.5 py-0.5 rounded font-bold">1</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="maintenance-ndi" href="#"><span>Maintenance (NDI)</span><span class="material-symbols-outlined text-[16px]">build</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="mission-replay" href="#"><span>Mission Replay</span><span class="material-symbols-outlined text-[16px]">history</span></a></nav></div><div class="mb-space-md"><div class="px-space-lg mb-space-xs font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Engineering</div><nav class="flex flex-col gap-0.5 px-space-sm" data-active-classes="bg-primary-container text-on-primary"><a aria-current="page" class="px-space-md py-space-sm rounded font-body-sm transition-colors flex items-center justify-between bg-primary-container text-on-primary" data-path="can-bus-telemetry" href="#"><span class="">CAN Bus Telemetry</span><span class="material-symbols-outlined text-[16px]">cable</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="edge-ai-inference-engine" href="#"><span class="">Edge AI Inference Engine</span><span class="material-symbols-outlined text-[16px]">developer_board</span></a><a class="px-space-md py-space-sm rounded font-body-sm text-body-sm text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors flex items-center justify-between" data-path="system-architecture-fadec" href="#"><span class="">System Architecture (FADEC)</span><span class="material-symbols-outlined text-[16px]">hub</span></a></nav></div></div><div class="p-space-md mx-space-sm mb-space-md bg-surface-container-low rounded"><div class="flex items-center justify-between mb-space-xs"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-caps text-label-caps uppercase text-on-surface">CAN-FD STATUS</span></div><span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant uppercase font-semibold">HEALTHY</span></div><div class="flex flex-col gap-1"><div class="flex justify-between items-center font-telemetry-sm text-telemetry-sm"><span class="text-on-surface-variant">Dual Bus A/B</span><span class="font-medium text-on-surface">42% Load</span></div><div class="flex justify-between items-center font-telemetry-sm text-telemetry-sm"><span class="text-on-surface-variant">Packet Loss</span><span class="font-medium text-on-surface">0.00%</span></div><div class="flex justify-between items-center font-telemetry-sm text-telemetry-sm"><span class="text-on-surface-variant">RT Latency</span><span class="font-medium text-on-surface">14 ms</span></div></div></div></aside><div class="pl-64"><main class="w-full px-gutter pt-16 bg-background min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Top Context Ribbon & Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">
+<span>ENGINEERING</span>
+<span>/</span>
+<span class="text-primary font-semibold">LIVE TELEMETRY &amp; CAN BUS</span>
+<span class="px-space-xs py-0.5 bg-surface-container text-on-primary-fixed-variant rounded text-[10px] font-telemetry-sm font-semibold">CAN-FD DUAL A/B • ISO 11898-2</span>
+<span class="px-space-xs py-0.5 bg-tertiary-container/10 text-on-tertiary-fixed-variant rounded text-[10px] font-telemetry-sm font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>
+          STREAM ACTIVE
+        </span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-primary font-bold tracking-tight">Live Propulsion Telemetry &amp; CAN-FD Bus Protocol Analyzer</h1>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        High-rate physical layer decoding, dual-redundant arbitration metrics, and deterministic edge pipeline telemetry for Hermes MALE UAV #842.
+      </p>
+</div>
+<!-- Live Control Deck -->
+<div class="flex flex-wrap items-center gap-space-xs shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-body-sm text-body-sm transition-colors shadow-sm" id="stream-toggle-btn">
+<span class="material-symbols-outlined text-[16px] text-error" id="stream-icon">pause</span>
+<span class="font-medium" id="stream-label">PAUSE STREAM</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors shadow-sm" id="clear-buffer-btn">
+<span class="material-symbols-outlined text-[16px] text-outline">mop</span>
+<span>CLEAR BUFFER</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">fiber_manual_record</span>
+<span>RECORD PCAP</span>
+</button>
+<div class="relative group">
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">file_download</span>
+<span>EXPORT LOG</span>
+<span class="material-symbols-outlined text-[14px]">expand_more</span>
+</button>
+</div>
+<button class="flex items-center gap-space-xs px-space-md py-1.5 rounded bg-primary text-on-primary hover:bg-secondary transition-colors shadow-sm font-body-sm text-body-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>FILTER CONFIG</span>
+</button>
+</div>
+</div>
+<!-- KPI Row: 6 Mission Cards -->
+<div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-space-sm">
+<!-- Card 1: CAN Status -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">CAN Status</span>
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-container">cable</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container inline-block animate-ping"></span>
+<span class="font-telemetry-hero text-telemetry-hero text-on-tertiary-fixed-variant font-bold tracking-tight">CONNECTED</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Dual Bus A/B</span>
+<span class="font-semibold text-on-surface">SYNCHRONIZED</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>PHY Transceiver</span>
+<span class="font-medium text-primary">TJA1044GT</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Message Rate -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Message Rate</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">speed</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-bold" id="rate-counter">1,402</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">msgs/s</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Bus A / Bus B</span>
+<span class="font-semibold text-on-surface">710 / 710 Hz</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Peak Target</span>
+<span class="font-medium text-on-surface-variant">1,650 (Cap 1.5k)</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Packets Received -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Packets Received</span>
+<span class="material-symbols-outlined text-[18px] text-primary">storage</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-bold" id="pkt-counter">4,898,340</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">pkts</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>CRC Integrity</span>
+<span class="font-semibold text-on-tertiary-fixed-variant">99.9998%</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Buffer FIFO</span>
+<span class="font-medium text-on-surface">0 Overflow</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Dropped / Error Frames -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Bus Errors</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary-container">verified</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-on-tertiary-fixed-variant font-bold">0</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Dropped</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Bus Passive / Off</span>
+<span class="font-semibold text-on-surface">0 / 0</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Stuff / Bit Faults</span>
+<span class="font-medium text-on-surface">0 / 0 err</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Round-Trip Latency -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">RT Latency</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">timer</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-primary font-bold">13.8</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ms</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Jitter Deviation</span>
+<span class="font-semibold text-on-surface">±0.42 ms</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>STANAG 4586</span>
+<span class="font-medium text-secondary">Deterministic</span>
+</div>
+</div>
+</div>
+<!-- Card 6: Signal Quality / Bit Timing -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Signal Quality</span>
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-fixed-variant">tune</span>
+</div>
+<div class="my-space-xs flex items-baseline gap-1">
+<span class="font-telemetry-hero text-telemetry-hero text-on-tertiary-fixed-variant font-bold">99.4%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Nominal</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>Sample Point</span>
+<span class="font-semibold text-on-surface">80.0% SP</span>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>SNR / Rate</span>
+<span class="font-medium text-primary">38.2 dB (1M/5M)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- End-to-End Aero-Propulsion Telemetry & Digital Twin Pipeline Flowchart -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">account_tree</span>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">End-to-End Aero-Propulsion Telemetry &amp; Digital Twin Pipeline</h2>
+<span class="font-label-caps text-label-caps uppercase bg-primary/10 text-primary px-space-xs py-0.5 rounded font-semibold">ISO 11898-2 CAN-FD TO PHYSICS ENGINE</span>
+</div>
+<div class="flex items-center gap-space-md text-body-sm font-telemetry-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span>Pipeline Latency: <strong class="text-primary font-semibold">14.1ms total</strong></span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Dual Lane Redundancy: <strong class="text-secondary font-semibold">ARMED</strong></span>
+</div>
+</div>
+</div>
+<!-- Node Architecture Sequence -->
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-space-xs relative">
+<!-- Node 1: Engine Sensors -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 01</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">sensors</span>
+            ENGINE SENSORS
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            Rotax 915iSc: 28 Physical Transducers (MAP, CHT, EGT, Piezo knock, Hall crank)
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Acq Rate:</span>
+<span class="font-semibold text-primary">500 Hz Analog</span>
+</div>
+</div>
+<!-- Node 2: ECU / FADEC -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 02</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">memory</span>
+            FADEC (LANE A/B)
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            Dual microcontrollers with lockstep arbitration &amp; dual injection tables
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Sync:</span>
+<span class="font-semibold text-secondary">Lockstep 100μs</span>
+</div>
+</div>
+<!-- Node 3: CAN-FD Bus -->
+<div class="bg-primary/5 p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-primary/10">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-primary uppercase font-bold">NODE 03 (MONITORED)</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container animate-ping"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-primary">cable</span>
+            DUAL CAN-FD BUS
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            ISO 11898-2 1M/5M baud, shielded twisted pair, 120Ω terminated
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Throughput:</span>
+<span class="font-semibold text-primary">1,420 pkts/s</span>
+</div>
+</div>
+<!-- Node 4: Telemetry Gateway -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 04</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">router</span>
+            GATEWAY / MODEM
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            STANAG 4586 Level 4 encapsulation, C2 Datalink &amp; 2.4GHz RF transport
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Datalink:</span>
+<span class="font-semibold text-secondary">10.2 Mbps RF</span>
+</div>
+</div>
+<!-- Node 5: Edge AI Inference -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 05</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">neurology</span>
+            EDGE AI ORIN NX
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            50Hz PINN physics model surrogate computing wear &amp; thermal anomalies
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Residuals:</span>
+<span class="font-semibold text-on-tertiary-fixed-variant">0.014 Error</span>
+</div>
+</div>
+<!-- Node 6: Digital Twin -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 06</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">view_in_ar</span>
+            DIGITAL TWIN
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            Physics ODE solver &amp; FEA thermal gradient mesh deformation engine
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">State:</span>
+<span class="font-semibold text-primary">Synchronized</span>
+</div>
+</div>
+<!-- Node 7: GCS Operator Console -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between transition-all hover:bg-surface-container">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase font-bold">NODE 07</span>
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+</div>
+<div class="font-headline-sm text-[13px] text-primary font-bold mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">desktop_windows</span>
+            GCS CONSOLE
+          </div>
+<div class="text-[11px] text-on-surface-variant leading-tight mb-2">
+            AeroTwin-X WebGL cockpit rendering real-time mission telemetry
+          </div>
+</div>
+<div class="bg-surface-container-lowest p-1 rounded font-telemetry-sm text-[10px] text-on-surface flex justify-between items-center">
+<span class="text-on-surface-variant">Render:</span>
+<span class="font-semibold text-on-tertiary-fixed-variant">60.0 FPS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Section: Live CAN Stream (Left 16 cols) + Diagnostics Panel (Right 8 cols) -->
+<div class="grid grid-cols-1 xl:grid-cols-24 gap-space-md">
+<!-- LEFT & CENTER: Stream Table & Filter Deck (16 cols) -->
+<div class="xl:col-span-16 flex flex-col gap-space-sm">
+<!-- Filter and Stream Configuration Header -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<!-- Primary View Tabs -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded">
+<button class="px-space-md py-1 rounded text-body-sm font-body-sm font-semibold bg-primary text-on-primary shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">code</span>
+              DECODED DATA
+            </button>
+<button class="px-space-md py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">data_object</span>
+              RAW DATA (HEX)
+            </button>
+<button class="px-space-md py-1 rounded text-body-sm font-body-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px]">show_chart</span>
+              SENSOR VOLTAGES / ADC
+            </button>
+</div>
+<!-- Secondary Quick Toggles -->
+<div class="flex items-center gap-space-sm">
+<label class="flex items-center gap-1.5 text-body-sm font-body-sm text-on-surface cursor-pointer select-none">
+<input checked="" class="w-3.5 h-3.5 accent-primary rounded" type="checkbox">
+<span>Scroll Lock</span>
+</label>
+<span class="text-outline-variant font-telemetry-sm">|</span>
+<div class="flex items-center gap-1">
+<button class="px-2 py-0.5 bg-surface-container text-primary font-telemetry-sm text-telemetry-sm rounded font-medium">Dual A+B</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:bg-surface-container-low font-telemetry-sm text-telemetry-sm rounded">Bus A Only</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:bg-surface-container-low font-telemetry-sm text-telemetry-sm rounded">Bus B Only</button>
+</div>
+</div>
+</div>
+<!-- Filter Deck Subsystem & Search Row -->
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-space-xs pt-space-xs">
+<div class="sm:col-span-4 relative">
+<span class="absolute left-2.5 top-2 material-symbols-outlined text-outline text-[16px]">search</span>
+<input class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-telemetry-sm text-telemetry-sm pl-8 pr-3 py-1.5 rounded focus:bg-surface-container-lowest focus:outline-none focus:ring-1 focus:ring-primary shadow-sm" placeholder="Search CAN ID, Frame Name (e.g., 0x312, EGT)..." type="text">
+</div>
+<div class="sm:col-span-3">
+<select class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm px-2.5 py-1.5 rounded focus:outline-none focus:ring-1 focus:ring-primary shadow-sm">
+<option>All Subsystems (Active)</option>
+<option>Combustion &amp; EGT Thermals</option>
+<option>Fuel &amp; Injection Timing</option>
+<option>Lubrication &amp; Oil Circuit</option>
+<option>Turbo &amp; Manifold Pressure</option>
+<option>FADEC &amp; Ignition Lanes</option>
+</select>
+</div>
+<div class="sm:col-span-3">
+<select class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm px-2.5 py-1.5 rounded focus:outline-none focus:ring-1 focus:ring-primary shadow-sm">
+<option>Status: All Frames (Nominal/Alert)</option>
+<option>Anomalies &amp; Exceedances Only</option>
+<option>DLC = 64 Bytes (CAN-FD BRS)</option>
+<option>High Priority (0x000 - 0x1FF)</option>
+</select>
+</div>
+<div class="sm:col-span-2 flex items-center justify-end gap-1">
+<button class="w-full py-1.5 px-space-xs bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded font-label-caps text-label-caps uppercase font-semibold text-center transition-colors">
+              Reset Filters
+            </button>
+</div>
+</div>
+</div>
+<!-- Live CAN Frame Telemetry Table -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col">
+<!-- Table Toolbar Summary Bar -->
+<div class="px-space-md py-2 bg-surface-container-low flex justify-between items-center text-body-sm">
+<div class="flex items-center gap-space-sm font-telemetry-sm text-telemetry-sm">
+<span class="font-semibold text-primary">LIVE INGESTION BUFFER:</span>
+<span class="text-on-surface-variant">Showing latest <strong class="text-on-surface">15</strong> of 120,400 cached frames</span>
+<span class="px-1.5 py-0.2 bg-surface-container-high rounded text-[10px] text-on-surface font-medium">FIFO 250MB</span>
+</div>
+<div class="flex items-center gap-space-md font-telemetry-sm text-telemetry-sm text-on-surface-variant">
+<span>DBC: <span class="font-semibold text-primary">Rotax915iSc_v3.8.dbc</span></span>
+<span class="flex items-center gap-1 text-on-tertiary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse"></span>
+              Auto-Scroll Active
+            </span>
+</div>
+</div>
+<!-- Scrollable High Density Data Table -->
+<div class="overflow-x-auto max-h-[580px] overflow-y-auto">
+<table class="w-full text-left font-telemetry-sm text-telemetry-sm border-collapse">
+<thead class="bg-surface-container-high/60 text-on-surface-variant sticky top-0 z-10 select-none">
+<tr>
+<th class="py-2 px-space-sm font-label-caps text-label-caps uppercase w-28">Timestamp</th>
+<th class="py-2 px-space-xs font-label-caps text-label-caps uppercase w-16">Bus</th>
+<th class="py-2 px-space-sm font-label-caps text-label-caps uppercase w-48">Arbitration ID</th>
+<th class="py-2 px-space-xs font-label-caps text-label-caps uppercase w-20">DLC</th>
+<th class="py-2 px-space-sm font-label-caps text-label-caps uppercase w-48">Payload (Hex)</th>
+<th class="py-2 px-space-sm font-label-caps text-label-caps uppercase">Decoded Signals &amp; Engineering Units</th>
+<th class="py-2 px-space-xs font-label-caps text-label-caps uppercase w-24 text-center">Status</th>
+<th class="py-2 px-space-sm font-label-caps text-label-caps uppercase w-20 text-right">Inspect</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-code-cell text-code-cell" id="can-table-body">
+<!-- Row 1: CRANK SPEED / RPM (High Priority) -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.142</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x180</span>
+<span class="text-on-surface-variant text-[10px] block">CRANK_SPEED_MAP</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">FD: 16B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+<span class="bg-surface-container-high px-1 rounded text-primary font-bold">12 D4</span> 0E 38 00 24
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+<span class="font-semibold text-primary">Engine RPM: 4,820</span> | MAP: <span class="font-semibold">36.4 inHg</span> | Accel: <span class="text-on-tertiary-fixed-variant">+12 rpm/s</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: EGT Cylinders (Thermal Exceedance / Alert) -->
+<tr class="hover:bg-error-container/20 transition-colors bg-error-container/10">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.138</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-secondary-container/20 text-secondary font-bold text-[10px]">BUS B</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-error">0x240</span>
+<span class="text-error text-[10px] block font-semibold">ENG_THERMAL_EGT</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">FD: 32B</td>
+<td class="py-1.5 px-space-sm font-mono tracking-wider text-error">
+                  02 BE 02 C1 <span class="bg-error text-on-error font-bold px-1 rounded">02 D4</span> 02 C2
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  EGT Cyl 1..4: <span class="font-bold">[702, 705, <span class="text-error underline">724</span>, 706] °C</span> — <span class="font-semibold text-error">Cyl #3 Exceeds Delta (+19°C)</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-error-container text-on-error-container font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> ALERT
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-error hover:text-on-error-container transition-colors">
+<span class="material-symbols-outlined text-[15px]">warning</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Fuel Injection Timing -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.132</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x312</span>
+<span class="text-on-surface-variant text-[10px] block">ECU_INJ_TIMING</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">FD: 64B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+<span class="bg-surface-container-high px-1 rounded text-primary font-bold">3A F4</span> 02 18 9C 00 E1
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Inj #3 Pulse: <span class="font-semibold">4.82ms</span> | Duty Cycle: <span class="font-semibold">38.4%</span> | Phase: <span class="font-semibold">24.5° BTDC</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Fuel Metering Flow -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.126</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x1B8</span>
+<span class="text-on-surface-variant text-[10px] block">FUEL_METERING_FLOW</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">STD: 8B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  01 8A 00 FE 12 40 00 00
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Flow Rate: <span class="font-semibold">26.4 L/h</span> | Fuel Rail Pressure: <span class="font-semibold">3.05 bar</span> | Return Temp: <span class="font-semibold">41.2°C</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: Oil & Lubrication Pressure -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.118</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-secondary-container/20 text-secondary font-bold text-[10px]">BUS B</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x420</span>
+<span class="text-on-surface-variant text-[10px] block">OIL_LUB_PRES</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">STD: 8B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  00 2A 03 DA 01 10 00 00
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Oil Pres: <span class="font-semibold">4.20 bar</span> | Sump Temp: <span class="font-semibold">98.6°C</span> | Scavenge Rate: <span class="font-semibold">Nominal</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 6: Turbo Wastegate Position -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.110</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x2A4</span>
+<span class="text-on-surface-variant text-[10px] block">TURBO_WASTEGATE</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">FD: 16B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  04 A6 00 91 14 02 FF 00
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Wastegate Pos: <span class="font-semibold">74.2% Open</span> | Solenoid Current: <span class="font-semibold">1.45 A</span> | Boost Target: <span class="font-semibold">1.48 bar</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 7: FADEC Health Diagnostic -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.104</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-secondary-container/20 text-secondary font-bold text-[10px]">BUS B</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x510</span>
+<span class="text-on-surface-variant text-[10px] block">FADEC_HEALTH_DIAG</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">STD: 8B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  01 01 00 00 00 00 12 04
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Lane A Sync: <span class="font-semibold text-on-tertiary-fixed-variant">TRUE</span> | Lane B: <span class="font-semibold text-on-tertiary-fixed-variant">HOT STANDBY</span> | Watchdog: <span class="font-mono text-outline">0x00 (Clear)</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 8: Cylinder Head Temp (Caution state) -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.098</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x220</span>
+<span class="text-on-surface-variant text-[10px] block">ENG_THERMAL_CHT</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">FD: 32B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  00 7A 00 78 00 82 00 79
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  CHT Cyl 1..4: <span class="font-semibold">[122, 120, <span class="text-amber-600 font-bold">130</span>, 121] °C</span> | Limit: 135°C (Within threshold)
+                </td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> CAUTION
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 9: Ignition Timing Dual Spark -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.090</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-secondary-container/20 text-secondary font-bold text-[10px]">BUS B</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x330</span>
+<span class="text-on-surface-variant text-[10px] block">IGN_ADVANCE_COIL</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">STD: 8B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  18 20 18 1F 03 E8 00 12
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  Spark Dwell: <span class="font-semibold">3.2 ms</span> | Spark Advance: <span class="font-semibold">28.0° BTDC</span> | Knock Retard: <span class="font-semibold text-on-tertiary-fixed-variant">0.0°</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+<!-- Row 10: Ambient Air Intake & Intercooler -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-1.5 px-space-sm font-semibold text-primary">14:32:00.082</td>
+<td class="py-1.5 px-space-xs"><span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold text-[10px]">BUS A</span></td>
+<td class="py-1.5 px-space-sm">
+<span class="font-bold text-primary">0x2E0</span>
+<span class="text-on-surface-variant text-[10px] block">AIR_INTAKE_IAT</span>
+</td>
+<td class="py-1.5 px-space-xs text-on-surface-variant">STD: 8B</td>
+<td class="py-1.5 px-space-sm text-on-surface font-mono tracking-wider">
+                  00 24 00 3C 00 A2 00 00
+                </td>
+<td class="py-1.5 px-space-sm text-on-surface">
+                  IAT Pre-Intercooler: <span class="font-semibold">60.2°C</span> | IAT Post-Intercooler: <span class="font-semibold">36.1°C</span> | Delta: <span class="font-semibold">24.1°C</span>
+</td>
+<td class="py-1.5 px-space-xs text-center">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-semibold text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> NOMINAL
+                  </span>
+</td>
+<td class="py-1.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">analytics</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Frame Inspector Micro Drawer / Status Strip -->
+<div class="px-space-md py-2 bg-surface-container-low/70 flex flex-wrap items-center justify-between text-body-sm">
+<div class="flex items-center gap-space-md text-[11px] font-telemetry-sm">
+<span class="text-on-surface-variant">Active Selection: <strong class="text-primary font-semibold">0x240 ENG_THERMAL_EGT</strong></span>
+<span class="text-outline-variant">|</span>
+<span class="text-on-surface-variant">Signal: <strong class="text-error font-semibold">EGT_CYL3 = 724.0°C</strong></span>
+<span class="text-outline-variant">|</span>
+<span class="text-on-surface-variant">CAN-FD CRC-21: <strong class="text-on-surface">0x14F2A9</strong> (Valid)</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2 py-1 bg-surface-container-highest hover:bg-surface-container text-on-surface rounded text-[11px] font-medium flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+              INSPECT BYTE MAP
+            </button>
+<button class="px-2 py-1 bg-primary text-on-primary hover:bg-secondary rounded text-[11px] font-medium flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">show_chart</span>
+              OSCILLOSCOPE WAVEFORM
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT: Diagnostics & Bus Physical Layer Analysis Panel (8 cols) -->
+<div class="xl:col-span-8 flex flex-col gap-space-sm">
+<!-- Card: Dual Bus Load & Bandwidth Utilization Gauges -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">query_stats</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Bus Load &amp; Bandwidth</h3>
+</div>
+<span class="font-telemetry-sm text-[11px] text-on-surface-variant">Dual 1M / 5M CAN-FD</span>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- CAN Bus A Load -->
+<div>
+<div class="flex justify-between items-center text-body-sm font-telemetry-sm mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-semibold text-on-surface">CAN Bus A Load</span>
+</div>
+<span class="font-bold text-primary">42.4% <span class="text-[10px] text-on-surface-variant font-normal">(424 kbps)</span></span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 42.4%"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant mt-0.5">
+<span>Arbitration: 24.1%</span>
+<span>Data Phase (BRS): 60.7%</span>
+<span>Headroom: 57.6%</span>
+</div>
+</div>
+<!-- CAN Bus B Load -->
+<div>
+<div class="flex justify-between items-center text-body-sm font-telemetry-sm mb-1">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-semibold text-on-surface">CAN Bus B Load</span>
+</div>
+<span class="font-bold text-secondary">41.8% <span class="text-[10px] text-on-surface-variant font-normal">(418 kbps)</span></span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-high rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary rounded-full transition-all duration-500" style="width: 41.8%"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-telemetry-sm text-on-surface-variant mt-0.5">
+<span>Arbitration: 23.9%</span>
+<span>Data Phase (BRS): 59.7%</span>
+<span>Headroom: 58.2%</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between text-body-sm font-telemetry-sm">
+<span class="text-on-surface-variant">Bus Collisions &amp; Backoffs:</span>
+<span class="font-semibold text-on-tertiary-fixed-variant">0 per sec (Deterministic TDMA)</span>
+</div>
+</div>
+<!-- Card: Frame Distribution by Priority & ID Allocation -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">pie_chart</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Frame Priority Distribution</h3>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">11-BIT &amp; 29-BIT</span>
+</div>
+<div class="flex items-center gap-space-md">
+<!-- Stacked Horizontal Bar Visualization -->
+<div class="flex-1 flex flex-col gap-1.5">
+<div class="w-full h-3 bg-surface-container-high rounded overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 38%" title="High Priority: 38%"></div>
+<div class="h-full bg-secondary" style="width: 46%" title="Medium Priority: 46%"></div>
+<div class="h-full bg-on-tertiary-container" style="width: 16%" title="Diagnostic / Broadcast: 16%"></div>
+</div>
+<div class="grid grid-cols-3 text-[11px] font-telemetry-sm text-on-surface-variant">
+<div>
+<span class="font-bold text-primary block">38%</span>
+<span class="text-[10px]">High (0x000-0x1FF)</span>
+</div>
+<div class="text-center">
+<span class="font-bold text-secondary block">46%</span>
+<span class="text-[10px]">Med (0x200-0x4FF)</span>
+</div>
+<div class="text-right">
+<span class="font-bold text-on-tertiary-container block">16%</span>
+<span class="text-[10px]">Diag (0x500+)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-md divide-y divide-surface-container text-body-sm font-telemetry-sm">
+<div class="py-1 flex justify-between items-center">
+<span class="text-on-surface-variant">Crank &amp; FADEC Real-time (0x100..0x1FF)</span>
+<span class="font-semibold text-on-surface">540 msgs/s</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-on-surface-variant">Thermal &amp; Pressure Sensors (0x200..0x2FF)</span>
+<span class="font-semibold text-on-surface">653 msgs/s</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-on-surface-variant">Actuator Feedback &amp; Pumps (0x300..0x4FF)</span>
+<span class="font-semibold text-on-surface">114 msgs/s</span>
+</div>
+<div class="py-1 flex justify-between items-center">
+<span class="text-on-surface-variant">Diagnostic OBD-II / UDS Frames</span>
+<span class="font-semibold text-on-surface">113 msgs/s</span>
+</div>
+</div>
+</div>
+<!-- Card: Physical Layer Scope & Signal Integrity mini-card -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">waves</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Physical Layer Oscilloscope</h3>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-container/15 text-on-tertiary-fixed-variant font-telemetry-sm text-[10px] font-semibold">ISO 11898 COMPLIANT</span>
+</div>
+<!-- Inline SVG Scope Graphic (CAN Differential Waveform) -->
+<div class="bg-surface-container-high/40 p-space-xs rounded-lg mb-space-sm relative">
+<div class="flex justify-between items-center px-1 mb-1 text-[10px] font-telemetry-sm text-on-surface-variant">
+<span>CAN_H / CAN_L Differential Waveform</span>
+<span class="text-primary font-semibold">5.00 MSa/s • 500ns/div</span>
+</div>
+<svg class="w-full h-20 text-primary" fill="none" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid lines -->
+<path d="M0 20 H300 M0 40 H300 M0 60 H300" stroke="currentColor" stroke-dasharray="2 2" stroke-opacity="0.1" stroke-width="1"></path>
+<path d="M50 0 V80 M100 0 V80 M150 0 V80 M200 0 V80 M250 0 V80" stroke="currentColor" stroke-dasharray="2 2" stroke-opacity="0.1" stroke-width="1"></path>
+<!-- Recessive baseline (0V diff) and Dominant pulse (2V diff) -->
+<!-- CAN Differential signal V_diff = V_CANH - V_CANL -->
+<path d="M 0 60 
+                     L 25 60 
+                     L 28 20 
+                     L 70 20 
+                     L 73 60 
+                     L 100 60 
+                     L 103 20 
+                     L 130 20 
+                     L 133 60 
+                     L 145 60 
+                     L 148 20 
+                     L 210 20 
+                     L 213 60 
+                     L 230 60 
+                     L 233 20 
+                     L 270 20 
+                     L 273 60 
+                     L 300 60" stroke="currentColor" stroke-linejoin="round" stroke-width="2"></path>
+<!-- Subtle overshoot indicator -->
+<circle class="fill-secondary" cx="28" cy="18" r="2"></circle>
+<circle class="fill-secondary" cx="103" cy="18" r="2"></circle>
+</svg>
+</div>
+<div class="grid grid-cols-2 gap-space-xs text-[11px] font-telemetry-sm">
+<div class="p-space-xs bg-surface-container-low rounded">
+<span class="text-on-surface-variant block text-[10px]">Differential Voltage ($V_{diff}$)</span>
+<span class="font-semibold text-on-surface">Recessive: 0.02V | Dom: 2.15V</span>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded">
+<span class="text-on-surface-variant block text-[10px]">Ringing / Overshoot</span>
+<span class="font-semibold text-on-surface">4.2% (Tol &lt; 10.0%)</span>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded">
+<span class="text-on-surface-variant block text-[10px]">Bus Impedance Termination</span>
+<span class="font-semibold text-on-tertiary-fixed-variant">59.8 Ω (Dual 120Ω Parallel)</span>
+</div>
+<div class="p-space-xs bg-surface-container-low rounded">
+<span class="text-on-surface-variant block text-[10px]">Ground Offset (GND_ECU)</span>
+<span class="font-semibold text-on-surface">±0.08 V (Acceptable)</span>
+</div>
+</div>
+</div>
+<!-- Quick Diagnostic Utilities Deck -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">Diagnostic Commands &amp; Tools</h3>
+<span class="material-symbols-outlined text-[18px] text-outline">terminal</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- Tool 1: Diagnostic UDS Frame -->
+<div class="p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">build</span>
+<div>
+<span class="font-body-sm font-semibold text-on-surface block">Transmit UDS Frame (ISO 14229)</span>
+<span class="text-[11px] text-on-surface-variant font-telemetry-sm">Read Data by ID: 0x22 F1 90 (VIN / Serial)</span>
+</div>
+</div>
+<button class="px-2 py-1 bg-surface-container-highest hover:bg-primary hover:text-on-primary rounded text-xs font-semibold transition-colors">SEND</button>
+</div>
+<!-- Tool 2: DBC Schema Viewer -->
+<div class="p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">schema</span>
+<div>
+<span class="font-body-sm font-semibold text-on-surface block">DBC Matrix Inspector</span>
+<span class="text-[11px] text-on-surface-variant font-telemetry-sm">AeroTwin_Rotax915_v3.8.dbc (148 signals)</span>
+</div>
+</div>
+<button class="px-2 py-1 bg-surface-container-highest hover:bg-secondary hover:text-on-secondary rounded text-xs font-semibold transition-colors">VIEW</button>
+</div>
+<!-- Tool 3: Signal Trace Trigger -->
+<div class="p-space-sm bg-surface-container-low hover:bg-surface-container rounded-lg flex items-center justify-between cursor-pointer transition-colors">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">emergency_recording</span>
+<div>
+<span class="font-body-sm font-semibold text-on-surface block">Scope Fault Auto-Trigger</span>
+<span class="text-[11px] text-on-surface-variant font-telemetry-sm">Trigger condition: CHT Cyl &gt; 132°C or Error Frame</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/20 text-on-tertiary-fixed-variant text-[10px] font-bold">ARMED</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initTelemetryStream() {
+    let isStreaming = true;
+    const streamToggleBtn = document.getElementById('stream-toggle-btn');
+    const streamLabel = document.getElementById('stream-label');
+    const streamIcon = document.getElementById('stream-icon');
+    const rateCounter = document.getElementById('rate-counter');
+    const pktCounter = document.getElementById('pkt-counter');
+    const tableBody = document.getElementById('can-table-body');
+
+    let basePkts = 4892104;
+
+    if (streamToggleBtn) {
+      streamToggleBtn.addEventListener('click', () => {
+        isStreaming = !isStreaming;
+        if (isStreaming) {
+          streamLabel.textContent = 'PAUSE STREAM';
+          streamIcon.textContent = 'pause';
+          streamIcon.className = 'material-symbols-outlined text-[16px] text-error';
+          streamToggleBtn.classList.remove('bg-error-container', 'text-on-error-container');
+        } else {
+          streamLabel.textContent = 'RESUME STREAM';
+          streamIcon.textContent = 'play_arrow';
+          streamIcon.className = 'material-symbols-outlined text-[16px] text-primary';
+          streamToggleBtn.classList.add('bg-surface-container-highest');
+        }
+      });
+    }
+
+    const clearBtn = document.getElementById('clear-buffer-btn');
+    if (clearBtn && tableBody) {
+      clearBtn.addEventListener('click', () => {
+        const rows = tableBody.querySelectorAll('tr');
+        if (rows.length > 3) {
+          for (let i = 3; i < rows.length; i++) {
+            rows[i].remove();
+          }
+        }
+      });
+    }
+
+    setInterval(() => {
+      if (!isStreaming) return;
+
+      const jitter = Math.floor(Math.random() * 40) - 20;
+      const currentRate = 1420 + jitter;
+      if (rateCounter) {
+        rateCounter.textContent = currentRate.toLocaleString();
+      }
+
+      basePkts += Math.floor(currentRate / 5);
+      if (pktCounter) {
+        pktCounter.textContent = basePkts.toLocaleString();
+      }
+    }, 1000);
+  })();
+</script></main></div></body></html>

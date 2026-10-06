@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroTwin-X | Maintenance &amp; Lifecycle Management — Optical Borescope Inspection</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: IBM Plex Sans & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"IBM Plex Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            aero: {
+              navy: '#173a5e',
+              deep: '#002444',
+              soft: '#eef4ff',
+              container: '#e5effd',
+              border: '#dae3f1',
+              accent: '#0284c7',
+              warning: '#d97706',
+              danger: '#dc2626',
+              success: '#059669',
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styling -->
+<style data-purpose="base-layout">
+    body {
+      background-color: #f4f7fb;
+      color: #1e293b;
+      font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    }
+    .hud-reticle-line {
+      stroke-dasharray: 4;
+      animation: dash 20s linear infinite;
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 1000;
+      }
+    }
+    @keyframes pulse-fast {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .animate-pulse-live {
+      animation: pulse-fast 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+<style data-purpose="scrollbar-styling">
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #e2e8f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+<!-- END: Custom Styling -->
+</head>
+<body class="min-h-screen flex flex-col font-sans bg-[#f4f7fb] text-slate-800 antialiased selection:bg-sky-200">
+<!-- BEGIN: Top Navigation Bar -->
+<header class="bg-[#002444] text-white border-b border-slate-700/60 sticky top-0 z-50 shadow-md">
+<div class="px-4 py-2 flex items-center justify-between gap-4">
+<!-- Brand & Mission Info -->
+<div class="flex items-center space-x-4">
+<div class="flex items-center space-x-2.5">
+<div class="h-7 w-7 rounded bg-sky-600 flex items-center justify-center font-bold text-white tracking-widest text-sm shadow-inner">
+            AX
+          </div>
+<div>
+<div class="flex items-center space-x-1.5 leading-none">
+<span class="font-bold text-base tracking-tight text-white">AeroTwin-X</span>
+<span class="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-700/50">GCS V3.8</span>
+</div>
+<p class="text-[10px] text-slate-300 tracking-wider uppercase font-mono mt-0.5">AERO-PISTON PROPULSION TWIN</p>
+</div>
+</div>
+<div class="hidden lg:flex items-center space-x-3 text-xs pl-4 border-l border-slate-700">
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Vehicle Platform</span>
+<span class="font-medium text-slate-200 text-xs">UAV-07 (Hermes MALE)</span>
+</div>
+<div class="h-4 w-px bg-slate-700"></div>
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Powerplant Unit</span>
+<span class="font-medium text-sky-300 text-xs">ENGINE-AE-03 (Turbo Piston)</span>
+</div>
+<div class="h-4 w-px bg-slate-700"></div>
+<div>
+<span class="text-slate-400 block text-[9px] uppercase font-mono leading-none">Flight Mission Profile</span>
+<span class="font-medium text-slate-200 text-xs">LONG-ENDURANCE ISR</span>
+</div>
+</div>
+</div>
+<!-- Telemetry Health & Status Bar -->
+<div class="flex items-center space-x-3">
+<div class="hidden xl:flex items-center space-x-2 text-[11px] font-mono bg-slate-900/60 px-3 py-1 rounded border border-slate-700/80">
+<span class="inline-flex items-center text-emerald-400 font-semibold">
+<span class="h-2 w-2 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
+            CONNECTED
+          </span>
+<span class="text-slate-500">|</span>
+<span class="text-slate-300">99.7% SYNC</span>
+<span class="text-slate-500">|</span>
+<span class="text-sky-400">AI ONLINE</span>
+<span class="text-slate-500">|</span>
+<span class="text-amber-400 font-mono">EDGE 50Hz</span>
+<span class="text-slate-500">|</span>
+<span class="text-slate-300">14:28:42 UTC</span>
+</div>
+<!-- User Profile Pill -->
+<div class="flex items-center space-x-2 bg-slate-800/80 px-2.5 py-1 rounded border border-slate-700 text-xs">
+<div class="w-6 h-6 rounded-full bg-sky-700 text-white flex items-center justify-center font-bold text-[11px]">
+            KV
+          </div>
+<div class="text-left leading-tight hidden sm:block">
+<span class="block font-medium text-slate-100 text-xs">Maj. K. Vance</span>
+<span class="block text-[9px] font-mono text-slate-400">Lead Propulsion Eng</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- END: Top Navigation Bar -->
+<div class="flex-1 flex overflow-hidden">
+<!-- BEGIN: Left Navigation Sidebar -->
+<aside class="w-60 bg-white border-r border-[#dae3f1] flex flex-col justify-between shrink-0 select-none hidden md:flex">
+<div class="py-3 overflow-y-auto">
+<!-- SECTION: Main -->
+<div class="px-3 mb-3">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">MAIN</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Mission Control
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Digital Twin (3D State)
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Engine Health &amp; Matrix
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Sensor Monitoring
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              AI Diagnostics
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              RUL &amp; Degradation
+            </a>
+</nav>
+</div>
+<!-- SECTION: Operations -->
+<div class="px-3 mb-3">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">OPERATIONS</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              3D Engine Explorer
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Mission Simulator
+            </a>
+<a class="flex items-center justify-between px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="flex items-center">
+<svg class="w-4 h-4 mr-2 text-amber-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Alerts &amp; Faults
+              </span>
+<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded font-mono">1</span>
+</a>
+<!-- Active Maintenance tab -->
+<a class="flex items-center px-2 py-1.5 rounded bg-[#173a5e] text-white font-medium shadow-sm" href="#">
+<svg class="w-4 h-4 mr-2 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Maintenance (NDI)
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] hover:text-[#173a5e] transition-colors" href="#">
+<svg class="w-4 h-4 mr-2 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Logbooks &amp; Reports
+            </a>
+</nav>
+</div>
+<!-- SECTION: Engineering -->
+<div class="px-3 mb-2">
+<p class="px-2 text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono mb-1">ENGINEERING</p>
+<nav class="space-y-0.5 text-xs">
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              CAN Bus Telemetry
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              Edge AI Inference Engine
+            </a>
+<a class="flex items-center px-2 py-1.5 rounded text-slate-700 hover:bg-[#eef4ff] transition-colors" href="#">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-400 mr-2.5 ml-1"></span>
+              System Architecture (FADEC)
+            </a>
+</nav>
+</div>
+</div>
+<!-- CAN BUS Status Footer in Sidebar -->
+<div class="p-3 bg-[#eef4ff] border-t border-[#dae3f1] text-[11px] font-mono">
+<div class="flex items-center justify-between text-slate-700 font-semibold mb-1">
+<span>CAN BUS A/B</span>
+<span class="text-emerald-700">ONLINE</span>
+</div>
+<div class="grid grid-cols-3 gap-1 text-[10px] text-slate-500">
+<div>LOAD: <span class="text-slate-800 font-bold">42%</span></div>
+<div>LOSS: <span class="text-emerald-600 font-bold">0.00%</span></div>
+<div>LAT: <span class="text-slate-800 font-bold">14ms</span></div>
+</div>
+</div>
+</aside>
+<!-- END: Left Navigation Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+<!-- Header & Action Bar -->
+<section class="bg-white p-4 md:p-5 rounded-lg border border-[#dae3f1] shadow-sm" data-purpose="page-header">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<h1 class="text-xl md:text-2xl font-bold text-[#173a5e] tracking-tight">Maintenance &amp; Lifecycle Management</h1>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold bg-[#eef4ff] text-[#173a5e] border border-[#dae3f1]">
+                Non-Destructive Optical Inspection (NDI)
+              </span>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-300">
+<span class="w-2 h-2 rounded-full bg-amber-500 mr-1.5 animate-pulse"></span>
+                ALT-084 ACTIVE CORRELATION
+              </span>
+</div>
+<p class="text-xs md:text-sm text-slate-600">
+              Aero-Piston Powerplant Maintenance, Digital Logbook &amp; Precision Micro-Borescope Defect Detection
+            </p>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm transition" type="button">
+<svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Log Snapshot
+            </button>
+<button class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 shadow-sm transition" type="button">
+<svg class="w-3.5 h-3.5 mr-1.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Form 8130-3 / EASA Form 1
+            </button>
+<button class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-[#173a5e] text-white hover:bg-[#002444] shadow-sm transition" type="button">
+<svg class="w-3.5 h-3.5 mr-1.5 text-sky-300" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 6v6m0 0v6m0-6h6m-6 0H6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Generate Work Order
+            </button>
+<button class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded bg-sky-50 text-sky-800 border border-sky-200 hover:bg-sky-100 transition" type="button">
+<svg class="w-3.5 h-3.5 mr-1.5 text-sky-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+              Sync Digital Twin
+            </button>
+</div>
+</div>
+<!-- Telemetry & Lifecycle Meta Badges Bar -->
+<div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs font-mono">
+<div class="flex items-center space-x-1.5 text-slate-700">
+<span class="text-slate-400">ENGINE:</span>
+<span class="font-bold text-slate-900">Rotax 915iSc Turbo (#AE-03)</span>
+</div>
+<div class="flex items-center space-x-1.5 text-slate-700">
+<span class="text-slate-400">TTSN:</span>
+<span class="font-bold text-slate-900">1,842.6 h</span>
+<span class="text-slate-400">/ TBO: 2,500 h</span>
+</div>
+<div class="flex items-center space-x-1.5 text-slate-700">
+<span class="text-slate-400">WEIBULL RUL:</span>
+<span class="font-bold text-emerald-700">1,284 h (β=1.84)</span>
+</div>
+<div class="flex items-center space-x-1.5 text-slate-700">
+<span class="text-slate-400">INSPECTION TARGET:</span>
+<span class="font-bold text-[#173a5e] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">Turnaround 14 (Ground Turn)</span>
+</div>
+</div>
+</section>
+<!-- BEGIN: Hero Section - Optical Borescope Inspection Hub -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6" data-purpose="borescope-hub">
+<!-- Left 8 cols: Live Optical Borescope Feed + HUD -->
+<div class="lg:col-span-8 bg-black rounded-lg border border-slate-700 overflow-hidden shadow-xl flex flex-col relative">
+<!-- Top HUD Overlay Ribbon -->
+<div class="absolute top-0 inset-x-0 z-20 bg-gradient-to-b from-black/85 via-black/50 to-transparent p-3 text-white flex items-center justify-between text-xs font-mono">
+<div class="flex items-center space-x-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-red-600/90 text-white font-bold tracking-wide animate-pulse-live text-[10px]">
+                ● LIVE REC
+              </span>
+<span class="font-semibold text-slate-200 tracking-wide text-xs md:text-sm">
+                Cylinder #3 Combustion Chamber &amp; Valve Port
+              </span>
+</div>
+<div class="hidden sm:flex items-center space-x-4 text-[11px] text-slate-300">
+<span class="bg-black/40 px-2 py-0.5 rounded border border-white/10">CAN-PROBE-01 // 6.0mm 4-WAY ARTICULATED</span>
+<span class="text-emerald-400 font-semibold">1080p @ 60 FPS</span>
+<span class="text-amber-400">Probe Temp: 42.4°C</span>
+<span class="text-sky-300">Artic: P+14° / Y-08°</span>
+</div>
+</div>
+<!-- Video Display Container with Annotations -->
+<div class="relative flex-1 w-full bg-slate-950 flex items-center justify-center min-h-[460px] md:min-h-[520px] overflow-hidden select-none">
+<!-- Real Inspection Image https://lh3.googleusercontent.com/aida-public/AB6AXuAu1T4OZ0jtKipPdlh6HkLWCk25K4xho_wkdHlSDi5yDxlb0vt9qS_UYHI0Cu6W8499AHFea_MC67BlkDgL_URdTi9-ALQLVUa4SHMwEjLcQcCeNfzcGJAA_1XgcF2UryXEoCMIRst3VF-hJty9SlilHbZct0fLL6SRFTBuOTUOmdHfyw52qIZLWV6LD4R_wNWb52NvjenbIMda9YRkoG3s4SeqdNScBEPqB3cVxTy1rsdsLhZm750R -->
+<img alt="Detailed aerospace engineering optical borescope inspection macro photo inside an aircraft piston engine cylinder combustion chamber. Cross-hatch hone marks on cylinder wall, exhaust valve face with light carbon deposit edge, technical borescope video overlay showing probe temperature 42C, 6.0mm articulated insertion tube camera view, clean illumination, aerospace maintenance quality." class="w-full h-full object-cover select-none pointer-events-none" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu1T4OZ0jtKipPdlh6HkLWCk25K4xho_wkdHlSDi5yDxlb0vt9qS_UYHI0Cu6W8499AHFea_MC67BlkDgL_URdTi9-ALQLVUa4SHMwEjLcQcCeNfzcGJAA_1XgcF2UryXEoCMIRst3VF-hJty9SlilHbZct0fLL6SRFTBuOTUOmdHfyw52qIZLWV6LD4R_wNWb52NvjenbIMda9YRkoG3s4SeqdNScBEPqB3cVxTy1rsdsLhZm750R"/>
+<!-- Interactive Defect & Segmentation HUD Overlays -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-10" preserveaspectratio="none" viewbox="0 0 1376 768">
+<defs>
+<!-- Reticle Glow Filter -->
+<filter height="140%" id="hud-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="glow" stddeviation="3"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="glow" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Annotation A: Exhaust Valve Face -->
+<g class="transition-opacity">
+<!-- Target Reticle on Valve -->
+<circle class="hud-reticle-line" cx="700" cy="450" fill="none" opacity="0.8" r="160" stroke="#38bdf8" stroke-dasharray="6,4" stroke-width="1.8"></circle>
+<circle cx="700" cy="450" fill="#38bdf8" r="4"></circle>
+<!-- Pointer Line to Exhaust Valve Label -->
+<path d="M 640 320 L 520 220 L 260 220" fill="none" stroke="#38bdf8" stroke-width="1.5"></path>
+<circle cx="260" cy="220" fill="#38bdf8" r="3"></circle>
+</g>
+<!-- Annotation B: Cylinder Wall Cross-Hatch -->
+<g>
+<circle cx="330" cy="280" fill="rgba(16, 185, 129, 0.08)" r="50" stroke="#10b981" stroke-dasharray="4,2" stroke-width="1.5"></circle>
+<path d="M 285 280 L 160 280 L 100 340" fill="none" stroke="#10b981" stroke-width="1.5"></path>
+<circle cx="100" cy="340" fill="#10b981" r="3"></circle>
+</g>
+<!-- Annotation C: Piston Crown Wash -->
+<g>
+<circle cx="680" cy="740" fill="none" r="70" stroke="#f59e0b" stroke-dasharray="5,3" stroke-width="1.5"></circle>
+<path d="M 720 700 L 800 660 L 920 660" fill="none" stroke="#f59e0b" stroke-width="1.5"></path>
+<circle cx="920" cy="660" fill="#f59e0b" r="3"></circle>
+</g>
+<!-- Center Borescope Crosshairs -->
+<g stroke="#ffffff" stroke-opacity="0.3" stroke-width="1">
+<line x1="688" x2="688" y1="360" y2="408"></line>
+<line x1="664" x2="712" y1="384" y2="384"></line>
+</g>
+</svg>
+<!-- Floating CAD Callout Card A (Valve Face) -->
+<div class="absolute top-[18%] left-[4%] z-20 max-w-xs bg-slate-950/90 backdrop-blur-md border border-sky-500/70 p-2.5 rounded shadow-2xl text-[11px] font-mono text-slate-100">
+<div class="flex items-center justify-between font-bold text-sky-400 mb-1 border-b border-sky-500/30 pb-1">
+<span class="flex items-center">
+<span class="w-2 h-2 rounded-full bg-sky-400 mr-1.5 animate-pulse"></span>
+                  POI #1: EXHAUST VALVE FACE
+                </span>
+<span class="text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-500/40 px-1 py-0.2 rounded font-sans">
+                  COMPLIANT
+                </span>
+</div>
+<p class="text-slate-300 text-[10px] leading-relaxed">
+                Micro-deposit carbon thickness: <strong class="text-white">0.12 mm</strong> (Max allowed: 0.40 mm). Zero thermal micro-cracking or seat tulip deflection detected.
+              </p>
+<div class="mt-1.5 pt-1 border-t border-white/10 flex justify-between text-[9px] text-slate-400">
+<span>AI Confidence: 99.4%</span>
+<span class="text-emerald-400 font-semibold">Turnaround 14: PASS</span>
+</div>
+</div>
+<!-- Floating CAD Callout Card B (Cylinder Wall Hone) -->
+<div class="absolute bottom-[24%] left-[2%] z-20 max-w-[260px] bg-slate-950/90 backdrop-blur-md border border-emerald-500/70 p-2.5 rounded shadow-2xl text-[11px] font-mono text-slate-100">
+<div class="flex items-center justify-between font-bold text-emerald-400 mb-1 border-b border-emerald-500/30 pb-1">
+<span>POI #2: BARREL WALL HONE</span>
+<span class="text-[9px] bg-emerald-900/60 text-emerald-300 px-1 py-0.2 rounded font-sans">NOMINAL</span>
+</div>
+<p class="text-slate-300 text-[10px] leading-relaxed">
+                Nikasil bore cross-hatch retention: <strong class="text-white">92.4%</strong>. Zero vertical ring scuffing, micro-galling or blow-by streaking.
+              </p>
+</div>
+<!-- Floating CAD Callout Card C (Piston Crown Wash) -->
+<div class="absolute bottom-[14%] right-[4%] z-20 max-w-xs bg-slate-950/90 backdrop-blur-md border border-amber-500/70 p-2.5 rounded shadow-2xl text-[11px] font-mono text-slate-100">
+<div class="flex items-center justify-between font-bold text-amber-400 mb-1 border-b border-amber-500/30 pb-1">
+<span>POI #3: PISTON CROWN TOP</span>
+<span class="text-[9px] bg-amber-900/50 text-amber-300 px-1 py-0.2 rounded font-sans">NORMAL WASH</span>
+</div>
+<p class="text-slate-300 text-[10px] leading-relaxed">
+                Thermal wash pattern symmetrical. No pre-ignition pitting or cavitation signs on forged aluminum substrate.
+              </p>
+</div>
+</div>
+<!-- Bottom Probe Controls & Metric Bar -->
+<div class="bg-slate-900 border-t border-slate-800 p-2.5 px-4 text-xs font-mono text-slate-300 flex flex-wrap items-center justify-between gap-3">
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 text-xs flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-sky-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Freeze Frame
+              </button>
+<button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 text-xs flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-amber-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Capture UHD Still
+              </button>
+<button class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded border border-slate-700 text-xs flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                Stereo 3D Tip Measurement
+              </button>
+<button class="px-2.5 py-1 bg-sky-900/60 hover:bg-sky-800 text-sky-200 rounded border border-sky-600/50 text-xs flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-sky-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                AI Defect Re-Scan
+              </button>
+</div>
+<!-- Illumination & Zoom -->
+<div class="flex items-center space-x-4 text-xs">
+<div class="flex items-center space-x-1.5">
+<span class="text-slate-400">LED INTENSITY:</span>
+<span class="font-bold text-white">85%</span>
+</div>
+<div class="flex items-center space-x-1.5">
+<span class="text-slate-400">OPTICAL ZOOM:</span>
+<span class="font-bold text-sky-400">1.8X</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right 4 cols: Correlated Physical vs Digital Twin Diagnostics Card -->
+<div class="lg:col-span-4 space-y-4 flex flex-col justify-between">
+<!-- AI Diagnostic Correlation Card -->
+<div class="bg-white rounded-lg border border-[#dae3f1] shadow-sm p-4 flex-1">
+<div class="flex items-center justify-between border-b border-slate-200 pb-3 mb-3">
+<div>
+<span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold block">Twin Diagnostic Hub</span>
+<h3 class="font-bold text-[#173a5e] text-sm">AI Fault Correlation (ALT-084)</h3>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                CORRELATED
+              </span>
+</div>
+<!-- Dual Matrix: Telemetry vs Optical Visuals -->
+<div class="space-y-3 text-xs">
+<div class="bg-[#f8fafc] border border-slate-200 p-2.5 rounded">
+<div class="flex items-center justify-between text-[11px] font-semibold text-slate-700 mb-1">
+<span class="flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-amber-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Telemetry Anomaly Logged
+                  </span>
+<span class="font-mono text-amber-700 font-bold">+18.0°C Residual</span>
+</div>
+<p class="text-slate-600 text-[11px] leading-relaxed">
+                  Cylinder #3 EGT residual elevated (+18.0°C above fleet baseline model) accompanied by fuel flow bias (+0.50 L/h) during descent profile.
+                </p>
+</div>
+<div class="bg-[#eef4ff] border border-[#dae3f1] p-2.5 rounded">
+<div class="flex items-center justify-between text-[11px] font-semibold text-[#173a5e] mb-1">
+<span class="flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-emerald-600" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                    Optical Borescope Clearance
+                  </span>
+<span class="font-mono text-emerald-700 font-bold">100% NOMINAL</span>
+</div>
+<p class="text-slate-600 text-[11px] leading-relaxed">
+                  Optical NDI confirms cylinder chamber mechanical integrity: no seat burn, no valve guttering, no barrel scoring, no ring blow-by.
+                </p>
+</div>
+<!-- Isolated Root Cause -->
+<div class="border border-sky-200 bg-sky-50/70 p-3 rounded">
+<div class="text-[11px] font-bold text-sky-900 mb-1 uppercase tracking-wide flex items-center">
+<svg class="w-3.5 h-3.5 mr-1 text-sky-700" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                  Isolated Root Cause &amp; Decision
+                </div>
+<p class="text-slate-700 text-xs font-medium">
+                  Mechanical top-end overhaul <strong class="text-emerald-700 font-bold">NOT REQUIRED</strong>. AI Bayesian model isolated defect to 
+                  <span class="font-mono bg-sky-200/80 px-1 py-0.5 rounded text-sky-900 font-bold">Fuel Injector Nozzle #3 Coking</span> (68.4% probability).
+                </p>
+<div class="mt-2 text-[11px] text-slate-600 bg-white p-2 rounded border border-sky-200">
+<span class="font-semibold text-slate-800">Prescribed Action:</span> Perform ultrasonic injector flush &amp; spray pattern bench flow test at Turnaround 14.
+                </div>
+</div>
+</div>
+</div>
+<!-- Ready Work Order Action Card -->
+<div class="bg-gradient-to-br from-[#173a5e] to-[#002444] text-white p-4 rounded-lg shadow-md border border-slate-700">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-mono text-sky-300 font-semibold tracking-wider uppercase">Auto-Drafted Maintenance Action</span>
+<span class="text-[10px] font-mono bg-sky-900/80 text-sky-200 border border-sky-400/40 px-1.5 py-0.5 rounded">T14 QUEUE</span>
+</div>
+<h4 class="font-bold text-sm text-white mb-1">WO-8842-CYL3-INJ</h4>
+<p class="text-xs text-slate-300 mb-3 leading-snug">
+              Remove and test Rotax P/N 874-920 (Injector #3). Re-install with new O-ring set P/N 950-410. Torque to 8.5 Nm.
+            </p>
+<div class="flex items-center justify-between pt-2 border-t border-slate-600/70">
+<span class="text-[11px] text-slate-300 font-mono">Est. Time: <strong class="text-white">45 min</strong></span>
+<button class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-semibold shadow transition">
+                Approve Work Order
+              </button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: Multi-Cylinder Borescope Inspection Strip -->
+<section class="space-y-3" data-purpose="cylinder-gallery">
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-bold text-[#173a5e] tracking-tight uppercase font-mono">
+            Combustion Chambers &amp; Hot Section Gallery (Turnaround 14 Status)
+          </h2>
+<span class="text-xs text-slate-500 font-mono">4-Cylinder Boxer Layout + Turbo Stage</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+<!-- Card Cylinder 1 -->
+<div class="bg-white p-2.5 rounded border border-[#dae3f1] shadow-sm hover:border-sky-300 transition">
+<div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
+<span class="font-bold text-slate-800">CYLINDER #1</span>
+<span class="text-emerald-700 font-bold bg-emerald-50 px-1.5 rounded text-[9px]">NOMINAL</span>
+</div>
+<div class="h-24 bg-slate-800 rounded relative overflow-hidden flex items-center justify-center border border-slate-300 text-slate-400 text-xs">
+<!-- Sub-inspect thumbnail mock -->
+<div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-color: #334155;"></div>
+<div class="relative z-10 text-center font-mono text-[10px] text-white">
+<span class="block font-semibold">T12 Pass</span>
+<span class="text-slate-300">Comp: 78/80 psi</span>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500 flex justify-between font-mono">
+<span>Hone: 94%</span>
+<span>Next: T16</span>
+</div>
+</div>
+<!-- Card Cylinder 2 -->
+<div class="bg-white p-2.5 rounded border border-[#dae3f1] shadow-sm hover:border-sky-300 transition">
+<div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
+<span class="font-bold text-slate-800">CYLINDER #2</span>
+<span class="text-emerald-700 font-bold bg-emerald-50 px-1.5 rounded text-[9px]">NOMINAL</span>
+</div>
+<div class="h-24 bg-slate-800 rounded relative overflow-hidden flex items-center justify-center border border-slate-300 text-slate-400 text-xs">
+<div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-color: #334155;"></div>
+<div class="relative z-10 text-center font-mono text-[10px] text-white">
+<span class="block font-semibold">T13 Pass</span>
+<span class="text-slate-300">Comp: 77/80 psi</span>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500 flex justify-between font-mono">
+<span>Hone: 91%</span>
+<span>Next: T15</span>
+</div>
+</div>
+<!-- Card Cylinder 3 (Active) -->
+<div class="bg-[#eef4ff] p-2.5 rounded border-2 border-sky-600 shadow-md relative">
+<div class="absolute -top-2 right-2 bg-sky-600 text-white text-[9px] font-bold px-1.5 py-0.2 rounded font-mono uppercase tracking-wider">
+              ACTIVE FEED
+            </div>
+<div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
+<span class="font-bold text-[#173a5e]">CYLINDER #3</span>
+<span class="text-sky-700 font-bold bg-sky-100 px-1.5 rounded text-[9px]">INSPECTION</span>
+</div>
+<div class="h-24 bg-slate-900 rounded relative overflow-hidden border border-sky-400">
+<img alt="Cylinder 3 thumbnail" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu1T4OZ0jtKipPdlh6HkLWCk25K4xho_wkdHlSDi5yDxlb0vt9qS_UYHI0Cu6W8499AHFea_MC67BlkDgL_URdTi9-ALQLVUa4SHMwEjLcQcCeNfzcGJAA_1XgcF2UryXEoCMIRst3VF-hJty9SlilHbZct0fLL6SRFTBuOTUOmdHfyw52qIZLWV6LD4R_wNWb52NvjenbIMda9YRkoG3s4SeqdNScBEPqB3cVxTy1rsdsLhZm750R"/>
+<div class="absolute bottom-1 left-1 bg-black/70 px-1 rounded text-[9px] font-mono text-emerald-400">
+                1080p LIVE
+              </div>
+</div>
+<div class="mt-2 text-[10px] text-slate-700 flex justify-between font-mono font-semibold">
+<span class="text-[#173a5e]">Exhaust Vlv: Pass</span>
+<span class="text-amber-700">Inj Check Due</span>
+</div>
+</div>
+<!-- Card Cylinder 4 -->
+<div class="bg-white p-2.5 rounded border border-[#dae3f1] shadow-sm hover:border-sky-300 transition">
+<div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
+<span class="font-bold text-slate-800">CYLINDER #4</span>
+<span class="text-emerald-700 font-bold bg-emerald-50 px-1.5 rounded text-[9px]">NOMINAL</span>
+</div>
+<div class="h-24 bg-slate-800 rounded relative overflow-hidden flex items-center justify-center border border-slate-300 text-slate-400 text-xs">
+<div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-color: #334155;"></div>
+<div class="relative z-10 text-center font-mono text-[10px] text-white">
+<span class="block font-semibold">T13 Pass</span>
+<span class="text-slate-300">Comp: 78/80 psi</span>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500 flex justify-between font-mono">
+<span>Hone: 95%</span>
+<span>Next: T15</span>
+</div>
+</div>
+<!-- Card Turbo Turbine Guide Vanes -->
+<div class="bg-white p-2.5 rounded border border-[#dae3f1] shadow-sm hover:border-sky-300 transition">
+<div class="flex items-center justify-between text-[11px] font-mono mb-1.5">
+<span class="font-bold text-slate-800">TURBO TURBINE</span>
+<span class="text-emerald-700 font-bold bg-emerald-50 px-1.5 rounded text-[9px]">INSPECTED</span>
+</div>
+<div class="h-24 bg-slate-800 rounded relative overflow-hidden flex items-center justify-center border border-slate-300 text-slate-400 text-xs">
+<div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-color: #1e293b;"></div>
+<div class="relative z-10 text-center font-mono text-[10px] text-white">
+<span class="block font-semibold">Wastegate / Vane</span>
+<span class="text-slate-300">Zero Erosion</span>
+</div>
+</div>
+<div class="mt-2 text-[10px] text-slate-500 flex justify-between font-mono">
+<span>Clearance: 0.35mm</span>
+<span>PASS</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Multi-Cylinder Borescope Inspection Strip -->
+<!-- BEGIN: Component Lifecycle & RUL Fleet Matrix -->
+<section class="bg-white rounded-lg border border-[#dae3f1] shadow-sm overflow-hidden" data-purpose="component-lifecycle-matrix">
+<div class="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<h2 class="text-base font-bold text-[#173a5e] tracking-tight">Component Lifecycle, Degradation &amp; RUL Matrix</h2>
+<p class="text-xs text-slate-500">Live Weibull survival estimate &amp; high-precision wear model for Engine S/N #AE-03-882</p>
+</div>
+<div class="flex items-center space-x-2 text-xs font-mono">
+<span class="text-slate-500">FILTER:</span>
+<select class="text-xs font-mono bg-slate-50 border border-slate-300 rounded px-2 py-1 text-slate-700">
+<option>All Powerplant Assemblies (8)</option>
+<option>Hot Section &amp; Cylinders</option>
+<option>Fuel &amp; Injection</option>
+<option>Turbo &amp; Gearbox</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse text-xs font-sans">
+<thead>
+<tr class="bg-[#f8fafc] text-slate-600 font-mono text-[11px] border-b border-slate-200 uppercase tracking-wider">
+<th class="py-3 px-4">Sub-Assembly / Component</th>
+<th class="py-3 px-3">Part / Serial No.</th>
+<th class="py-3 px-3 text-right">TTSN (Hrs)</th>
+<th class="py-3 px-3 text-right">TSOH (Hrs)</th>
+<th class="py-3 px-3 text-right">RUL (Hours)</th>
+<th class="py-3 px-3">Weibull Wear</th>
+<th class="py-3 px-3">Interval / Next Due</th>
+<th class="py-3 px-3 text-center">Status</th>
+<th class="py-3 px-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 text-slate-700 font-normal">
+<!-- Cylinder 1 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  Cylinder #1 Assembly (Piston/Barrel)
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">854-320 / SN-4481</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,357 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 24%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.78 (Low)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">100 h / 1,900.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+<!-- Cylinder 2 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  Cylinder #2 Assembly (Piston/Barrel)
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">854-320 / SN-4482</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,310 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 28%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.80 (Low)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">100 h / 1,900.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+<!-- Cylinder 3 (Attention) -->
+<tr class="bg-amber-50/40 hover:bg-amber-50/70 transition-colors border-l-4 border-l-amber-500">
+<td class="py-3 px-4 font-semibold text-slate-900">
+<div class="flex items-center">
+<span>Cylinder #3 Assembly &amp; Injector Subsystem</span>
+</div>
+</td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">854-320 / SN-4483</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-amber-700">620 h (Inj)</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-amber-500 h-full rounded-full" style="width: 62%"></div>
+</div>
+<span class="text-[10px] font-mono text-amber-800 font-semibold">β=2.12 (Elevated)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px] font-semibold text-amber-900">T14 Ground / NOW</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300 font-mono">
+                    ATTENTION
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-amber-800 hover:text-amber-900 font-bold text-xs underline">Create Task</button>
+</td>
+</tr>
+<!-- Cylinder 4 -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  Cylinder #4 Assembly (Piston/Barrel)
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">854-320 / SN-4484</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,340 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 25%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.79 (Low)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">100 h / 1,900.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+<!-- Propeller Reduction Gearbox (PRGB) -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  Propeller Reduction Gearbox (PRGB 2.54:1 with Overload Slipper)
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">958-910 / SN-PR-112</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">842.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,157 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 35%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.65 (Nominal)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">200 h / 2,000.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+<!-- Turbocharger & Wastegate Actuator -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  Turbocharger &amp; Electronic Wastegate Actuator
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">963-120 / SN-TC-904</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,480 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 22%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.85 (Nominal)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">150 h / 1,950.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+<!-- Dual Fuel High Pressure Rail -->
+<tr class="hover:bg-slate-50/80 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-900">
+                  High-Pressure Dual Fuel Rail &amp; Regulators
+                </td>
+<td class="py-3 px-3 font-mono text-slate-500 text-[11px]">874-910 / SN-FR-022</td>
+<td class="py-3 px-3 text-right font-mono font-medium">1,842.6</td>
+<td class="py-3 px-3 text-right font-mono text-slate-500">342.6</td>
+<td class="py-3 px-3 text-right font-mono font-bold text-emerald-700">1,650 h</td>
+<td class="py-3 px-3">
+<div class="w-24 bg-slate-200 h-2 rounded-full overflow-hidden">
+<div class="bg-emerald-500 h-full rounded-full" style="width: 18%"></div>
+</div>
+<span class="text-[10px] font-mono text-slate-500">β=1.52 (Nominal)</span>
+</td>
+<td class="py-3 px-3 font-mono text-[11px]">250 h / 2,050.0 h</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono">
+                    COMPLIANT
+                  </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="text-sky-700 hover:text-sky-900 font-medium text-xs">Inspect Log</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 bg-[#f8fafc] border-t border-slate-200 text-xs text-slate-500 flex flex-wrap items-center justify-between">
+<span class="font-mono text-[11px]">Showing 7 Active Monitored Subsystems • Weibull Confidence Bounds 95% CI</span>
+<div class="space-x-3 font-mono text-[11px]">
+<span>Mean Fleet Time Between Unscheduled Removal (MTBUR): <strong class="text-slate-800">4,120 h</strong></span>
+</div>
+</div>
+</section>
+<!-- END: Component Lifecycle & RUL Fleet Matrix -->
+<!-- BEGIN: Digital Maintenance Logbook & Turnaround History -->
+<section class="bg-white rounded-lg border border-[#dae3f1] shadow-sm p-4 md:p-5" data-purpose="digital-logbook">
+<div class="flex items-center justify-between mb-4 border-b border-slate-200 pb-3">
+<div>
+<h2 class="text-base font-bold text-[#173a5e]">Digital Maintenance Logbook (Turnaround Audit Trail)</h2>
+<p class="text-xs text-slate-500">Tamper-evident FAA Part-43 / EASA Part-M digital sign-offs &amp; borescope correlation stamps</p>
+</div>
+<span class="text-xs font-mono text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 font-semibold">
+            HASH VERIFIED (SHA-256)
+          </span>
+</div>
+<div class="space-y-3 font-mono text-xs">
+<!-- Log Entry 1 -->
+<div class="p-3 rounded border border-slate-200 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-start space-x-3">
+<div class="mt-0.5 h-2 w-2 rounded-full bg-emerald-500 shrink-0"></div>
+<div>
+<div class="flex items-center space-x-2">
+<span class="font-bold text-slate-900 text-xs">Turnaround 13 Post-Flight Sign-off</span>
+<span class="text-[10px] text-slate-500">14-OCT-2024 08:30 UTC</span>
+<span class="text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded font-sans">TTSN: 1,838.2 h</span>
+</div>
+<p class="text-slate-600 text-[11px] font-sans mt-0.5">
+                  Routine 50-hour oil filter cut &amp; magnetic plug inspection. Spectrometric oil analysis (SOAP) Fe: 8 ppm, Al: 4 ppm, Cu: 1 ppm (nominal). Compression check Cyl #1: 78/80, Cyl #2: 77/80, Cyl #3: 76/80, Cyl #4: 78/80.
+                </p>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-[11px] font-bold text-slate-800">Maj. K. Vance</span>
+<span class="block text-[10px] text-slate-500">FAA A&amp;P #3841920 / IA</span>
+</div>
+</div>
+<!-- Log Entry 2 -->
+<div class="p-3 rounded border border-slate-200 bg-slate-50/50 flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="flex items-start space-x-3">
+<div class="mt-0.5 h-2 w-2 rounded-full bg-sky-500 shrink-0"></div>
+<div>
+<div class="flex items-center space-x-2">
+<span class="font-bold text-slate-900 text-xs">Digital Twin Hot Section Telemetry Recalibration</span>
+<span class="text-[10px] text-slate-500">02-OCT-2024 16:15 UTC</span>
+<span class="text-[10px] bg-slate-200 text-slate-800 px-1.5 py-0.2 rounded font-sans">TTSN: 1,800.0 h</span>
+</div>
+<p class="text-slate-600 text-[11px] font-sans mt-0.5">
+                  Thermodynamic model boundary conditions updated with actual ambient density altitude and intercooler efficiency degradation factor (-1.2%).
+                </p>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="block text-[11px] font-bold text-slate-800">Automated Edge Daemon</span>
+<span class="block text-[10px] text-slate-500">SysCert ID: AE-SYNC-77</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Digital Maintenance Logbook -->
+</main>
+<!-- END: Main Content Area -->
+</div>
+</body></html>

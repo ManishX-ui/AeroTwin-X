@@ -66,6 +66,24 @@ app.include_router(simulation_router, prefix=settings.API_V1_STR, tags=["Simulat
 app.include_router(maintenance_router, prefix=settings.API_V1_STR, tags=["Maintenance"])
 app.include_router(models_router, prefix=settings.API_V1_STR, tags=["Models"])
 
+# System Health & Operational Status Endpoints
+@app.get("/health", tags=["Status"])
+@app.get(f"{settings.API_V1_STR}/health", tags=["Status"])
+async def system_health_status():
+    """System health check and operational status."""
+    return {
+        "status": "HEALTHY",
+        "service": settings.PROJECT_NAME,
+        "version": settings.PROJECT_VERSION,
+        "mode": state_service.simulator.mode,
+        "active_mission": state_service.simulator.mission.mission_id,
+        "flight_phase": state_service.simulator.mission.phase,
+        "telemetry_hz": settings.TELEMETRY_HZ,
+        "is_simulator_running": state_service.simulator.mission.is_running,
+        "active_fault": state_service.simulator.fault_injector.active_fault,
+        "active_connections": len(manager.active_connections)
+    }
+
 # WebSocket Endpoint
 @app.websocket("/ws/telemetry")
 async def websocket_telemetry_endpoint(websocket: WebSocket):

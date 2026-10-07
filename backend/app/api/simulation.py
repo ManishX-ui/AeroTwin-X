@@ -91,10 +91,17 @@ async def start_simulation():
     return {"status": "RUNNING", "message": "Simulation active"}
 
 @router.post("/simulation/stop")
+@router.post("/simulation/pause")
 async def stop_simulation():
     """Pause continuous simulation."""
     state_service.simulator.mission.is_running = False
     return {"status": "PAUSED", "message": "Simulation paused"}
+
+@router.post("/simulation/resume")
+async def resume_simulation():
+    """Resume continuous simulation."""
+    state_service.simulator.mission.is_running = True
+    return {"status": "RUNNING", "message": "Simulation active"}
 
 @router.post("/simulation/phase")
 async def set_phase(req: MissionPhaseRequest):

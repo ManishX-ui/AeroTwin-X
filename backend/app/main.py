@@ -1,5 +1,6 @@
 """AeroTwin-X FastAPI Application Main Entry Point."""
 import os
+import json
 import asyncio
 import logging
 from contextlib import asynccontextmanager
@@ -112,6 +113,15 @@ async def websocket_telemetry_endpoint(websocket: WebSocket):
 frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
 if os.path.exists(frontend_dir):
     app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
+    assets_dir = os.path.join(frontend_dir, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+    js_dir = os.path.join(frontend_dir, "js")
+    if os.path.exists(js_dir):
+        app.mount("/js", StaticFiles(directory=js_dir), name="js")
+    css_dir = os.path.join(frontend_dir, "css")
+    if os.path.exists(css_dir):
+        app.mount("/css", StaticFiles(directory=css_dir), name="css")
 
 @app.get("/")
 async def serve_index():
@@ -119,3 +129,10 @@ async def serve_index():
     if os.path.exists(index_path):
         return FileResponse(index_path)
     return HTMLResponse("<h1>AeroTwin-X Backend API is Online. Frontend build in progress...</h1>")
+
+@app.get("/favicon.ico")
+async def serve_favicon():
+    favicon_path = os.path.join(frontend_dir, "favicon.ico")
+    if os.path.exists(favicon_path):
+        return FileResponse(favicon_path)
+    return FileResponse(os.path.join(frontend_dir, "assets", "logo.png"))

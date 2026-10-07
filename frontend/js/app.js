@@ -121,7 +121,7 @@ class AeroTwinApp {
   }
 
   updateConnectionBadge(text, textColor, dotColor) {
-    const badge = document.querySelector("#main-header .bg-tertiary-container");
+    const badge = document.querySelector("#telemetry-status-badge, #main-header .telemetry-status-badge, #main-header .bg-tertiary-container");
     if (badge) {
       badge.innerHTML = `<span class="w-2 h-2 rounded-full ${dotColor} animate-pulse"></span><span class="font-label-caps text-label-caps uppercase ${textColor}">${text}</span>`;
     }
@@ -192,7 +192,7 @@ class AeroTwinApp {
     if (twin) {
       const syncVal = twin.twin_sync_percent;
       this.findAndSetTextByPrefix("Twin Sync", syncVal + "%");
-      const twinBadge = document.querySelector("#main-header span:contains('TWIN:')");
+      const twinBadge = document.querySelector("#header-twin-sync, [data-role='twin-sync-text']");
       if (twinBadge) twinBadge.textContent = `TWIN: ${syncVal}% SYNC`;
     }
 

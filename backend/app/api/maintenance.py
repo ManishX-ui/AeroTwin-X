@@ -32,3 +32,12 @@ async def create_maintenance_task(data: Dict[str, Any]):
     )
     state_service.maintenance_tasks.insert(0, new_task)
     return new_task
+
+@router.post("/maintenance/{task_id}/complete", response_model=MaintenanceTask)
+async def complete_maintenance_task(task_id: str):
+    """Mark an existing maintenance work order as completed."""
+    for task in state_service.maintenance_tasks:
+        if task.id == task_id or task.task_order == task_id:
+            task.status = "COMPLETED"
+            return task
+    raise HTTPException(status_code=404, detail="Maintenance task not found")

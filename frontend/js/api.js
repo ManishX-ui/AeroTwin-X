@@ -99,6 +99,10 @@ class AeroTwinAPI {
     return this.request("/health");
   }
 
+  async getServiceDiagnostics() {
+    return this.request("/diagnostics/services");
+  }
+
   async getTelemetry() {
     return this.request("/telemetry");
   }
@@ -161,6 +165,10 @@ class AeroTwinAPI {
 
   async stopSimulation() {
     return this.request("/simulation/stop", { method: "POST" });
+  }
+
+  async pauseSimulation() {
+    return this.request("/simulation/pause", { method: "POST" });
   }
 
   async resumeSimulation() {

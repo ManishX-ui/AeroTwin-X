@@ -367,9 +367,19 @@ class AeroEngine3D {
     // Highlight selected component pulse
     this.highlightComponent(compId);
 
+    // Update right inspector panel in DOM if present
+    this.updateInspectorDOM(compId, meta);
+
     // Open Unified Detail Drawer
     if (window.aeroDrawer) {
       window.aeroDrawer.openComponentDrawer(compId, meta);
+    }
+  }
+
+  updateInspectorDOM(compId, meta) {
+    const inspectorTitle = document.querySelector("#view-digital-twin .lg\\:col-span-4 h2");
+    if (inspectorTitle) {
+      inspectorTitle.textContent = meta.name.toUpperCase();
     }
   }
 
@@ -388,6 +398,42 @@ class AeroEngine3D {
         }
       });
     });
+  }
+
+  zoomIn() {
+    if (!this.camera || !this.controls) return;
+    this.camera.position.multiplyScalar(0.85);
+    this.controls.update();
+  }
+
+  zoomOut() {
+    if (!this.camera || !this.controls) return;
+    this.camera.position.multiplyScalar(1.15);
+    this.controls.update();
+  }
+
+  returnToFullEngine() {
+    this.selectedComponent = null;
+    this.components.forEach(obj => {
+      obj.traverse(child => {
+        if (child.isMesh && child.material) {
+          child.material.emissive = new THREE.Color(0x000000);
+          child.material.emissiveIntensity = 0.0;
+        }
+      });
+    });
+    this.resetCamera();
+    window.aeroDrawer?.closeDrawer();
+  }
+
+  toggleSensorOverlays() {
+    this.sensorOverlaysActive = !this.sensorOverlaysActive;
+    window.aeroApp?.showToast(`3D Sensor Overlays: ${this.sensorOverlaysActive ? 'ENABLED' : 'DISABLED'}`, 'info');
+  }
+
+  toggleLabels() {
+    this.labelsActive = !this.labelsActive;
+    window.aeroApp?.showToast(`Component Labels: ${this.labelsActive ? 'VISIBLE' : 'HIDDEN'}`, 'info');
   }
 
   resetCamera() {
@@ -410,6 +456,7 @@ class AeroEngine3D {
         }
       });
     });
+    window.aeroApp?.showToast(`CAD Viewport Mode: ${mode}`, 'info');
   }
 
   updateThermalState(telemetry, prediction) {

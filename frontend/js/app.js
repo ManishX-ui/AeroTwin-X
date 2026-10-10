@@ -44,10 +44,14 @@ class AeroTwinApp {
       activeType: "NORMAL"
     };
 
+    // Simulation event timeline history
+    this.simulationEventLog = [];
+
     // Initialize Subsystems
     this.initNavigation();
     this.initWebSocket();
     this.initControls();
+    this.initSimulationControls();
     this.initCardInteractions();
     this.initHeaderControls();
     this.initClock();
@@ -876,6 +880,13 @@ class AeroTwinApp {
   async injectFault(faultType) {
     this.simFault = faultType;
     console.log(`[AeroTwin-X] Injecting Fault: ${faultType}`);
+    this.logSimulationEvent(faultType === "NORMAL" ? "SIMULATION_RESET" : "FAULT_INJECTED", faultType === "NORMAL" ? "Baseline conditions restored" : `Fault injected: ${faultType}`);
+
+    const faultBadge = document.getElementById("sim-active-fault-badge");
+    if (faultBadge) {
+      faultBadge.textContent = `ACTIVE: ${faultType}`;
+      faultBadge.className = faultType === "NORMAL" ? "bg-emerald-100 text-emerald-900 px-2 py-0.5 rounded font-semibold" : "bg-red-100 text-red-900 px-2 py-0.5 rounded font-bold animate-pulse";
+    }
 
     // If connected via real WebSocket, send fault action
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
@@ -941,6 +952,7 @@ class AeroTwinApp {
       btnElement.classList.add("opacity-50");
     }
 
+    this.logSimulationEvent("ALERT_ACKNOWLEDGED", `Operator acknowledged alert: ${alertId}`);
     this.showToast(`Alert ${alertId} Acknowledged by Lead Flight Eng`, "info");
   }
 
@@ -1077,6 +1089,184 @@ class AeroTwinApp {
   init3DViewer() {
     if (window.aeroEngine3D) {
       window.aeroEngine3D.init();
+    }
+
+    // Viewport Navigation Buttons
+    document.getElementById("btn-3d-zoom-in")?.addEventListener("click", () => {
+      window.aeroEngine3D?.zoomIn();
+    });
+    document.getElementById("btn-3d-zoom-out")?.addEventListener("click", () => {
+      window.aeroEngine3D?.zoomOut();
+    });
+    document.getElementById("btn-3d-reset")?.addEventListener("click", () => {
+      window.aeroEngine3D?.returnToFullEngine();
+      this.showToast("Camera Reset & Selected Full Engine Assembly", "info");
+    });
+    document.getElementById("btn-3d-orbit")?.addEventListener("click", () => {
+      this.showToast("Click and drag left mouse button in viewport to orbit 360°", "info");
+    });
+    document.getElementById("btn-3d-sensor-overlay")?.addEventListener("click", () => {
+      window.aeroEngine3D?.toggleSensorOverlays();
+    });
+
+    // 3D WebGL vs 2D Schematic Toggle
+    document.getElementById("btn-toggle-3d-view")?.addEventListener("click", () => {
+      const canvas = document.getElementById("threejs-engine-canvas");
+      const schematic = document.getElementById("schematic-2d-view");
+      const btn = document.getElementById("btn-toggle-3d-view");
+      if (!canvas || !schematic) return;
+
+      if (schematic.classList.contains("hidden")) {
+        schematic.classList.remove("hidden");
+        canvas.classList.add("hidden");
+        if (btn) btn.textContent = "2D";
+        this.showToast("Switched to 2D Technical Schematic Fallback", "info");
+      } else {
+        schematic.classList.add("hidden");
+        canvas.classList.remove("hidden");
+        if (btn) btn.textContent = "3D";
+        this.showToast("Switched to 3D WebGL CAD Viewport", "info");
+      }
+    });
+
+    // Component Isolation Ribbon in Digital Twin view
+    document.querySelectorAll("#view-digital-twin .bg-surface-container\\/70 button, #view-digital-twin [data-role='isolate-comp']").forEach(b => {
+      b.addEventListener("click", (e) => {
+        e.preventDefault();
+        const txt = b.textContent.toUpperCase();
+        if (txt.includes("ALL ASSEMBLY")) {
+          window.aeroEngine3D?.returnToFullEngine();
+        } else if (txt.includes("CYLINDER #3")) {
+          window.aeroEngine3D?.selectComponent("cyl_3");
+        } else if (txt.includes("CYLINDER HEAD") || txt.includes("CYLINDER #1")) {
+          window.aeroEngine3D?.selectComponent("cyl_1");
+        } else if (txt.includes("TURBO")) {
+          window.aeroEngine3D?.selectComponent("turbo");
+        } else if (txt.includes("INJECTOR")) {
+          window.aeroEngine3D?.selectComponent("fuel_rail");
+        } else if (txt.includes("OIL") || txt.includes("CRANK")) {
+          window.aeroEngine3D?.selectComponent("crankcase");
+        } else if (txt.includes("GEARBOX") || txt.includes("PRGB")) {
+          window.aeroEngine3D?.selectComponent("prgb");
+        }
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------
+   * SIMULATION LIFECYCLE CONTROLS & TIMELINE LOGGER (FEATURE 3)
+   * ------------------------------------------------------------- */
+  initSimulationControls() {
+    // Start Simulation
+    document.getElementById("btn-sim-start")?.addEventListener("click", async () => {
+      try {
+        await window.aeroAPI?.startSimulation();
+        this.updateSimState("RUNNING");
+        this.logSimulationEvent("SIMULATION_STARTED", "Mission simulation loop active at 50Hz");
+        this.showToast("Simulation Started (Active)", "success");
+      } catch (e) {
+        this.updateSimState("RUNNING");
+        this.logSimulationEvent("SIMULATION_STARTED", "Autonomous edge simulation active");
+      }
+    });
+
+    // Pause Simulation
+    document.getElementById("btn-sim-pause")?.addEventListener("click", async () => {
+      try {
+        await window.aeroAPI?.pauseSimulation();
+        this.updateSimState("PAUSED");
+        this.logSimulationEvent("SIMULATION_PAUSED", "Simulation loop paused by operator");
+        this.showToast("Simulation Paused", "warning");
+      } catch (e) {
+        this.updateSimState("PAUSED");
+      }
+    });
+
+    // Resume Simulation
+    document.getElementById("btn-sim-resume")?.addEventListener("click", async () => {
+      try {
+        await window.aeroAPI?.resumeSimulation();
+        this.updateSimState("RUNNING");
+        this.logSimulationEvent("SIMULATION_RESUMED", "Continuous simulation loop resumed");
+        this.showToast("Simulation Resumed", "success");
+      } catch (e) {
+        this.updateSimState("RUNNING");
+      }
+    });
+
+    // Stop Simulation
+    document.getElementById("btn-sim-stop")?.addEventListener("click", async () => {
+      try {
+        await window.aeroAPI?.stopSimulation();
+        this.updateSimState("STOPPED");
+        this.logSimulationEvent("SIMULATION_STOPPED", "Simulation loop halted");
+        this.showToast("Simulation Stopped", "info");
+      } catch (e) {
+        this.updateSimState("STOPPED");
+      }
+    });
+
+    // Reset Simulation
+    document.getElementById("btn-sim-reset")?.addEventListener("click", async () => {
+      await this.injectFault("NORMAL");
+      this.updateSimState("RUNNING");
+      this.logSimulationEvent("SIMULATION_RESET", "Reset to nominal baseline telemetry");
+    });
+
+    // Scenario Select Change
+    document.getElementById("sim-scenario-select")?.addEventListener("change", (e) => {
+      const scenario = e.target.value;
+      this.logSimulationEvent("SCENARIO_SELECTED", `Scenario queued: ${scenario}`);
+    });
+
+    // Inject Fault Button
+    document.getElementById("btn-inject-fault")?.addEventListener("click", async () => {
+      const select = document.getElementById("sim-scenario-select");
+      const scenario = select ? select.value : "OVERHEATING";
+      await this.injectFault(scenario);
+    });
+  }
+
+  updateSimState(state) {
+    const badge = document.getElementById("sim-state-badge");
+    if (badge) {
+      badge.textContent = state;
+      badge.className = `font-bold ${state === "RUNNING" ? "text-emerald-400" : state === "PAUSED" ? "text-amber-400" : "text-red-400"}`;
+    }
+    const statusText = document.getElementById("sim-status-text");
+    if (statusText) {
+      statusText.textContent = `SIMULATION ${state} • MODE: ${this.isSimulationMode ? "STANDALONE ODE" : "CAN-FD 50Hz"}`;
+    }
+  }
+
+  logSimulationEvent(type, description) {
+    const timeStr = new Date().toLocaleTimeString();
+    const eventItem = { type, description, time: timeStr };
+    this.simulationEventLog.unshift(eventItem);
+    if (this.simulationEventLog.length > 25) this.simulationEventLog.pop();
+
+    const countEl = document.getElementById("sim-timeline-count");
+    if (countEl) countEl.textContent = `${this.simulationEventLog.length} Events`;
+
+    const container = document.getElementById("sim-event-timeline");
+    if (container) {
+      container.innerHTML = this.simulationEventLog.map(ev => {
+        let tagColor = "text-sky-600 bg-sky-50";
+        if (ev.type.includes("FAULT") || ev.type.includes("ANOMALY")) tagColor = "text-red-600 bg-red-50";
+        else if (ev.type.includes("PREDICTION")) tagColor = "text-cyan-600 bg-cyan-50";
+        else if (ev.type.includes("ALERT")) tagColor = "text-amber-600 bg-amber-50";
+        else if (ev.type.includes("RESET")) tagColor = "text-emerald-600 bg-emerald-50";
+
+        return `
+          <div class="p-1 rounded border border-slate-100 flex items-start justify-between gap-1 text-[10px]">
+            <div>
+              <span class="px-1 py-0.5 rounded font-bold text-[8.5px] font-mono ${tagColor}">${ev.type}</span>
+              <span class="text-slate-700 ml-1 font-mono">${ev.description}</span>
+            </div>
+            <span class="text-[9px] text-slate-400 shrink-0 font-mono">${ev.time}</span>
+          </div>
+        `;
+      }).join("");
     }
   }
 

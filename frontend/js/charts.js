@@ -201,19 +201,122 @@ class AeroChartEngine {
     ctx.lineJoin = "round";
     ctx.stroke();
 
-    // Header Title
-    ctx.fillStyle = "#94a3b8";
-    ctx.font = "11px IBM Plex Sans";
-    ctx.textAlign = "left";
-    ctx.fillText(`${title.toUpperCase()} [${dataSeries.length} CYCLES]`, padLeft, 18);
+    // Store chart parameters for mouse interaction
+    canvas._chartMeta = {
+      dataSeries, config, values, minV, range, padLeft, padRight, padTop, padBottom,
+      plotW, plotH, width, height, title, unit, color, criticalThreshold
+    };
 
-    // Latest Value
-    const latestVal = values[values.length - 1];
-    ctx.fillStyle = "#38bdf8";
-    ctx.font = "bold 13px JetBrains Mono";
-    ctx.textAlign = "right";
-    ctx.fillText(`${latestVal.toFixed(1)} ${unit}`, width - padRight, 18);
-  }
+    // Draw active hover/selected point if present
+    const activeIdx = canvas._hoveredIndex !== undefined ? canvas._hoveredIndex : null;
+    if (activeIdx !== null && activeIdx >= 0 && activeIdx < values.length) {
+      const activeX = padLeft + (activeIdx / (values.length - 1)) * plotW;
+      const activeVal = values[activeIdx];
+      const activeY = padTop + plotH - ((activeVal - minV) / range) * plotH;
+      const item = typeof dataSeries[activeIdx] === "object" ? dataSeries[activeIdx] : { value: activeVal };
+
+      // Vertical crosshair guideline
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.7)";
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(activeX, padTop);
+      ctx.lineTo(activeX, padTop + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Point circle
+      ctx.beginPath();
+      ctx.arc(activeX, activeY, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#38bdf8";
+      ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Floating Aerospace HUD Details Box
+      const boxW = 160;
+      const boxH = 70;
+      let boxX = activeX + 10;
+      if (boxX + boxW > width - 10) boxX = activeX - boxW - 10;
+      let boxY = activeY - 35;
+      if (boxY < padTop) boxY = padTop + 5;
+      if (boxY + boxH > height - 10) boxY = height - boxH - 10;
+
+      ctx.fillStyle = "rgba(10, 19, 32, 0.94)";
+      ctx.strokeStyle = "#0284c7";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(boxX, boxY, boxW, boxH, 4) : ctx.rect(boxX, boxY, boxW, boxH);
+      ctx.fill();
+      ctx.stroke();
+
+      // Tooltip Contents
+      const ts = item.timestamp ? (item.timestamp.includes("T") ? item.timestamp.split("T")[1].slice(0, 8) + "Z" : item.timestamp) : `Frame #${activeIdx}`;
+      const exp = item.expected !== undefined ? `${Number(item.expected).toFixed(1)} ${unit}` : "MODEL LOCKED";
+      const res = item.residual !== undefined ? `${Number(item.residual) > 0 ? "+" : ""}${Number(item.residual).toFixed(1)} ${unit}` : "0.0";
+      const src = item.source || "CAN BUS 50Hz";
+      const stat = item.status || (criticalThreshold && activeVal > criticalThreshold ? "EXCURSION" : "NOMINAL");
+
+      ctx.textAlign = "left";
+      ctx.font = "bold 9px JetBrains Mono";
+      ctx.fillStyle = "#38bdf8";
+      ctx.fillText(`TIME: ${ts} | [${src}]`, boxX + 6, boxY + 13);
+
+      ctx.font = "bold 11px JetBrains Mono";
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText(`VAL: ${activeVal.toFixed(1)} ${unit}`, boxX + 6, boxY + 28);
+
+      ctx.font = "9px JetBrains Mono";
+      ctx.fillStyle = "#94a3b8";
+      ctx.fillText(`EXP: ${exp}`, boxX + 6, boxY + 42);
+      ctx.fillText(`RESIDUAL: ${res}`, boxX + 6, boxY + 54);
+
+      ctx.fillStyle = stat.includes("EXCURSION") || stat.includes("ANOMALY") ? "#ef4444" : "#10b981";
+      ctx.fillText(`STATE: ${stat}`, boxX + 6, boxY + 65);
+    }
+
+    // Attach mouse interaction events once
+    if (!canvas._hasListeners) {
+      canvas._hasListeners = true;
+      const getMouseIndex = (e) => {
+        const meta = canvas._chartMeta;
+        if (!meta) return null;
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        if (mx < meta.padLeft || mx > meta.width - meta.padRight) return null;
+        const fraction = (mx - meta.padLeft) / meta.plotW;
+        const idx = Math.round(fraction * (meta.values.length - 1));
+        return Math.max(0, Math.min(meta.values.length - 1, idx));
+      };
+
+      canvas.addEventListener("mousemove", (e) => {
+        const idx = getMouseIndex(e);
+        if (idx !== null && canvas._hoveredIndex !== idx) {
+          canvas._hoveredIndex = idx;
+          const meta = canvas._chartMeta;
+          this.renderTrendChart(containerId, meta.dataSeries, meta.config);
+        }
+      });
+
+      canvas.addEventListener("mouseleave", () => {
+        if (canvas._hoveredIndex !== null) {
+          canvas._hoveredIndex = null;
+          const meta = canvas._chartMeta;
+          if (meta) this.renderTrendChart(containerId, meta.dataSeries, meta.config);
+        }
+      });
+
+      canvas.addEventListener("click", (e) => {
+        const idx = getMouseIndex(e);
+        if (idx !== null) {
+          const meta = canvas._chartMeta;
+          const pt = meta.dataSeries[idx];
+          if (meta.config && typeof meta.config.onPointClick === "function") {
+            meta.config.onPointClick(pt, idx);
+          }
+        }
+      });
+    }
 }
 
 window.aeroCharts = new AeroChartEngine();

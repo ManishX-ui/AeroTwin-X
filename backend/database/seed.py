@@ -246,6 +246,7 @@ def seed_database_fixtures(db: Session, force: bool = False):
                 updated_at=now
             )
             db.merge(sensor)
+    db.flush()
 
     # 3. Baseline Maintenance Records
     raw_maintenance = [

@@ -1,0 +1,27 @@
+{
+  "name": "aerotwin-x",
+  "version": "1.0.0",
+  "description": "[![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com) [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.14-blue.svg?logo=python&logoColor=white)](https://www.python.org/) [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4+-F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/) [![Three.js](https://img.shields.io/badge/Three.js-r128-black.svg?logo=three.js&logoColor=white)](https://threejs.org/) [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/) [![EngineVerse 3D](https://img.shields.io/badge/EngineVerse%203D-Interactive%20Simulator-FF6B2C.svg?logo=three.js&logoColor=white)](./engineverse-3d) [![License](https://img.shields.io/badge/License-MIT-green.svg)](#license)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ManishX-ui@github.com/ManishX-ui/AeroTwin-X.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ManishX-ui/AeroTwin-X/issues"
+  },
+  "homepage": "https://github.com/ManishX-ui/AeroTwin-X#readme",
+  "dependencies": {
+    "@neon/config": "^1.8.6",
+    "@neon/env": "^1.5.3"
+  }
+}

@@ -9,6 +9,13 @@ import logging
 from typing import Generator, Optional
 from urllib.parse import urlparse
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(".env.local")
+    load_dotenv()
+except ImportError:
+    pass
+
 from sqlalchemy import create_engine, Engine
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from sqlalchemy.pool import NullPool, StaticPool

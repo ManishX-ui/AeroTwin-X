@@ -4,6 +4,9 @@
 ![React](https://img.shields.io/badge/React-19-61dafb?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38bdf8?style=for-the-badge&logo=tailwindcss)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-FF6B2C?style=for-the-badge&logo=vercel&logoColor=white)](https://aero-twin-x-u8z2.vercel.app/)
+
+> **🚀 Live Interactive Application:** Experience the simulator live in your browser at **[aero-twin-x-u8z2.vercel.app](https://aero-twin-x-u8z2.vercel.app/)**!
 
 **EngineVerse 3D** is a full-featured, browser-based 3D mechanical engineering visualization and educational laboratory. It enables engineering students, mechanics, aerospace/automotive specialists, and enthusiasts to explore an internal combustion engine in genuine 3D, inspect individual components, understand mechanical assembly kinematics, observe four-stroke cycle operations, and take interactive knowledge checks.
 

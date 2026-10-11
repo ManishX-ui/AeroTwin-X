@@ -5,10 +5,12 @@
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4+-F7931E.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-r128-black.svg?logo=three.js&logoColor=white)](https://threejs.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v3-38B2AC.svg?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![EngineVerse 3D](https://img.shields.io/badge/EngineVerse%203D-Interactive%20Simulator-FF6B2C.svg?logo=three.js&logoColor=white)](./engineverse-3d)
+[![EngineVerse 3D Live](https://img.shields.io/badge/Live%20Demo-EngineVerse%203D-FF6B2C.svg?logo=vercel&logoColor=white)](https://aero-twin-x-u8z2.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 
-> **Featured Add-on Module — [EngineVerse 3D](./engineverse-3d):** Interactive 3D Internal Combustion Engine Explorer & Mechanical Learning Simulator with mathematical slider-crank kinematics, 720° Otto cycle animation, exploded assembly views, guided learning tours, and an engineering quiz. Located in [`/engineverse-3d`](./engineverse-3d).
+> **🚀 Live Interactive Simulator:** Explore the deployed application at **[aero-twin-x-u8z2.vercel.app](https://aero-twin-x-u8z2.vercel.app/)**!
+>
+> **Featured Add-on Module — [EngineVerse 3D](./engineverse-3d):** Interactive 3D Internal Combustion Engine Explorer & Mechanical Learning Simulator with mathematical slider-crank kinematics, 720° Otto cycle animation, exploded assembly views, guided learning tours, and an engineering quiz. Source located in [`/engineverse-3d`](./engineverse-3d).
 
 > **Operational Notice:** AeroTwin-X is an advanced conceptual software demonstrator and flight test bench digital twin engineered for Medium-Altitude Long-Endurance (MALE) UAV propulsion systems (turbocharged Rotax 915iSc class). It demonstrates continuous physics synchronization, anomaly detection, multi-class failure diagnosis, and condition-based predictive maintenance. It is **not** certified flight-critical avionics software.
 

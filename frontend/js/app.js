@@ -56,6 +56,11 @@ class AeroTwinApp {
     this.initHeaderControls();
     this.initClock();
     this.init3DViewer();
+    this.initMaintenanceModule();
+    this.initReportsModule();
+    this.initEdgeAIModule();
+    this.initDataQualityModule();
+    this.initFleetModule();
     this.fetchInitialBackendData();
   }
 
@@ -102,10 +107,7 @@ class AeroTwinApp {
         "fault-prediction": "ai-diagnostics",
         "3d-engine-explorer": "digital-twin",
         "telemetry-can": "sensor-monitoring",
-        "data-quality": "edge-ai",
         "controls": "mission-simulator",
-        "reports": "maintenance",
-        "fleet": "mission-control",
         "settings": "system-architecture"
       };
       const fallback = aliasMap[path] || "mission-control";
@@ -130,6 +132,13 @@ class AeroTwinApp {
         }
       }, 100);
     }
+
+    // Trigger module data load on navigation
+    if (path === "maintenance") this.loadMaintenanceTasks();
+    if (path === "reports") this.loadReports();
+    if (path === "edge-ai") this.loadEdgeDevices();
+    if (path === "data-quality") this.loadDataQuality();
+    if (path === "fleet") this.loadFleet();
 
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -1341,6 +1350,1481 @@ class AeroTwinApp {
     const text = document.querySelector(`[data-val='${idPrefix}']`);
     if (text) text.textContent = `${num}%`;
   }
+  /* =============================================================
+   * MODULE 1: MAINTENANCE WORKSPACE CONTROLLER
+   * ============================================================= */
+  initMaintenanceModule() {
+    // 1. KPI Cards Filter Clicks
+    document.getElementById("maint-kpi-total")?.addEventListener("click", () => {
+      this.maintStatusFilter = "ALL";
+      this.maintPriorityFilter = "ALL";
+      const sel = document.getElementById("maint-status-select");
+      if (sel) sel.value = "ALL";
+      this.loadMaintenanceTasks();
+      this.showToast("Filtered: Showing all maintenance work orders", "info");
+    });
+
+    document.getElementById("maint-kpi-overdue")?.addEventListener("click", () => {
+      this.maintStatusFilter = "OPEN";
+      this.maintPriorityFilter = "HIGH";
+      const sel = document.getElementById("maint-status-select");
+      if (sel) sel.value = "OPEN";
+      this.loadMaintenanceTasks();
+      this.showToast("Filtered: Showing high/critical action queue", "warning");
+    });
+
+    document.getElementById("maint-kpi-upcoming")?.addEventListener("click", () => {
+      this.maintStatusFilter = "OPEN";
+      this.maintPriorityFilter = "ALL";
+      const sel = document.getElementById("maint-status-select");
+      if (sel) sel.value = "OPEN";
+      this.loadMaintenanceTasks();
+      this.showToast("Filtered: Showing scheduled upcoming maintenance", "info");
+    });
+
+    document.getElementById("maint-kpi-critical")?.addEventListener("click", () => {
+      this.maintStatusFilter = "ALL";
+      this.maintPriorityFilter = "CRITICAL";
+      const sel = document.getElementById("maint-status-select");
+      if (sel) sel.value = "ALL";
+      this.loadMaintenanceTasks();
+      this.showToast("Filtered: Showing critical airworthiness advisories", "error");
+    });
+
+    // 2. Subsystem Filter Pills
+    document.querySelectorAll(".maint-filter-pill").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".maint-filter-pill").forEach(b => {
+          b.className = "maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors";
+        });
+        btn.className = "maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-white shadow-sm cursor-pointer transition-colors";
+        this.maintSubsystemFilter = btn.getAttribute("data-maint-filter");
+        this.loadMaintenanceTasks();
+      });
+    });
+
+    // 3. Header Action Buttons
+    document.getElementById("maint-export-btn")?.addEventListener("click", () => {
+      window.location.href = window.aeroAPI.getMaintenanceExportUrl();
+      this.showToast("Generating and downloading Maintenance CSV ledger...", "success");
+    });
+
+    document.getElementById("maint-create-wo-btn")?.addEventListener("click", () => {
+      window.aeroDrawer?.openCreateWorkOrderModal(async (payload) => {
+        await window.aeroAPI.createMaintenanceTask(payload);
+        this.loadMaintenanceTasks();
+        this.showToast(`Work order dispatched to ${payload.assigned_tech}`, "success");
+      });
+    });
+
+    // 4. Featured Advisory Direct Actions
+    document.getElementById("maint-btn-create-inj-wo")?.addEventListener("click", () => {
+      window.aeroDrawer?.openCreateWorkOrderModal(async (payload) => {
+        await window.aeroAPI.createMaintenanceTask(payload);
+        this.loadMaintenanceTasks();
+        this.showToast("Cylinder #3 Injector Turnaround Work Order created!", "success");
+      });
+    });
+
+    document.getElementById("maint-btn-view-inj-sensor")?.addEventListener("click", () => {
+      window.aeroDrawer?.openSensorDrawer("CHT", "Cylinder #3 Head Temperature", "°C", "145.2", "140.0", "+5.2", "WARNING");
+    });
+
+    document.getElementById("maint-btn-evidence")?.addEventListener("click", () => {
+      window.aeroDrawer?.openAlertModal({
+        id: "ALT-084",
+        title: "Micro-Coking on Solenoid Injector S/N INJ-084",
+        description: "Differential flow bias +0.50 L/h detected with EGT residual delta +18.0°C. Verified via optical borescope macro scan.",
+        severity: "CRITICAL",
+        evidence: [
+          "Physics-Informed ODE residual mismatch on Cyl #3",
+          "High-pressure rail pressure delta: 0.08 bar",
+          "Optical macro scan confirmed carbon halo ring on valve face"
+        ],
+        acknowledged: false
+      });
+    });
+
+    // 5. Search & Status Dropdown Filters
+    document.getElementById("maint-search-input")?.addEventListener("input", (e) => {
+      this.maintSearchQuery = e.target.value.trim().toLowerCase();
+      this.renderMaintenanceTable();
+    });
+
+    document.getElementById("maint-status-select")?.addEventListener("change", (e) => {
+      this.maintStatusFilter = e.target.value;
+      this.loadMaintenanceTasks();
+    });
+
+    document.getElementById("maint-refresh-btn")?.addEventListener("click", () => {
+      this.loadMaintenanceTasks();
+      this.showToast("Maintenance task ledger refreshed from backend", "info");
+    });
+
+    this.maintStatusFilter = "ALL";
+    this.maintSubsystemFilter = "ALL";
+    this.maintPriorityFilter = "ALL";
+    this.maintSearchQuery = "";
+  }
+
+  async loadMaintenanceTasks() {
+    try {
+      const filters = {};
+      if (this.maintStatusFilter && this.maintStatusFilter !== "ALL") filters.status = this.maintStatusFilter;
+      if (this.maintSubsystemFilter && this.maintSubsystemFilter !== "ALL") filters.subsystem = this.maintSubsystemFilter;
+      if (this.maintPriorityFilter && this.maintPriorityFilter !== "ALL") filters.priority = this.maintPriorityFilter;
+
+      const [tasks, summary] = await Promise.all([
+        window.aeroAPI.listMaintenanceTasks(filters),
+        window.aeroAPI.getMaintenanceSummary()
+      ]);
+
+      this.maintenanceList = tasks;
+
+      // Update KPI numbers
+      if (summary) {
+        const totalEl = document.getElementById("maint-kpi-val-total");
+        const overdueEl = document.getElementById("maint-kpi-val-overdue");
+        const upcomingEl = document.getElementById("maint-kpi-val-upcoming");
+        const critEl = document.getElementById("maint-kpi-val-critical");
+        if (totalEl) totalEl.textContent = summary.total_tasks;
+        if (overdueEl) overdueEl.textContent = summary.overdue_work_orders;
+        if (upcomingEl) upcomingEl.textContent = summary.upcoming_maintenance;
+        if (critEl) critEl.textContent = summary.critical_alerts;
+
+        // Render Equipment Risk Matrix
+        this.renderEquipmentRiskMatrix(summary.risk_matrix);
+        // Render Timeline
+        this.renderMaintenanceTimeline(summary.timeline_events);
+      }
+
+      this.renderMaintenanceTable();
+    } catch (err) {
+      console.warn("Failed to load maintenance data:", err.message);
+    }
+  }
+
+  renderEquipmentRiskMatrix(riskList) {
+    const container = document.getElementById("maint-risk-matrix-list");
+    if (!container || !riskList) return;
+
+    container.innerHTML = riskList.map(r => `
+      <div class="p-3 bg-slate-50 hover:bg-slate-100/80 rounded-lg border border-slate-200 flex items-center justify-between transition-colors cursor-pointer" data-subsystem="${r.subsystem}">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full ${r.risk_level === 'CRITICAL' ? 'bg-rose-500 animate-pulse' : (r.risk_level === 'HIGH' ? 'bg-amber-500' : 'bg-emerald-500')}"></span>
+          <div>
+            <span class="font-bold text-slate-800 text-xs font-mono block">${r.subsystem}</span>
+            <span class="text-[11px] text-slate-500 font-sans">${r.component} — ${r.action}</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="font-mono font-bold text-xs ${r.health_score < 85 ? 'text-rose-600' : (r.health_score < 90 ? 'text-amber-600' : 'text-emerald-700')}">${r.health_score}%</span>
+          <span class="block text-[10px] text-slate-400 font-mono">${r.risk_level}</span>
+        </div>
+      </div>
+    `).join("");
+
+    container.querySelectorAll("[data-subsystem]").forEach(el => {
+      el.addEventListener("click", () => {
+        const sub = el.getAttribute("data-subsystem");
+        this.maintSubsystemFilter = sub;
+        this.loadMaintenanceTasks();
+        this.showToast(`Filtered work orders by ${sub}`, "info");
+      });
+    });
+  }
+
+  renderMaintenanceTimeline(events) {
+    const container = document.getElementById("maint-timeline-list");
+    if (!container || !events) return;
+
+    container.innerHTML = events.map(e => `
+      <div class="p-3 bg-slate-50 hover:bg-white rounded-lg border border-slate-200 space-y-1.5 transition-all cursor-pointer" data-evt-id="${e.id}">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <strong class="text-slate-800">${e.stage}</strong>
+          <span class="text-[10px] px-1.5 py-0.5 rounded ${e.status === 'ACTION_REQUIRED' ? 'bg-rose-100 text-rose-800 font-bold' : 'bg-slate-200 text-slate-700'}">${e.timeframe}</span>
+        </div>
+        <div class="text-[11px] text-slate-500 font-mono">${e.hours} • ${e.tasks} Tasks Scheduled</div>
+      </div>
+    `).join("");
+
+    container.querySelectorAll("[data-evt-id]").forEach(el => {
+      el.addEventListener("click", () => {
+        const eid = el.getAttribute("data-evt-id");
+        this.showToast(`Timeline Inspection: ${eid} scheduled parameters nominal`, "info");
+      });
+    });
+  }
+
+  renderMaintenanceTable() {
+    const tbody = document.getElementById("maint-wo-tbody");
+    if (!tbody) return;
+
+    let list = this.maintenanceList || [];
+    if (this.maintSearchQuery) {
+      list = list.filter(t => 
+        (t.task_order && t.task_order.toLowerCase().includes(this.maintSearchQuery)) ||
+        (t.title && t.title.toLowerCase().includes(this.maintSearchQuery)) ||
+        (t.subsystem && t.subsystem.toLowerCase().includes(this.maintSearchQuery)) ||
+        (t.assigned_tech && t.assigned_tech.toLowerCase().includes(this.maintSearchQuery))
+      );
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="7" class="py-8 text-center text-slate-400 font-sans">No matching work orders found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(t => {
+      const priorityColors = {
+        CRITICAL: "bg-rose-100 text-rose-800 border-rose-300",
+        HIGH: "bg-amber-100 text-amber-800 border-amber-300",
+        MEDIUM: "bg-sky-100 text-sky-800 border-sky-300",
+        LOW: "bg-slate-100 text-slate-700 border-slate-300"
+      };
+      const statusColors = {
+        OPEN: "bg-amber-50 text-amber-700 border border-amber-200",
+        IN_PROGRESS: "bg-sky-50 text-sky-700 border border-sky-200",
+        COMPLETED: "bg-emerald-50 text-emerald-700 border border-emerald-200",
+        CANCELLED: "bg-slate-100 text-slate-500 border border-slate-200"
+      };
+
+      return `
+        <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer group" data-task-id="${t.id}">
+          <td class="py-3 px-4 font-bold text-sky-700 font-mono whitespace-nowrap">${t.task_order || t.id}</td>
+          <td class="py-3 px-4 font-sans text-slate-800">${t.subsystem}</td>
+          <td class="py-3 px-4 whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${priorityColors[t.priority] || priorityColors.MEDIUM}">${t.priority}</span>
+          </td>
+          <td class="py-3 px-4 font-sans max-w-xs truncate" title="${t.title}">${t.title}</td>
+          <td class="py-3 px-4 whitespace-nowrap text-slate-600 font-sans">${t.assigned_tech || 'Unassigned'}</td>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${statusColors[t.status] || statusColors.OPEN}">${t.status}</span>
+          </td>
+          <td class="py-3 px-4 text-right whitespace-nowrap">
+            <div class="flex items-center justify-end gap-1.5" onclick="event.stopPropagation()">
+              <button class="btn-wo-edit p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="Edit Work Order" data-id="${t.id}">
+                <span class="material-symbols-outlined text-[16px]">edit</span>
+              </button>
+              <button class="btn-wo-toggle p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="Toggle Status" data-id="${t.id}">
+                <span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+              </button>
+              <button class="btn-wo-del p-1 rounded hover:bg-rose-100 text-rose-600 cursor-pointer" title="Delete" data-id="${t.id}">
+                <span class="material-symbols-outlined text-[16px]">delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    // Wire row clicks to drawer
+    tbody.querySelectorAll("tr[data-task-id]").forEach(tr => {
+      tr.addEventListener("click", () => {
+        const tid = tr.getAttribute("data-task-id");
+        const task = this.maintenanceList.find(x => x.id === tid);
+        if (task) {
+          window.aeroDrawer?.openWorkOrderDrawer(
+            task,
+            async (id, payload) => {
+              await window.aeroAPI.updateMaintenanceTask(id, payload);
+              this.loadMaintenanceTasks();
+              this.showToast("Work order saved successfully", "success");
+            },
+            async (id) => {
+              await window.aeroAPI.deleteMaintenanceTask(id);
+              this.loadMaintenanceTasks();
+              this.showToast("Work order deleted", "info");
+            }
+          );
+        }
+      });
+    });
+
+    // Wire row buttons
+    tbody.querySelectorAll(".btn-wo-edit").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tid = btn.getAttribute("data-id");
+        const task = this.maintenanceList.find(x => x.id === tid);
+        if (task) {
+          window.aeroDrawer?.openWorkOrderDrawer(
+            task,
+            async (id, payload) => {
+              await window.aeroAPI.updateMaintenanceTask(id, payload);
+              this.loadMaintenanceTasks();
+            },
+            async (id) => {
+              await window.aeroAPI.deleteMaintenanceTask(id);
+              this.loadMaintenanceTasks();
+            }
+          );
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-wo-toggle").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const tid = btn.getAttribute("data-id");
+        const task = this.maintenanceList.find(x => x.id === tid);
+        if (!task) return;
+        const nextStatus = task.status === "OPEN" ? "IN_PROGRESS" : (task.status === "IN_PROGRESS" ? "COMPLETED" : "OPEN");
+        await window.aeroAPI.updateMaintenanceStatus(tid, nextStatus);
+        this.loadMaintenanceTasks();
+        this.showToast(`Work order ${task.task_order || tid} transitioned to ${nextStatus}`, "info");
+      });
+    });
+
+    tbody.querySelectorAll(".btn-wo-del").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const tid = btn.getAttribute("data-id");
+        if (confirm(`Permanently delete work order ${tid}?`)) {
+          await window.aeroAPI.deleteMaintenanceTask(tid);
+          this.loadMaintenanceTasks();
+          this.showToast("Work order deleted successfully", "info");
+        }
+      });
+    });
+  }
+
+  /* =============================================================
+   * MODULE 2: REPORTS & ANALYTICS CONTROLLER
+   * ============================================================= */
+  initReportsModule() {
+    document.getElementById("rep-btn-generate")?.addEventListener("click", () => {
+      window.aeroDrawer?.openGenerateReportModal(async (payload) => {
+        await window.aeroAPI.generateReport(payload);
+        this.loadReports();
+        this.showToast("Airworthiness report generated and saved to history!", "success");
+      });
+    });
+
+    document.getElementById("rep-search-input")?.addEventListener("input", (e) => {
+      this.repSearchQuery = e.target.value.trim().toLowerCase();
+      this.renderReportsTable();
+    });
+
+    document.getElementById("rep-type-filter")?.addEventListener("change", (e) => {
+      this.repTypeFilter = e.target.value;
+      this.loadReports();
+    });
+
+    document.getElementById("rep-refresh-btn")?.addEventListener("click", () => {
+      this.loadReports();
+      this.showToast("Reports ledger refreshed from backend", "info");
+    });
+
+    this.repSearchQuery = "";
+    this.repTypeFilter = "ALL";
+    this.reportsList = [];
+  }
+
+  async loadReports() {
+    try {
+      const type = (this.repTypeFilter && this.repTypeFilter !== "ALL") ? this.repTypeFilter : null;
+      const [reports, analytics] = await Promise.all([
+        window.aeroAPI.listReports(type),
+        window.aeroAPI.getReportsAnalytics()
+      ]);
+
+      this.reportsList = reports;
+      const totalEl = document.getElementById("rep-kpi-total");
+      if (totalEl) totalEl.textContent = reports.length;
+
+      this.renderReportsTable();
+
+      if (analytics) {
+        this.renderReportsCharts(analytics.time_series);
+        this.renderMultiAssetComparison(analytics.asset_comparisons);
+      }
+    } catch (err) {
+      console.warn("Failed to load reports data:", err.message);
+    }
+  }
+
+  renderReportsTable() {
+    const tbody = document.getElementById("rep-history-tbody");
+    if (!tbody) return;
+
+    let list = this.reportsList || [];
+    if (this.repSearchQuery) {
+      list = list.filter(r => 
+        r.id.toLowerCase().includes(this.repSearchQuery) ||
+        r.title.toLowerCase().includes(this.repSearchQuery) ||
+        r.asset_id.toLowerCase().includes(this.repSearchQuery) ||
+        r.author.toLowerCase().includes(this.repSearchQuery)
+      );
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400 font-sans">No reports found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(r => `
+      <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer" data-rep-id="${r.id}">
+        <td class="py-3 px-4 font-bold text-sky-700 whitespace-nowrap">${r.id}</td>
+        <td class="py-3 px-4 font-sans text-slate-800 font-medium">${r.title}</td>
+        <td class="py-3 px-4 whitespace-nowrap text-slate-600 font-sans">${r.asset_id}</td>
+        <td class="py-3 px-4 whitespace-nowrap">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${r.format === 'CSV' ? 'bg-emerald-100 text-emerald-800' : (r.format === 'JSON' ? 'bg-amber-100 text-amber-800' : 'bg-indigo-100 text-indigo-800')}">${r.format}</span>
+        </td>
+        <td class="py-3 px-4 whitespace-nowrap text-slate-500">${r.file_size_kb} KB</td>
+        <td class="py-3 px-4 whitespace-nowrap text-slate-500 text-[11px]">${new Date(r.generated_at).toLocaleDateString()}</td>
+        <td class="py-3 px-4 text-center whitespace-nowrap">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">READY</span>
+        </td>
+        <td class="py-3 px-4 text-right whitespace-nowrap" onclick="event.stopPropagation()">
+          <div class="flex items-center justify-end gap-1.5">
+            <button class="btn-rep-dl p-1.5 rounded hover:bg-slate-100 text-primary font-bold text-xs flex items-center gap-1 border border-slate-200 cursor-pointer" title="Download Report File" data-id="${r.id}">
+              <span class="material-symbols-outlined text-[15px]">download</span>
+              <span>Download</span>
+            </button>
+            <button class="btn-rep-del p-1 rounded hover:bg-rose-100 text-rose-600 cursor-pointer" title="Delete Report" data-id="${r.id}">
+              <span class="material-symbols-outlined text-[16px]">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join("");
+
+    // Wire row click to preview
+    tbody.querySelectorAll("tr[data-rep-id]").forEach(tr => {
+      tr.addEventListener("click", async () => {
+        const rid = tr.getAttribute("data-rep-id");
+        const report = await window.aeroAPI.getReport(rid);
+        if (report) {
+          const html = `
+            <div class="p-6">
+              <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                <div>
+                  <h3 class="font-bold text-slate-900 text-base">${report.title}</h3>
+                  <p class="text-xs font-mono text-slate-500">${report.id} • ${report.format} • ${report.file_size_kb} KB</p>
+                </div>
+                <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+                  <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+              </div>
+              <div class="mt-4 p-3 bg-slate-50 rounded border border-slate-200 text-xs font-sans text-slate-700">
+                <strong>Executive Summary:</strong> ${report.preview_summary}
+              </div>
+              <div class="mt-4 bg-slate-950 text-slate-200 p-4 rounded-lg font-mono text-xs max-h-72 overflow-y-auto whitespace-pre">
+${report.data_content || 'No text data available.'}
+              </div>
+              <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200 mt-4">
+                <button data-role="modal-close" class="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded">Close</button>
+                <button id="modal-rep-dl-btn" class="px-4 py-1.5 text-xs font-bold bg-primary text-white rounded hover:bg-slate-800 flex items-center gap-1 cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">download</span> Download ${report.format}
+                </button>
+              </div>
+            </div>
+          `;
+          window.aeroDrawer?.openModal(html);
+          document.getElementById("modal-rep-dl-btn")?.addEventListener("click", () => {
+            window.location.href = window.aeroAPI.getReportDownloadUrl(report.id);
+            this.showToast(`Downloading ${report.id}...`, "success");
+          });
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-rep-dl").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const rid = btn.getAttribute("data-id");
+        window.location.href = window.aeroAPI.getReportDownloadUrl(rid);
+        this.showToast(`Downloading report ${rid}...`, "success");
+      });
+    });
+
+    tbody.querySelectorAll(".btn-rep-del").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const rid = btn.getAttribute("data-id");
+        if (confirm(`Permanently delete report ${rid}?`)) {
+          await window.aeroAPI.deleteReport(rid);
+          this.loadReports();
+          this.showToast("Report deleted", "info");
+        }
+      });
+    });
+  }
+
+  renderReportsCharts(timeSeries) {
+    if (!timeSeries) return;
+    const canvas = document.getElementById("rep-health-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * (window.devicePixelRatio || 1);
+    canvas.height = rect.height * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw grid lines
+    ctx.strokeStyle = "rgba(148, 163, 184, 0.15)";
+    ctx.lineWidth = 1;
+    for (let y = 30; y < h - 20; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(40, y);
+      ctx.lineTo(w - 20, y);
+      ctx.stroke();
+    }
+
+    const points = timeSeries.map((d, i) => {
+      const x = 50 + (i / (timeSeries.length - 1)) * (w - 80);
+      const y = h - 40 - ((d.health_index - 85) / 15) * (h - 70);
+      return { x, y, val: d.health_index, label: d.day, anom: d.anomaly_count };
+    });
+
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, "rgba(56, 189, 248, 0.35)");
+    grad.addColorStop(1, "rgba(56, 189, 248, 0.0)");
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.lineTo(points[points.length - 1].x, h - 30);
+    ctx.lineTo(points[0].x, h - 30);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 1; i < points.length; i++) {
+      ctx.lineTo(points[i].x, points[i].y);
+    }
+    ctx.strokeStyle = "#0284c7";
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    points.forEach(p => {
+      ctx.fillStyle = p.anom > 0 ? "#f43f5e" : "#0284c7";
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.anom > 0 ? 5 : 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "10px JetBrains Mono";
+      ctx.fillText(p.label, p.x - 12, h - 10);
+    });
+
+    // Render sensor residuals canvas
+    const sensorCanvas = document.getElementById("rep-sensor-canvas");
+    if (sensorCanvas) {
+      const sCtx = sensorCanvas.getContext("2d");
+      const sRect = sensorCanvas.getBoundingClientRect();
+      sensorCanvas.width = sRect.width * (window.devicePixelRatio || 1);
+      sensorCanvas.height = sRect.height * (window.devicePixelRatio || 1);
+      sCtx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      sCtx.clearRect(0, 0, sRect.width, sRect.height);
+
+      const bars = [
+        { label: "CHT #3 Dev", val: 5.2, max: 15, color: "#f59e0b" },
+        { label: "EGT #3 Dev", val: 18.0, max: 25, color: "#ef4444" },
+        { label: "Fuel Bias", val: 0.5, max: 1.0, color: "#f43f5e" },
+        { label: "Oil Press Dev", val: 0.05, max: 0.5, color: "#10b981" }
+      ];
+
+      bars.forEach((b, idx) => {
+        const bx = 30;
+        const by = 25 + idx * 50;
+        const bw = (b.val / b.max) * (sRect.width - 120);
+
+        sCtx.fillStyle = "#cbd5e1";
+        sCtx.font = "11px JetBrains Mono";
+        sCtx.fillText(b.label, bx, by - 6);
+
+        sCtx.fillStyle = "rgba(148, 163, 184, 0.2)";
+        sCtx.fillRect(bx, by, sRect.width - 120, 16);
+
+        sCtx.fillStyle = b.color;
+        sCtx.fillRect(bx, by, Math.max(8, bw), 16);
+
+        sCtx.fillStyle = "#f8fafc";
+        sCtx.font = "bold 11px JetBrains Mono";
+        sCtx.fillText(`+${b.val}`, bx + bw + 8, by + 12);
+      });
+    }
+  }
+
+  renderMultiAssetComparison(comparisons) {
+    const container = document.getElementById("rep-comparison-grid");
+    if (!container || !comparisons) return;
+
+    container.innerHTML = comparisons.map(c => `
+      <div class="p-3 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 space-y-2 transition-colors cursor-pointer" data-asset="${c.asset}">
+        <div class="flex items-center justify-between">
+          <strong class="text-slate-800 font-mono text-xs">${c.asset}</strong>
+          <span class="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold ${c.health < 93 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${c.health}% Health</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1 text-[11px] font-mono text-slate-600">
+          <div>TTSN: <strong>${c.hours}h</strong></div>
+          <div>Fuel: <strong>${c.fuel_burn_lph} L/h</strong></div>
+        </div>
+        <div class="text-[10px] text-slate-400 font-mono flex justify-between border-t border-slate-200 pt-1">
+          <span>${c.model}</span>
+          <span class="text-sky-700 font-semibold">RUL: ${c.rul_hours}h</span>
+        </div>
+      </div>
+    `).join("");
+
+    container.querySelectorAll("[data-asset]").forEach(el => {
+      el.addEventListener("click", () => {
+        const aid = el.getAttribute("data-asset");
+        this.showToast(`Selected ${aid} for comparative diagnostics`, "info");
+      });
+    });
+  }
+
+  /* =============================================================
+   * MODULE 3: EDGE AI CONSOLE CONTROLLER
+   * ============================================================= */
+  initEdgeAIModule() {
+    document.getElementById("edge-refresh-all-btn")?.addEventListener("click", () => {
+      this.loadEdgeDevices();
+      this.showToast("All edge hardware nodes polled and telemetry synchronized", "info");
+    });
+
+    document.getElementById("edge-status-filter")?.addEventListener("change", (e) => {
+      this.edgeStatusFilter = e.target.value;
+      this.loadEdgeDevices();
+    });
+
+    document.getElementById("edge-kpi-online")?.addEventListener("click", () => {
+      this.edgeStatusFilter = "ONLINE";
+      const sel = document.getElementById("edge-status-filter");
+      if (sel) sel.value = "ONLINE";
+      this.loadEdgeDevices();
+      this.showToast("Filtered: Online active nodes", "info");
+    });
+
+    document.getElementById("edge-kpi-offline")?.addEventListener("click", () => {
+      this.edgeStatusFilter = "OFFLINE";
+      const sel = document.getElementById("edge-status-filter");
+      if (sel) sel.value = "OFFLINE";
+      this.loadEdgeDevices();
+      this.showToast("Filtered: Offline test nodes", "info");
+    });
+
+    document.getElementById("edge-kpi-attention")?.addEventListener("click", () => {
+      this.edgeStatusFilter = "ATTENTION";
+      const sel = document.getElementById("edge-status-filter");
+      if (sel) sel.value = "ATTENTION";
+      this.loadEdgeDevices();
+      this.showToast("Filtered: Nodes requiring thermal or memory attention", "warning");
+    });
+
+    this.edgeStatusFilter = "ALL";
+    this.edgeDevicesList = [];
+    this.edgeModelsList = [];
+  }
+
+  async loadEdgeDevices() {
+    try {
+      const statusParam = (this.edgeStatusFilter && this.edgeStatusFilter !== "ALL") ? this.edgeStatusFilter : null;
+      const [devices, models, pipeline, summary] = await Promise.all([
+        window.aeroAPI.listEdgeDevices(statusParam),
+        window.aeroAPI.listAIModels(),
+        window.aeroAPI.getEdgePipeline(),
+        window.aeroAPI.getEdgeAISummary()
+      ]);
+
+      this.edgeDevicesList = devices;
+      this.edgeModelsList = models;
+
+      if (summary) {
+        const onEl = document.getElementById("edge-kpi-val-online");
+        const offEl = document.getElementById("edge-kpi-val-offline");
+        const attEl = document.getElementById("edge-kpi-val-attention");
+        const modEl = document.getElementById("edge-kpi-val-models");
+        if (onEl) onEl.textContent = summary.online_devices;
+        if (offEl) offEl.textContent = summary.offline_devices;
+        if (attEl) attEl.textContent = summary.attention_devices;
+        if (modEl) modEl.textContent = summary.active_models;
+      }
+
+      this.renderEdgeDevicesTable();
+      this.renderEdgePipeline(pipeline);
+      this.renderEdgeModelsGrid();
+    } catch (err) {
+      console.warn("Failed to load Edge AI data:", err.message);
+    }
+  }
+
+  renderEdgeDevicesTable() {
+    const tbody = document.getElementById("edge-devices-tbody");
+    if (!tbody) return;
+
+    if (!this.edgeDevicesList || this.edgeDevicesList.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400 font-sans">No edge nodes matching filter.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = this.edgeDevicesList.map(d => {
+      const statusBadges = {
+        ONLINE: "bg-emerald-100 text-emerald-800 border-emerald-300",
+        OFFLINE: "bg-slate-100 text-slate-600 border-slate-300",
+        ATTENTION: "bg-amber-100 text-amber-800 border-amber-300"
+      };
+
+      return `
+        <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer" data-dev-id="${d.id}">
+          <td class="py-3 px-4 font-mono">
+            <span class="font-bold text-slate-900 block">${d.id}</span>
+            <span class="text-[11px] text-slate-500 font-sans">${d.name}</span>
+          </td>
+          <td class="py-3 px-4 font-mono text-slate-600 text-xs">
+            <div>${d.ip_address}</div>
+            <div class="text-[10px] text-slate-400">${d.can_node_id}</div>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700">${d.hardware}</td>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${statusBadges[d.status]}">${d.status}</span>
+          </td>
+          <td class="py-3 px-4 font-mono text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-12">${d.cpu_util_pct}% CPU</span>
+              <div class="w-16 bg-slate-200 h-1.5 rounded overflow-hidden">
+                <div class="bg-primary h-full" style="width: ${d.cpu_util_pct}%"></div>
+              </div>
+            </div>
+            <div class="text-[10px] text-slate-400 mt-0.5">${d.memory_used_gb} / ${d.memory_total_gb} GB RAM</div>
+          </td>
+          <td class="py-3 px-4 font-mono text-xs">
+            <span class="font-bold ${d.temperature_c > 65 ? 'text-rose-600' : 'text-slate-700'}">${d.temperature_c} °C</span>
+            <div class="text-[10px] text-slate-400">${d.power_mode}</div>
+          </td>
+          <td class="py-3 px-4 font-mono text-[10px]">
+            ${d.active_models.map(m => `<span class="inline-block px-1.5 py-0.5 bg-slate-100 rounded text-slate-700 mr-1 mb-0.5">${m}</span>`).join("") || '<span class="text-slate-400">None</span>'}
+          </td>
+          <td class="py-3 px-4 text-right whitespace-nowrap" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-end gap-1.5">
+              <button class="btn-dev-cfg p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="Configure Node" data-id="${d.id}">
+                <span class="material-symbols-outlined text-[16px]">tune</span>
+              </button>
+              <button class="btn-dev-logs p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="View Hardware Logs" data-id="${d.id}">
+                <span class="material-symbols-outlined text-[16px]">terminal</span>
+              </button>
+              <button class="btn-dev-ping p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="Ping Device" data-id="${d.id}">
+                <span class="material-symbols-outlined text-[16px]">satellite_alt</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    // Wire buttons
+    tbody.querySelectorAll(".btn-dev-cfg").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const dev = this.edgeDevicesList.find(x => x.id === id);
+        if (dev) {
+          window.aeroDrawer?.openDeviceConfigModal(dev, async (devId, cfg) => {
+            await window.aeroAPI.updateEdgeDeviceConfig(devId, cfg);
+            this.loadEdgeDevices();
+            this.showToast("Edge device configuration updated and synchronized!", "success");
+          });
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-dev-logs").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.getAttribute("data-id");
+        const dev = this.edgeDevicesList.find(x => x.id === id);
+        if (dev) {
+          const res = await window.aeroAPI.getEdgeDeviceLogs(id);
+          window.aeroDrawer?.openDeviceLogsModal(dev, res.logs || []);
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-dev-ping").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.getAttribute("data-id");
+        const res = await window.aeroAPI.refreshEdgeDevice(id);
+        this.showToast(`Ping ${id}: Status ${res.current_status} • CPU ${res.cpu_util_pct}%`, "info");
+        this.loadEdgeDevices();
+      });
+    });
+  }
+
+  renderEdgePipeline(pipeline) {
+    const container = document.getElementById("edge-pipeline-cards");
+    if (!container || !pipeline || !pipeline.stages) return;
+
+    container.innerHTML = pipeline.stages.map(s => `
+      <div class="p-3 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 space-y-1 transition-all cursor-pointer" data-stage-id="${s.stage_id}">
+        <div class="flex items-center justify-between text-xs font-mono">
+          <span class="text-slate-400">STAGE ${s.stage_id}</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-bold ${s.status === 'HEALTHY' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${s.status}</span>
+        </div>
+        <div class="font-bold text-slate-800 text-xs font-mono truncate" title="${s.name}">${s.name}</div>
+        <div class="text-[11px] text-sky-700 font-mono font-semibold">${s.latency_us ? `${s.latency_us} µs` : `${s.latency_ms} ms`}</div>
+        <div class="text-[10px] text-slate-400 font-mono">${s.rate}</div>
+      </div>
+    `).join("");
+
+    container.querySelectorAll("[data-stage-id]").forEach(card => {
+      card.addEventListener("click", () => {
+        const sid = parseInt(card.getAttribute("data-stage-id"), 10);
+        const stage = pipeline.stages.find(x => x.stage_id === sid);
+        const inspector = document.getElementById("edge-stage-inspector");
+        if (stage && inspector) {
+          inspector.innerHTML = `
+            <div class="space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-xs uppercase">STAGE ${stage.stage_id}: ${stage.name}</strong>
+                <span class="text-emerald-700 font-bold">${stage.status}</span>
+              </div>
+              <p class="text-slate-600 font-sans">${stage.description}</p>
+              <div class="flex gap-4 text-slate-500 pt-1 text-[11px]">
+                <span>Processing Rate: <strong class="text-slate-800">${stage.rate}</strong></span>
+                <span>Latency Budget: <strong class="text-sky-700">${stage.latency_us ? `${stage.latency_us} µs` : `${stage.latency_ms} ms`}</strong></span>
+              </div>
+            </div>
+          `;
+          this.showToast(`Inspecting Stage ${stage.stage_id}: ${stage.name}`, "info");
+        }
+      });
+    });
+  }
+
+  renderEdgeModelsGrid() {
+    const container = document.getElementById("edge-models-grid");
+    if (!container || !this.edgeModelsList) return;
+
+    container.innerHTML = this.edgeModelsList.map(m => `
+      <div class="bg-surface-container-lowest border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between space-y-3">
+        <div>
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200 font-bold">${m.precision}</span>
+            <span class="text-[10px] font-mono text-emerald-700 font-bold">${m.accuracy_pct}% ACC</span>
+          </div>
+          <h4 class="font-bold text-slate-900 text-xs mt-2 font-mono">${m.id}</h4>
+          <p class="text-xs text-slate-500 font-sans mt-0.5 leading-snug">${m.name}</p>
+        </div>
+        <div class="space-y-1 text-xs font-mono text-slate-600 border-t border-slate-100 pt-2">
+          <div class="flex justify-between"><span>Execution Time:</span><strong>${m.latency_ms} ms</strong></div>
+          <div class="flex justify-between"><span>Package Size:</span><strong>${m.size_mb} MB</strong></div>
+          <div class="flex justify-between"><span>Deployed On:</span><span class="text-slate-800">${m.deployed_devices.length} Nodes</span></div>
+        </div>
+        <button class="btn-model-deploy w-full py-2 bg-primary hover:bg-slate-800 text-white font-semibold text-xs rounded transition-colors flex items-center justify-center gap-1 shadow-sm cursor-pointer" data-model-id="${m.id}">
+          <span class="material-symbols-outlined text-[15px]">rocket_launch</span>
+          <span>Deploy / Update OTA</span>
+        </button>
+      </div>
+    `).join("");
+
+    container.querySelectorAll(".btn-model-deploy").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mid = btn.getAttribute("data-model-id");
+        const model = this.edgeModelsList.find(x => x.id === mid);
+        if (model) {
+          window.aeroDrawer?.openDeployModelModal(
+            model,
+            this.edgeDevicesList,
+            async (payload) => {
+              const res = await window.aeroAPI.deployAIModel(payload);
+              this.loadEdgeDevices();
+              this.showToast(`Deployed ${model.id} to ${payload.target_device_id}`, "success");
+              return res;
+            }
+          );
+        }
+      });
+    });
+  }
+
+  /* =============================================================
+   * MODULE 4: SENSOR DATA QUALITY CONTROLLER
+   * ============================================================= */
+  initDataQualityModule() {
+    document.getElementById("dq-btn-revalidate")?.addEventListener("click", async () => {
+      const summary = await window.aeroAPI.getDataQualitySummary();
+      this.loadDataQuality();
+      this.showToast(`Validation cycle finished. Completeness: ${summary.completeness_score_pct}%`, "success");
+    });
+
+    document.getElementById("dq-sensor-search")?.addEventListener("input", (e) => {
+      this.dqSearchQuery = e.target.value.trim().toLowerCase();
+      this.renderSensorMatrixTable();
+    });
+
+    document.getElementById("dq-status-filter")?.addEventListener("change", (e) => {
+      this.dqStatusFilter = e.target.value;
+      this.loadDataQuality();
+    });
+
+    document.getElementById("dq-compare-sensor-select")?.addEventListener("change", (e) => {
+      this.loadRawVsValidatedComparison(e.target.value);
+    });
+
+    document.getElementById("dq-incident-status-filter")?.addEventListener("change", (e) => {
+      this.dqIncidentStatusFilter = e.target.value;
+      this.loadQualityIncidents();
+    });
+
+    // KPI Clicks
+    document.getElementById("dq-kpi-card-miss")?.addEventListener("click", () => {
+      this.dqStatusFilter = "ALL";
+      this.loadDataQuality();
+      this.showToast("Showing sensors with recorded missing frames", "info");
+    });
+
+    document.getElementById("dq-kpi-card-inv")?.addEventListener("click", () => {
+      this.dqStatusFilter = "FLAGGED";
+      const sel = document.getElementById("dq-status-filter");
+      if (sel) sel.value = "FLAGGED";
+      this.loadDataQuality();
+      this.showToast("Filtered: Sensors with active physics validation violations", "warning");
+    });
+
+    document.getElementById("dq-kpi-card-stale")?.addEventListener("click", () => {
+      this.dqStatusFilter = "STALE";
+      const sel = document.getElementById("dq-status-filter");
+      if (sel) sel.value = "STALE";
+      this.loadDataQuality();
+      this.showToast("Filtered: Sensors with zero-variance frozen readings", "error");
+    });
+
+    this.dqStatusFilter = "ALL";
+    this.dqSearchQuery = "";
+    this.dqIncidentStatusFilter = "ALL";
+    this.sensorsList = [];
+  }
+
+  async loadDataQuality() {
+    try {
+      const statusParam = (this.dqStatusFilter && this.dqStatusFilter !== "ALL") ? this.dqStatusFilter : null;
+      const [sensors, summary] = await Promise.all([
+        window.aeroAPI.listSensorQualityMatrix(statusParam),
+        window.aeroAPI.getDataQualitySummary()
+      ]);
+
+      this.sensorsList = sensors;
+
+      if (summary) {
+        const compEl = document.getElementById("dq-kpi-completeness");
+        const missEl = document.getElementById("dq-kpi-missing");
+        const invEl = document.getElementById("dq-kpi-invalid");
+        const staleEl = document.getElementById("dq-kpi-stale");
+        const gradeEl = document.getElementById("dq-kpi-grade");
+        if (compEl) compEl.textContent = `${summary.completeness_score_pct}%`;
+        if (missEl) missEl.textContent = summary.missing_readings_count;
+        if (invEl) invEl.textContent = summary.invalid_readings_count;
+        if (staleEl) staleEl.textContent = summary.stale_sensors_count;
+        if (gradeEl) gradeEl.textContent = summary.overall_quality_grade;
+      }
+
+      this.renderSensorMatrixTable();
+      this.loadRawVsValidatedComparison(document.getElementById("dq-compare-sensor-select")?.value || "CHT-03");
+      this.loadQualityIncidents();
+    } catch (err) {
+      console.warn("Failed to load Data Quality data:", err.message);
+    }
+  }
+
+  renderSensorMatrixTable() {
+    const tbody = document.getElementById("dq-sensors-tbody");
+    if (!tbody) return;
+
+    let list = this.sensorsList || [];
+    if (this.dqSearchQuery) {
+      list = list.filter(s => 
+        s.sensor_id.toLowerCase().includes(this.dqSearchQuery) ||
+        s.channel_name.toLowerCase().includes(this.dqSearchQuery) ||
+        s.subsystem.toLowerCase().includes(this.dqSearchQuery)
+      );
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400 font-sans">No matching sensors found.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(s => {
+      const statusBadges = {
+        HEALTHY: "bg-emerald-100 text-emerald-800 border-emerald-300",
+        DRIFTING: "bg-amber-100 text-amber-800 border-amber-300",
+        FLAGGED: "bg-rose-100 text-rose-800 border-rose-300",
+        STALE: "bg-purple-100 text-purple-800 border-purple-300"
+      };
+
+      return `
+        <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer" data-sensor-id="${s.sensor_id}">
+          <td class="py-3 px-4 font-mono">
+            <span class="font-bold text-slate-900 block">${s.sensor_id}</span>
+            <span class="text-[11px] text-slate-500 font-sans">${s.channel_name}</span>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700">${s.subsystem}</td>
+          <td class="py-3 px-4 font-mono text-xs">${s.sample_rate_hz} Hz</td>
+          <td class="py-3 px-4 font-mono text-xs">σ = ${s.noise_sigma}</td>
+          <td class="py-3 px-4 font-mono text-xs ${s.drift_score > 0.5 ? 'text-amber-600 font-bold' : 'text-slate-600'}">${s.drift_score}</td>
+          <td class="py-3 px-4 font-mono text-xs ${s.error_count_24h > 0 ? 'text-rose-600 font-bold' : 'text-slate-500'}">${s.error_count_24h}</td>
+          <td class="py-3 px-4 font-mono text-xs">
+            <div class="flex items-center gap-2">
+              <span class="font-bold">${s.quality_score}%</span>
+              <div class="w-12 bg-slate-200 h-1.5 rounded overflow-hidden">
+                <div class="${s.quality_score < 85 ? 'bg-rose-500' : (s.quality_score < 92 ? 'bg-amber-500' : 'bg-emerald-500')} h-full" style="width: ${s.quality_score}%"></div>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${statusBadges[s.status] || statusBadges.HEALTHY}">${s.status}</span>
+          </td>
+          <td class="py-3 px-4 text-right font-mono text-xs text-slate-700 whitespace-nowrap">${s.last_reading}</td>
+        </tr>
+      `;
+    }).join("");
+
+    tbody.querySelectorAll("tr[data-sensor-id]").forEach(tr => {
+      tr.addEventListener("click", () => {
+        const sid = tr.getAttribute("data-sensor-id");
+        const s = this.sensorsList.find(x => x.sensor_id === sid);
+        if (s) {
+          window.aeroDrawer?.openSensorDrawer(s.sensor_id, s.channel_name, s.unit, s.last_reading.split(" ")[0]);
+        }
+      });
+    });
+  }
+
+  async loadRawVsValidatedComparison(sensorId) {
+    try {
+      const data = await window.aeroAPI.getRawVsValidatedComparison(sensorId);
+      if (!data || !data.observations) return;
+
+      const canvas = document.getElementById("dq-comparison-canvas");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * (window.devicePixelRatio || 1);
+        canvas.height = rect.height * (window.devicePixelRatio || 1);
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+        ctx.clearRect(0, 0, rect.width, rect.height);
+
+        const w = rect.width;
+        const h = rect.height;
+        const obs = data.observations;
+
+        const allVals = obs.flatMap(o => [o.raw_value, o.validated_value]);
+        const minVal = Math.min(...allVals) - 2;
+        const maxVal = Math.max(...allVals) + 2;
+        const range = maxVal - minVal || 1;
+
+        // Draw Raw line (Red/Orange)
+        ctx.beginPath();
+        obs.forEach((o, idx) => {
+          const x = 40 + (idx / (obs.length - 1)) * (w - 70);
+          const y = h - 30 - ((o.raw_value - minVal) / range) * (h - 50);
+          if (idx === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = "#f43f5e";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw Validated line (Cyan)
+        ctx.beginPath();
+        obs.forEach((o, idx) => {
+          const x = 40 + (idx / (obs.length - 1)) * (w - 70);
+          const y = h - 30 - ((o.validated_value - minVal) / range) * (h - 50);
+          if (idx === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = "#22d3ee";
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        obs.forEach((o, idx) => {
+          const x = 40 + (idx / (obs.length - 1)) * (w - 70);
+          const yRaw = h - 30 - ((o.raw_value - minVal) / range) * (h - 50);
+          ctx.fillStyle = o.outcome === "FLAGGED_SPIKE" ? "#ef4444" : "#f43f5e";
+          ctx.beginPath();
+          ctx.arc(x, yRaw, o.outcome === "FLAGGED_SPIKE" ? 5 : 2.5, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      // Render Observations Table (last 6)
+      const tbody = document.getElementById("dq-observations-tbody");
+      if (tbody) {
+        tbody.innerHTML = data.observations.slice(-6).map(o => `
+          <tr class="hover:bg-slate-50/60 font-mono text-xs">
+            <td class="py-2 px-3 text-slate-500">${o.timestamp}</td>
+            <td class="py-2 px-3 text-slate-800 font-bold">${o.raw_value} ${o.unit}</td>
+            <td class="py-2 px-3 text-cyan-700 font-bold">${o.validated_value} ${o.unit}</td>
+            <td class="py-2 px-3 ${Math.abs(o.delta) > 2 ? 'text-rose-600 font-bold' : 'text-slate-500'}">${o.delta > 0 ? '+' : ''}${o.delta}</td>
+            <td class="py-2 px-3 text-right">
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold ${o.outcome === 'FLAGGED_SPIKE' ? 'bg-rose-100 text-rose-800' : 'bg-emerald-100 text-emerald-800'}">${o.outcome}</span>
+            </td>
+          </tr>
+        `).join("");
+      }
+    } catch (err) {
+      console.warn("Failed to load raw vs validated comparison:", err.message);
+    }
+  }
+
+  async loadQualityIncidents() {
+    try {
+      const statusParam = (this.dqIncidentStatusFilter && this.dqIncidentStatusFilter !== "ALL") ? this.dqIncidentStatusFilter : null;
+      const incidents = await window.aeroAPI.listQualityIncidents(statusParam);
+      const tbody = document.getElementById("dq-incidents-tbody");
+      if (!tbody) return;
+
+      if (!incidents || incidents.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400 font-sans">No matching incidents.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = incidents.map(inc => `
+        <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer" data-inc-id="${inc.id}">
+          <td class="py-3 px-4 font-mono font-bold text-sky-700">${inc.id}</td>
+          <td class="py-3 px-4 font-mono text-xs">
+            <span class="font-bold text-slate-800 block">${inc.sensor_id}</span>
+            <span class="text-[11px] text-slate-500 font-sans">${inc.parameter}</span>
+          </td>
+          <td class="py-3 px-4 whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${inc.severity === 'CRITICAL' ? 'bg-rose-100 text-rose-800' : (inc.severity === 'WARNING' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700')}">${inc.severity}</span>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700">${inc.rule_broken}</td>
+          <td class="py-3 px-4 font-mono text-xs text-slate-500 whitespace-nowrap">${new Date(inc.detected_at).toLocaleTimeString()}</td>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${inc.status === 'RESOLVED' ? 'bg-emerald-100 text-emerald-800' : (inc.status === 'INVESTIGATING' ? 'bg-sky-100 text-sky-800' : 'bg-amber-100 text-amber-800')}">${inc.status}</span>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700 whitespace-nowrap">${inc.assigned_to}</td>
+          <td class="py-3 px-4 text-right whitespace-nowrap" onclick="event.stopPropagation()">
+            <button class="btn-inc-edit px-2.5 py-1 text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 rounded border border-slate-300 cursor-pointer" data-id="${inc.id}">
+              Inspect / Edit
+            </button>
+          </td>
+        </tr>
+      `).join("");
+
+      tbody.querySelectorAll("tr[data-inc-id], .btn-inc-edit").forEach(el => {
+        el.addEventListener("click", () => {
+          const iid = el.getAttribute("data-inc-id") || el.getAttribute("data-id");
+          const inc = incidents.find(x => x.id === iid);
+          if (inc) {
+            window.aeroDrawer?.openIncidentModal(
+              inc,
+              async (id, data) => {
+                await window.aeroAPI.updateQualityIncident(id, data);
+                this.loadQualityIncidents();
+                this.showToast("Incident updated successfully", "success");
+              },
+              async (id, notes) => {
+                await window.aeroAPI.resolveQualityIncident(id, notes);
+                this.loadQualityIncidents();
+                this.showToast("Incident resolved and archived!", "success");
+              }
+            );
+          }
+        });
+      });
+    } catch (err) {
+      console.warn("Failed to load quality incidents:", err.message);
+    }
+  }
+
+  /* =============================================================
+   * MODULE 5: FLEET OPERATIONS CONTROLLER
+   * ============================================================= */
+  initFleetModule() {
+    document.getElementById("fleet-refresh-btn")?.addEventListener("click", () => {
+      this.loadFleet();
+      this.showToast("Fleet operations status synchronized from global theater", "info");
+    });
+
+    document.getElementById("fleet-search-input")?.addEventListener("input", (e) => {
+      this.fleetSearchQuery = e.target.value.trim().toLowerCase();
+      this.renderFleetTable();
+    });
+
+    document.getElementById("fleet-status-filter")?.addEventListener("change", (e) => {
+      this.fleetStatusFilter = e.target.value;
+      this.loadFleet();
+    });
+
+    document.getElementById("fleet-kpi-total")?.addEventListener("click", () => {
+      this.fleetStatusFilter = "ALL";
+      const sel = document.getElementById("fleet-status-filter");
+      if (sel) sel.value = "ALL";
+      this.loadFleet();
+      this.showToast("Showing all 8 registered fleet aircraft", "info");
+    });
+
+    document.getElementById("fleet-kpi-operational")?.addEventListener("click", () => {
+      this.fleetStatusFilter = "OPERATIONAL";
+      const sel = document.getElementById("fleet-status-filter");
+      if (sel) sel.value = "OPERATIONAL";
+      this.loadFleet();
+      this.showToast("Filtered: Operational flight-ready airframes", "info");
+    });
+
+    document.getElementById("fleet-kpi-offline")?.addEventListener("click", () => {
+      this.fleetStatusFilter = "MAINTENANCE";
+      const sel = document.getElementById("fleet-status-filter");
+      if (sel) sel.value = "MAINTENANCE";
+      this.loadFleet();
+      this.showToast("Filtered: Depot maintenance airframes", "warning");
+    });
+
+    document.getElementById("fleet-kpi-standby")?.addEventListener("click", () => {
+      this.fleetStatusFilter = "STANDBY";
+      const sel = document.getElementById("fleet-status-filter");
+      if (sel) sel.value = "STANDBY";
+      this.loadFleet();
+      this.showToast("Filtered: Standby alert aircraft", "info");
+    });
+
+    this.fleetStatusFilter = "ALL";
+    this.fleetSearchQuery = "";
+    this.fleetAssetsList = [];
+    this.fleetAlertsList = [];
+  }
+
+  async loadFleet() {
+    try {
+      const statusParam = (this.fleetStatusFilter && this.fleetStatusFilter !== "ALL") ? this.fleetStatusFilter : null;
+      const [assets, summary, comparison, alerts] = await Promise.all([
+        window.aeroAPI.listFleetAssets(statusParam),
+        window.aeroAPI.getFleetSummary(),
+        window.aeroAPI.getFleetComparison("UAV-01,UAV-03,UAV-07"),
+        window.aeroAPI.listFleetAlerts()
+      ]);
+
+      this.fleetAssetsList = assets;
+      this.fleetAlertsList = alerts;
+
+      if (summary) {
+        const totEl = document.getElementById("fleet-kpi-val-total");
+        const opEl = document.getElementById("fleet-kpi-val-operational");
+        const offEl = document.getElementById("fleet-kpi-val-offline");
+        const stEl = document.getElementById("fleet-kpi-val-standby");
+        if (totEl) totEl.textContent = summary.total_assets;
+        if (opEl) opEl.textContent = summary.operational_assets;
+        if (offEl) offEl.textContent = summary.offline_maintenance_assets;
+        if (stEl) stEl.textContent = summary.standby_assets;
+      }
+
+      this.renderTacticalFleetGrid();
+      this.renderFleetTable();
+      this.renderFleetComparison(comparison);
+      this.renderFleetAlerts();
+    } catch (err) {
+      console.warn("Failed to load Fleet data:", err.message);
+    }
+  }
+
+  renderTacticalFleetGrid() {
+    const container = document.getElementById("fleet-tactical-grid");
+    if (!container || !this.fleetAssetsList) return;
+
+    container.innerHTML = this.fleetAssetsList.map(a => {
+      const isLive = a.id === "UAV-07";
+      return `
+        <div class="p-3.5 bg-slate-50 hover:bg-white rounded-xl border ${isLive ? 'border-primary ring-1 ring-primary/40' : 'border-slate-200'} shadow-xs hover:shadow-md transition-all cursor-pointer space-y-2" data-asset-id="${a.id}">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full ${a.operational_status === 'OPERATIONAL' ? 'bg-emerald-500' : (a.operational_status === 'MAINTENANCE' ? 'bg-rose-500' : 'bg-slate-400')}"></span>
+              <strong class="text-xs font-mono text-slate-900">${a.id}</strong>
+              <span class="text-[10px] text-slate-500 font-sans">(${a.callsign})</span>
+            </div>
+            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded font-bold ${a.health_index < 93 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${a.health_index}%</span>
+          </div>
+          <div class="text-[11px] font-mono text-slate-600">
+            <div>${a.latitude.toFixed(2)}°N, ${Math.abs(a.longitude).toFixed(2)}°W</div>
+            <div class="text-[10px] text-slate-400">${a.altitude_ft.toLocaleString()} ft • ${a.base_station}</div>
+          </div>
+          <div class="flex items-center justify-between text-[10px] font-mono border-t border-slate-200 pt-1.5 text-slate-500">
+            <span>TTSN: ${a.flight_hours_ttsn}h</span>
+            <span class="text-sky-700 font-semibold">${a.active_mission || 'STANDBY'}</span>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    container.querySelectorAll("[data-asset-id]").forEach(card => {
+      card.addEventListener("click", () => {
+        const aid = card.getAttribute("data-asset-id");
+        const asset = this.fleetAssetsList.find(x => x.id === aid);
+        if (asset) {
+          window.aeroDrawer?.openAssetDetailsDrawer(asset, (a) => {
+            window.aeroDrawer?.openEditAssetModal(a, async (id, data) => {
+              await window.aeroAPI.updateFleetAsset(id, data);
+              this.loadFleet();
+              this.showToast(`Updated metadata for ${id}`, "success");
+            });
+          });
+        }
+      });
+    });
+  }
+
+  renderFleetTable() {
+    const tbody = document.getElementById("fleet-assets-tbody");
+    if (!tbody) return;
+
+    let list = this.fleetAssetsList || [];
+    if (this.fleetSearchQuery) {
+      list = list.filter(a => 
+        a.id.toLowerCase().includes(this.fleetSearchQuery) ||
+        a.callsign.toLowerCase().includes(this.fleetSearchQuery) ||
+        a.base_station.toLowerCase().includes(this.fleetSearchQuery) ||
+        a.tail_number.toLowerCase().includes(this.fleetSearchQuery)
+      );
+    }
+
+    if (list.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="8" class="py-8 text-center text-slate-400 font-sans">No matching fleet aircraft.</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = list.map(a => {
+      const statusBadges = {
+        OPERATIONAL: "bg-emerald-100 text-emerald-800 border-emerald-300",
+        STANDBY: "bg-sky-100 text-sky-800 border-sky-300",
+        MAINTENANCE: "bg-rose-100 text-rose-800 border-rose-300",
+        OFFLINE: "bg-slate-100 text-slate-600 border-slate-300"
+      };
+
+      return `
+        <tr class="hover:bg-slate-50/70 transition-colors cursor-pointer" data-asset-id="${a.id}">
+          <td class="py-3 px-4 font-mono">
+            <span class="font-bold text-slate-900 block">${a.id} (${a.callsign})</span>
+            <span class="text-[10px] text-slate-400">${a.tail_number}</span>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700">
+            <div>${a.airframe_model}</div>
+            <div class="text-[10px] text-slate-400 font-mono">${a.engine_model}</div>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-600">${a.base_station}</td>
+          <td class="py-3 px-4 font-mono text-xs font-bold text-slate-800">${a.flight_hours_ttsn} h</td>
+          <td class="py-3 px-4 font-mono text-xs">
+            <span class="font-bold ${a.health_index < 93 ? 'text-amber-600' : 'text-emerald-700'}">${a.health_index}%</span>
+          </td>
+          <td class="py-3 px-4 text-center whitespace-nowrap">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${statusBadges[a.operational_status] || statusBadges.OPERATIONAL}">${a.operational_status}</span>
+          </td>
+          <td class="py-3 px-4 text-xs font-sans text-slate-700 whitespace-nowrap">${a.pilot_in_command}</td>
+          <td class="py-3 px-4 text-right whitespace-nowrap" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-end gap-1.5">
+              <button class="btn-flt-twin px-2 py-1 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded flex items-center gap-1 shadow-xs cursor-pointer" data-id="${a.id}">
+                <span class="material-symbols-outlined text-[14px]">model_training</span> Twin
+              </button>
+              <button class="btn-flt-edit p-1 rounded hover:bg-slate-200 text-slate-600 cursor-pointer" title="Edit Metadata" data-id="${a.id}">
+                <span class="material-symbols-outlined text-[16px]">edit</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    tbody.querySelectorAll("tr[data-asset-id]").forEach(tr => {
+      tr.addEventListener("click", () => {
+        const aid = tr.getAttribute("data-asset-id");
+        const asset = this.fleetAssetsList.find(x => x.id === aid);
+        if (asset) {
+          window.aeroDrawer?.openAssetDetailsDrawer(asset, (a) => {
+            window.aeroDrawer?.openEditAssetModal(a, async (id, data) => {
+              await window.aeroAPI.updateFleetAsset(id, data);
+              this.loadFleet();
+            });
+          });
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".btn-flt-twin").forEach(btn => {
+      btn.addEventListener("click", () => {
+        this.navigateTo("digital-twin");
+      });
+    });
+
+    tbody.querySelectorAll(".btn-flt-edit").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const aid = btn.getAttribute("data-id");
+        const asset = this.fleetAssetsList.find(x => x.id === aid);
+        if (asset) {
+          window.aeroDrawer?.openEditAssetModal(asset, async (id, data) => {
+            await window.aeroAPI.updateFleetAsset(id, data);
+            this.loadFleet();
+            this.showToast(`Updated metadata for ${id}`, "success");
+          });
+        }
+      });
+    });
+  }
+
+  renderFleetComparison(comparison) {
+    const container = document.getElementById("fleet-comparison-cards");
+    if (!container || !comparison || !comparison.comparison_metrics) return;
+
+    container.innerHTML = comparison.comparison_metrics.map(m => `
+      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3 font-mono text-xs">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+          <div>
+            <strong class="text-sm font-bold text-slate-900 block">${m.asset_id}</strong>
+            <span class="text-[10px] text-slate-500 font-sans">${m.callsign} • ${m.engine}</span>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${m.health_score < 93 ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${m.health_score}%</span>
+        </div>
+        <div class="space-y-1.5 text-slate-600">
+          <div class="flex justify-between"><span>Thermal Headroom:</span><strong class="text-slate-800">+${m.thermal_headroom_c}°C</strong></div>
+          <div class="flex justify-between"><span>Vibration RMS:</span><strong class="text-slate-800">${m.vibration_rms} g</strong></div>
+          <div class="flex justify-between"><span>Fuel Burn Rate:</span><strong class="text-slate-800">${m.fuel_burn_lph} L/h</strong></div>
+          <div class="flex justify-between"><span>Prognostic RUL:</span><strong class="text-sky-700">${m.rul_estimated_hours} hrs</strong></div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  renderFleetAlerts() {
+    const tbody = document.getElementById("fleet-alerts-tbody");
+    if (!tbody || !this.fleetAlertsList) return;
+
+    tbody.innerHTML = this.fleetAlertsList.map(alt => `
+      <tr class="hover:bg-slate-50/70 font-mono text-xs">
+        <td class="py-3 px-4 font-bold text-sky-700">${alt.id}</td>
+        <td class="py-3 px-4 font-bold text-slate-800">${alt.asset_id}</td>
+        <td class="py-3 px-4">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${alt.severity === 'CRITICAL' ? 'bg-rose-100 text-rose-800' : (alt.severity === 'WARNING' ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-700')}">${alt.severity}</span>
+        </td>
+        <td class="py-3 px-4 font-sans text-slate-800">
+          <strong>${alt.title}:</strong> ${alt.message}
+        </td>
+        <td class="py-3 px-4 text-slate-500 whitespace-nowrap">${alt.timestamp}</td>
+        <td class="py-3 px-4 text-center whitespace-nowrap">
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold ${alt.acknowledged ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${alt.acknowledged ? 'ACKED' : 'UNACKED'}</span>
+        </td>
+        <td class="py-3 px-4 text-right whitespace-nowrap">
+          <button class="btn-flt-ack px-2.5 py-1 text-xs font-bold rounded ${alt.acknowledged ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white hover:bg-slate-800 cursor-pointer shadow-xs'}" ${alt.acknowledged ? 'disabled' : ''} data-id="${alt.id}">
+            ${alt.acknowledged ? 'Signed' : 'Acknowledge'}
+          </button>
+        </td>
+      </tr>
+    `).join("");
+
+    tbody.querySelectorAll(".btn-flt-ack:not([disabled])").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const aid = btn.getAttribute("data-id");
+        await window.aeroAPI.acknowledgeFleetAlert(aid);
+        this.loadFleet();
+        this.showToast(`Fleet alert ${aid} acknowledged and certified`, "success");
+      });
+    });
+  }
+
 }
 
 // Instantiate Master Application on DOM Ready

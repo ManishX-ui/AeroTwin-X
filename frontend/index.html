@@ -4680,754 +4680,439 @@
 </footer>
       </div>
     
-      <div id="view-maintenance" class="view-pane">
-        <!-- BEGIN: HeaderBar -->
-<section class="bg-surface-card border border-surface-border rounded-lg p-5 shadow-sm" data-purpose="workspace-header">
-<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-<!-- Title & Context Tags -->
-<div>
-<div class="flex items-center gap-3">
-<h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Predictive Maintenance &amp; CBM+ Workspace</h1>
-<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
-<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                PART 43 / PART-M VERIFIED
-              </span>
-</div>
-<p class="text-xs font-mono text-slate-500 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-<span class="font-semibold text-slate-700">ENGINE-AE-03 (Rotax 915iSc Turbo)</span>
-<span>•</span>
-<span>UAV-07 Hermes MALE (Tail #601)</span>
-<span>•</span>
-<span class="text-sky-700 font-medium">TTSN: 1,842.6 h</span>
-<span>•</span>
-<span class="text-sky-700 font-medium">TSOH: 342.6 h</span>
-<span>•</span>
-<span class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700">Weibull RUL: 1,284.0 h (Model Est. β=1.82)</span>
-<span>•</span>
-<span class="text-[10px] text-slate-400">SHA-256: 7F4A...B902</span>
-</p>
-</div>
-<!-- Header Action Buttons -->
-<div class="flex items-center gap-2.5 flex-shrink-0">
-<button class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all" type="button">
-<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>Export Dispatch Pack</span>
-</button>
-<button class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-md bg-sky-600 text-white hover:bg-sky-700 shadow-sm hover:shadow transition-all" type="button">
-<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>Generate Work Order</span>
-</button>
-</div>
-</div>
-</section>
-<!-- END: HeaderBar -->
-<!-- BEGIN: KPICardsGrid -->
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-purpose="kpi-metrics-grid">
-<!-- KPI 1: Propulsion Score -->
-<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Propulsion Condition</span>
-<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Nominal</span>
-</div>
-<div class="mt-3 flex items-baseline gap-2">
-<span class="text-3xl font-bold font-mono text-slate-900">92<span class="text-lg text-slate-400 font-normal">/100</span></span>
-<span class="text-xs font-medium text-amber-600 font-mono">1 Subsystem Advisory</span>
-</div>
-<div class="w-full bg-slate-100 rounded-full h-1.5 mt-3 overflow-hidden">
-<div class="bg-emerald-500 h-1.5 rounded-full" style="width: 92%"></div>
-</div>
-</div>
-<!-- KPI 2: Dispatch Queue -->
-<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Dispatch Action Queue</span>
-<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Action Req</span>
-</div>
-<div class="mt-3 flex items-baseline gap-2">
-<span class="text-3xl font-bold font-mono text-slate-900">1</span>
-<span class="text-xs text-slate-600 font-sans">Immediate | 3 Turnaround | 5 Routine</span>
-</div>
-<div class="text-[11px] text-slate-400 mt-3 font-mono flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-rose-500 inline-block"></span> Next release gate: Turnaround 14
-          </div>
-</div>
-<!-- KPI 3: Fleet MTBUR -->
-<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Fleet MTBUR Reliability</span>
-<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Target &gt;3,800 h</span>
-</div>
-<div class="mt-3 flex items-baseline gap-2">
-<span class="text-3xl font-bold font-mono text-slate-900">4,120 <span class="text-base font-normal text-slate-500">h</span></span>
-<span class="text-xs font-semibold text-emerald-600 font-mono">+8.4%</span>
-</div>
-<div class="text-[11px] text-slate-500 mt-3 font-mono">
-            Unscheduled Removal Rate: 0.24 / 1k h
-          </div>
-</div>
-<!-- KPI 4: PINN Physics Sync -->
-<div class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between">
-<div class="flex items-center justify-between">
-<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">PINN Physics Model Sync</span>
-<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">50Hz Edge</span>
-</div>
-<div class="mt-3 flex items-baseline gap-2">
-<span class="text-3xl font-bold font-mono text-slate-900">99.4%</span>
-<span class="text-xs font-medium text-emerald-600 font-mono">Confidence</span>
-</div>
-<div class="text-[11px] text-slate-500 mt-3 font-mono flex items-center justify-between">
-<span>Residual Drift: 0.08σ</span>
-<span class="text-slate-400">Lag: 12ms</span>
-</div>
-</div>
-</section>
-<!-- END: KPICardsGrid -->
-<!-- BEGIN: SubsystemFilterStrip -->
-<section class="flex flex-wrap items-center gap-2 pt-1" data-purpose="subsystem-filter-strip">
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-white shadow-sm font-sans" type="button">
-          All Subsystems (8)
-        </button>
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
-          Propulsion Core
-        </button>
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-amber-50 text-amber-900 border border-amber-300 font-medium flex items-center gap-1.5" type="button">
-<span>Fuel &amp; Metering</span>
-<span class="w-4 h-4 rounded-full bg-amber-500 text-white font-mono text-[10px] flex items-center justify-center">1</span>
-</button>
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
-          Thermal Management
-        </button>
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
-          Lubrication &amp; Gearbox
-        </button>
-<button class="px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-surface-border hover:bg-slate-50 transition-colors" type="button">
-          Avionics &amp; FADEC
-        </button>
-</section>
-<!-- END: SubsystemFilterStrip -->
-<!-- BEGIN: ImmediateAttentionSection -->
-<section class="space-y-3" data-purpose="immediate-attention">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="flex h-3 w-3 relative">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
-</span>
-<h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Immediate Attention — Subsystem Advisory</h2>
-</div>
-<span class="text-xs font-mono text-slate-500">PRIORITY LEVEL 1 • ACTION REQUIRED BEFORE NEXT MISSION DISPATCH</span>
-</div>
-<!-- Featured Alert Card with Detailed Engineering Evidence -->
-<article class="bg-white border-2 border-rose-400/80 rounded-lg shadow-sm overflow-hidden">
-<!-- Banner Ribbon -->
-<div class="bg-rose-50 border-b border-rose-200 px-5 py-3 flex flex-wrap items-center justify-between gap-3">
-<div class="flex items-center gap-3">
-<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-mono font-bold text-xs">CBM+ ADVISORY</span>
-<span class="text-sm font-semibold text-rose-950 font-mono">INJECTOR SYSTEM — Cylinder #3 High-Pressure Solenoid Injector</span>
-</div>
-<div class="flex items-center gap-4 text-xs font-mono text-slate-600">
-<span>P/N: <strong class="text-slate-900">874-920</strong></span>
-<span>S/N: <strong class="text-slate-900">INJ-084</strong></span>
-<span class="px-2 py-0.5 rounded bg-white border border-rose-300 text-rose-700 font-bold">Health Score: 84% (Declining -4.2% / 15h)</span>
-</div>
-</div>
-<div class="p-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
-<!-- Left Details Column (7 cols) -->
-<div class="lg:col-span-7 space-y-4">
-<!-- Quick Stats Bar -->
-<div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono">
-<div>
-<span class="text-slate-500 block text-[10px]">OPERATING HOURS</span>
-<span class="font-bold text-slate-800">342.6 h TSOH</span>
-<span class="text-slate-400 text-[10px] block">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-500 block text-[10px]">LAST SERVICE</span>
-<span class="font-bold text-slate-800">142.6 h ago</span>
-<span class="text-slate-400 text-[10px] block">Turnaround 11 Flush</span>
-</div>
-<div>
-<span class="text-slate-500 block text-[10px]">REMAINING USEFUL LIFE</span>
-<span class="font-bold text-amber-600">45.0 flight hours</span>
-<span class="text-slate-400 text-[10px] block">To Thermal Boundary</span>
-</div>
-</div>
-<!-- Degradation & Physics Modeling -->
-<div class="space-y-2 text-xs">
-<div>
-<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Degradation Mechanism:</span>
-<p class="text-slate-700 mt-0.5 leading-relaxed bg-amber-50/50 p-2.5 rounded border border-amber-200/60 font-sans">
-                    Micro-orifice nozzle coking causing flow bias (+0.50 L/h) and asymmetric combustion wash on Cylinder #3 crown and valve periphery.
-                  </p>
-</div>
-<div>
-<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Predicted Consequence / Issue:</span>
-<p class="text-slate-700 mt-0.5 leading-relaxed bg-rose-50/50 p-2.5 rounded border border-rose-200/60 font-sans">
-                    Fuel spray pattern atomization asymmetry leading to localized exhaust valve thermal fatigue and accelerated stem micro-cracking if uncorrected within <strong>45 flight hours</strong>.
-                  </p>
-</div>
-<div>
-<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Physics-Informed Evidence Matrix:</span>
-<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1 font-mono text-[11px]">
-<div class="bg-slate-100 p-2 rounded border border-slate-200">
-<span class="text-slate-500 block text-[10px]">FUEL FLOW DEV</span>
-<span class="font-bold text-rose-600">+2.7% (+0.50 L/h)</span>
-<span class="text-slate-400 block text-[9px]">Sensor: FF-03</span>
-</div>
-<div class="bg-slate-100 p-2 rounded border border-slate-200">
-<span class="text-slate-500 block text-[10px]">EGT RESIDUAL DEV</span>
-<span class="font-bold text-amber-600">+18.0°C vs PINN</span>
-<span class="text-slate-400 block text-[9px]">Exhaust Port #3</span>
-</div>
-<div class="bg-slate-100 p-2 rounded border border-slate-200">
-<span class="text-slate-500 block text-[10px]">OPTICAL CORRELATION</span>
-<span class="font-bold text-sky-700">ALT-084 Matched</span>
-<span class="text-slate-400 block text-[9px]">Verified Carbon Halo</span>
-</div>
-</div>
-</div>
-<div class="pt-1">
-<span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Engineering Recommendation:</span>
-<div class="flex items-start gap-2 mt-1 text-slate-800 bg-sky-50/60 p-2.5 rounded border border-sky-200">
-<svg class="w-4 h-4 text-sky-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<p class="font-sans text-xs">
-                      Inspect during next authorized turnaround window (<strong>Turnaround 14 Ground - TODAY</strong>). Perform ultrasonic injector flush &amp; flow bench calibration per Rotax MM Chapter 73-10-00. If flow variation exceeds 1.5% post-flush, swap S/N INJ-084 with Depot spares unit #092.
-                    </p>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Optical Borescope Correlation Column (5 cols) -->
-<div class="lg:col-span-5 flex flex-col justify-between space-y-3">
-<div class="border border-slate-300 rounded overflow-hidden bg-slate-900 shadow-inner flex flex-col">
-<div class="bg-slate-800 px-3 py-1.5 flex items-center justify-between text-[11px] font-mono text-slate-200 border-b border-slate-700">
-<span class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    BORESCOPE MACRO RECORD [ALT-084]
+            <div id="view-maintenance" class="view-pane">
+        <div class="flex flex-col w-full pb-16 space-y-6">
+          <!-- Header Bar -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Predictive Maintenance &amp; CBM+ Workspace</h1>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    EASA PART-M / FAA PART-43 CERTIFIED
                   </span>
-<span class="text-sky-300">CYLINDER #3 VALVE</span>
-</div>
-<!-- Borescope Imagery from DataStore -->
-<div class="relative group aspect-video overflow-hidden bg-black flex items-center justify-center">
-<img alt="Detailed aerospace engineering optical borescope inspection macro photo inside aircraft piston engine cylinder combustion chamber" class="object-cover w-full h-full transform transition duration-300 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida/AEtjO1X_bLwlM7Z9WBgyJe9E5dt41w7IqesG4bzaOexec0zoLVq-PC96kTkTnSDh_wq9DoI0X0Eb-b6RC4wXCnZzGTn4B2VWkQCPY-4jrlLgvW1tFmxgga5riy38ncWEG4eEq222Sf1NdDX2y7JmWfE196LBKnEZNT_zcOLNjXw7CwOpyWZAoecz1xIGN87l7NeLcYRuW4DYBpORT01IKuJclt4n0NOA8OJXf40Y-lIay2GW80qn6QaA5uB3kg"/>
-<!-- Crosshair and engineering overlay -->
-<div class="absolute inset-0 pointer-events-none border border-sky-400/20 m-2 flex flex-col justify-between p-2 font-mono text-[9px] text-white/90">
-<div class="flex justify-between items-start">
-<span class="bg-black/60 px-1 rounded">FOV: 120° DUAL-VIEW</span>
-<span class="bg-black/60 px-1 rounded text-amber-300">CARBON EDGE RESIDUAL: 0.42mm</span>
-</div>
-<div class="flex justify-between items-end">
-<span class="bg-black/60 px-1 rounded">CAL: VERIFIED 6.0mm</span>
-<span class="bg-black/60 px-1 rounded">HONING RETENTION: 91.2%</span>
-</div>
-</div>
-</div>
-<div class="p-2.5 bg-slate-900 text-[11px] font-mono text-slate-300 flex items-center justify-between">
-<span>Target: Exhaust Valve Face / Edge Carbon Ring</span>
-<a class="text-sky-400 hover:text-sky-300 flex items-center gap-1" href="#">Full-Res Scan (4K) →</a>
-</div>
-</div>
-<!-- Action Bar Buttons -->
-<div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
-<button class="col-span-2 sm:col-span-2 py-2 px-3 rounded bg-sky-600 hover:bg-sky-700 text-white font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-colors" type="button">
-<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
-<span>CREATE TASK / WORK ORDER</span>
-</button>
-<button class="py-2 px-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium text-center transition-colors" type="button">
-                  VIEW HISTORY
+                </div>
+                <p class="text-xs font-mono text-slate-500 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span class="font-semibold text-slate-700">ENGINE-AE-03 (Rotax 915iSc Turbo)</span>
+                  <span>•</span>
+                  <span>UAV-07 Hermes MALE (Tail #601-A)</span>
+                  <span>•</span>
+                  <span class="text-sky-700 font-medium">TTSN: 1,842.6 h</span>
+                  <span>•</span>
+                  <span class="text-sky-700 font-medium">TSOH: 342.6 h</span>
+                  <span>•</span>
+                  <span class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700">Weibull RUL: 1,284.0 h (β=1.82)</span>
+                </p>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <button id="maint-export-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">download</span>
+                  <span>Export Work Orders (CSV)</span>
                 </button>
-<button class="py-2 px-2 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 font-medium text-center transition-colors" type="button">
-                  FAULT EVIDENCE
+                <button id="maint-create-wo-btn" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold rounded-md bg-primary text-white hover:bg-slate-800 shadow-sm hover:shadow transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">add_task</span>
+                  <span>Create Work Order</span>
                 </button>
-</div>
-</div>
-</div>
-</article>
-</section>
-<!-- END: ImmediateAttentionSection -->
-<!-- BEGIN: SubsystemConditionGridSection -->
-<section class="space-y-4" data-purpose="subsystem-condition-monitoring">
-<div class="flex items-center justify-between">
-<div>
-<h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Upcoming Maintenance &amp; Condition Monitoring</h2>
-<p class="text-xs text-slate-500 font-mono">Continuous Health Indexing via Edge Digital Twin &amp; High-Frequency Telemetry</p>
-</div>
-<span class="text-xs font-mono text-slate-500 hidden sm:inline-block">6 SUBSYSTEMS NOMINAL / AUDITED</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-<!-- Card 1: Turbocharger & Electronic Wastegate -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">TURBO &amp; ELECTRONIC WASTEGATE</h3>
-<p class="text-[11px] text-slate-500 font-mono">Actuator S/N: WG-109 • Core 1842.6 h</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">94%</span>
-<span class="block text-[10px] text-slate-400 font-mono">NOMINAL</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">142.6 h ago</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">Spindle axial clearance 0.35mm (Limit: 0.60mm). Wastegate servo duty nominal.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">High altitude boost bleed risk at &gt;18,000 ft if linkage friction rises.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Torque check wastegate linkage at 1,950 h depot cycle.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-<!-- Card 2: Propeller Reduction Gearbox (PRGB) -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">PRGB REDUCTION GEARBOX (2.54:1)</h3>
-<p class="text-[11px] text-slate-500 font-mono">Overload Clutch S/N: GB-411</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">91%</span>
-<span class="block text-[10px] text-slate-400 font-mono">MONITORED</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">842.6 h TSOH</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">42.6 h ago (SOAP)</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">SOAP oil spectro: Fe 8ppm, Cu 1ppm. Slipper clutch wear estimated at 14%.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">Torsional oscillation harmonic damper slip margin remaining: 1,120 h.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Verify drag torque and dog gear back-lash at Turnaround 15 window.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-<!-- Card 3: Cylinder Assemblies (Piston & Barrels) -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">CYLINDER #1 - #4 PISTON &amp; BARREL</h3>
-<p class="text-[11px] text-slate-500 font-mono">Nikasil Bore Coatings • Cyl #3 Checked</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">95%</span>
-<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">Turnaround 13</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">Differential compression 78/80 psi average. Nikasil crosshatch retention 92.4%.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">Cylinder #3 slight ring fouling if injector rich-flow is not calibrated.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Continue on-condition telemetry monitoring. No ring repacking needed.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-<!-- Card 4: High Pressure Fuel Rail & Boost Pumps -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">HP DUAL FUEL RAIL &amp; BOOST PUMPS</h3>
-<p class="text-[11px] text-slate-500 font-mono">Main &amp; Aux Pumps (3.0 Bar Rail)</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">96%</span>
-<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">100 h Check</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">Pressure damper compliance 98.2%. Duplex filter delta-P 0.12 bar (Clean).</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">Zero cavitation detected. Pump-B commutators nominal.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Scheduled fuel fine micron filter canister exchange at 2,050 h.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-<!-- Card 5: Ignition & Dual FADEC Spark Circuits -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">IGNITION &amp; DUAL FADEC SPARK</h3>
-<p class="text-[11px] text-slate-500 font-mono">Dual Lane A/B Igniters (8 Plugs)</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">93%</span>
-<span class="block text-[10px] text-slate-400 font-mono">NOMINAL</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">42.6 h ago</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">Spark discharge rise-time jitter 0.04 ms. Iridium gap average 0.68mm.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">Slight carbon tracking risk on Bottom Plug #3 if uncleaned.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Clean and regap spark plugs during upcoming Turnaround 16 maintenance.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-<!-- Card 6: Dual Oil Scavenge Pump & Heat Exchanger -->
-<article class="bg-surface-card border border-surface-border rounded-lg p-4 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
-<div class="space-y-3">
-<div class="flex items-start justify-between gap-2 border-b border-slate-100 pb-2.5">
-<div>
-<h3 class="text-xs font-bold text-slate-800 font-mono tracking-tight">OIL SCAVENGE PUMP &amp; HEAT EXCHANGER</h3>
-<p class="text-[11px] text-slate-500 font-mono">Dry Sump Lube System (AeroShell 4)</p>
-</div>
-<div class="text-right">
-<span class="px-2 py-0.5 rounded text-xs font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">97%</span>
-<span class="block text-[10px] text-slate-400 font-mono">OPTIMAL</span>
-</div>
-</div>
-<div class="grid grid-cols-2 gap-2 text-[11px] font-mono bg-slate-50 p-2 rounded border border-slate-200">
-<div>
-<span class="text-slate-400 text-[10px] block">OPERATING HOURS</span>
-<span class="font-bold text-slate-700">1,842.6 h TTSN</span>
-</div>
-<div>
-<span class="text-slate-400 text-[10px] block">LAST SERVICE</span>
-<span class="font-bold text-slate-700">Turnaround 13</span>
-</div>
-</div>
-<div class="text-xs space-y-1.5 font-sans">
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Degradation:</span>
-<p class="text-slate-600 text-[11px]">Scavenge pump pressure delta steady at 4.82 bar. Core delta-T nominal.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Predicted Issue:</span>
-<p class="text-slate-600 text-[11px]">No varnish accumulation or cooler fin clogging predicted &lt;500h.</p>
-</div>
-<div>
-<span class="text-[10px] font-semibold text-slate-500 uppercase font-mono">Recommendation:</span>
-<p class="text-slate-800 text-[11px] font-medium">Routine pre-flight oil level dipstick check and magnetic plug inspection.</p>
-</div>
-</div>
-</div>
-<div class="pt-4 mt-2 border-t border-slate-100 grid grid-cols-2 gap-1.5 text-xs font-mono">
-<button class="py-1.5 px-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 font-medium text-center" type="button">CREATE TASK</button>
-<button class="py-1.5 px-2 bg-slate-50 hover:bg-slate-100 rounded text-slate-600 border border-slate-200 text-center" type="button">VIEW SENSOR</button>
-</div>
-</article>
-</div>
-</section>
-<!-- END: SubsystemConditionGridSection -->
-<!-- BEGIN: MaintenanceCalendarTimeline -->
-<section class="bg-surface-card border border-surface-border rounded-lg p-5 shadow-sm space-y-4" data-purpose="maintenance-timeline">
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
-<div>
-<h2 class="text-base font-bold text-slate-900 tracking-tight">Maintenance Schedule &amp; Work Windows</h2>
-<p class="text-xs text-slate-500 font-mono">Automated Turnaround Interval Queuing (Ground Stations &amp; Line Operations)</p>
-</div>
-<div class="flex items-center gap-2 font-mono text-xs">
-<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-rose-500"></span> Urgent</span>
-<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-sky-500"></span> Scheduled</span>
-<span class="inline-flex items-center gap-1 text-slate-600"><span class="w-2 h-2 rounded bg-emerald-500"></span> Depot</span>
-</div>
-</div>
-<!-- Horizontal Timeline Bar Representation -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-3 pt-2">
-<!-- Column 1: Today / Turnaround 14 -->
-<div class="border-2 border-rose-300 bg-rose-50/30 rounded-lg p-3 space-y-2.5">
-<div class="flex items-center justify-between font-mono">
-<span class="text-xs font-bold text-rose-900">TURNAROUND 14</span>
-<span class="text-[10px] px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 font-semibold uppercase">TODAY (Ground)</span>
-</div>
-<div class="text-[11px] text-slate-500 font-mono">TTSN: 1,842.6 h • Station Alpha</div>
-<!-- Timeline Task Item -->
-<div class="bg-white border border-rose-200 rounded p-2.5 shadow-xs space-y-1">
-<div class="flex items-center justify-between text-xs">
-<span class="font-bold text-slate-800 font-mono">WO-8842</span>
-<span class="text-[10px] font-mono text-rose-600 font-bold">45 min</span>
-</div>
-<p class="text-xs font-medium text-slate-700 font-sans">Injector #3 Flow &amp; Ultrasonic Clean</p>
-<div class="text-[10px] text-slate-500 font-mono flex items-center justify-between pt-1">
-<span>Assigned: Avionics Shop</span>
-<span class="text-amber-700 font-semibold">QUEUED</span>
-</div>
-</div>
-<!-- Task Item 2 -->
-<div class="bg-white border border-slate-200 rounded p-2 shadow-xs space-y-1">
-<div class="flex items-center justify-between text-xs">
-<span class="font-bold text-slate-800 font-mono">WO-8843</span>
-<span class="text-[10px] font-mono text-slate-500">20 min</span>
-</div>
-<p class="text-xs text-slate-700 font-sans">Compression Delta Verification</p>
-<div class="text-[10px] text-slate-400 font-mono">Routine Differential Gauge</div>
-</div>
-</div>
-<!-- Column 2: Turnaround 15 (+50h) -->
-<div class="border border-surface-border bg-slate-50/70 rounded-lg p-3 space-y-2.5">
-<div class="flex items-center justify-between font-mono">
-<span class="text-xs font-bold text-slate-800">TURNAROUND 15</span>
-<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 font-semibold">+50 flight hrs</span>
-</div>
-<div class="text-[11px] text-slate-500 font-mono">Est: ~1,892 h • Line Station</div>
-<div class="bg-white border border-slate-200 rounded p-2.5 shadow-xs space-y-1">
-<div class="flex items-center justify-between text-xs">
-<span class="font-bold text-slate-800 font-mono">TASK-CBM-09</span>
-<span class="text-[10px] font-mono text-slate-500">30 min</span>
-</div>
-<p class="text-xs text-slate-700 font-sans">SOAP Oil Sample Extraction</p>
-<div class="text-[10px] text-slate-400 font-mono">Lab Spectro ICP-OES Analysis</div>
-</div>
-</div>
-<!-- Column 3: Turnaround 16 (+100h) -->
-<div class="border border-surface-border bg-slate-50/70 rounded-lg p-3 space-y-2.5">
-<div class="flex items-center justify-between font-mono">
-<span class="text-xs font-bold text-slate-800">TURNAROUND 16</span>
-<span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-200 text-slate-700 font-semibold">+100 flight hrs</span>
-</div>
-<div class="text-[11px] text-slate-500 font-mono">Est: ~1,942 h • Hangar Bay 4</div>
-<div class="bg-white border border-slate-200 rounded p-2.5 shadow-xs space-y-1">
-<div class="flex items-center justify-between text-xs">
-<span class="font-bold text-slate-800 font-mono">INSP-100H</span>
-<span class="text-[10px] font-mono text-slate-500">2.5 hrs</span>
-</div>
-<p class="text-xs text-slate-700 font-sans">Spark Plug Regap &amp; Borescope Scan</p>
-<div class="text-[10px] text-slate-400 font-mono">Full 4-Cylinder Macro Pass</div>
-</div>
-</div>
-<!-- Column 4: Depot Major (+650h) -->
-<div class="border border-indigo-200 bg-indigo-50/20 rounded-lg p-3 space-y-2.5">
-<div class="flex items-center justify-between font-mono">
-<span class="text-xs font-bold text-indigo-950">DEPOT OVERHAUL</span>
-<span class="text-[10px] px-1.5 py-0.2 rounded bg-indigo-100 text-indigo-800 font-semibold">TBO: 2,000 h</span>
-</div>
-<div class="text-[11px] text-slate-500 font-mono">Target: ~2,000 h • Depot Base</div>
-<div class="bg-white border border-indigo-200 rounded p-2.5 shadow-xs space-y-1">
-<div class="flex items-center justify-between text-xs">
-<span class="font-bold text-indigo-900 font-mono">DEPOT-OVH-03</span>
-<span class="text-[10px] font-mono text-indigo-600 font-bold">14 Days</span>
-</div>
-<p class="text-xs text-slate-700 font-sans">Full Powerplant Overhaul &amp; Re-cert</p>
-<div class="text-[10px] text-slate-500 font-mono">Complete Teardown &amp; NDT</div>
-</div>
-</div>
-</div>
-</section>
-<!-- END: MaintenanceCalendarTimeline -->
-<!-- BEGIN: MaintenanceHistoryComplianceLog -->
-<section class="bg-surface-card border border-surface-border rounded-lg shadow-sm overflow-hidden" data-purpose="compliance-log-table">
-<div class="px-5 py-4 border-b border-surface-border flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-<div>
-<h2 class="text-base font-bold text-slate-900 tracking-tight">Maintenance History &amp; Tamper-Evident Compliance Log</h2>
-<p class="text-xs text-slate-500 font-mono">FAA Part-43 / EASA Part-M Synchronized Cryptographic Ledger</p>
-</div>
-<div class="flex items-center gap-2">
-<input class="text-xs px-3 py-1.5 rounded border border-slate-300 font-mono w-48 sm:w-64 focus:ring-1 focus:ring-sky-500" placeholder="Search S/N, Work Order, Tech..." type="text"/>
-<button class="px-2.5 py-1.5 border border-slate-300 rounded text-slate-600 hover:bg-slate-50 text-xs">Filter</button>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left text-xs font-sans">
-<thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
-<tr>
-<th class="py-3 px-4">Event ID / Order</th>
-<th class="py-3 px-4">Date / UTC</th>
-<th class="py-3 px-4">Aircraft TTSN</th>
-<th class="py-3 px-4">Task Description &amp; Corrective Action</th>
-<th class="py-3 px-4">Certifying Authority</th>
-<th class="py-3 px-4 text-center">Status</th>
-<th class="py-3 px-4 text-right">Audit Proof</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-slate-100 font-mono text-slate-700">
-<!-- Row 1 -->
-<tr class="hover:bg-slate-50/60 transition-colors">
-<td class="py-3 px-4 font-bold text-sky-700">WO-8839</td>
-<td class="py-3 px-4 whitespace-nowrap">14-OCT-2024 08:30</td>
-<td class="py-3 px-4 font-semibold">1,838.2 h</td>
-<td class="py-3 px-4 font-sans">
-                  Turnaround 13 Post-Flight Sign-off: Compression test Cyl 1-4 (average 78/80 psi). SOAP spectro lab sample pulled.
-                </td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="font-sans font-medium text-slate-900 block">Maj. K. Vance</span>
-<span class="text-[10px] text-slate-400">FAA A&amp;P #3841920 / IA</span>
-</td>
-<td class="py-3 px-4 text-center">
-<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold text-[10px]">CLOSED</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 9C81..E4F0</span>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-slate-50/60 transition-colors">
-<td class="py-3 px-4 font-bold text-sky-700">WO-8831</td>
-<td class="py-3 px-4 whitespace-nowrap">02-OCT-2024 16:15</td>
-<td class="py-3 px-4 font-semibold">1,800.0 h</td>
-<td class="py-3 px-4 font-sans">
-                  Digital Twin Telemetry Recalibration: PINN model residual offset re-zeroed following FADEC software patch v3.8.1.
-                </td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="font-sans font-medium text-slate-900 block">Edge Automated Daemon</span>
-<span class="text-[10px] text-slate-400">SYS-VERIFIED AUTONOMOUS</span>
-</td>
-<td class="py-3 px-4 text-center">
-<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold text-[10px]">VERIFIED</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 4D22..AA19</span>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-slate-50/60 transition-colors">
-<td class="py-3 px-4 font-bold text-sky-700">WO-8798</td>
-<td class="py-3 px-4 whitespace-nowrap">18-SEP-2024 11:40</td>
-<td class="py-3 px-4 font-semibold">1,742.6 h</td>
-<td class="py-3 px-4 font-sans">
-                  100-Hour Mandatory Powerplant Inspection: Valvetrain pushrod lash adjusted, oil and dual micro-filters replaced. Slipper clutch drag verified.
-                </td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="font-sans font-medium text-slate-900 block">Capt. R. Hernandez</span>
-<span class="text-[10px] text-slate-400">FAA A&amp;P #4102941</span>
-</td>
-<td class="py-3 px-4 text-center">
-<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold text-[10px]">CLOSED</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: 18BC..8821</span>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-slate-50/60 transition-colors">
-<td class="py-3 px-4 font-bold text-sky-700">WO-8762</td>
-<td class="py-3 px-4 whitespace-nowrap">05-SEP-2024 14:05</td>
-<td class="py-3 px-4 font-semibold">1,700.0 h</td>
-<td class="py-3 px-4 font-sans">
-                  Optical Borescope Inspection ALT-083: Cylinders #1 - #4 macro video scan. Nikasil barrel crosshatching confirmed nominal.
-                </td>
-<td class="py-3 px-4 whitespace-nowrap">
-<span class="font-sans font-medium text-slate-900 block">NDT Specialist E. Chen</span>
-<span class="text-[10px] text-slate-400">NAS-410 Level III</span>
-</td>
-<td class="py-3 px-4 text-center">
-<span class="px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-semibold text-[10px]">ARCHIVED</span>
-</td>
-<td class="py-3 px-4 text-right">
-<span class="text-[10px] text-slate-400 hover:text-sky-600 cursor-pointer">SIG: FF03..43B1</span>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="px-5 py-3 bg-slate-50 border-t border-surface-border flex items-center justify-between text-xs font-mono text-slate-500">
-<span>Showing 4 of 142 Certified Part-M Ledger Entries</span>
-<div class="flex items-center gap-1">
-<button class="px-2 py-1 border border-slate-300 rounded bg-white text-slate-600 hover:bg-slate-50">Prev</button>
-<button class="px-2 py-1 border border-slate-300 rounded bg-white text-slate-600 hover:bg-slate-50">Next</button>
-</div>
-</div>
-</section>
-<!-- END: MaintenanceHistoryComplianceLog -->
+              </div>
+            </div>
+          </section>
+
+          <!-- KPI Metrics Grid (Clickable Drill-downs) -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" data-purpose="kpi-metrics-grid">
+            <div id="maint-kpi-total" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-primary transition-colors">Total Maintenance Tasks</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">All Statuses</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="maint-kpi-val-total" class="text-3xl font-bold font-mono text-slate-900">4</span>
+                <span class="text-xs font-medium text-slate-500">Active Work Orders</span>
+              </div>
+              <div class="text-[11px] text-sky-600 mt-2 font-mono flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">filter_alt</span> Click to show all tasks
+              </div>
+            </div>
+
+            <div id="maint-kpi-overdue" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-amber-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-amber-700 transition-colors">Overdue Work Orders</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">High / Critical</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="maint-kpi-val-overdue" class="text-3xl font-bold font-mono text-amber-600">1</span>
+                <span class="text-xs text-slate-600">Immediate Action Req</span>
+              </div>
+              <div class="text-[11px] text-amber-700 mt-2 font-mono flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">priority_high</span> Click to filter overdue
+              </div>
+            </div>
+
+            <div id="maint-kpi-upcoming" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-sky-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-sky-700 transition-colors">Upcoming Maintenance</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Turnaround 14-16</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="maint-kpi-val-upcoming" class="text-3xl font-bold font-mono text-slate-900">2</span>
+                <span class="text-xs text-slate-500">Scheduled Events</span>
+              </div>
+              <div class="text-[11px] text-sky-600 mt-2 font-mono flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">calendar_today</span> Click to filter upcoming
+              </div>
+            </div>
+
+            <div id="maint-kpi-critical" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-rose-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-rose-700 transition-colors">Critical Maintenance Alerts</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">1 AOG Flag</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="maint-kpi-val-critical" class="text-3xl font-bold font-mono text-rose-600">1</span>
+                <span class="text-xs font-medium text-rose-600">Injector Coking</span>
+              </div>
+              <div class="text-[11px] text-rose-600 mt-2 font-mono flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">warning</span> Click to filter critical
+              </div>
+            </div>
+          </section>
+
+          <!-- Subsystem Filter Strip -->
+          <section class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="text-xs font-semibold text-slate-500 uppercase mr-1">Filter Subsystem:</span>
+            <button data-maint-filter="ALL" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-white shadow-sm cursor-pointer transition-colors" type="button">All Subsystems</button>
+            <button data-maint-filter="Propulsion Core" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors" type="button">Propulsion Core</button>
+            <button data-maint-filter="Fuel & Metering" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors" type="button">Fuel &amp; Metering</button>
+            <button data-maint-filter="Thermal & Combustion" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors" type="button">Thermal &amp; Combustion</button>
+            <button data-maint-filter="Lubrication & Gearbox" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors" type="button">Lubrication &amp; Gearbox</button>
+            <button data-maint-filter="Avionics & FADEC" class="maint-filter-pill px-3.5 py-1.5 text-xs font-medium rounded-full bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 cursor-pointer transition-colors" type="button">Avionics &amp; FADEC</button>
+          </section>
+
+          <!-- Featured Immediate Attention Card -->
+          <section class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="flex h-3 w-3 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+                </span>
+                <h2 class="text-base font-bold text-slate-900 uppercase tracking-wide">Immediate Attention — Subsystem Advisory</h2>
+              </div>
+              <span class="text-xs font-mono text-slate-500">PRIORITY LEVEL 1 • ACTION REQUIRED BEFORE NEXT MISSION DISPATCH</span>
+            </div>
+
+            <article class="bg-white border-2 border-rose-400/80 rounded-xl shadow-sm overflow-hidden">
+              <div class="bg-rose-50 border-b border-rose-200 px-5 py-3 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <span class="px-2 py-0.5 rounded bg-rose-600 text-white font-mono font-bold text-xs">CBM+ ADVISORY</span>
+                  <span class="text-sm font-semibold text-rose-950 font-mono">INJECTOR SYSTEM — Cylinder #3 High-Pressure Solenoid Injector</span>
+                </div>
+                <div class="flex items-center gap-4 text-xs font-mono text-slate-600">
+                  <span>P/N: <strong class="text-slate-900">874-920</strong></span>
+                  <span>S/N: <strong class="text-slate-900">INJ-084</strong></span>
+                  <span class="px-2 py-0.5 rounded bg-white border border-rose-300 text-rose-700 font-bold">Health Score: 84% (Declining -4.2% / 15h)</span>
+                </div>
+              </div>
+              <div class="p-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-8 space-y-4">
+                  <div class="grid grid-cols-3 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 text-xs font-mono">
+                    <div>
+                      <span class="text-slate-500 block text-[10px]">OPERATING HOURS</span>
+                      <span class="font-bold text-slate-800">342.6 h TSOH</span>
+                      <span class="text-slate-400 text-[10px] block">1,842.6 h TTSN</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block text-[10px]">LAST SERVICE</span>
+                      <span class="font-bold text-slate-800">142.6 h ago</span>
+                      <span class="text-slate-400 text-[10px] block">Turnaround 11 Flush</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block text-[10px]">REMAINING USEFUL LIFE</span>
+                      <span class="font-bold text-amber-600">45.0 flight hours</span>
+                      <span class="text-slate-400 text-[10px] block">To Thermal Boundary</span>
+                    </div>
+                  </div>
+                  <div class="space-y-2 text-xs">
+                    <div>
+                      <span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Degradation Mechanism:</span>
+                      <p class="text-slate-700 mt-0.5 leading-relaxed bg-amber-50/50 p-2.5 rounded border border-amber-200/60 font-sans">
+                        Micro-orifice nozzle coking causing flow bias (+0.50 L/h) and asymmetric combustion wash on Cylinder #3 crown and valve periphery.
+                      </p>
+                    </div>
+                    <div>
+                      <span class="font-semibold text-slate-700 uppercase tracking-wide text-[11px]">Engineering Recommendation:</span>
+                      <div class="flex items-start gap-2 mt-1 text-slate-800 bg-sky-50/60 p-2.5 rounded border border-sky-200">
+                        <span class="material-symbols-outlined text-[18px] text-sky-600 flex-shrink-0 mt-0.5">info</span>
+                        <p class="font-sans text-xs">
+                          Inspect during next authorized turnaround window (<strong>Turnaround 14 Ground - TODAY</strong>). Perform ultrasonic injector flush &amp; flow bench calibration per Rotax MM Chapter 73-10-00. If flow variation exceeds 1.5% post-flush, swap S/N INJ-084 with Depot spares unit #092.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-span-4 flex flex-col justify-between space-y-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
+                  <div>
+                    <span class="text-xs font-bold text-slate-800 uppercase tracking-wide block mb-2">Advisory Direct Actions</span>
+                    <p class="text-xs text-slate-500 mb-4">Execute maintenance actions directly connected to backend work-order dispatch.</p>
+                  </div>
+                  <div class="space-y-2">
+                    <button id="maint-btn-create-inj-wo" class="w-full py-2.5 px-3 rounded bg-primary hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-center gap-1.5 shadow-sm transition-colors cursor-pointer" type="button">
+                      <span class="material-symbols-outlined text-[16px]">add_task</span>
+                      <span>CREATE WORK ORDER</span>
+                    </button>
+                    <button id="maint-btn-view-inj-sensor" class="w-full py-2 px-3 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer" type="button">
+                      <span class="material-symbols-outlined text-[16px]">sensors</span>
+                      <span>INSPECT SENSOR RESIDUALS</span>
+                    </button>
+                    <button id="maint-btn-evidence" class="w-full py-2 px-3 rounded bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer" type="button">
+                      <span class="material-symbols-outlined text-[16px]">science</span>
+                      <span>VIEW FORENSIC EVIDENCE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- Equipment Risk Matrix & Maintenance Timeline Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Equipment Health & Risk Matrix (6 cols) -->
+            <section class="lg:col-span-6 bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                <div>
+                  <h3 class="font-headline-md text-base font-bold text-slate-900">Equipment Health &amp; Risk Matrix</h3>
+                  <p class="text-xs text-slate-500 font-mono">Real-time condition grading by subsystem</p>
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">5 Monitored Domains</span>
+              </div>
+              <div id="maint-risk-matrix-list" class="space-y-2.5">
+                <!-- Injected dynamically via app.js -->
+              </div>
+            </section>
+
+            <!-- Maintenance Calendar & Timeline (6 cols) -->
+            <section class="lg:col-span-6 bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                <div>
+                  <h3 class="font-headline-md text-base font-bold text-slate-900">Maintenance Calendar &amp; Turnaround Gates</h3>
+                  <p class="text-xs text-slate-500 font-mono">Flight hours interval scheduling</p>
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold">TBO: 2,000 h</span>
+              </div>
+              <div id="maint-timeline-list" class="grid grid-cols-2 gap-3">
+                <!-- Injected dynamically via app.js -->
+              </div>
+            </section>
+          </div>
+
+          <!-- Dynamic Work-Order Management Table -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Active Work Orders &amp; Compliance Sign-offs</h2>
+                <p class="text-xs text-slate-500 font-mono">Click any work order to view details, reassign technician, update status, or delete</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <input id="maint-search-input" type="text" placeholder="Search Work Order, Tech, Subsystem..." class="text-xs px-3 py-1.5 rounded-md border border-slate-300 font-mono w-48 sm:w-60 focus:ring-1 focus:ring-primary" />
+                <select id="maint-status-select" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Statuses</option>
+                  <option value="OPEN">OPEN</option>
+                  <option value="IN_PROGRESS">IN_PROGRESS</option>
+                  <option value="COMPLETED">COMPLETED</option>
+                </select>
+                <button id="maint-refresh-btn" class="p-1.5 border border-slate-300 rounded-md text-slate-600 hover:bg-slate-50 cursor-pointer" title="Refresh Table">
+                  <span class="material-symbols-outlined text-[16px]">refresh</span>
+                </button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Work Order / ID</th>
+                    <th class="py-3 px-4">Subsystem</th>
+                    <th class="py-3 px-4">Priority</th>
+                    <th class="py-3 px-4">Description</th>
+                    <th class="py-3 px-4">Assigned Tech</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="maint-wo-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
       </div>
-    
-      <div id="view-mission-simulator" class="view-pane">
+
+      <div id="view-reports" class="view-pane">
+        <div class="flex flex-col w-full pb-16 space-y-6">
+          <!-- Header Bar -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Airworthiness &amp; Fleet Analytics Reports</h1>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-sky-100 text-sky-800 border border-sky-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
+                    CRYPTO AUDIT TRAIL VERIFIED
+                  </span>
+                </div>
+                <p class="text-xs font-mono text-slate-500 mt-1">
+                  High-frequency sensor aggregations, Weibull degradation curves, CBM+ dispatch packs, and EASA Part-M continuing airworthiness compliance.
+                </p>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <button id="rep-btn-generate" class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-md bg-primary text-white hover:bg-slate-800 shadow-sm hover:shadow transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">add_chart</span>
+                  <span>Generate New Report</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Reports KPI Strip -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Generated Reports</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="rep-kpi-total" class="text-3xl font-bold font-mono text-slate-900">3</span>
+                <span class="text-xs text-slate-500">Available Files</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 font-mono mt-2 block">100% Download Ready</span>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Fleet MTBUR Reliability</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span id="rep-kpi-mtbur" class="text-3xl font-bold font-mono text-slate-900">4,120</span>
+                <span class="text-xs text-slate-500">Flight Hours</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 font-mono mt-2 block">+8.4% vs OEM Baseline</span>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Airworthiness Compliance</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-3xl font-bold font-mono text-emerald-600">100.0%</span>
+                <span class="text-xs text-slate-500">Certified</span>
+              </div>
+              <span class="text-[11px] text-slate-400 font-mono mt-2 block">142 Part-M Ledger Entries</span>
+            </div>
+
+            <div class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Telemetry Frames Audited</span>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-3xl font-bold font-mono text-slate-900">4.89M</span>
+                <span class="text-xs text-slate-500">Packets</span>
+              </div>
+              <span class="text-[11px] text-sky-600 font-mono mt-2 block">Zero CRC frame drops</span>
+            </div>
+          </section>
+
+          <!-- Analytics Charts Section -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Historical Health & Degradation Trend (7 cols) -->
+            <section class="lg:col-span-7 bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+                <div>
+                  <h3 class="font-headline-md text-base font-bold text-slate-900">30-Day Fleet Condition &amp; Health Degradation Trend</h3>
+                  <p class="text-xs text-slate-500 font-mono">Weibull cumulative hazard indexing over mission cycles</p>
+                </div>
+                <div class="flex items-center gap-1 font-mono text-xs">
+                  <span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-bold">Health Index %</span>
+                  <span class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold">Anomalies</span>
+                </div>
+              </div>
+              <div class="relative w-full h-64 bg-slate-950 rounded-lg p-2 border border-slate-800 overflow-hidden">
+                <canvas id="rep-health-canvas" class="w-full h-full"></canvas>
+              </div>
+              <div class="flex items-center justify-between text-xs font-mono text-slate-500 pt-1">
+                <span>Data points sampled across 30 operating days</span>
+                <span class="text-primary font-semibold">Hover over points to inspect date &amp; values</span>
+              </div>
+            </section>
+
+            <!-- Multi-Sensor Residual Deviation Chart (5 cols) -->
+            <section class="lg:col-span-5 bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                <div>
+                  <h3 class="font-headline-md text-base font-bold text-slate-900">Sensor Residual Deltas</h3>
+                  <p class="text-xs text-slate-500 font-mono">Actual vs Physics Expected Model</p>
+                </div>
+                <span class="text-xs font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Cyl #3 Bias</span>
+              </div>
+              <div class="relative w-full h-64 bg-slate-950 rounded-lg p-2 border border-slate-800 overflow-hidden">
+                <canvas id="rep-sensor-canvas" class="w-full h-full"></canvas>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-600 bg-slate-50 p-2 rounded border border-slate-200">
+                <div><span>EGT Dev:</span> <strong class="text-amber-600">+18.0°C</strong></div>
+                <div><span>Fuel Bias:</span> <strong class="text-rose-600">+0.50 L/h</strong></div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Multi-Asset Comparison Matrix -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">Fleet Multi-Asset Comparative Analytics</h3>
+                <p class="text-xs text-slate-500 font-mono">Comparative baseline between Rotax 914 Turbo and 915iSc airframes</p>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">8 Registered UAVs</span>
+            </div>
+            <div id="rep-comparison-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+              <!-- Injected dynamically via app.js -->
+            </div>
+          </section>
+
+          <!-- Report History & Real Download Table -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Generated Reports Archive &amp; Export Center</h2>
+                <p class="text-xs text-slate-500 font-mono">Every row contains genuine downloadable telemetry and analytical findings</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <input id="rep-search-input" type="text" placeholder="Search Report, Title, Author..." class="text-xs px-3 py-1.5 rounded-md border border-slate-300 font-mono w-48 sm:w-60 focus:ring-1 focus:ring-primary" />
+                <select id="rep-type-filter" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Report Types</option>
+                  <option value="FLEET_HEALTH">Fleet Condition</option>
+                  <option value="CBM_RELIABILITY">CBM+ Reliability</option>
+                  <option value="SENSOR_ANOMALY">Sensor Anomaly</option>
+                  <option value="EASA_AUDIT">EASA Compliance</option>
+                </select>
+                <button id="rep-refresh-btn" class="p-1.5 border border-slate-300 rounded-md text-slate-600 hover:bg-slate-50 cursor-pointer" title="Refresh Reports">
+                  <span class="material-symbols-outlined text-[16px]">refresh</span>
+                </button>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Report ID</th>
+                    <th class="py-3 px-4">Report Title</th>
+                    <th class="py-3 px-4">Scope</th>
+                    <th class="py-3 px-4">Format</th>
+                    <th class="py-3 px-4">Size</th>
+                    <th class="py-3 px-4">Generated At</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="rep-history-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+<div id="view-mission-simulator" class="view-pane">
         <!-- 1. Header & Quick Controls -->
       <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
         <div>
@@ -6852,257 +6537,546 @@
 </div>
       </div>
     
-      <div id="view-edge-ai" class="view-pane">
-        <div class="flex flex-col w-full pb-16">
-<!-- Top Status Banner -->
-<div class="bg-primary-container text-on-primary-container p-space-lg rounded-xl mb-space-lg shadow-md">
-<div class="flex flex-wrap items-center justify-between gap-space-md mb-space-md">
-<div class="flex items-center gap-space-sm">
-<span class="material-symbols-outlined text-tertiary-fixed-dim text-[24px]">memory</span>
-<div>
-<h2 class="font-headline-lg text-headline-lg text-on-primary leading-tight">Edge AI Processing Node</h2>
-<p class="font-body-sm text-on-primary-container">Jetson Orin NX (100W Aero-Piston Gateway)</p>
-</div>
-</div>
-<div class="flex items-center gap-space-sm flex-wrap">
-<span class="px-space-sm py-1 bg-tertiary text-on-tertiary font-label-caps text-label-caps rounded flex items-center gap-1">
-<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span> ONLINE
-        </span>
-<span class="px-space-sm py-1 bg-primary text-on-primary font-label-caps text-label-caps rounded">
-          MODEL: AeroTwin Edge v1.4 (INT8)
-        </span>
-<span class="px-space-sm py-1 bg-surface text-on-surface font-label-caps text-label-caps rounded">
-          AUTONOMOUS READY
-        </span>
-</div>
-</div>
-<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-space-sm pt-space-sm border-t border-outline/20">
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">LATENCY</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">18 ms</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">MODEL SIZE</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">42.8 MB</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">CPU UTIL</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">34.2%</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">MEMORY</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">1.24 / 4 GB</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">PACKETS</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">4,893,518</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">DROPPED</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold text-tertiary-fixed-dim">0</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">OFFLINE BUF</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold">0 Active</div>
-</div>
-<div class="bg-primary/30 p-space-sm rounded">
-<div class="font-label-caps text-[10px] text-on-primary-container">BW REDUCTION</div>
-<div class="font-telemetry-md text-telemetry-md text-on-primary font-bold text-tertiary-fixed-dim">78.4%</div>
-</div>
-</div>
-</div>
-<!-- Visual End-to-End Edge AI Pipeline -->
-<div class="bg-surface-container-lowest p-space-lg rounded-xl mb-space-lg shadow-sm">
-<div class="flex items-center justify-between mb-space-md">
-<h3 class="font-headline-md text-headline-md text-on-surface">End-to-End Edge AI Telemetry Pipeline</h3>
-<span class="font-code-cell text-code-cell text-on-surface-variant">Architecture: TensorRT + PINN Surrogate</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-6 gap-space-sm items-center">
-<div class="bg-surface-container-low p-space-md rounded-xl text-center">
-<span class="material-symbols-outlined text-[28px] text-primary mb-1">settings_suggest</span>
-<div class="font-headline-sm text-headline-sm text-on-surface">ENGINE</div>
-<div class="font-body-sm text-on-surface-variant">Turbo Piston Core</div>
-</div>
-<div class="hidden md:flex justify-center text-primary">
-<span class="material-symbols-outlined text-[24px]">arrow_forward</span>
-</div>
-<div class="bg-surface-container-low p-space-md rounded-xl text-center">
-<span class="material-symbols-outlined text-[28px] text-primary mb-1">sensors</span>
-<div class="font-headline-sm text-headline-sm text-on-surface">SENSORS</div>
-<div class="font-body-sm text-on-surface-variant">1kHz High-Freq Streams</div>
-</div>
-<div class="hidden md:flex justify-center text-primary">
-<span class="material-symbols-outlined text-[24px]">arrow_forward</span>
-</div>
-<div class="bg-primary text-on-primary p-space-md rounded-xl text-center shadow">
-<span class="material-symbols-outlined text-[28px] text-tertiary-fixed-dim mb-1">developer_board</span>
-<div class="font-headline-sm text-headline-sm text-on-primary">EDGE NODE</div>
-<div class="font-body-sm text-inverse-primary">Jetson Orin (18ms resp)</div>
-</div>
-<div class="hidden md:flex justify-center text-primary">
-<span class="material-symbols-outlined text-[24px]">arrow_forward</span>
-</div>
-</div>
-<div class="mt-space-md p-space-md bg-surface-container-low rounded-xl flex flex-wrap items-center justify-between gap-space-md">
-<div class="flex items-center gap-space-sm">
-<span class="material-symbols-outlined text-secondary text-[20px]">bolt</span>
-<span class="font-body-md text-on-surface">Edge filtering suppresses high-frequency sensor noise locally, achieving <strong>18ms</strong> real-time inference vs <strong>142ms</strong> traditional ground-station round-trip latency.</span>
-</div>
-<div class="flex gap-space-sm">
-<span class="px-space-sm py-1 bg-surface text-on-surface font-label-caps text-label-caps rounded">UDP / STANAG 4586</span>
-<span class="px-space-sm py-1 bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded">ENCRYPTED</span>
-</div>
-</div>
-</div>
-<!-- Local Anomaly Detection & Surrogate Health + Neural Model Metrics -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg">
-<!-- Local Anomaly Table -->
-<div class="lg:col-span-7 bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-space-md">
-<h3 class="font-headline-md text-headline-md text-on-surface">Local Anomaly Detection &amp; Surrogate Health</h3>
-<span class="px-space-sm py-1 bg-error-container text-on-error-container font-label-caps text-label-caps rounded">1 ACTIVE FLAG</span>
-</div>
-<p class="font-body-sm text-on-surface-variant mb-space-md">Real-time inspection table displaying local residual chi-squared anomaly flags intercepted prior to satellite transmission.</p>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="border-b border-outline/20 font-label-caps text-[11px] text-on-surface-variant">
-<th class="py-2 px-2">TIMESTAMP (UTC)</th>
-<th class="py-2 px-2">SUBSYSTEM</th>
-<th class="py-2 px-2">RESIDUAL CHI-SQ</th>
-<th class="py-2 px-2">LOCAL STATUS</th>
-</tr>
-</thead>
-<tbody class="font-code-cell text-code-cell">
-<tr class="border-b border-outline/10 bg-error-container/20">
-<td class="py-2 px-2 text-on-surface">14:28:02.114</td>
-<td class="py-2 px-2 text-on-surface font-semibold">Cylinder #3 CHT</td>
-<td class="py-2 px-2 text-error font-bold">χ² = 14.82</td>
-<td class="py-2 px-2"><span class="px-2 py-0.5 bg-error text-on-error font-label-caps text-[10px] rounded">MICRO-COKING DETECTED</span></td>
-</tr>
-<tr class="border-b border-outline/10">
-<td class="py-2 px-2 text-on-surface">14:27:50.040</td>
-<td class="py-2 px-2 text-on-surface">Oil Scavenge Pump</td>
-<td class="py-2 px-2 text-on-surface">χ² = 0.42</td>
-<td class="py-2 px-2"><span class="text-tertiary font-semibold">NOMINAL</span></td>
-</tr>
-<tr class="border-b border-outline/10">
-<td class="py-2 px-2 text-on-surface">14:27:38.901</td>
-<td class="py-2 px-2 text-on-surface">Turbocharger Vane</td>
-<td class="py-2 px-2 text-on-surface">χ² = 0.88</td>
-<td class="py-2 px-2"><span class="text-tertiary font-semibold">NOMINAL</span></td>
-</tr>
-<tr class="border-b border-outline/10">
-<td class="py-2 px-2 text-on-surface">14:27:15.220</td>
-<td class="py-2 px-2 text-on-surface">Ignition Rail A</td>
-<td class="py-2 px-2 text-on-surface">χ² = 0.12</td>
-<td class="py-2 px-2"><span class="text-tertiary font-semibold">NOMINAL</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="mt-space-md p-space-sm bg-surface-container-low rounded text-body-sm text-on-surface-variant flex items-center justify-between">
-<span>Surrogate model running PINN thermodynamics solver.</span>
-<span class="font-semibold text-primary">Confidence: 99.1%</span>
-</div>
-</div>
-<!-- Onboard Neural Model Metrics -->
-<div class="lg:col-span-5 bg-surface-container-lowest p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
-<div>
-<div class="flex items-center justify-between mb-space-md">
-<h3 class="font-headline-md text-headline-md text-on-surface">Model Metrics &amp; Performance</h3>
-<span class="font-code-cell text-code-cell text-on-surface-variant">TensorRT v8.6</span>
-</div>
-<div class="space-y-space-md">
-<div>
-<div class="flex justify-between font-body-sm text-on-surface mb-1">
-<span>Precision / Recall</span>
-<span class="font-telemetry-sm font-bold">99.4% / 98.9%</span>
-</div>
-<div class="w-full bg-surface-container-low h-2 rounded overflow-hidden">
-<div class="bg-primary h-full w-[99.4%]"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between font-body-sm text-on-surface mb-1">
-<span>TensorRT Execution Time</span>
-<span class="font-telemetry-sm font-bold">4.2 ms / frame</span>
-</div>
-<div class="w-full bg-surface-container-low h-2 rounded overflow-hidden">
-<div class="bg-secondary h-full w-[42%]"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between font-body-sm text-on-surface mb-1">
-<span>FLOPs Utilization (TOPS)</span>
-<span class="font-telemetry-sm font-bold">14.2 / 27.5 TOPS</span>
-</div>
-<div class="w-full bg-surface-container-low h-2 rounded overflow-hidden">
-<div class="bg-primary-container h-full w-[52%]"></div>
-</div>
-</div>
-<div>
-<div class="flex justify-between font-body-sm text-on-surface mb-1">
-<span>Thermal Throttling Margin</span>
-<span class="font-telemetry-sm font-bold text-tertiary">38.5 °C headroom</span>
-</div>
-<div class="w-full bg-surface-container-low h-2 rounded overflow-hidden">
-<div class="bg-tertiary-container h-full w-[65%]"></div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-space-md pt-space-sm border-t border-outline/20 flex items-center justify-between">
-<span class="font-label-caps text-label-caps text-on-surface-variant">QUANTIZATION: INT8 SYMMETRIC</span>
-<span class="font-telemetry-sm font-semibold text-primary">PASSED CALIBRATION</span>
-</div>
-</div>
-</div>
-<!-- Local Autonomous Buffering & Offline Resilience panel -->
-<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
-<div class="flex flex-wrap items-center justify-between mb-space-md gap-space-sm">
-<div>
-<h3 class="font-headline-md text-headline-md text-on-surface">Local Autonomous Buffering &amp; Offline Resilience</h3>
-<p class="font-body-sm text-on-surface-variant">Solid-state NVMe flash storage reserved for autonomous operation during complete RF blackout.</p>
-</div>
-<div class="flex items-center gap-space-sm">
-<span class="px-space-sm py-1 bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps rounded">72-HOUR CAPACITY</span>
-<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-label-caps text-label-caps rounded">ALLOCATED: 64 GB</span>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-<div class="bg-surface-container-low p-space-md rounded-xl">
-<div class="flex items-center justify-between mb-space-xs">
-<span class="font-label-caps text-label-caps text-on-surface-variant">FLASH STORAGE USAGE</span>
-<span class="font-telemetry-md font-bold text-on-surface">4.8%</span>
-</div>
-<div class="w-full bg-surface-container-high h-2 rounded overflow-hidden mb-space-sm">
-<div class="bg-primary h-full w-[4.8%]"></div>
-</div>
-<div class="font-body-sm text-on-surface-variant">3.08 GB used of 64 GB high-endurance NVMe pool.</div>
-</div>
-<div class="bg-surface-container-low p-space-md rounded-xl">
-<div class="flex items-center justify-between mb-space-xs">
-<span class="font-label-caps text-label-caps text-on-surface-variant">AUTONOMOUS FALLBACK</span>
-<span class="font-telemetry-md font-bold text-tertiary">ARMED</span>
-</div>
-<div class="font-body-sm text-on-surface-variant mt-2">Flight control law degradation protection active if link lost &gt; 300s.</div>
-</div>
-<div class="bg-surface-container-low p-space-md rounded-xl">
-<div class="flex items-center justify-between mb-space-xs">
-<span class="font-label-caps text-label-caps text-on-surface-variant">BANDWIDTH SAVINGS</span>
-<span class="font-telemetry-md font-bold text-secondary">78.4%</span>
-</div>
-<div class="font-body-sm text-on-surface-variant mt-2">Dynamic telemetry summarization transmits compressed feature embeddings.</div>
-</div>
-</div>
-</div>
-</div>
+            <div id="view-edge-ai" class="view-pane">
+        <div class="flex flex-col w-full pb-16 space-y-6">
+          <!-- Header Bar -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Edge AI Hardware &amp; Model Operations Console</h1>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    NVIDIA JETSON ORIN NX (16GB) • TENSORRT 8.6
+                  </span>
+                </div>
+                <p class="text-xs font-mono text-slate-500 mt-1">
+                  On-wing airborne edge computing nodes running continuous Neural ODE digital twin, streaming residual anomaly isolation, and INT8 quantized XGBoost classifiers.
+                </p>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <button id="edge-refresh-all-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">sync</span>
+                  <span>Refresh Node Status</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Device KPI Cards (Interactive Filters) -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div id="edge-kpi-online" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-emerald-700 transition-colors">Online Devices</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">CAN Active</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="edge-kpi-val-online" class="text-3xl font-bold font-mono text-emerald-600">3</span>
+                <span class="text-xs text-slate-500">Nodes Operational</span>
+              </div>
+              <span class="text-[11px] text-emerald-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">filter_alt</span> Click to filter online nodes
+              </span>
+            </div>
+
+            <div id="edge-kpi-offline" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-slate-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-slate-700 transition-colors">Offline Devices</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Cold Standby</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="edge-kpi-val-offline" class="text-3xl font-bold font-mono text-slate-700">1</span>
+                <span class="text-xs text-slate-500">Bench Test IPC</span>
+              </div>
+              <span class="text-[11px] text-slate-600 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">filter_alt</span> Click to filter offline nodes
+              </span>
+            </div>
+
+            <div id="edge-kpi-attention" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-amber-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-amber-700 transition-colors">Requiring Attention</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">High Load</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="edge-kpi-val-attention" class="text-3xl font-bold font-mono text-amber-600">1</span>
+                <span class="text-xs text-slate-500">EDGE-ORIN-04</span>
+              </div>
+              <span class="text-[11px] text-amber-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">warning</span> Click to filter attention
+              </span>
+            </div>
+
+            <div id="edge-kpi-models" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-primary transition-colors">Active AI Models</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Validated</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="edge-kpi-val-models" class="text-3xl font-bold font-mono text-slate-900">4</span>
+                <span class="text-xs text-slate-500">Compiled TensorRT</span>
+              </div>
+              <span class="text-[11px] text-sky-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">memory</span> Click to view model catalog
+              </span>
+            </div>
+          </section>
+
+          <!-- Edge Hardware Node Registry Table -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Airborne Edge Hardware Node Registry</h2>
+                <p class="text-xs text-slate-500 font-mono">Inspect real-time telemetry rates, thermals, CPU/GPU compute loads, and deployed networks</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <select id="edge-status-filter" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Hardware Nodes</option>
+                  <option value="ONLINE">ONLINE</option>
+                  <option value="OFFLINE">OFFLINE</option>
+                  <option value="ATTENTION">ATTENTION</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Node ID / Name</th>
+                    <th class="py-3 px-4">IP / CAN Node</th>
+                    <th class="py-3 px-4">Hardware Architecture</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4">Compute Utilization</th>
+                    <th class="py-3 px-4">Thermal State</th>
+                    <th class="py-3 px-4">Active Models</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="edge-devices-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 5-Stage End-to-End Processing Pipeline -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">5-Stage Real-Time Edge Processing Pipeline</h3>
+                <p class="text-xs text-slate-500 font-mono">End-to-end telemetry propagation from high-frequency CAN bus to AI root-cause diagnostics</p>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-primary text-white font-bold">18.0 ms Total Latency</span>
+            </div>
+            <div id="edge-pipeline-cards" class="grid grid-cols-1 md:grid-cols-5 gap-3">
+              <!-- Injected dynamically via app.js -->
+            </div>
+            <div id="edge-stage-inspector" class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs font-mono space-y-1">
+              <span class="font-bold text-slate-800">STAGE DETAIL: Select any pipeline stage above to inspect runtime parameters.</span>
+            </div>
+          </section>
+
+          <!-- Deployed AI Models Inventory & Operations -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">AI Model Registry &amp; Over-The-Air (OTA) Deployment</h3>
+                <p class="text-xs text-slate-500 font-mono">Pre-compiled TensorRT execution engines verified for flight-line dispatch</p>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">4 Validated Architectures</span>
+            </div>
+            <div id="edge-models-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+              <!-- Injected dynamically via app.js -->
+            </div>
+          </section>
+        </div>
       </div>
-    
-      <div id="view-system-architecture" class="view-pane">
+
+      <div id="view-data-quality" class="view-pane">
+        <div class="flex flex-col w-full pb-16 space-y-6">
+          <!-- Header Bar -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Sensor Data Validation &amp; Quality Observability</h1>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    DO-178C LEVEL A / STANAG 4586 INTEGRITY
+                  </span>
+                </div>
+                <p class="text-xs font-mono text-slate-500 mt-1">
+                  High-frequency CAN bus telemetry verification, noise standard deviation metrics, zero-variance stale sensor detection, and raw vs validated Kalman filtering.
+                </p>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <button id="dq-btn-revalidate" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">verified</span>
+                  <span>Trigger Validation Cycle</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Quality KPI Strip -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div id="dq-kpi-card-comp" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm cursor-pointer hover:border-emerald-500/50 transition-all">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Completeness</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="dq-kpi-completeness" class="text-3xl font-bold font-mono text-emerald-600">99.2%</span>
+              </div>
+              <span class="text-[11px] text-slate-400 font-mono mt-2 block">Zero frame loss</span>
+            </div>
+
+            <div id="dq-kpi-card-miss" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm cursor-pointer hover:border-amber-500/50 transition-all">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Missing Values</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="dq-kpi-missing" class="text-3xl font-bold font-mono text-slate-800">14</span>
+                <span class="text-xs text-slate-500">Readings</span>
+              </div>
+              <span class="text-[11px] text-amber-600 font-mono mt-2 block">0.0003% of stream</span>
+            </div>
+
+            <div id="dq-kpi-card-inv" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm cursor-pointer hover:border-rose-500/50 transition-all">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Invalid Readings</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="dq-kpi-invalid" class="text-3xl font-bold font-mono text-rose-600">3</span>
+                <span class="text-xs text-slate-500">Anomalies</span>
+              </div>
+              <span class="text-[11px] text-rose-600 font-mono mt-2 block">Cyl #3 thermal bias</span>
+            </div>
+
+            <div id="dq-kpi-card-stale" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm cursor-pointer hover:border-amber-500/50 transition-all">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Stale Sensors</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="dq-kpi-stale" class="text-3xl font-bold font-mono text-amber-600">1</span>
+                <span class="text-xs text-slate-500">Frozen Sensor</span>
+              </div>
+              <span class="text-[11px] text-amber-700 font-mono mt-2 block">AUX-TEMP-02 (>180s)</span>
+            </div>
+
+            <div id="dq-kpi-card-grade" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm cursor-pointer hover:border-sky-500/50 transition-all">
+              <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Overall Grade</span>
+              <div class="mt-2 flex items-baseline gap-1">
+                <span id="dq-kpi-grade" class="text-3xl font-bold font-mono text-sky-700">A- (93.8%)</span>
+              </div>
+              <span class="text-[11px] text-emerald-600 font-mono mt-2 block">Airworthiness Certified</span>
+            </div>
+          </section>
+
+          <!-- 8-Sensor Data Quality Matrix -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Sensor Quality &amp; Integrity Matrix</h2>
+                <p class="text-xs text-slate-500 font-mono">Live variance tracking, drift indexing, and quality scoring across all powertrain channels</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <input id="dq-sensor-search" type="text" placeholder="Search sensor ID, channel..." class="text-xs px-3 py-1.5 rounded-md border border-slate-300 font-mono w-44 focus:ring-1 focus:ring-primary" />
+                <select id="dq-status-filter" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Statuses</option>
+                  <option value="HEALTHY">HEALTHY</option>
+                  <option value="DRIFTING">DRIFTING</option>
+                  <option value="FLAGGED">FLAGGED</option>
+                  <option value="STALE">STALE</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Sensor ID / Channel</th>
+                    <th class="py-3 px-4">Subsystem</th>
+                    <th class="py-3 px-4">Sampling Rate</th>
+                    <th class="py-3 px-4">Noise (σ)</th>
+                    <th class="py-3 px-4">Drift Score</th>
+                    <th class="py-3 px-4">24h Errors</th>
+                    <th class="py-3 px-4">Quality Score</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4 text-right">Last Telemetry Reading</th>
+                  </tr>
+                </thead>
+                <tbody id="dq-sensors-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Raw vs Validated Sensor Telemetry Comparison -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">Raw vs Physics-Validated Observation Stream</h3>
+                <p class="text-xs text-slate-500 font-mono">Comparison between noisy raw sensor feeds and physics-constrained digital twin filtering</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <label class="text-xs font-semibold text-slate-600">Select Channel:</label>
+                <select id="dq-compare-sensor-select" class="text-xs px-3 py-1.5 rounded-md border border-slate-300 font-mono font-bold bg-white">
+                  <option value="CHT-03" selected>CHT-03 (Cylinder #3 Head Temp)</option>
+                  <option value="EGT-03">EGT-03 (Cylinder #3 Exhaust Gas)</option>
+                  <option value="FF-01">FF-01 (Primary Fuel Flow)</option>
+                  <option value="OIL-PRES-01">OIL-PRES-01 (Oil Gallery Pressure)</option>
+                  <option value="VIB-01">VIB-01 (Gearbox Accelerometer)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Interactive Canvas -->
+            <div class="relative w-full h-64 bg-slate-950 rounded-lg p-2 border border-slate-800 overflow-hidden">
+              <canvas id="dq-comparison-canvas" class="w-full h-full"></canvas>
+            </div>
+            <div class="flex flex-wrap items-center justify-between text-xs font-mono text-slate-500 pt-1">
+              <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1 text-rose-400"><span class="w-2.5 h-0.5 bg-rose-500 inline-block"></span> Raw High-Frequency Sensor Stream</span>
+                <span class="flex items-center gap-1 text-cyan-400"><span class="w-2.5 h-0.5 bg-cyan-400 inline-block"></span> Physics-Validated PINN Stream</span>
+              </div>
+              <span class="text-primary font-semibold">Hover to inspect sensor timestamps &amp; delta values</span>
+            </div>
+
+            <!-- Observations Sub-table -->
+            <div class="overflow-x-auto mt-3">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[10px]">
+                  <tr>
+                    <th class="py-2 px-3">Timestamp (UTC)</th>
+                    <th class="py-2 px-3">Raw Reading</th>
+                    <th class="py-2 px-3">Validated Reading</th>
+                    <th class="py-2 px-3">Residual Delta</th>
+                    <th class="py-2 px-3 text-right">Validation Outcome</th>
+                  </tr>
+                </thead>
+                <tbody id="dq-observations-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Data Quality Incident Management Log -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Sensor Quality Incident &amp; Calibration Log</h2>
+                <p class="text-xs text-slate-500 font-mono">Assign investigation leads, resolve anomalies, and update telemetry calibration baselines</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <select id="dq-incident-status-filter" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Incidents</option>
+                  <option value="OPEN">OPEN</option>
+                  <option value="INVESTIGATING">INVESTIGATING</option>
+                  <option value="RESOLVED">RESOLVED</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Incident ID</th>
+                    <th class="py-3 px-4">Sensor / Channel</th>
+                    <th class="py-3 px-4">Severity</th>
+                    <th class="py-3 px-4">Rule Violation</th>
+                    <th class="py-3 px-4">Detected At</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4">Investigator</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="dq-incidents-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div id="view-fleet" class="view-pane">
+        <div class="flex flex-col w-full pb-16 space-y-6">
+          <!-- Header Bar -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-3">
+                  <h1 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Fleet Operations &amp; Multi-Asset Digital Twin Registry</h1>
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-mono font-medium bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    8 MALE UAV AIRFRAMES OPERATIONAL
+                  </span>
+                </div>
+                <p class="text-xs font-mono text-slate-500 mt-1">
+                  Global theater asset status, flight line dispatch readiness, Weibull health indexing, and cross-fleet digital twin comparisons.
+                </p>
+              </div>
+              <div class="flex items-center gap-2.5 flex-shrink-0">
+                <button id="fleet-refresh-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold rounded-md border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm transition-all cursor-pointer" type="button">
+                  <span class="material-symbols-outlined text-[16px]">refresh</span>
+                  <span>Refresh Fleet Status</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Fleet KPI Strip (Clickable Filters) -->
+          <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div id="fleet-kpi-total" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-primary transition-colors">Total Registered Assets</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Global Theater</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="fleet-kpi-val-total" class="text-3xl font-bold font-mono text-slate-900">8</span>
+                <span class="text-xs text-slate-500">MALE UAVs</span>
+              </div>
+              <span class="text-[11px] text-sky-600 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">filter_alt</span> Click to show all assets
+              </span>
+            </div>
+
+            <div id="fleet-kpi-operational" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-emerald-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-emerald-700 transition-colors">Operational Assets</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Flight Ready</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="fleet-kpi-val-operational" class="text-3xl font-bold font-mono text-emerald-600">6</span>
+                <span class="text-xs text-slate-500">Active Airframes</span>
+              </div>
+              <span class="text-[11px] text-emerald-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">check_circle</span> Click to filter operational
+              </span>
+            </div>
+
+            <div id="fleet-kpi-offline" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-rose-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-rose-700 transition-colors">Maintenance / Offline</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">Depot Cycle</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="fleet-kpi-val-offline" class="text-3xl font-bold font-mono text-rose-600">1</span>
+                <span class="text-xs text-slate-500">UAV-06 (Predator)</span>
+              </div>
+              <span class="text-[11px] text-rose-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">build</span> Click to filter maintenance
+              </span>
+            </div>
+
+            <div id="fleet-kpi-standby" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:border-sky-500/50 hover:shadow-md transition-all cursor-pointer group">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider group-hover:text-sky-700 transition-colors">Standby / Hangar</span>
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Ready Alert</span>
+              </div>
+              <div class="mt-3 flex items-baseline gap-2">
+                <span id="fleet-kpi-val-standby" class="text-3xl font-bold font-mono text-slate-900">2</span>
+                <span class="text-xs text-slate-500">UAV-03 &amp; UAV-08</span>
+              </div>
+              <span class="text-[11px] text-sky-700 font-mono mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">flight_takeoff</span> Click to filter standby
+              </span>
+            </div>
+          </section>
+
+          <!-- Tactical Geolocation & Fleet Radar Grid -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">Tactical Fleet Positioning &amp; Airframe Status Grid</h3>
+                <p class="text-xs text-slate-500 font-mono">Live geo-coordinates, base stations, and condition indexes for all 8 aircraft</p>
+              </div>
+              <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700">Click any card to inspect asset</span>
+            </div>
+            <div id="fleet-tactical-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <!-- Injected dynamically via app.js -->
+            </div>
+          </section>
+
+          <!-- Fleet Asset Inventory Explorer Table -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Fleet Asset Inventory Explorer</h2>
+                <p class="text-xs text-slate-500 font-mono">Detailed powerplant specs, pilot in command, flight hours, and digital twin access</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <input id="fleet-search-input" type="text" placeholder="Search callsign, tail, base..." class="text-xs px-3 py-1.5 rounded-md border border-slate-300 font-mono w-48 sm:w-60 focus:ring-1 focus:ring-primary" />
+                <select id="fleet-status-filter" class="text-xs px-2.5 py-1.5 rounded-md border border-slate-300 font-sans">
+                  <option value="ALL">All Operational Statuses</option>
+                  <option value="OPERATIONAL">OPERATIONAL</option>
+                  <option value="STANDBY">STANDBY</option>
+                  <option value="MAINTENANCE">MAINTENANCE</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Asset ID / Callsign</th>
+                    <th class="py-3 px-4">Airframe &amp; Powerplant</th>
+                    <th class="py-3 px-4">Base Station</th>
+                    <th class="py-3 px-4">Flight Hours TTSN</th>
+                    <th class="py-3 px-4">Health Index</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4">Pilot in Command</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="fleet-assets-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Multi-Asset Comparative Matrix -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+              <div>
+                <h3 class="font-headline-md text-base font-bold text-slate-900">Multi-Asset Powerplant Comparative Matrix</h3>
+                <p class="text-xs text-slate-500 font-mono">Cross-airframe telemetry deltas and vibration signatures</p>
+              </div>
+              <div id="fleet-compare-selector" class="flex items-center gap-1 text-xs font-mono">
+                <!-- Injected dynamically -->
+              </div>
+            </div>
+            <div id="fleet-comparison-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- Injected dynamically via app.js -->
+            </div>
+          </section>
+
+          <!-- Fleet-Wide Mission Alerts -->
+          <section class="bg-surface-container-lowest border border-slate-200/80 rounded-xl shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-200/80 flex items-center justify-between">
+              <div>
+                <h2 class="text-base font-bold text-slate-900 tracking-tight">Fleet-Wide Active Condition &amp; Mission Advisories</h2>
+                <p class="text-xs text-slate-500 font-mono">Operational alerts requiring flight engineer sign-off</p>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs font-sans">
+                <thead class="bg-slate-50/80 border-b border-slate-200 text-slate-600 font-mono uppercase text-[11px]">
+                  <tr>
+                    <th class="py-3 px-4">Alert ID</th>
+                    <th class="py-3 px-4">Aircraft</th>
+                    <th class="py-3 px-4">Severity</th>
+                    <th class="py-3 px-4">Title &amp; Advisory</th>
+                    <th class="py-3 px-4">Timestamp</th>
+                    <th class="py-3 px-4 text-center">Status</th>
+                    <th class="py-3 px-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="fleet-alerts-tbody" class="divide-y divide-slate-100 font-mono text-slate-700">
+                  <!-- Injected dynamically via app.js -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+
+<div id="view-system-architecture" class="view-pane">
         <div class="flex flex-col w-full">
 <!-- Sub-Header & Global Architecture Status Banner -->
 <div class="bg-surface-container-lowest px-space-lg py-space-md shadow-sm">

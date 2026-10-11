@@ -23,6 +23,10 @@ from .api.missions import router as missions_router
 from .api.simulation import router as simulation_router
 from .api.maintenance import router as maintenance_router
 from .api.models import router as models_router
+from .api.reports import router as reports_router
+from .api.edge_ai import router as edge_ai_router
+from .api.data_quality import router as data_quality_router
+from .api.fleet import router as fleet_router
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("aerotwin.main")
@@ -78,6 +82,10 @@ app.include_router(missions_router, prefix=settings.API_V1_STR, tags=["Missions"
 app.include_router(simulation_router, prefix=settings.API_V1_STR, tags=["Simulation"])
 app.include_router(maintenance_router, prefix=settings.API_V1_STR, tags=["Maintenance"])
 app.include_router(models_router, prefix=settings.API_V1_STR, tags=["Models"])
+app.include_router(reports_router, prefix=settings.API_V1_STR, tags=["Reports"])
+app.include_router(edge_ai_router, prefix=settings.API_V1_STR, tags=["Edge AI"])
+app.include_router(data_quality_router, prefix=settings.API_V1_STR, tags=["Data Quality"])
+app.include_router(fleet_router, prefix=settings.API_V1_STR, tags=["Fleet"])
 
 # System Health & Operational Status Endpoints
 @app.get("/health", tags=["Status"])

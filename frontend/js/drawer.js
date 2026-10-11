@@ -703,6 +703,819 @@ class AeroDrawerSystem {
       }
     }
   }
+
+  /* -------------------------------------------------------------
+   * MODULE-SPECIFIC DRAWERS & MODALS
+   * ------------------------------------------------------------- */
+
+  openWorkOrderDrawer(order, onSave, onDelete) {
+    const isCompleted = order.status === "COMPLETED";
+    const content = `
+      <div class="space-y-5">
+        <!-- Header status pill -->
+        <div class="p-4 bg-slate-900 text-white rounded-lg border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider">WORK ORDER SPECIFICATION</div>
+            <div class="text-xl font-bold font-mono text-white mt-0.5">${order.task_order || order.id}</div>
+            <div class="text-xs text-slate-400 mt-1">${order.title}</div>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded text-xs font-mono font-bold ${order.status === 'COMPLETED' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : (order.status === 'IN_PROGRESS' ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30' : 'bg-amber-500/20 text-amber-400 border border-amber-500/30')}">
+              ${order.status}
+            </span>
+            <div class="text-[10px] text-slate-500 font-mono mt-1">PRIORITY: ${order.priority}</div>
+          </div>
+        </div>
+
+        <!-- Editable Form -->
+        <form id="drawer-wo-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Work Order Title</label>
+            <input type="text" id="wo-edit-title" value="${order.title.replace(/"/g, '&quot;')}" class="w-full text-xs p-2.5 rounded border border-slate-300 font-sans focus:ring-1 focus:ring-primary focus:border-primary" required />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Subsystem</label>
+              <select id="wo-edit-subsystem" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="Propulsion Core" ${order.subsystem === 'Propulsion Core' ? 'selected' : ''}>Propulsion Core</option>
+                <option value="Fuel & Metering" ${order.subsystem === 'Fuel & Metering' ? 'selected' : ''}>Fuel & Metering</option>
+                <option value="Thermal & Combustion" ${order.subsystem === 'Thermal & Combustion' ? 'selected' : ''}>Thermal & Combustion</option>
+                <option value="Lubrication & Gearbox" ${order.subsystem === 'Lubrication & Gearbox' ? 'selected' : ''}>Lubrication & Gearbox</option>
+                <option value="Avionics & FADEC" ${order.subsystem === 'Avionics & FADEC' ? 'selected' : ''}>Avionics & FADEC</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Priority</label>
+              <select id="wo-edit-priority" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="CRITICAL" ${order.priority === 'CRITICAL' ? 'selected' : ''}>CRITICAL</option>
+                <option value="HIGH" ${order.priority === 'HIGH' ? 'selected' : ''}>HIGH</option>
+                <option value="MEDIUM" ${order.priority === 'MEDIUM' ? 'selected' : ''}>MEDIUM</option>
+                <option value="LOW" ${order.priority === 'LOW' ? 'selected' : ''}>LOW</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+              <select id="wo-edit-status" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="OPEN" ${order.status === 'OPEN' ? 'selected' : ''}>OPEN</option>
+                <option value="IN_PROGRESS" ${order.status === 'IN_PROGRESS' ? 'selected' : ''}>IN_PROGRESS</option>
+                <option value="COMPLETED" ${order.status === 'COMPLETED' ? 'selected' : ''}>COMPLETED</option>
+                <option value="CANCELLED" ${order.status === 'CANCELLED' ? 'selected' : ''}>CANCELLED</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assigned Tech / Crew</label>
+              <input type="text" id="wo-edit-tech" value="${(order.assigned_tech || 'Powertrain Bay 2').replace(/"/g, '&quot;')}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Regulatory Reference</label>
+            <input type="text" id="wo-edit-easa" value="${(order.easa_part_m_ref || 'M.A.401').replace(/"/g, '&quot;')}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Advisory Text & Technical Scope</label>
+            <textarea id="wo-edit-advisory" rows="3" class="w-full text-xs p-2.5 rounded border border-slate-300 font-sans focus:ring-1 focus:ring-primary focus:border-primary" required>${order.advisory_text || ''}</textarea>
+          </div>
+
+          <div id="drawer-wo-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center gap-2 pt-3 border-t border-slate-200">
+            <button type="submit" id="wo-save-btn" class="flex-1 py-2 px-3 bg-primary text-white font-semibold text-xs rounded hover:bg-slate-800 transition-colors shadow-sm flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">save</span>
+              Save Changes
+            </button>
+            <button type="button" id="wo-delete-btn" class="py-2 px-3 bg-rose-50 text-rose-700 border border-rose-300 hover:bg-rose-100 font-semibold text-xs rounded transition-colors flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">delete</span>
+              Delete
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openDrawer(content, `WORK ORDER: ${order.task_order || order.id}`);
+
+    // Wire Save
+    const form = document.getElementById("drawer-wo-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const saveBtn = document.getElementById("wo-save-btn");
+      const msg = document.getElementById("drawer-wo-msg");
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">refresh</span> Saving...`;
+
+      try {
+        const payload = {
+          title: document.getElementById("wo-edit-title").value.trim(),
+          subsystem: document.getElementById("wo-edit-subsystem").value,
+          priority: document.getElementById("wo-edit-priority").value,
+          status: document.getElementById("wo-edit-status").value,
+          assigned_tech: document.getElementById("wo-edit-tech").value.trim(),
+          easa_part_m_ref: document.getElementById("wo-edit-easa").value.trim(),
+          advisory_text: document.getElementById("wo-edit-advisory").value.trim()
+        };
+        await onSave(order.id, payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Work order updated and persisted successfully!";
+        setTimeout(() => this.closeDrawer(), 1200);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Update failed: ${err.message}`;
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = `<span class="material-symbols-outlined text-[16px]">save</span> Save Changes`;
+      }
+    });
+
+    // Wire Delete with confirmation
+    document.getElementById("wo-delete-btn").addEventListener("click", () => {
+      if (confirm(`Are you sure you want to permanently delete work order ${order.task_order || order.id}?`)) {
+        onDelete(order.id);
+        this.closeDrawer();
+      }
+    });
+  }
+
+  openCreateWorkOrderModal(onCreated) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-cyan-600 text-[22px]">add_task</span>
+            <h3 class="font-headline-md text-base font-bold text-slate-900">Create Maintenance Work Order</h3>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <form id="create-wo-form" class="mt-4 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Work Order Title *</label>
+            <input type="text" id="new-wo-title" placeholder="e.g. Borescope Inspection Cyl #1-#4 Valves" class="w-full text-xs p-2.5 rounded border border-slate-300 font-sans focus:ring-1 focus:ring-primary" required />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Subsystem *</label>
+              <select id="new-wo-subsystem" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="Propulsion Core">Propulsion Core</option>
+                <option value="Fuel & Metering">Fuel & Metering</option>
+                <option value="Thermal & Combustion">Thermal & Combustion</option>
+                <option value="Lubrication & Gearbox">Lubrication & Gearbox</option>
+                <option value="Avionics & FADEC">Avionics & FADEC</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Priority Level *</label>
+              <select id="new-wo-priority" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="CRITICAL">CRITICAL (AOG / Immediate)</option>
+                <option value="HIGH" selected>HIGH (Turnaround Required)</option>
+                <option value="MEDIUM">MEDIUM (Scheduled 50h)</option>
+                <option value="LOW">LOW (Routine Depot)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assigned Tech / Team</label>
+              <input type="text" id="new-wo-tech" value="MALE Flight Line Team" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">EASA Part-M Reference</label>
+              <input type="text" id="new-wo-easa" value="M.A.401 / SB-915-021" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Advisory Text & Instructions *</label>
+            <textarea id="new-wo-advisory" rows="3" placeholder="Enter detailed corrective action and inspection requirements..." class="w-full text-xs p-2.5 rounded border border-slate-300 font-sans focus:ring-1 focus:ring-primary" required></textarea>
+          </div>
+
+          <div id="create-wo-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200">
+            <button type="button" data-role="modal-close" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+            <button type="submit" id="create-wo-submit-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">check</span>
+              Dispatch Work Order
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    const form = document.getElementById("create-wo-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("create-wo-submit-btn");
+      const msg = document.getElementById("create-wo-msg");
+      btn.disabled = true;
+      btn.textContent = "Persisting...";
+
+      try {
+        const payload = {
+          title: document.getElementById("new-wo-title").value.trim(),
+          subsystem: document.getElementById("new-wo-subsystem").value,
+          priority: document.getElementById("new-wo-priority").value,
+          assigned_tech: document.getElementById("new-wo-tech").value.trim(),
+          easa_part_m_ref: document.getElementById("new-wo-easa").value.trim(),
+          advisory_text: document.getElementById("new-wo-advisory").value.trim()
+        };
+        await onCreated(payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Work order created and queued successfully!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Creation error: ${err.message}`;
+        btn.disabled = false;
+        btn.textContent = "Dispatch Work Order";
+      }
+    });
+  }
+
+  openDeviceConfigModal(device, onSaved) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-cyan-600 text-[22px]">settings</span>
+            <h3 class="font-headline-md text-base font-bold text-slate-900">Configure Edge Node: ${device.id}</h3>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <form id="dev-cfg-form" class="mt-4 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Telemetry Rate (Hz)</label>
+              <input type="number" id="cfg-hz" min="1" max="100" value="${device.telemetry_hz}" class="w-full text-xs p-2 rounded border border-slate-300 font-mono" required />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Inference Batch Size</label>
+              <input type="number" id="cfg-batch" min="1" max="64" value="${device.inference_batch_size}" class="w-full text-xs p-2 rounded border border-slate-300 font-mono" required />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Power Mode Profile</label>
+              <select id="cfg-power" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="10W" ${device.power_mode === '10W' ? 'selected' : ''}>10W (Ultra-Low Draw)</option>
+                <option value="15W" ${device.power_mode === '15W' ? 'selected' : ''}>15W (Standard Mission)</option>
+                <option value="25W_MAX" ${device.power_mode === '25W_MAX' ? 'selected' : ''}>25W_MAX (Max Compute)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Anomaly Threshold (0-1)</label>
+              <input type="number" step="0.05" min="0.1" max="0.9" id="cfg-thresh" value="${device.anomaly_threshold}" class="w-full text-xs p-2 rounded border border-slate-300 font-mono" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Autonomous Offline Buffer (Hours)</label>
+            <input type="number" id="cfg-buf" min="12" max="168" value="${device.offline_buffer_hours}" class="w-full text-xs p-2 rounded border border-slate-300 font-mono" required />
+          </div>
+
+          <div id="dev-cfg-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200">
+            <button type="button" data-role="modal-close" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+            <button type="submit" id="dev-cfg-submit-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm">Save Configuration</button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    document.getElementById("dev-cfg-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("dev-cfg-submit-btn");
+      const msg = document.getElementById("dev-cfg-msg");
+      btn.disabled = true;
+      btn.textContent = "Updating...";
+
+      try {
+        const payload = {
+          telemetry_hz: parseInt(document.getElementById("cfg-hz").value, 10),
+          inference_batch_size: parseInt(document.getElementById("cfg-batch").value, 10),
+          power_mode: document.getElementById("cfg-power").value,
+          anomaly_threshold: parseFloat(document.getElementById("cfg-thresh").value),
+          offline_buffer_hours: parseInt(document.getElementById("cfg-buf").value, 10)
+        };
+        await onSaved(device.id, payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Device configuration applied and synchronized!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Update failed: ${err.message}`;
+        btn.disabled = false;
+        btn.textContent = "Save Configuration";
+      }
+    });
+  }
+
+  openDeviceLogsModal(device, logs) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-slate-700 text-[22px]">terminal</span>
+            <div>
+              <h3 class="font-headline-md text-base font-bold text-slate-900">${device.name} — Hardware Logs</h3>
+              <p class="text-xs font-mono text-slate-500">${device.id} • ${device.hardware} • ${device.ip_address}</p>
+            </div>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <div class="mt-4 bg-slate-950 text-slate-200 p-4 rounded-lg font-mono text-xs max-h-96 overflow-y-auto space-y-2 border border-slate-800">
+          ${logs.map(l => `
+            <div class="flex items-start gap-2 border-b border-slate-900 pb-1">
+              <span class="text-slate-500 whitespace-nowrap">${l.timestamp}</span>
+              <span class="px-1 py-0.5 rounded text-[10px] font-bold ${l.level === 'WARN' ? 'bg-amber-900 text-amber-200' : (l.level === 'DEBUG' ? 'bg-indigo-900 text-indigo-200' : 'bg-slate-800 text-cyan-300')}">${l.level}</span>
+              <span class="text-slate-300">${l.message}</span>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="flex items-center justify-between pt-4 border-t border-slate-200 mt-4 text-xs font-mono text-slate-500">
+          <span>CAN Bus: 0 frame CRC drops in 5000 cycles</span>
+          <button data-role="modal-close" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded font-sans font-medium">Close Log</button>
+        </div>
+      </div>
+    `;
+
+    this.openModal(html);
+  }
+
+  openDeployModelModal(model, devices, onDeployed) {
+    const availableDevices = devices.filter(d => d.status !== "OFFLINE");
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[22px]">rocket_launch</span>
+            <h3 class="font-headline-md text-base font-bold text-slate-900">Deploy AI Model: ${model.name}</h3>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <div class="mt-4 p-3 bg-slate-50 rounded border border-slate-200 text-xs font-mono space-y-1">
+          <div class="flex justify-between"><span>Model ID:</span><strong class="text-slate-800">${model.id}</strong></div>
+          <div class="flex justify-between"><span>Architecture:</span><span class="text-slate-700">${model.architecture}</span></div>
+          <div class="flex justify-between"><span>Model Size:</span><span class="text-slate-700">${model.size_mb} MB</span></div>
+          <div class="flex justify-between"><span>Latency Benchmark:</span><span class="text-slate-700">${model.latency_ms} ms</span></div>
+        </div>
+
+        <form id="deploy-model-form" class="mt-4 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Edge Device</label>
+            <select id="deploy-target-dev" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required>
+              ${availableDevices.map(d => `
+                <option value="${d.id}">${d.name} (${d.id} - ${d.hardware})</option>
+              `).join("")}
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Quantization / Precision</label>
+            <select id="deploy-precision" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+              <option value="INT8" selected>INT8 TensorRT (Recommended for 18ms latency)</option>
+              <option value="FP16">FP16 Half-Precision (Balanced)</option>
+              <option value="FP32">FP32 Single Precision (Reference only)</option>
+            </select>
+          </div>
+
+          <div id="deploy-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200">
+            <button type="button" data-role="modal-close" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+            <button type="submit" id="deploy-submit-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">publish</span>
+              Execute Deployment
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    document.getElementById("deploy-model-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("deploy-submit-btn");
+      const msg = document.getElementById("deploy-msg");
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">refresh</span> Deploying...`;
+
+      try {
+        const payload = {
+          model_id: model.id,
+          target_device_id: document.getElementById("deploy-target-dev").value,
+          target_precision: document.getElementById("deploy-precision").value,
+          verify_checksum: true
+        };
+        const res = await onDeployed(payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = res.message || "Model deployed successfully!";
+        setTimeout(() => this.closeModal(), 1200);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Deployment failed: ${err.message}`;
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">publish</span> Execute Deployment`;
+      }
+    });
+  }
+
+  openGenerateReportModal(onGenerated) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[22px]">description</span>
+            <h3 class="font-headline-md text-base font-bold text-slate-900">Generate Analytics & Compliance Report</h3>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <form id="gen-report-form" class="mt-4 space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Report Classification *</label>
+            <select id="rep-type" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+              <option value="FLEET_HEALTH">Fleet Condition & Weibull Reliability</option>
+              <option value="CBM_RELIABILITY" selected>Condition-Based Maintenance (CBM+) Advisory</option>
+              <option value="SENSOR_ANOMALY">High-Frequency Telemetry & Residual Anomaly Log</option>
+              <option value="MISSION_PERFORMANCE">Mission Fuel & Thermal Performance Audit</option>
+              <option value="EASA_AUDIT">EASA Part-M / FAA Part-43 Cryptographic Ledger</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Asset Scope</label>
+              <select id="rep-asset" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="Fleet-Wide (8 UAVs)">Fleet-Wide (8 UAVs)</option>
+                <option value="UAV-07 (Hermes MALE)" selected>UAV-07 (Hermes MALE - AE-03)</option>
+                <option value="UAV-01 (Valkyrie-1)">UAV-01 (Valkyrie-1)</option>
+                <option value="UAV-03 (Spectre-1)">UAV-03 (Spectre-1)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date Range</label>
+              <select id="rep-range" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="LAST_24_HOURS">Last 24 Hours</option>
+                <option value="LAST_7_DAYS">Last 7 Days</option>
+                <option value="LAST_30_DAYS" selected>Last 30 Days</option>
+                <option value="LAST_90_DAYS">Last 90 Days</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Output File Format</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-1.5 text-xs text-slate-700">
+                <input type="radio" name="rep-format" value="CSV" checked /> CSV Data Table
+              </label>
+              <label class="flex items-center gap-1.5 text-xs text-slate-700">
+                <input type="radio" name="rep-format" value="JSON" /> JSON Raw Telemetry
+              </label>
+              <label class="flex items-center gap-1.5 text-xs text-slate-700">
+                <input type="radio" name="rep-format" value="PDF_SUMMARY" /> Text / PDF Summary
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Custom Engineering Notes</label>
+            <textarea id="rep-notes" rows="2" placeholder="Optional notes for maintenance sign-off..." class="w-full text-xs p-2 rounded border border-slate-300 font-sans"></textarea>
+          </div>
+
+          <div id="gen-rep-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200">
+            <button type="button" data-role="modal-close" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+            <button type="submit" id="gen-rep-submit-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm flex items-center gap-1.5">
+              <span class="material-symbols-outlined text-[16px]">analytics</span>
+              Generate Report
+            </button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    document.getElementById("gen-report-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("gen-rep-submit-btn");
+      const msg = document.getElementById("gen-rep-msg");
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[16px]">refresh</span> Generating...`;
+
+      try {
+        const formatRadio = document.querySelector('input[name="rep-format"]:checked');
+        const payload = {
+          report_type: document.getElementById("rep-type").value,
+          asset_id: document.getElementById("rep-asset").value,
+          date_range: document.getElementById("rep-range").value,
+          format: formatRadio ? formatRadio.value : "CSV",
+          custom_notes: document.getElementById("rep-notes").value.trim()
+        };
+        await onGenerated(payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Report generated and available for download!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Generation failed: ${err.message}`;
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined text-[16px]">analytics</span> Generate Report`;
+      }
+    });
+  }
+
+  openIncidentModal(incident, onSaved, onResolved) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-600 text-[22px]">warning</span>
+            <div>
+              <h3 class="font-headline-md text-base font-bold text-slate-900">Data Quality Incident: ${incident.id}</h3>
+              <p class="text-xs font-mono text-slate-500">${incident.sensor_id} • ${incident.parameter}</p>
+            </div>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <div class="mt-4 p-3 bg-slate-50 rounded border border-slate-200 text-xs font-mono space-y-1">
+          <div class="flex justify-between"><span>Rule Broken:</span><strong class="text-rose-600">${incident.rule_broken}</strong></div>
+          <div class="flex justify-between"><span>Detected At:</span><span class="text-slate-700">${incident.detected_at}</span></div>
+          <div class="flex justify-between"><span>Severity:</span><span class="text-slate-700 font-bold">${incident.severity}</span></div>
+          <div class="flex justify-between"><span>Current Status:</span><span class="text-slate-800 font-bold">${incident.status}</span></div>
+        </div>
+
+        <form id="incident-form" class="mt-4 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+              <select id="inc-status" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="OPEN" ${incident.status === 'OPEN' ? 'selected' : ''}>OPEN</option>
+                <option value="INVESTIGATING" ${incident.status === 'INVESTIGATING' ? 'selected' : ''}>INVESTIGATING</option>
+                <option value="RESOLVED" ${incident.status === 'RESOLVED' ? 'selected' : ''}>RESOLVED</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Assigned Investigator</label>
+              <input type="text" id="inc-assigned" value="${incident.assigned_to}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Resolution & Findings Notes</label>
+            <textarea id="inc-notes" rows="3" class="w-full text-xs p-2.5 rounded border border-slate-300 font-sans focus:ring-1 focus:ring-primary">${incident.resolution_notes || ''}</textarea>
+          </div>
+
+          <div id="inc-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+            <button type="button" id="inc-resolve-btn" class="px-3.5 py-2 text-xs font-bold bg-emerald-600 text-white hover:bg-emerald-700 rounded shadow-sm flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">check_circle</span>
+              Mark Resolved
+            </button>
+            <div class="flex gap-2">
+              <button type="button" data-role="modal-close" class="px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+              <button type="submit" id="inc-save-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm">Save Incident</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    document.getElementById("incident-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = document.getElementById("inc-msg");
+      try {
+        await onSaved(incident.id, {
+          status: document.getElementById("inc-status").value,
+          assigned_to: document.getElementById("inc-assigned").value.trim(),
+          resolution_notes: document.getElementById("inc-notes").value.trim()
+        });
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Incident updated successfully!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Update error: ${err.message}`;
+      }
+    });
+
+    document.getElementById("inc-resolve-btn").addEventListener("click", async () => {
+      const notes = document.getElementById("inc-notes").value.trim() || "Sensor calibration and filter baseline verified.";
+      const msg = document.getElementById("inc-msg");
+      try {
+        await onResolved(incident.id, notes);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Incident resolved and archived!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Resolution error: ${err.message}`;
+      }
+    });
+  }
+
+  openAssetDetailsDrawer(asset, onEdit) {
+    const content = `
+      <div class="space-y-5">
+        <!-- Asset Hero Card -->
+        <div class="p-4 bg-slate-900 text-white rounded-lg border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider">AEROSPACE FLEET ASSET</div>
+            <div class="text-2xl font-bold font-mono text-white mt-0.5">${asset.id} <span class="text-sm font-normal text-slate-400">(${asset.callsign})</span></div>
+            <div class="text-xs text-slate-400 mt-1">${asset.airframe_model} • ${asset.tail_number}</div>
+          </div>
+          <div class="text-right">
+            <span class="px-2.5 py-1 rounded text-xs font-mono font-bold ${asset.operational_status === 'OPERATIONAL' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : (asset.operational_status === 'MAINTENANCE' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-slate-500/20 text-slate-300 border border-slate-500/30')}">
+              ${asset.operational_status}
+            </span>
+            <div class="text-[10px] text-slate-400 font-mono mt-1">HEALTH: ${asset.health_index}%</div>
+          </div>
+        </div>
+
+        <!-- Telemetry & Specs Grid -->
+        <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">ENGINE POWERPLANT</span>
+            <span class="font-bold text-slate-800">${asset.engine_model}</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">FLIGHT HOURS TTSN</span>
+            <span class="font-bold text-slate-800">${asset.flight_hours_ttsn} hrs</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">BASE STATION</span>
+            <span class="font-bold text-slate-800 text-[11px]">${asset.base_station}</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">PILOT IN COMMAND</span>
+            <span class="font-bold text-slate-800">${asset.pilot_in_command}</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">LAST INSPECTION</span>
+            <span class="font-bold text-slate-800">${asset.last_inspection}</span>
+          </div>
+          <div class="p-3 bg-slate-50 rounded border border-slate-200">
+            <span class="text-[10px] text-slate-400 block uppercase">NEXT DUE GATE</span>
+            <span class="font-bold ${asset.next_due_hours < 50 ? 'text-amber-600' : 'text-slate-800'}">${asset.next_due_hours} hrs</span>
+          </div>
+        </div>
+
+        <!-- Coordinates & Position -->
+        <div class="p-3 bg-sky-50 rounded border border-sky-200 text-xs font-mono">
+          <div class="flex justify-between text-sky-900 font-semibold mb-1">
+            <span>GEO-LOCATION:</span>
+            <span>${asset.latitude.toFixed(3)}°N, ${Math.abs(asset.longitude).toFixed(3)}°W</span>
+          </div>
+          <div class="flex justify-between text-slate-600">
+            <span>BARO ALTITUDE:</span>
+            <span>${asset.altitude_ft.toLocaleString()} ft MSL</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="space-y-2 pt-3 border-t border-slate-200">
+          <button id="asset-btn-twin" class="w-full py-2.5 px-4 bg-primary hover:bg-slate-800 text-white font-semibold text-xs rounded transition-colors shadow-sm flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">model_training</span>
+            Launch Real-Time Digital Twin for ${asset.id}
+          </button>
+          <button id="asset-btn-edit" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs rounded transition-colors border border-slate-300 flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">edit</span>
+            Edit Asset Metadata & Station
+          </button>
+        </div>
+      </div>
+    `;
+
+    this.openDrawer(content, `FLEET ASSET: ${asset.id}`);
+
+    document.getElementById("asset-btn-twin").addEventListener("click", () => {
+      this.closeDrawer();
+      if (window.aeroApp) {
+        window.aeroApp.navigateTo("digital-twin");
+      }
+    });
+
+    document.getElementById("asset-btn-edit").addEventListener("click", () => {
+      this.closeDrawer();
+      onEdit(asset);
+    });
+  }
+
+  openEditAssetModal(asset, onSaved) {
+    const html = `
+      <div class="p-6">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-200">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-[22px]">edit</span>
+            <h3 class="font-headline-md text-base font-bold text-slate-900">Edit Asset Metadata: ${asset.id}</h3>
+          </div>
+          <button data-role="modal-close" class="p-1 rounded text-slate-400 hover:text-slate-600">
+            <span class="material-symbols-outlined text-[20px]">close</span>
+          </button>
+        </div>
+
+        <form id="edit-asset-form" class="mt-4 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Callsign</label>
+              <input type="text" id="edit-asset-callsign" value="${asset.callsign}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Operational Status</label>
+              <select id="edit-asset-status" class="w-full text-xs p-2 rounded border border-slate-300 font-sans">
+                <option value="OPERATIONAL" ${asset.operational_status === 'OPERATIONAL' ? 'selected' : ''}>OPERATIONAL</option>
+                <option value="STANDBY" ${asset.operational_status === 'STANDBY' ? 'selected' : ''}>STANDBY</option>
+                <option value="MAINTENANCE" ${asset.operational_status === 'MAINTENANCE' ? 'selected' : ''}>MAINTENANCE</option>
+                <option value="OFFLINE" ${asset.operational_status === 'OFFLINE' ? 'selected' : ''}>OFFLINE</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Base Station / Facility</label>
+            <input type="text" id="edit-asset-base" value="${asset.base_station}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Pilot in Command / Crew Lead</label>
+            <input type="text" id="edit-asset-pilot" value="${asset.pilot_in_command}" class="w-full text-xs p-2 rounded border border-slate-300 font-sans" required />
+          </div>
+
+          <div id="edit-asset-msg" class="hidden text-xs p-2 rounded"></div>
+
+          <div class="flex items-center justify-end gap-2 pt-4 border-t border-slate-200">
+            <button type="button" data-role="modal-close" class="px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 rounded">Cancel</button>
+            <button type="submit" id="edit-asset-submit-btn" class="px-4 py-2 text-xs font-bold bg-primary text-white hover:bg-slate-800 rounded shadow-sm">Save Asset</button>
+          </div>
+        </form>
+      </div>
+    `;
+
+    this.openModal(html);
+
+    document.getElementById("edit-asset-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("edit-asset-submit-btn");
+      const msg = document.getElementById("edit-asset-msg");
+      btn.disabled = true;
+      btn.textContent = "Saving...";
+
+      try {
+        const payload = {
+          callsign: document.getElementById("edit-asset-callsign").value.trim(),
+          operational_status: document.getElementById("edit-asset-status").value,
+          base_station: document.getElementById("edit-asset-base").value.trim(),
+          pilot_in_command: document.getElementById("edit-asset-pilot").value.trim()
+        };
+        await onSaved(asset.id, payload);
+        msg.className = "text-xs p-2 rounded bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+        msg.textContent = "Asset metadata saved successfully!";
+        setTimeout(() => this.closeModal(), 1000);
+      } catch (err) {
+        msg.className = "text-xs p-2 rounded bg-red-50 text-red-800 border border-red-300 block";
+        msg.textContent = `Save failed: ${err.message}`;
+        btn.disabled = false;
+        btn.textContent = "Save Asset";
+      }
+    });
+  }
 }
 
 window.aeroDrawer = new AeroDrawerSystem();

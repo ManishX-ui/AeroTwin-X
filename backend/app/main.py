@@ -12,7 +12,10 @@ from fastapi.responses import FileResponse, HTMLResponse
 from .config import settings
 from .websocket.connection_manager import manager
 from .services.state_service import state_service
-from ..database.connection import engine, Base
+from ..database.connection import engine, Base, init_db, is_db_configured, get_db
+from ..database.seed import seed_database_fixtures
+from sqlalchemy.orm import Session
+from fastapi import Depends
 
 # Import all API routers
 from .api.telemetry import router as telemetry_router
@@ -31,8 +34,8 @@ from .api.fleet import router as fleet_router
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("aerotwin.main")
 
-# Initialize database schema
-Base.metadata.create_all(bind=engine)
+# Safely initialize database schema if DATABASE_URL is configured
+init_db()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -110,16 +113,20 @@ async def system_health_status():
 async def get_service_diagnostics():
     """Real-time connection and subsystem service health diagnostics."""
     # 1. Database check
-    db_status = "CONNECTED"
+    db_name = "Neon Serverless PostgreSQL" if os.getenv("DATABASE_URL") and "postgresql" in os.getenv("DATABASE_URL", "") else "SQLAlchemy Managed Relational DB"
+    db_status = "NOT_CONFIGURED"
     db_latency_ms = 0.0
-    try:
-        t0 = time.time()
-        with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-        db_latency_ms = round((time.time() - t0) * 1000, 2)
-    except Exception as e:
-        logger.warning(f"Database health check warning: {e}")
-        db_status = "DEGRADED"
+
+    if is_db_configured() and engine is not None:
+        try:
+            t0 = time.time()
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            db_latency_ms = round((time.time() - t0) * 1000, 2)
+            db_status = "CONNECTED"
+        except Exception as e:
+            logger.warning(f"Database health check warning: {e}")
+            db_status = "DEGRADED"
 
     # 2. Simulator state
     sim_running = state_service.simulator.mission.is_running if hasattr(state_service.simulator, "mission") else False
@@ -145,10 +152,10 @@ async def get_service_diagnostics():
             "endpoint": "/ws/telemetry"
         },
         "database": {
-            "name": "SQLite Core Operational DB",
+            "name": db_name,
             "status": db_status,
             "latency_ms": db_latency_ms,
-            "pool": "SQLAlchemy ThreadSafe"
+            "pool": "Serverless NullPool" if os.getenv("DATABASE_URL") else "Unconfigured (Set DATABASE_URL)"
         },
         "digital_twin": {
             "name": "Aero-Piston ODE Digital Twin",
@@ -198,6 +205,15 @@ async def get_service_diagnostics():
         "overall_status": "OPTIMAL" if db_status == "CONNECTED" else "DEGRADED",
         "services": services
     }
+
+@app.post("/system/seed-demo-fixtures", tags=["System Setup"])
+@app.post(f"{settings.API_V1_STR}/system/seed-demo-fixtures", tags=["System Setup"])
+async def trigger_seed_fixtures(
+    force: bool = False,
+    db: Session = Depends(get_db)
+):
+    """Seed baseline operational fleet data and registered industrial sensors into PostgreSQL."""
+    return seed_database_fixtures(db, force=force)
 
 # WebSocket Endpoint
 @app.websocket("/ws/telemetry")

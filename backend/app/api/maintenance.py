@@ -1,24 +1,36 @@
-"""Maintenance and CBM+ Advisory API Endpoints."""
-from fastapi import APIRouter, HTTPException, Query, Response
+"""Maintenance and CBM+ Advisory API Endpoints.
+
+Provides PostgreSQL-backed management for Work Orders, Advisory Tasks,
+Technician Assignments, Status Updates, and CSV Export.
+"""
+from fastapi import APIRouter, HTTPException, Query, Response, Depends, status
+from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 import datetime
 import uuid
 import io
 import csv
-from ..services.state_service import state_service
+import json
+
+from ...database.connection import get_db, is_db_configured
+from ...database.models import MaintenanceRecord
 from ..schemas.alerts import MaintenanceTask
 
 router = APIRouter()
 
+
 class CreateMaintenanceTaskRequest(BaseModel):
+    asset_id: Optional[str] = Field("UAV-07", description="Associated asset tail/ID")
     title: str = Field(..., description="Title of the work order")
     subsystem: str = Field("Propulsion Core", description="Target subsystem")
     priority: str = Field("HIGH", description="CRITICAL, HIGH, MEDIUM, LOW")
-    advisory_text: Optional[str] = Field("Engineering advisory and maintenance inspection", description="Engineering advisory and task description")
-    assigned_tech: Optional[str] = Field("MALE Flight Line Team", description="Assigned technician or crew")
+    advisory_text: Optional[str] = Field("Engineering advisory and maintenance inspection", description="Task description")
+    assigned_tech: Optional[str] = Field("MALE Flight Line Team", description="Assigned technician")
     easa_part_m_ref: Optional[str] = Field("M.A.401 / SB-915-021", description="Regulatory compliance reference")
     evidence_triggers: Optional[List[str]] = Field(default_factory=lambda: ["Manual work order dispatch"])
+
 
 class UpdateMaintenanceTaskRequest(BaseModel):
     title: Optional[str] = None
@@ -29,98 +41,75 @@ class UpdateMaintenanceTaskRequest(BaseModel):
     advisory_text: Optional[str] = None
     easa_part_m_ref: Optional[str] = None
 
+
 class AssignTechRequest(BaseModel):
     assigned_tech: str
+
 
 class UpdateStatusRequest(BaseModel):
     status: str
 
-# Seed initial tasks if empty
-def _ensure_initial_tasks():
-    if not state_service.maintenance_tasks:
-        iso_now = datetime.datetime.now(datetime.timezone.utc).isoformat()
-        state_service.maintenance_tasks = [
-            MaintenanceTask(
-                id="TSK-401",
-                task_order="WO-2026-041",
-                title="Borescope Inspection — Cyl #1 - #4 Valves",
-                subsystem="Thermal & Combustion",
-                priority="MEDIUM",
-                advisory_text="Perform optical borescope inspection of exhaust valve seats at next turnaround.",
-                evidence_triggers=["CBM+ predictive schedule trigger", "TTSN 1,216 flight hours milestone"],
-                status="OPEN",
-                created_at=iso_now,
-                assigned_tech="Powertrain Bay 2",
-                easa_part_m_ref="M.A.401 / SB-915-021"
-            ),
-            MaintenanceTask(
-                id="TSK-402",
-                task_order="WO-2026-042",
-                title="Cylinder #3 Injector Ultrasonic Flush & Flow Check",
-                subsystem="Fuel & Metering",
-                priority="CRITICAL",
-                advisory_text="Micro-orifice nozzle coking detected. Flow variation +2.7% (+0.50 L/h). Flush or replace injector S/N INJ-084.",
-                evidence_triggers=["Fuel flow deviation +0.50 L/h", "EGT Cyl #3 residual +18.0°C"],
-                status="OPEN",
-                created_at=iso_now,
-                assigned_tech="Avionics Bay 1 - Tech Lead",
-                easa_part_m_ref="Rotax MM Ch. 73-10-00"
-            ),
-            MaintenanceTask(
-                id="TSK-403",
-                task_order="WO-2026-039",
-                title="Turbocharger Wastegate Linkage Torque Check",
-                subsystem="Propulsion Core",
-                priority="LOW",
-                advisory_text="Verify electronic wastegate spindle axial clearance (0.35mm nominal). Retorque pivot linkage.",
-                evidence_triggers=["Depot cycle 1,842h milestone", "Scheduled interval inspection"],
-                status="COMPLETED",
-                created_at=iso_now,
-                assigned_tech="Flight Line Team Alpha",
-                easa_part_m_ref="SB-915-018"
-            ),
-            MaintenanceTask(
-                id="TSK-404",
-                task_order="WO-2026-038",
-                title="SOAP Spectrometric Oil Sample Pull",
-                subsystem="Lubrication & Gearbox",
-                priority="MEDIUM",
-                advisory_text="Extract 100ml gearbox lubricant for ICP-OES elemental wear analysis (Fe, Cu, Al ppm).",
-                evidence_triggers=["Routine 50h turnaround inspection", "Oil filter change window"],
-                status="COMPLETED",
-                created_at=iso_now,
-                assigned_tech="Spectro Lab Field Unit",
-                easa_part_m_ref="M.A.401 / EASA-CS-E"
-            )
-        ]
 
-@router.get("/maintenance", response_model=List[MaintenanceTask])
+def _db_to_task_dict(rec: MaintenanceRecord) -> Dict[str, Any]:
+    triggers = []
+    if rec.evidence_triggers:
+        try:
+            triggers = json.loads(rec.evidence_triggers)
+        except Exception:
+            triggers = [rec.evidence_triggers]
+
+    return {
+        "id": rec.id,
+        "task_order": rec.task_order,
+        "title": rec.title,
+        "subsystem": rec.subsystem,
+        "priority": rec.priority,
+        "advisory_text": rec.advisory_text or "",
+        "evidence_triggers": triggers,
+        "status": rec.status,
+        "created_at": rec.created_at.isoformat() if rec.created_at else datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "assigned_tech": rec.assigned_tech or "MALE Flight Line Team",
+        "easa_part_m_ref": rec.easa_part_m_ref or "M.A.401"
+    }
+
+
+@router.get("/maintenance", tags=["Maintenance"])
 async def list_maintenance_tasks(
-    status: Optional[str] = Query(None, description="Filter by status: OPEN, IN_PROGRESS, COMPLETED"),
+    status: Optional[str] = Query(None, description="OPEN, IN_PROGRESS, COMPLETED, CLOSED"),
     subsystem: Optional[str] = Query(None, description="Filter by subsystem"),
-    priority: Optional[str] = Query(None, description="Filter by priority: CRITICAL, HIGH, MEDIUM, LOW")
+    priority: Optional[str] = Query(None, description="CRITICAL, HIGH, MEDIUM, LOW"),
+    asset_id: Optional[str] = Query(None, description="Filter by asset ID"),
+    db: Session = Depends(get_db)
 ):
-    """List predictive maintenance advisories and active work orders with optional filtering."""
-    _ensure_initial_tasks()
-    tasks = list(state_service.maintenance_tasks)
-    if status and status.upper() != "ALL":
-        tasks = [t for t in tasks if t.status.upper() == status.upper()]
-    if subsystem and subsystem.upper() != "ALL":
-        tasks = [t for t in tasks if subsystem.lower() in t.subsystem.lower()]
-    if priority and priority.upper() != "ALL":
-        tasks = [t for t in tasks if t.priority.upper() == priority.upper()]
-    return tasks
+    """List predictive maintenance advisories and active work orders from PostgreSQL."""
+    query = db.query(MaintenanceRecord)
 
-@router.get("/maintenance/summary")
-async def get_maintenance_summary():
-    """Retrieve maintenance KPI metrics, equipment risk breakdown, and timeline."""
-    _ensure_initial_tasks()
-    all_tasks = state_service.maintenance_tasks
+    if status and status.upper() != "ALL":
+        s = "CLOSED" if status.upper() == "COMPLETED" else status.upper()
+        query = query.filter(MaintenanceRecord.status == s)
+
+    if subsystem and subsystem.upper() != "ALL":
+        query = query.filter(MaintenanceRecord.subsystem.ilike(f"%{subsystem.strip()}%"))
+
+    if priority and priority.upper() != "ALL":
+        query = query.filter(MaintenanceRecord.priority == priority.upper())
+
+    if asset_id:
+        query = query.filter(MaintenanceRecord.asset_id == asset_id.strip().upper())
+
+    records = query.order_by(MaintenanceRecord.created_at.desc()).all()
+    return [_db_to_task_dict(r) for r in records]
+
+
+@router.get("/maintenance/summary", tags=["Maintenance"])
+async def get_maintenance_summary(db: Session = Depends(get_db)):
+    """Retrieve maintenance KPI metrics, equipment risk breakdown, and timeline from PostgreSQL."""
+    all_tasks = db.query(MaintenanceRecord).all()
     total = len(all_tasks)
     overdue = sum(1 for t in all_tasks if t.status == "OPEN" and t.priority in ["CRITICAL", "HIGH"])
     upcoming = sum(1 for t in all_tasks if t.status in ["OPEN", "IN_PROGRESS"])
-    critical = sum(1 for t in all_tasks if t.priority == "CRITICAL" and t.status != "COMPLETED")
-    
+    critical = sum(1 for t in all_tasks if t.priority == "CRITICAL" and t.status not in ["COMPLETED", "CLOSED"])
+
     risk_matrix = [
         {"subsystem": "Fuel & Metering", "risk_level": "CRITICAL", "health_score": 84, "component": "Cylinder #3 Injector", "action": "Turnaround Flush"},
         {"subsystem": "Thermal & Combustion", "risk_level": "HIGH", "health_score": 88, "component": "Exhaust Valves Cyl 1-4", "action": "Borescope Inspection"},
@@ -138,132 +127,152 @@ async def get_maintenance_summary():
 
     return {
         "total_tasks": total,
-        "overdue_work_orders": overdue,
-        "upcoming_maintenance": upcoming,
-        "critical_alerts": critical,
-        "propulsion_health": 92,
-        "mtbur_hours": 4120,
+        "overdue_tasks": overdue,
+        "upcoming_tasks": upcoming,
+        "critical_priority": critical,
         "risk_matrix": risk_matrix,
         "timeline_events": timeline_events
     }
 
-@router.get("/maintenance/export")
-async def export_maintenance_csv():
-    """Export all maintenance work orders as a downloadable CSV."""
-    _ensure_initial_tasks()
+
+@router.post("/maintenance", status_code=status.HTTP_201_CREATED, tags=["Maintenance"])
+async def create_maintenance_task(
+    req: CreateMaintenanceTaskRequest,
+    db: Session = Depends(get_db)
+):
+    """Create and persist a new maintenance work order."""
+    now = datetime.datetime.now(datetime.timezone.utc)
+    task_id = f"TSK-{uuid.uuid4().hex[:6].upper()}"
+    task_order = f"WO-2026-{uuid.uuid4().hex[:4].upper()}"
+
+    rec = MaintenanceRecord(
+        id=task_id,
+        asset_id=req.asset_id or "UAV-07",
+        task_order=task_order,
+        title=req.title.strip(),
+        subsystem=req.subsystem.strip(),
+        priority=req.priority.upper(),
+        advisory_text=req.advisory_text,
+        evidence_triggers=json.dumps(req.evidence_triggers or ["Manual Dispatch"]),
+        status="OPEN",
+        assigned_tech=req.assigned_tech or "MALE Flight Line Team",
+        easa_part_m_ref=req.easa_part_m_ref or "M.A.401",
+        created_at=now,
+        updated_at=now
+    )
+    db.add(rec)
+    db.commit()
+    db.refresh(rec)
+    return _db_to_task_dict(rec)
+
+
+@router.put("/maintenance/{task_id}", tags=["Maintenance"])
+async def update_maintenance_task(
+    task_id: str,
+    req: UpdateMaintenanceTaskRequest,
+    db: Session = Depends(get_db)
+):
+    """Update maintenance task metadata in PostgreSQL."""
+    rec = db.query(MaintenanceRecord).filter(MaintenanceRecord.id == task_id).first()
+    if not rec:
+        raise HTTPException(status_code=404, detail="Maintenance task not found.")
+
+    if req.title is not None:
+        rec.title = req.title.strip()
+    if req.subsystem is not None:
+        rec.subsystem = req.subsystem.strip()
+    if req.priority is not None:
+        rec.priority = req.priority.upper()
+    if req.status is not None:
+        rec.status = req.status.upper()
+        if req.status.upper() in ["COMPLETED", "CLOSED"]:
+            rec.closed_at = datetime.datetime.now(datetime.timezone.utc)
+    if req.assigned_tech is not None:
+        rec.assigned_tech = req.assigned_tech.strip()
+    if req.advisory_text is not None:
+        rec.advisory_text = req.advisory_text.strip()
+    if req.easa_part_m_ref is not None:
+        rec.easa_part_m_ref = req.easa_part_m_ref.strip()
+
+    rec.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    db.refresh(rec)
+    return _db_to_task_dict(rec)
+
+
+@router.post("/maintenance/{task_id}/assign", tags=["Maintenance"])
+async def assign_technician(
+    task_id: str,
+    req: AssignTechRequest,
+    db: Session = Depends(get_db)
+):
+    """Assign a technician or crew to a work order."""
+    rec = db.query(MaintenanceRecord).filter(MaintenanceRecord.id == task_id).first()
+    if not rec:
+        raise HTTPException(status_code=404, detail="Maintenance task not found.")
+
+    rec.assigned_tech = req.assigned_tech.strip()
+    rec.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    db.refresh(rec)
+    return _db_to_task_dict(rec)
+
+
+@router.post("/maintenance/{task_id}/status", tags=["Maintenance"])
+async def update_task_status(
+    task_id: str,
+    req: UpdateStatusRequest,
+    db: Session = Depends(get_db)
+):
+    """Update work order status."""
+    rec = db.query(MaintenanceRecord).filter(MaintenanceRecord.id == task_id).first()
+    if not rec:
+        raise HTTPException(status_code=404, detail="Maintenance task not found.")
+
+    rec.status = req.status.upper()
+    if rec.status in ["COMPLETED", "CLOSED"]:
+        rec.closed_at = datetime.datetime.now(datetime.timezone.utc)
+    rec.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    db.refresh(rec)
+    return _db_to_task_dict(rec)
+
+
+@router.delete("/maintenance/{task_id}", tags=["Maintenance"])
+async def delete_maintenance_task(
+    task_id: str,
+    db: Session = Depends(get_db)
+):
+    """Delete a maintenance work order from database."""
+    rec = db.query(MaintenanceRecord).filter(MaintenanceRecord.id == task_id).first()
+    if not rec:
+        raise HTTPException(status_code=404, detail="Maintenance task not found.")
+
+    db.delete(rec)
+    db.commit()
+    return {"status": "SUCCESS", "message": f"Task {task_id} deleted successfully."}
+
+
+@router.get("/maintenance/export/csv", tags=["Maintenance"])
+async def export_maintenance_csv(db: Session = Depends(get_db)):
+    """Export work orders as an EASA Part-M compliant CSV log."""
+    records = db.query(MaintenanceRecord).order_by(MaintenanceRecord.created_at.desc()).all()
     output = io.StringIO()
     writer = csv.writer(output)
-    writer.writerow(["ID", "Work Order", "Title", "Subsystem", "Priority", "Status", "Assigned Tech", "EASA Part-M Ref", "Created At", "Advisory Text"])
-    
-    for t in state_service.maintenance_tasks:
+    writer.writerow([
+        "Task ID", "Work Order", "Asset ID", "Title", "Subsystem", "Priority", "Status",
+        "Assigned Tech", "Compliance Ref", "Created Timestamp", "Advisory"
+    ])
+
+    for r in records:
         writer.writerow([
-            t.id, t.task_order, t.title, t.subsystem, t.priority, t.status,
-            t.assigned_tech or "Unassigned", t.easa_part_m_ref, t.created_at, t.advisory_text
+            r.id, r.task_order, r.asset_id or "UAV-07", r.title, r.subsystem, r.priority, r.status,
+            r.assigned_tech, r.easa_part_m_ref, r.created_at.isoformat() if r.created_at else "",
+            r.advisory_text or ""
         ])
-    
-    csv_content = output.getvalue()
-    filename = f"AeroTwin_Maintenance_Report_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+
     return Response(
-        content=csv_content,
+        content=output.getvalue(),
         media_type="text/csv",
-        headers={"Content-Disposition": f"attachment; filename={filename}"}
+        headers={"Content-Disposition": "attachment; filename=aerotwin_maintenance_log.csv"}
     )
-
-@router.get("/maintenance/{task_id}", response_model=MaintenanceTask)
-async def get_maintenance_task(task_id: str):
-    """Retrieve details of a single maintenance task."""
-    _ensure_initial_tasks()
-    for task in state_service.maintenance_tasks:
-        if task.id == task_id or task.task_order == task_id:
-            return task
-    raise HTTPException(status_code=404, detail="Maintenance task not found")
-
-@router.post("/maintenance", response_model=MaintenanceTask)
-async def create_maintenance_task(data: CreateMaintenanceTaskRequest):
-    """Create a new maintenance task or work order with validation."""
-    _ensure_initial_tasks()
-    iso_now = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    new_task = MaintenanceTask(
-        id=f"TSK-{uuid.uuid4().hex[:6].upper()}",
-        task_order=f"WO-2026-{len(state_service.maintenance_tasks) + 101}",
-        title=data.title.strip(),
-        subsystem=data.subsystem.strip(),
-        priority=data.priority.upper(),
-        advisory_text=data.advisory_text.strip(),
-        evidence_triggers=data.evidence_triggers or ["Operator created work order"],
-        status="OPEN",
-        created_at=iso_now,
-        assigned_tech=data.assigned_tech or "MALE Flight Line Team",
-        easa_part_m_ref=data.easa_part_m_ref or "M.A.401"
-    )
-    state_service.maintenance_tasks.insert(0, new_task)
-    return new_task
-
-@router.put("/maintenance/{task_id}", response_model=MaintenanceTask)
-async def update_maintenance_task(task_id: str, data: UpdateMaintenanceTaskRequest):
-    """Update details of an existing maintenance work order."""
-    _ensure_initial_tasks()
-    for task in state_service.maintenance_tasks:
-        if task.id == task_id or task.task_order == task_id:
-            if data.title is not None:
-                task.title = data.title.strip()
-            if data.subsystem is not None:
-                task.subsystem = data.subsystem.strip()
-            if data.priority is not None:
-                task.priority = data.priority.upper()
-            if data.status is not None:
-                task.status = data.status.upper()
-            if data.assigned_tech is not None:
-                task.assigned_tech = data.assigned_tech.strip()
-            if data.advisory_text is not None:
-                task.advisory_text = data.advisory_text.strip()
-            if data.easa_part_m_ref is not None:
-                task.easa_part_m_ref = data.easa_part_m_ref.strip()
-            return task
-    raise HTTPException(status_code=404, detail="Maintenance task not found")
-
-@router.post("/maintenance/{task_id}/assign", response_model=MaintenanceTask)
-async def assign_maintenance_technician(task_id: str, data: AssignTechRequest):
-    """Assign or reassign a technician to an existing maintenance task."""
-    _ensure_initial_tasks()
-    for task in state_service.maintenance_tasks:
-        if task.id == task_id or task.task_order == task_id:
-            task.assigned_tech = data.assigned_tech.strip()
-            if task.status == "OPEN":
-                task.status = "IN_PROGRESS"
-            return task
-    raise HTTPException(status_code=404, detail="Maintenance task not found")
-
-@router.post("/maintenance/{task_id}/status", response_model=MaintenanceTask)
-async def update_maintenance_status(task_id: str, data: UpdateStatusRequest):
-    """Update work order lifecycle status (OPEN, IN_PROGRESS, COMPLETED, CANCELLED)."""
-    _ensure_initial_tasks()
-    valid_statuses = ["OPEN", "IN_PROGRESS", "COMPLETED", "CANCELLED"]
-    status_upper = data.status.upper()
-    if status_upper not in valid_statuses:
-        raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of {valid_statuses}")
-    for task in state_service.maintenance_tasks:
-        if task.id == task_id or task.task_order == task_id:
-            task.status = status_upper
-            return task
-    raise HTTPException(status_code=404, detail="Maintenance task not found")
-
-@router.post("/maintenance/{task_id}/complete", response_model=MaintenanceTask)
-async def complete_maintenance_task(task_id: str):
-    """Mark an existing maintenance work order as completed."""
-    _ensure_initial_tasks()
-    for task in state_service.maintenance_tasks:
-        if task.id == task_id or task.task_order == task_id:
-            task.status = "COMPLETED"
-            return task
-    raise HTTPException(status_code=404, detail="Maintenance task not found")
-
-@router.delete("/maintenance/{task_id}")
-async def delete_maintenance_task(task_id: str):
-    """Delete a maintenance task from the system."""
-    _ensure_initial_tasks()
-    for idx, task in enumerate(state_service.maintenance_tasks):
-        if task.id == task_id or task.task_order == task_id:
-            deleted = state_service.maintenance_tasks.pop(idx)
-            return {"status": "SUCCESS", "message": f"Task {deleted.task_order} deleted successfully.", "deleted_id": deleted.id}
-    raise HTTPException(status_code=404, detail="Maintenance task not found")

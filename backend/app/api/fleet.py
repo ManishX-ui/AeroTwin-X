@@ -1,242 +1,203 @@
-"""Fleet Operations & Multi-Asset Digital Twin API Endpoints."""
-from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel, Field
+"""Fleet Operations & Multi-Asset Digital Twin API Endpoints.
+
+Provides persistent relational management for Fleets, Industrial Assets,
+Sensor Channels, Historical Readings, Maintenance Records, and Alerts.
+Supports pagination, filtering, soft-delete safety, and validation.
+"""
+from fastapi import APIRouter, HTTPException, Depends, Query, status
+from sqlalchemy.orm import Session
+from sqlalchemy import func, or_
 from typing import List, Dict, Any, Optional
 import datetime
 
+from ...database.connection import get_db, is_db_configured
+from ...database.models import (
+    Fleet, Asset, Sensor, SensorReading, MaintenanceRecord, AlertRecord
+)
+from ..schemas.fleet import (
+    FleetCreate, FleetUpdate, FleetResponse,
+    AssetCreate, AssetUpdate, AssetResponse,
+    SensorCreate, SensorResponse, SensorReadingResponse
+)
+
 router = APIRouter()
 
-class UpdateAssetMetadataRequest(BaseModel):
-    callsign: Optional[str] = None
-    base_station: Optional[str] = None
-    pilot_in_command: Optional[str] = None
-    operational_status: Optional[str] = Field(None, description="OPERATIONAL, MAINTENANCE, STANDBY, OFFLINE")
-    notes: Optional[str] = None
 
-class FleetAsset(BaseModel):
-    id: str
-    tail_number: str
-    callsign: str
-    airframe_model: str
-    engine_model: str
-    base_station: str
-    latitude: float
-    longitude: float
-    altitude_ft: float
-    flight_hours_ttsn: float
-    health_index: float
-    operational_status: str # OPERATIONAL, MAINTENANCE, STANDBY, OFFLINE
-    active_mission: Optional[str] = None
-    pilot_in_command: str
-    last_inspection: str
-    next_due_hours: float
-    advisories_count: int
+# ===========================================================================
+# 1. Fleets Endpoints
+# ===========================================================================
 
-class FleetAlertItem(BaseModel):
-    id: str
-    asset_id: str
-    severity: str # CRITICAL, WARNING, INFO
-    title: str
-    message: str
-    timestamp: str
-    acknowledged: bool
+@router.get("/fleets", response_model=List[FleetResponse], tags=["Fleet Management"])
+async def list_fleets(
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=100),
+    search: Optional[str] = Query(None, description="Search by fleet name or organization"),
+    is_active: Optional[bool] = Query(None, description="Filter active/inactive fleets"),
+    db: Session = Depends(get_db)
+):
+    """List operational fleets with pagination and filtering."""
+    query = db.query(Fleet).filter(Fleet.is_deleted == False)
 
-FLEET_ASSETS: List[FleetAsset] = [
-    FleetAsset(
-        id="UAV-01",
-        tail_number="Tail #601",
-        callsign="Valkyrie-1",
-        airframe_model="Hermes 900 MALE",
-        engine_model="Rotax 914 Turbo",
-        base_station="Forward Operating Base Alpha (Nevada)",
-        latitude=36.241,
-        longitude=-115.052,
-        altitude_ft=18500.0,
-        flight_hours_ttsn=2140.0,
-        health_index=95.4,
-        operational_status="OPERATIONAL",
-        active_mission="MSN-2026-ALPHA",
-        pilot_in_command="Capt. M. Larson",
-        last_inspection="12-SEP-2024",
-        next_due_hours=60.0,
-        advisories_count=0
-    ),
-    FleetAsset(
-        id="UAV-02",
-        tail_number="Tail #602",
-        callsign="Valkyrie-2",
-        airframe_model="Hermes 900 MALE",
-        engine_model="Rotax 914 Turbo",
-        base_station="Forward Operating Base Alpha (Nevada)",
-        latitude=36.512,
-        longitude=-114.920,
-        altitude_ft=16200.0,
-        flight_hours_ttsn=1980.0,
-        health_index=93.8,
-        operational_status="OPERATIONAL",
-        active_mission="MSN-2026-BRAVO",
-        pilot_in_command="1st Lt. D. Rossi",
-        last_inspection="28-AUG-2024",
-        next_due_hours=120.0,
-        advisories_count=0
-    ),
-    FleetAsset(
-        id="UAV-03",
-        tail_number="Tail #701",
-        callsign="Spectre-1",
-        airframe_model="Bayraktar TB2 Spec",
-        engine_model="Rotax 915iSc Turbo",
-        base_station="Hangar Bay 4 (Texas Depot)",
-        latitude=31.182,
-        longitude=-97.743,
-        altitude_ft=0.0,
-        flight_hours_ttsn=890.0,
-        health_index=98.1,
-        operational_status="STANDBY",
-        active_mission=None,
-        pilot_in_command="Maj. T. Henderson",
-        last_inspection="04-OCT-2024",
-        next_due_hours=210.0,
-        advisories_count=0
-    ),
-    FleetAsset(
-        id="UAV-04",
-        tail_number="Tail #702",
-        callsign="Spectre-2",
-        airframe_model="Bayraktar TB2 Spec",
-        engine_model="Rotax 915iSc Turbo",
-        base_station="Naval Air Station Key West",
-        latitude=24.555,
-        longitude=-81.782,
-        altitude_ft=12400.0,
-        flight_hours_ttsn=1420.0,
-        health_index=96.5,
-        operational_status="OPERATIONAL",
-        active_mission="MSN-COASTAL-SURV",
-        pilot_in_command="Lt. Cdr. S. O'Connor",
-        last_inspection="19-SEP-2024",
-        next_due_hours=80.0,
-        advisories_count=0
-    ),
-    FleetAsset(
-        id="UAV-05",
-        tail_number="Tail #801",
-        callsign="Aegis-1",
-        airframe_model="Hermes MALE Tactical",
-        engine_model="Rotax 915iSc Turbo",
-        base_station="Al Dhafra Air Base (Sector 4)",
-        latitude=24.248,
-        longitude=54.547,
-        altitude_ft=21000.0,
-        flight_hours_ttsn=620.0,
-        health_index=99.0,
-        operational_status="OPERATIONAL",
-        active_mission="MSN-BORDER-RECON",
-        pilot_in_command="Capt. H. Al-Maktoum",
-        last_inspection="02-OCT-2024",
-        next_due_hours=380.0,
-        advisories_count=0
-    ),
-    FleetAsset(
-        id="UAV-06",
-        tail_number="Tail #503",
-        callsign="Odin-3",
-        airframe_model="MQ-1 Predator Spec",
-        engine_model="Rotax 914 Turbo",
-        base_station="Hangar Bay 2 (Depot Overhaul)",
-        latitude=32.899,
-        longitude=-97.040,
-        altitude_ft=0.0,
-        flight_hours_ttsn=2450.0,
-        health_index=90.2,
-        operational_status="MAINTENANCE",
-        active_mission=None,
-        pilot_in_command="Unassigned (Depot Bay)",
-        last_inspection="08-OCT-2024",
-        next_due_hours=0.0,
-        advisories_count=2
-    ),
-    FleetAsset(
-        id="UAV-07",
-        tail_number="Tail #601-A",
-        callsign="Hermes-Prime",
-        airframe_model="Hermes MALE (High-Alt)",
-        engine_model="Rotax 915iSc Turbo (AE-03)",
-        base_station="GCS Central Command (Live Telemetry)",
-        latitude=34.821,
-        longitude=-116.892,
-        altitude_ft=14500.0,
-        flight_hours_ttsn=1842.6,
-        health_index=92.0,
-        operational_status="OPERATIONAL",
-        active_mission="MSN-SIM-LIVE",
-        pilot_in_command="GCS Autonomous Pilot",
-        last_inspection="14-OCT-2024",
-        next_due_hours=45.0,
-        advisories_count=1
-    ),
-    FleetAsset(
-        id="UAV-08",
-        tail_number="Tail #802",
-        callsign="Aegis-2",
-        airframe_model="Hermes MALE Tactical",
-        engine_model="Rotax 915iSc Turbo",
-        base_station="Ramstein Air Base",
-        latitude=49.437,
-        longitude=7.600,
-        altitude_ft=0.0,
-        flight_hours_ttsn=1130.0,
-        health_index=97.4,
-        operational_status="STANDBY",
-        active_mission=None,
-        pilot_in_command="Capt. L. Weber",
-        last_inspection="25-SEP-2024",
-        next_due_hours=170.0,
-        advisories_count=0
+    if is_active is not None:
+        query = query.filter(Fleet.is_active == is_active)
+
+    if search:
+        s = f"%{search.strip()}%"
+        query = query.filter(or_(Fleet.name.ilike(s), Fleet.organization.ilike(s)))
+
+    fleets = query.offset(skip).limit(limit).all()
+
+    # Populate asset_count dynamically
+    results = []
+    for f in fleets:
+        count = db.query(Asset).filter(Asset.fleet_id == f.id, Asset.is_deleted == False).count()
+        f_resp = FleetResponse.model_validate(f)
+        f_resp.asset_count = count
+        results.append(f_resp)
+
+    return results
+
+
+@router.post("/fleets", response_model=FleetResponse, status_code=status.HTTP_201_CREATED, tags=["Fleet Management"])
+async def create_fleet(
+    req: FleetCreate,
+    db: Session = Depends(get_db)
+):
+    """Create and register a new industrial fleet."""
+    fleet_id = req.id.strip().upper() if req.id else f"FLT-{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}"
+
+    existing = db.query(Fleet).filter(Fleet.id == fleet_id).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Fleet with ID '{fleet_id}' already exists."
+        )
+
+    now = datetime.datetime.now(datetime.timezone.utc)
+    fleet = Fleet(
+        id=fleet_id,
+        name=req.name.strip(),
+        description=req.description,
+        organization=req.organization or "MALE Tactical Operations",
+        base_station=req.base_station,
+        is_active=req.is_active,
+        is_deleted=False,
+        created_at=now,
+        updated_at=now
     )
-]
+    db.add(fleet)
+    db.commit()
+    db.refresh(fleet)
 
-FLEET_ALERTS: List[FleetAlertItem] = [
-    FleetAlertItem(
-        id="ALT-FLT-101",
-        asset_id="UAV-07",
-        severity="CRITICAL",
-        title="Cylinder #3 Injector Degradation",
-        message="Active CBM+ advisory: Fuel flow bias +0.50 L/h and EGT residual +18.0°C. Turnaround inspection required within 45h.",
-        timestamp="14 min ago",
-        acknowledged=False
-    ),
-    FleetAlertItem(
-        id="ALT-FLT-102",
-        asset_id="UAV-06",
-        severity="WARNING",
-        title="Depot Overhaul Threshold Reached",
-        message="Aircraft reached 2,450 flight hours TTSN. Slipper clutch wear inspection due.",
-        timestamp="2 hours ago",
-        acknowledged=True
-    ),
-    FleetAlertItem(
-        id="ALT-FLT-103",
-        asset_id="UAV-01",
-        severity="INFO",
-        title="Routine Mission Checkpoint Passed",
-        message="Waypoint WP-06 reached with 94% fuel endurance margin remaining.",
-        timestamp="35 min ago",
-        acknowledged=True
+    resp = FleetResponse.model_validate(fleet)
+    resp.asset_count = 0
+    return resp
+
+
+@router.get("/fleets/{fleet_id}", response_model=FleetResponse, tags=["Fleet Management"])
+async def get_fleet(
+    fleet_id: str,
+    db: Session = Depends(get_db)
+):
+    """Retrieve details of a single fleet."""
+    fleet = db.query(Fleet).filter(Fleet.id == fleet_id, Fleet.is_deleted == False).first()
+    if not fleet:
+        raise HTTPException(status_code=404, detail=f"Fleet '{fleet_id}' not found.")
+
+    count = db.query(Asset).filter(Asset.fleet_id == fleet.id, Asset.is_deleted == False).count()
+    resp = FleetResponse.model_validate(fleet)
+    resp.asset_count = count
+    return resp
+
+
+@router.put("/fleets/{fleet_id}", response_model=FleetResponse, tags=["Fleet Management"])
+async def update_fleet(
+    fleet_id: str,
+    req: FleetUpdate,
+    db: Session = Depends(get_db)
+):
+    """Update fleet metadata."""
+    fleet = db.query(Fleet).filter(Fleet.id == fleet_id, Fleet.is_deleted == False).first()
+    if not fleet:
+        raise HTTPException(status_code=404, detail=f"Fleet '{fleet_id}' not found.")
+
+    if req.name is not None:
+        fleet.name = req.name.strip()
+    if req.description is not None:
+        fleet.description = req.description
+    if req.organization is not None:
+        fleet.organization = req.organization.strip()
+    if req.base_station is not None:
+        fleet.base_station = req.base_station.strip()
+    if req.is_active is not None:
+        fleet.is_active = req.is_active
+
+    fleet.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    db.refresh(fleet)
+
+    count = db.query(Asset).filter(Asset.fleet_id == fleet.id, Asset.is_deleted == False).count()
+    resp = FleetResponse.model_validate(fleet)
+    resp.asset_count = count
+    return resp
+
+
+@router.delete("/fleets/{fleet_id}", tags=["Fleet Management"])
+async def delete_fleet(
+    fleet_id: str,
+    db: Session = Depends(get_db)
+):
+    """Safe soft-delete fleet. Preserves child assets and historical readings."""
+    fleet = db.query(Fleet).filter(Fleet.id == fleet_id, Fleet.is_deleted == False).first()
+    if not fleet:
+        raise HTTPException(status_code=404, detail=f"Fleet '{fleet_id}' not found.")
+
+    # Soft delete fleet
+    fleet.is_deleted = True
+    fleet.is_active = False
+    fleet.updated_at = datetime.datetime.now(datetime.timezone.utc)
+
+    # Detach assets rather than destroying them
+    db.query(Asset).filter(Asset.fleet_id == fleet.id).update(
+        {"fleet_id": None, "updated_at": datetime.datetime.now(datetime.timezone.utc)}
     )
-]
 
-@router.get("/fleet/summary")
-async def get_fleet_summary():
-    """Retrieve high-level fleet-wide asset operational KPIs."""
-    total = len(FLEET_ASSETS)
-    operational = sum(1 for a in FLEET_ASSETS if a.operational_status == "OPERATIONAL")
-    maintenance = sum(1 for a in FLEET_ASSETS if a.operational_status in ["MAINTENANCE", "OFFLINE"])
-    standby = sum(1 for a in FLEET_ASSETS if a.operational_status == "STANDBY")
-    attention = sum(1 for a in FLEET_ASSETS if a.advisories_count > 0 or a.health_index < 93.0)
-    
-    total_hours = sum(a.flight_hours_ttsn for a in FLEET_ASSETS)
-    avg_health = round(sum(a.health_index for a in FLEET_ASSETS) / total, 1)
+    db.commit()
+    return {
+        "status": "SUCCESS",
+        "message": f"Fleet '{fleet_id}' safely archived. Associated assets preserved.",
+        "fleet_id": fleet_id
+    }
+
+
+# ===========================================================================
+# 2. Fleet Summary & Comparative KPIs
+# ===========================================================================
+
+@router.get("/fleet/summary", tags=["Fleet"])
+async def get_fleet_summary(db: Session = Depends(get_db)):
+    """Retrieve high-level fleet-wide asset operational KPIs from PostgreSQL."""
+    assets = db.query(Asset).filter(Asset.is_deleted == False).all()
+    total = len(assets)
+
+    if total == 0:
+        return {
+            "total_assets": 0,
+            "operational_assets": 0,
+            "offline_maintenance_assets": 0,
+            "standby_assets": 0,
+            "assets_requiring_attention": 0,
+            "fleet_average_health": 0.0,
+            "fleet_total_flight_hours": 0.0,
+            "active_fleet_missions": 0
+        }
+
+    operational = sum(1 for a in assets if a.operational_status == "OPERATIONAL")
+    maintenance = sum(1 for a in assets if a.operational_status in ["MAINTENANCE", "OFFLINE"])
+    standby = sum(1 for a in assets if a.operational_status == "STANDBY")
+    attention = sum(1 for a in assets if a.advisories_count > 0 or a.health_index < 93.0)
+    total_hours = sum(a.flight_hours_ttsn for a in assets)
+    avg_health = round(sum(a.health_index for a in assets) / total, 1)
 
     return {
         "total_assets": total,
@@ -246,59 +207,314 @@ async def get_fleet_summary():
         "assets_requiring_attention": attention,
         "fleet_average_health": avg_health,
         "fleet_total_flight_hours": round(total_hours, 1),
-        "active_fleet_missions": sum(1 for a in FLEET_ASSETS if a.active_mission)
+        "active_fleet_missions": sum(1 for a in assets if a.active_mission)
     }
 
-@router.get("/fleet/assets", response_model=List[FleetAsset])
+
+# ===========================================================================
+# 3. Assets Endpoints
+# ===========================================================================
+
+@router.get("/fleet/assets", response_model=List[AssetResponse], tags=["Assets"])
 async def list_fleet_assets(
-    status: Optional[str] = Query(None, description="Filter by operational status: OPERATIONAL, MAINTENANCE, STANDBY, OFFLINE"),
-    search: Optional[str] = Query(None, description="Search by callsign, tail number, or base")
+    status: Optional[str] = Query(None, description="OPERATIONAL, MAINTENANCE, STANDBY, OFFLINE"),
+    fleet_id: Optional[str] = Query(None, description="Filter by fleet ID"),
+    search: Optional[str] = Query(None, description="Search by callsign, tail number, or base"),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=200),
+    db: Session = Depends(get_db)
 ):
-    """Retrieve full inventory of fleet UAV assets with optional filters and search."""
-    assets = list(FLEET_ASSETS)
+    """Retrieve inventory of industrial assets with filtering and pagination."""
+    query = db.query(Asset).filter(Asset.is_deleted == False)
+
     if status and status.upper() != "ALL":
-        assets = [a for a in assets if a.operational_status.upper() == status.upper()]
+        query = query.filter(Asset.operational_status == status.upper())
+
+    if fleet_id:
+        query = query.filter(Asset.fleet_id == fleet_id)
+
     if search:
-        s = search.lower()
-        assets = [
-            a for a in assets 
-            if s in a.id.lower() or s in a.callsign.lower() or s in a.base_station.lower() or s in a.tail_number.lower()
-        ]
-    return assets
+        s = f"%{search.strip().lower()}%"
+        query = query.filter(
+            or_(
+                Asset.id.ilike(s),
+                Asset.callsign.ilike(s),
+                Asset.tail_number.ilike(s),
+                Asset.base_station.ilike(s)
+            )
+        )
 
-@router.get("/fleet/assets/{asset_id}", response_model=FleetAsset)
-async def get_fleet_asset(asset_id: str):
-    """Retrieve detailed specification and telemetry status for a single UAV asset."""
-    for a in FLEET_ASSETS:
-        if a.id.upper() == asset_id.upper() or a.callsign.lower() == asset_id.lower():
-            return a
-    raise HTTPException(status_code=404, detail="Fleet asset not found")
+    return query.offset(skip).limit(limit).all()
 
-@router.put("/fleet/assets/{asset_id}", response_model=FleetAsset)
-async def update_fleet_asset(asset_id: str, req: UpdateAssetMetadataRequest):
-    """Update editable asset metadata (callsign, base station, pilot, operational status)."""
-    for a in FLEET_ASSETS:
-        if a.id.upper() == asset_id.upper():
-            if req.callsign is not None:
-                a.callsign = req.callsign.strip()
-            if req.base_station is not None:
-                a.base_station = req.base_station.strip()
-            if req.pilot_in_command is not None:
-                a.pilot_in_command = req.pilot_in_command.strip()
-            if req.operational_status is not None:
-                a.operational_status = req.operational_status.upper()
-            return a
-    raise HTTPException(status_code=404, detail="Fleet asset not found")
 
-@router.get("/fleet/comparison")
+@router.post("/fleet/assets", response_model=AssetResponse, status_code=status.HTTP_201_CREATED, tags=["Assets"])
+async def register_asset(
+    req: AssetCreate,
+    db: Session = Depends(get_db)
+):
+    """Register a new industrial asset in the database."""
+    asset_id = req.id.strip().upper()
+    existing = db.query(Asset).filter(Asset.id == asset_id).first()
+    if existing:
+        if existing.is_deleted:
+            # Reactivate soft-deleted asset
+            existing.is_deleted = False
+            for k, v in req.model_dump().items():
+                setattr(existing, k, v)
+            existing.updated_at = datetime.datetime.now(datetime.timezone.utc)
+            db.commit()
+            db.refresh(existing)
+            return existing
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Asset with ID '{asset_id}' already exists."
+        )
+
+    now = datetime.datetime.now(datetime.timezone.utc)
+    asset = Asset(
+        id=asset_id,
+        fleet_id=req.fleet_id,
+        tail_number=req.tail_number.strip(),
+        callsign=req.callsign.strip(),
+        airframe_model=req.airframe_model.strip(),
+        engine_model=req.engine_model.strip(),
+        base_station=req.base_station.strip(),
+        latitude=req.latitude,
+        longitude=req.longitude,
+        altitude_ft=req.altitude_ft,
+        flight_hours_ttsn=req.flight_hours_ttsn,
+        health_index=req.health_index,
+        operational_status=req.operational_status.upper(),
+        active_mission=req.active_mission,
+        pilot_in_command=req.pilot_in_command,
+        last_inspection=req.last_inspection or now.strftime("%d-%b-%Y").upper(),
+        next_due_hours=req.next_due_hours,
+        advisories_count=req.advisories_count,
+        notes=req.notes,
+        is_deleted=False,
+        created_at=now,
+        updated_at=now
+    )
+    db.add(asset)
+    db.commit()
+    db.refresh(asset)
+    return asset
+
+
+@router.get("/fleet/assets/{asset_id}", response_model=AssetResponse, tags=["Assets"])
+async def get_fleet_asset(
+    asset_id: str,
+    db: Session = Depends(get_db)
+):
+    """Retrieve detailed specification and telemetry status for a single asset."""
+    aid = asset_id.strip().upper()
+    asset = db.query(Asset).filter(
+        or_(Asset.id == aid, Asset.callsign.ilike(aid)),
+        Asset.is_deleted == False
+    ).first()
+
+    if not asset:
+        raise HTTPException(status_code=404, detail=f"Asset '{asset_id}' not found.")
+    return asset
+
+
+@router.put("/fleet/assets/{asset_id}", response_model=AssetResponse, tags=["Assets"])
+async def update_fleet_asset(
+    asset_id: str,
+    req: AssetUpdate,
+    db: Session = Depends(get_db)
+):
+    """Update editable asset metadata (callsign, base station, pilot, status, etc.)."""
+    aid = asset_id.strip().upper()
+    asset = db.query(Asset).filter(
+        or_(Asset.id == aid, Asset.callsign.ilike(aid)),
+        Asset.is_deleted == False
+    ).first()
+
+    if not asset:
+        raise HTTPException(status_code=404, detail=f"Asset '{asset_id}' not found.")
+
+    if req.callsign is not None:
+        asset.callsign = req.callsign.strip()
+    if req.fleet_id is not None:
+        asset.fleet_id = req.fleet_id.strip() if req.fleet_id else None
+    if req.base_station is not None:
+        asset.base_station = req.base_station.strip()
+    if req.pilot_in_command is not None:
+        asset.pilot_in_command = req.pilot_in_command.strip()
+    if req.operational_status is not None:
+        asset.operational_status = req.operational_status.upper()
+    if req.latitude is not None:
+        asset.latitude = req.latitude
+    if req.longitude is not None:
+        asset.longitude = req.longitude
+    if req.altitude_ft is not None:
+        asset.altitude_ft = req.altitude_ft
+    if req.flight_hours_ttsn is not None:
+        asset.flight_hours_ttsn = req.flight_hours_ttsn
+    if req.health_index is not None:
+        asset.health_index = req.health_index
+    if req.last_inspection is not None:
+        asset.last_inspection = req.last_inspection
+    if req.next_due_hours is not None:
+        asset.next_due_hours = req.next_due_hours
+    if req.notes is not None:
+        asset.notes = req.notes
+
+    asset.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+    db.refresh(asset)
+    return asset
+
+
+@router.delete("/fleet/assets/{asset_id}", tags=["Assets"])
+async def delete_fleet_asset(
+    asset_id: str,
+    db: Session = Depends(get_db)
+):
+    """Safe soft-delete asset. Preserves all historical sensor observations and work orders."""
+    aid = asset_id.strip().upper()
+    asset = db.query(Asset).filter(Asset.id == aid, Asset.is_deleted == False).first()
+    if not asset:
+        raise HTTPException(status_code=404, detail=f"Asset '{asset_id}' not found.")
+
+    asset.is_deleted = True
+    asset.operational_status = "OFFLINE"
+    asset.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+
+    return {
+        "status": "SUCCESS",
+        "message": f"Asset '{aid}' safely archived. Historical sensor readings and records remain intact.",
+        "asset_id": aid
+    }
+
+
+# ===========================================================================
+# 4. Asset Sensors & Historical Telemetry Readings
+# ===========================================================================
+
+@router.get("/fleet/assets/{asset_id}/sensors", response_model=List[SensorResponse], tags=["Sensors"])
+async def get_asset_sensors(
+    asset_id: str,
+    db: Session = Depends(get_db)
+):
+    """Retrieve all sensors registered for a specific asset."""
+    aid = asset_id.strip().upper()
+    return db.query(Sensor).filter(Sensor.asset_id == aid, Sensor.is_active == True).all()
+
+
+@router.post("/fleet/assets/{asset_id}/sensors", response_model=SensorResponse, status_code=status.HTTP_201_CREATED, tags=["Sensors"])
+async def register_asset_sensor(
+    asset_id: str,
+    req: SensorCreate,
+    db: Session = Depends(get_db)
+):
+    """Register a new sensor channel on an asset."""
+    aid = asset_id.strip().upper()
+    asset = db.query(Asset).filter(Asset.id == aid, Asset.is_deleted == False).first()
+    if not asset:
+        raise HTTPException(status_code=404, detail=f"Asset '{aid}' not found.")
+
+    sensor_id = f"{aid}-{req.sensor_code.upper()}"
+    existing = db.query(Sensor).filter(Sensor.id == sensor_id).first()
+    if existing:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Sensor channel '{req.sensor_code}' already exists on asset '{aid}'."
+        )
+
+    now = datetime.datetime.now(datetime.timezone.utc)
+    sensor = Sensor(
+        id=sensor_id,
+        asset_id=aid,
+        sensor_code=req.sensor_code.upper(),
+        channel_name=req.channel_name.strip(),
+        subsystem=req.subsystem.strip(),
+        measurement_type=req.measurement_type.upper(),
+        unit=req.unit.strip(),
+        nominal_min=req.nominal_min,
+        nominal_max=req.nominal_max,
+        sample_rate_hz=req.sample_rate_hz,
+        noise_sigma=req.noise_sigma,
+        quality_score=req.quality_score,
+        status=req.status.upper(),
+        is_active=req.is_active,
+        created_at=now,
+        updated_at=now
+    )
+    db.add(sensor)
+    db.commit()
+    db.refresh(sensor)
+    return sensor
+
+
+@router.get("/fleet/assets/{asset_id}/readings", response_model=List[SensorReadingResponse], tags=["Sensor Readings"])
+async def get_asset_readings(
+    asset_id: str,
+    sensor_code: Optional[str] = Query(None, description="Filter by sensor code e.g. RPM, CHT"),
+    start_time: Optional[datetime.datetime] = Query(None, description="Start ISO UTC timestamp"),
+    end_time: Optional[datetime.datetime] = Query(None, description="End ISO UTC timestamp"),
+    limit: int = Query(100, ge=1, le=1000, description="Max observations to return"),
+    db: Session = Depends(get_db)
+):
+    """Retrieve historical timestamped sensor readings for an asset."""
+    aid = asset_id.strip().upper()
+    query = db.query(SensorReading).filter(SensorReading.asset_id == aid)
+
+    if sensor_code:
+        query = query.filter(SensorReading.sensor_code == sensor_code.upper())
+
+    if start_time:
+        query = query.filter(SensorReading.timestamp >= start_time)
+
+    if end_time:
+        query = query.filter(SensorReading.timestamp <= end_time)
+
+    query = query.order_by(SensorReading.timestamp.desc()).limit(limit)
+    return query.all()
+
+
+@router.get("/fleet/assets/{asset_id}/maintenance", tags=["Maintenance"])
+async def get_asset_maintenance_history(
+    asset_id: str,
+    db: Session = Depends(get_db)
+):
+    """Retrieve historical and open maintenance work orders for an asset."""
+    aid = asset_id.strip().upper()
+    records = db.query(MaintenanceRecord).filter(MaintenanceRecord.asset_id == aid).order_by(MaintenanceRecord.created_at.desc()).all()
+    return records
+
+
+@router.get("/fleet/assets/{asset_id}/alerts", tags=["Alerts"])
+async def get_asset_alerts(
+    asset_id: str,
+    db: Session = Depends(get_db)
+):
+    """Retrieve alerts associated with an asset."""
+    aid = asset_id.strip().upper()
+    alerts = db.query(AlertRecord).filter(AlertRecord.asset_id == aid).order_by(AlertRecord.created_at.desc()).all()
+    return alerts
+
+
+# ===========================================================================
+# 5. Multi-Asset Comparison Matrix
+# ===========================================================================
+
+@router.get("/fleet/comparison", tags=["Fleet"])
 async def get_fleet_comparison_matrix(
-    asset_ids: Optional[str] = Query("UAV-01,UAV-03,UAV-07", description="Comma-separated asset IDs")
+    asset_ids: Optional[str] = Query("UAV-01,UAV-03,UAV-07", description="Comma-separated asset IDs"),
+    db: Session = Depends(get_db)
 ):
     """Retrieve multi-asset comparative telemetry and health matrices."""
     selected_ids = [aid.strip().upper() for aid in asset_ids.split(",") if aid.strip()]
-    matched = [a for a in FLEET_ASSETS if a.id.upper() in selected_ids]
+    matched = db.query(Asset).filter(
+        Asset.id.in_(selected_ids),
+        Asset.is_deleted == False
+    ).all()
+
     if not matched:
-        matched = FLEET_ASSETS[:3]
+        matched = db.query(Asset).filter(Asset.is_deleted == False).limit(3).all()
 
     metrics = []
     for a in matched:
@@ -320,16 +536,43 @@ async def get_fleet_comparison_matrix(
         "comparison_metrics": metrics
     }
 
-@router.get("/fleet/alerts", response_model=List[FleetAlertItem])
-async def list_fleet_alerts():
-    """Retrieve list of fleet-wide mission and condition alerts."""
-    return FLEET_ALERTS
 
-@router.post("/fleet/alerts/{alert_id}/acknowledge")
-async def acknowledge_fleet_alert(alert_id: str):
-    """Acknowledge a fleet alert."""
-    for alt in FLEET_ALERTS:
-        if alt.id == alert_id:
-            alt.acknowledged = True
-            return {"status": "SUCCESS", "message": f"Alert {alt.id} acknowledged.", "alert_id": alt.id}
-    raise HTTPException(status_code=404, detail="Alert not found")
+# ===========================================================================
+# 6. Fleet Alerts & Acknowledgment
+# ===========================================================================
+
+@router.get("/fleet/alerts", tags=["Alerts"])
+async def list_fleet_alerts(
+    severity: Optional[str] = Query(None, description="Filter: CRITICAL, WARNING, INFO"),
+    acknowledged: Optional[bool] = Query(None),
+    limit: int = Query(50, ge=1, le=200),
+    db: Session = Depends(get_db)
+):
+    """Retrieve list of fleet-wide mission and condition alerts from database."""
+    query = db.query(AlertRecord)
+    if severity and severity.upper() != "ALL":
+        query = query.filter(AlertRecord.severity == severity.upper())
+    if acknowledged is not None:
+        query = query.filter(AlertRecord.acknowledged == acknowledged)
+
+    alerts = query.order_by(AlertRecord.created_at.desc()).limit(limit).all()
+    return alerts
+
+
+@router.post("/fleet/alerts/{alert_id}/acknowledge", tags=["Alerts"])
+async def acknowledge_fleet_alert(
+    alert_id: str,
+    db: Session = Depends(get_db)
+):
+    """Acknowledge a fleet alert and persist the timestamp and user."""
+    alert = db.query(AlertRecord).filter(AlertRecord.id == alert_id).first()
+    if not alert:
+        raise HTTPException(status_code=404, detail="Alert not found.")
+
+    alert.acknowledged = True
+    alert.acknowledged_at = datetime.datetime.now(datetime.timezone.utc)
+    alert.acknowledged_by = "Flight Systems Operator"
+    alert.updated_at = datetime.datetime.now(datetime.timezone.utc)
+    db.commit()
+
+    return {"status": "SUCCESS", "message": f"Alert {alert.id} acknowledged.", "alert_id": alert.id}

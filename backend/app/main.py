@@ -92,6 +92,7 @@ app.include_router(fleet_router, prefix=settings.API_V1_STR, tags=["Fleet"])
 
 # System Health & Operational Status Endpoints
 @app.get("/health", tags=["Status"])
+@app.get("/api/health", tags=["Status"])
 @app.get(f"{settings.API_V1_STR}/health", tags=["Status"])
 async def system_health_status():
     """System health check and operational status."""
@@ -240,29 +241,53 @@ async def websocket_telemetry_endpoint(websocket: WebSocket):
         manager.disconnect(websocket)
 
 # Frontend Static Files Mount
-frontend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../frontend"))
-if os.path.exists(frontend_dir):
-    app.mount("/static", StaticFiles(directory=frontend_dir), name="static")
-    assets_dir = os.path.join(frontend_dir, "assets")
-    if os.path.exists(assets_dir):
-        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
-    js_dir = os.path.join(frontend_dir, "js")
-    if os.path.exists(js_dir):
-        app.mount("/js", StaticFiles(directory=js_dir), name="js")
-    css_dir = os.path.join(frontend_dir, "css")
-    if os.path.exists(css_dir):
-        app.mount("/css", StaticFiles(directory=css_dir), name="css")
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+frontend_dir = os.path.join(root_dir, "frontend")
+
+# Mount assets from root and frontend directories
+for static_target, mount_point in [
+    (os.path.join(root_dir, "assets"), "/assets"),
+    (os.path.join(root_dir, "js"), "/js"),
+    (os.path.join(root_dir, "css"), "/css"),
+    (os.path.join(frontend_dir, "assets"), "/static/assets"),
+    (os.path.join(frontend_dir, "js"), "/static/js"),
+    (os.path.join(frontend_dir, "css"), "/static/css"),
+    (frontend_dir, "/static"),
+]:
+    if os.path.exists(static_target):
+        try:
+            app.mount(mount_point, StaticFiles(directory=static_target), name=mount_point.strip("/").replace("/", "_"))
+        except Exception:
+            pass
+
 
 @app.get("/")
+@app.get("/index.html")
+@app.get("/api")
+@app.get("/api/")
+@app.get("/api/index.py")
+@app.get("/api/index")
 async def serve_index():
-    index_path = os.path.join(frontend_dir, "index.html")
-    if os.path.exists(index_path):
-        return FileResponse(index_path)
-    return HTMLResponse("<h1>AeroTwin-X Backend API is Online. Frontend build in progress...</h1>")
+    for candidate in [
+        os.path.join(root_dir, "index.html"),
+        os.path.join(frontend_dir, "index.html"),
+        os.path.abspath("index.html"),
+        os.path.abspath("frontend/index.html")
+    ]:
+        if os.path.exists(candidate):
+            return FileResponse(candidate)
+    return HTMLResponse("<h1>AeroTwin-X Digital Twin GCS</h1><p>Application is loading...</p>")
+
 
 @app.get("/favicon.ico")
 async def serve_favicon():
-    favicon_path = os.path.join(frontend_dir, "favicon.ico")
-    if os.path.exists(favicon_path):
-        return FileResponse(favicon_path)
-    return FileResponse(os.path.join(frontend_dir, "assets", "logo.png"))
+    for fav_path in [
+        os.path.join(root_dir, "favicon.ico"),
+        os.path.join(frontend_dir, "favicon.ico"),
+        os.path.join(root_dir, "assets", "logo.png"),
+        os.path.join(frontend_dir, "assets", "logo.png"),
+    ]:
+        if os.path.exists(fav_path):
+            return FileResponse(fav_path)
+    return HTMLResponse("", status_code=204)
+

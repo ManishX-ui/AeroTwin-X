@@ -263,9 +263,11 @@ for static_target, mount_point in [
 
 @app.get("/")
 @app.get("/index.html")
+@app.get("/frontend/index.html")
+@app.get("/frontend/index")
+@app.get("/frontend")
 @app.get("/api")
 @app.get("/api/")
-@app.get("/api/index.py")
 @app.get("/api/index")
 async def serve_index():
     for candidate in [

@@ -7,7 +7,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .config import settings
 from .websocket.connection_manager import manager
@@ -292,4 +293,26 @@ async def serve_favicon():
         if os.path.exists(fav_path):
             return FileResponse(fav_path)
     return HTMLResponse("", status_code=204)
+
+
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request, exc):
+    """Fallback handler to ensure Single Page Application routes resolve to index.html."""
+    if exc.status_code == 404:
+        # Preserve standard JSON error for actual API routes
+        if request.url.path.startswith("/api/v1/"):
+            return JSONResponse(status_code=404, content={"detail": exc.detail or "Not Found"})
+
+        # For any other route or Vercel rewrite, serve the SPA index.html
+        for candidate in [
+            os.path.join(root_dir, "index.html"),
+            os.path.join(frontend_dir, "index.html"),
+            os.path.abspath("index.html"),
+            os.path.abspath("frontend/index.html")
+        ]:
+            if os.path.exists(candidate):
+                return FileResponse(candidate)
+
+    return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+
 

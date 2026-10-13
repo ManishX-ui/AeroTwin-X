@@ -4,7 +4,7 @@ import json
 import asyncio
 import logging
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
@@ -76,6 +76,22 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def vercel_rewrite_path_fix(request: Request, call_next):
+    """Restore original path if Vercel internal rewrite forwarded to /api/index.py."""
+    path = request.scope.get("path", "")
+    if path in ("/api/index.py", "/api/index", "/api", "/api/"):
+        matched = (
+            request.headers.get("x-matched-path")
+            or request.headers.get("x-invoke-path")
+            or request.headers.get("x-forwarded-uri")
+        )
+        if matched and matched != path and (matched.startswith("/api/") or matched == "/api"):
+            request.scope["path"] = matched
+    return await call_next(request)
+
 
 # Register API Routers
 app.include_router(telemetry_router, prefix=settings.API_V1_STR, tags=["Telemetry"])
@@ -296,11 +312,11 @@ async def serve_favicon():
 
 
 @app.exception_handler(StarletteHTTPException)
-async def custom_http_exception_handler(request, exc):
+async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
     """Fallback handler to ensure Single Page Application routes resolve to index.html."""
     if exc.status_code == 404:
         # Preserve standard JSON error for actual API routes
-        if request.url.path.startswith("/api/v1/"):
+        if request.url.path.startswith("/api"):
             return JSONResponse(status_code=404, content={"detail": exc.detail or "Not Found"})
 
         # For any other route or Vercel rewrite, serve the SPA index.html

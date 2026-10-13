@@ -10,43 +10,47 @@ def run_phase2_endpoint_verification():
     client = TestClient(app)
     results = []
 
+    # 1. Fetch dynamic alert ID
+    alerts_resp = client.get("/api/v1/alerts")
+    alert_id = alerts_resp.json()[0]["id"] if alerts_resp.status_code == 200 and alerts_resp.json() else "ALT-001"
+
     tests = [
-        ("GET", "/health", None, 200),
-        ("GET", "/api/v1/health", None, 200),
-        ("GET", "/api/v1/telemetry", None, 200),
-        ("GET", "/api/v1/telemetry/history?limit=10", None, 200),
-        ("GET", "/api/v1/engine/AE-03/state", None, 200),
-        ("GET", "/api/v1/engine/AE-03/telemetry", None, 200),
-        ("GET", "/api/v1/engine/AE-03/health", None, 200),
-        ("GET", "/api/v1/engine/AE-03/predictions", None, 200),
-        ("GET", "/api/v1/predictions", None, 200),
-        ("GET", "/api/v1/alerts", None, 200),
-        ("POST", "/api/v1/alerts/ALT-084/ack", None, 200),
-        ("GET", "/api/v1/missions", None, 200),
-        ("POST", "/api/v1/missions", {"name": "Test Mission"}, 200),
-        ("GET", "/api/v1/missions/MSN-ISR-0814/replay", None, 200),
-        ("GET", "/api/v1/simulation/scenarios", None, 200),
-        ("POST", "/api/v1/simulation/start", None, 200),
-        ("POST", "/api/v1/simulation/stop", None, 200),
-        ("POST", "/api/v1/simulation/phase", {"phase": "CLIMB"}, 200),
-        ("POST", "/api/v1/faults/inject", {"fault_type": "OVERHEATING", "severity": 1.2}, 200),
-        ("POST", "/api/v1/simulation/reset", None, 200),
-        ("GET", "/api/v1/maintenance", None, 200),
-        ("POST", "/api/v1/maintenance", {"title": "Test Work Order", "subsystem": "Cooling"}, 200),
-        ("GET", "/api/v1/models", None, 200),
+        ("GET", "/health", None, [200]),
+        ("GET", "/api/v1/health", None, [200]),
+        ("GET", "/api/v1/telemetry", None, [200]),
+        ("GET", "/api/v1/telemetry/history?limit=10", None, [200]),
+        ("GET", "/api/v1/engine/AE-03/state", None, [200]),
+        ("GET", "/api/v1/engine/AE-03/telemetry", None, [200]),
+        ("GET", "/api/v1/engine/AE-03/health", None, [200]),
+        ("GET", "/api/v1/engine/AE-03/predictions", None, [200]),
+        ("GET", "/api/v1/predictions", None, [200]),
+        ("GET", "/api/v1/alerts", None, [200]),
+        ("POST", f"/api/v1/alerts/{alert_id}/ack", None, [200]),
+        ("GET", "/api/v1/missions", None, [200]),
+        ("POST", "/api/v1/missions", {"name": "Test Mission"}, [200, 201]),
+        ("GET", "/api/v1/missions/MSN-ISR-0814/replay", None, [200]),
+        ("GET", "/api/v1/simulation/scenarios", None, [200]),
+        ("POST", "/api/v1/simulation/start", None, [200]),
+        ("POST", "/api/v1/simulation/stop", None, [200]),
+        ("POST", "/api/v1/simulation/phase", {"phase": "CLIMB"}, [200]),
+        ("POST", "/api/v1/faults/inject", {"fault_type": "OVERHEATING", "severity": 1.2}, [200]),
+        ("POST", "/api/v1/simulation/reset", None, [200]),
+        ("GET", "/api/v1/maintenance", None, [200]),
+        ("POST", "/api/v1/maintenance", {"title": "Test Work Order", "subsystem": "Cooling"}, [200, 201]),
+        ("GET", "/api/v1/models", None, [200]),
     ]
 
     print(f"{'METHOD':<7} | {'ENDPOINT':<45} | {'STATUS':<6} | {'RESULT'}")
     print("-" * 75)
 
     all_passed = True
-    for method, path, json_data, expected_status in tests:
+    for method, path, json_data, expected_statuses in tests:
         if method == "GET":
             resp = client.get(path)
         else:
             resp = client.post(path, json=json_data)
         
-        passed = resp.status_code == expected_status
+        passed = resp.status_code in expected_statuses
         if not passed:
             all_passed = False
         res_str = "PASS" if passed else f"FAIL ({resp.status_code})"

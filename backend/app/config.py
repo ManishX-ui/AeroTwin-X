@@ -15,5 +15,6 @@ class Settings:
     DEFAULT_ENGINE_ID: str = "AE-03"
     BACKEND_CORS_ORIGINS: list = ["*"]
     MODEL_DIR: str = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../models"))
+    INGEST_API_KEY: str = os.getenv("AEROTWIN_INGEST_API_KEY", "aerotwin-sensor-key-live-2026")
 
 settings = Settings()

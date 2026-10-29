@@ -31,6 +31,7 @@ from .api.reports import router as reports_router
 from .api.edge_ai import router as edge_ai_router
 from .api.data_quality import router as data_quality_router
 from .api.fleet import router as fleet_router
+from .api.ml_system import router as ml_system_router
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("aerotwin.main")
@@ -106,6 +107,7 @@ app.include_router(reports_router, prefix=settings.API_V1_STR, tags=["Reports"])
 app.include_router(edge_ai_router, prefix=settings.API_V1_STR, tags=["Edge AI"])
 app.include_router(data_quality_router, prefix=settings.API_V1_STR, tags=["Data Quality"])
 app.include_router(fleet_router, prefix=settings.API_V1_STR, tags=["Fleet"])
+app.include_router(ml_system_router, prefix=settings.API_V1_STR, tags=["Machine Learning"])
 
 # System Health & Operational Status Endpoints
 @app.get("/health", tags=["Status"])
@@ -207,13 +209,13 @@ async def get_service_diagnostics():
         "health_estimator": {
             "name": "Subsystem Health Estimator",
             "status": "READY",
-            "version": "v1.5-weibull",
+            "version": "v1.5-subsystem",
             "last_inference": last_inference_ts
         },
         "rul_model": {
-            "name": "Remaining Useful Life (RUL) Predictor",
+            "name": "TBO Maintenance Countdown Estimator",
             "status": "READY",
-            "version": "v1.0-certified",
+            "version": "v1.0-interval",
             "last_inference": last_inference_ts
         }
     }

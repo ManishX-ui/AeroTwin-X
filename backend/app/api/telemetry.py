@@ -17,7 +17,7 @@ import datetime
 from fastapi import APIRouter, HTTPException, Query, Depends, Header, status
 from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Union
 from pydantic import BaseModel, Field
 
 from ...database.connection import get_db, is_db_configured
@@ -63,6 +63,18 @@ async def get_current_telemetry():
     if state_service.latest_telemetry:
         return state_service.latest_telemetry
     packet, _ = state_service.simulator.generate_step(0.1)
+    return packet
+
+
+@router.get("/telemetry/latest", response_model=TelemetryPacket)
+async def get_latest_telemetry(device_id: Optional[str] = Query(None, description="Optional device filter")):
+    """Get most recent telemetry packet with optional device ID filtering."""
+    if state_service.latest_telemetry:
+        if not device_id or state_service.latest_telemetry.uav_id.upper() == device_id.upper():
+            return state_service.latest_telemetry
+    packet, _ = state_service.simulator.generate_step(0.1)
+    if device_id:
+        packet.uav_id = device_id
     return packet
 
 
@@ -129,11 +141,15 @@ async def get_telemetry_history(
 
 @router.post("/telemetry/ingest", status_code=status.HTTP_201_CREATED, tags=["IoT Ingestion"])
 async def ingest_telemetry_packet(
-    payload: TelemetryPacket,
+    raw_payload: Union[TelemetryPacket, Dict[str, Any]],
     api_key: str = Depends(verify_ingest_auth),
     db: Session = Depends(get_db)
 ):
     """Ingest a verified live sensor telemetry frame into PostgreSQL with AI execution."""
+    from ..schemas.sensor_contract import adapt_to_telemetry_packet
+    from ..services.telemetry_service import telemetry_pipeline
+
+    payload = adapt_to_telemetry_packet(raw_payload, source_override="LIVE_SENSOR")
     asset_id = payload.uav_id.strip().upper()
 
     # 1. Validate Registered Asset
@@ -176,6 +192,8 @@ async def ingest_telemetry_packet(
     payload.source = "LIVE_SENSOR"
     payload.is_synthetic = False
     payload.server_ingested_at = server_ingested_at_iso
+    telemetry_pipeline.last_live_sensor_received_at = server_now
+    telemetry_pipeline.last_quality_status = payload.quality
 
     # 3. Compute Idempotency Hash (Asset + Timestamp + RPM + CHT + EGT)
     hash_str = f"{asset_id}_{payload.timestamp}_{payload.rpm:.2f}_{payload.cht:.2f}_{payload.egt:.2f}"
@@ -192,8 +210,12 @@ async def ingest_telemetry_packet(
             content={
                 "status": "DUPLICATE_IGNORED",
                 "message": "Observation already persisted with identical timestamp and payload.",
-                "reading_id": existing.id,
+                "reading_id": str(existing.id),
+                "device_id": asset_id,
                 "asset_id": asset_id,
+                "source": "LIVE_SENSOR",
+                "validation_status": payload.quality,
+                "processing_status": "DUPLICATE",
                 "duplicate": True
             }
         )
@@ -216,6 +238,23 @@ async def ingest_telemetry_packet(
 
     for code, (val, unit) in metrics_map.items():
         sensor_id = f"{asset_id}-{code}"
+        # Ensure sensor entity exists in foreign key table
+        sensor_rec = db.query(Sensor).filter(Sensor.id == sensor_id).first()
+        if not sensor_rec:
+            sensor_rec = Sensor(
+                id=sensor_id,
+                asset_id=asset_id,
+                sensor_code=code,
+                channel_name=f"{asset_id} {code} Sensor",
+                subsystem="Core Propulsion",
+                measurement_type="TELEMETRY",
+                unit=unit,
+                created_at=server_now,
+                updated_at=server_now
+            )
+            db.add(sensor_rec)
+            db.flush()
+
         reading = SensorReading(
             asset_id=asset_id,
             sensor_id=sensor_id,
@@ -233,6 +272,7 @@ async def ingest_telemetry_packet(
 
     db.commit()
 
+
     # 5. Execute Digital Twin & AI/ML Pipeline with PostgreSQL Prediction Persistence
     combined_frame = state_service.process_telemetry_frame(
         packet=payload,
@@ -248,16 +288,31 @@ async def ingest_telemetry_packet(
     asset.updated_at = server_now
     db.commit()
 
+    reading_id = f"RDG-{idempotency_hash[:10].upper()}"
+    model_version = combined_frame["prediction"]["fault"]["model_version"]
+
     return {
         "status": "SUCCESS",
+        "processing_status": "SUCCESS",
         "ingestion_status": "INGESTED",
-        "source": "LIVE_SENSOR",
+        "reading_id": reading_id,
+        "device_id": asset_id,
         "asset_id": asset_id,
+        "source": "LIVE_SENSOR",
+        "validation_status": payload.quality,
         "measurement_timestamp": measurement_ts.isoformat(),
         "server_ingested_at": server_ingested_at_iso,
         "channels_persisted": len(created_readings),
         "idempotency_hash": idempotency_hash,
         "prediction_record_id": combined_frame.get("prediction_record_id"),
+        "model_version": model_version,
+        "prediction_result": {
+            "fault": combined_frame["prediction"]["fault"]["fault"],
+            "confidence": combined_frame["prediction"]["fault"]["confidence"],
+            "anomaly_score": combined_frame["prediction"]["anomaly"]["anomaly_score"],
+            "health_index": combined_frame["prediction"]["health"]["engine_health"],
+            "rul_hours": combined_frame["prediction"]["rul"]["rul_hours"]
+        },
         "anomaly_score": combined_frame["prediction"]["anomaly"]["anomaly_score"],
         "predicted_fault": combined_frame["prediction"]["fault"]["fault"],
         "health_index": combined_frame["prediction"]["health"]["engine_health"]

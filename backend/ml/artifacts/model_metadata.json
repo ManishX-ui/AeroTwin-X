@@ -1,0 +1,24 @@
+{
+  "model_identifier": "AEROTWIN_X_ML_CORE",
+  "model_version": "v2.5-prod-20261022",
+  "training_timestamp": "2026-10-22T15:10:28.454660+00:00",
+  "dataset_fingerprint": "d673d498d92f63334e45acb01f2101c68aa8016724288b9a36a9c12a7f045f3a",
+  "training_sample_count": 7200,
+  "test_sample_count": 3000,
+  "models": {
+    "anomaly_detector": {
+      "type": "IsolationForest",
+      "n_estimators": 120,
+      "contamination": 0.04,
+      "artifact_file": "isolation_forest.joblib"
+    },
+    "fault_classifier": {
+      "type": "HistGradientBoostingClassifier",
+      "max_iter": 100,
+      "learning_rate": 0.08,
+      "artifact_file": "fault_classifier.joblib"
+    }
+  },
+  "status": "TRAINED",
+  "evaluation_status": "AVAILABLE"
+}

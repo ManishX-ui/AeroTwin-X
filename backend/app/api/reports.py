@@ -168,7 +168,7 @@ have been verified against calibrated ODE Physics-Informed Neural Network (PINN)
 - Mean Fleet Reliability  : 4,120 MTBUR Hours (+8.4% above baseline)
 - Physics Model Sync      : 99.4% confidence (0.08σ residual drift)
 - Subsystem Advisories    : 1 Immediate Action Required (Cylinder #3 Injector)
-- Remaining Useful Life   : 1,284.0 flight hours (Weibull β=1.82)
+- TBO Countdown Remaining : 1,284.0 flight hours (TBO 2,500 h Baseline; Uncalibrated)
 
 3. COMPLIANCE & VERIFICATION:
 All sensor observations meet DO-178C / STANAG 4586 integrity specifications.

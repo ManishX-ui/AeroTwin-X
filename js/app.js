@@ -61,6 +61,7 @@ class AeroTwinApp {
     this.initEdgeAIModule();
     this.initDataQualityModule();
     this.initFleetModule();
+    this.initMLSystemModule();
     this.fetchInitialBackendData();
   }
 
@@ -2877,6 +2878,198 @@ ${report.data_content || 'No text data available.'}
     });
   }
 
+  /* =============================================================
+   * MODULE 6: MACHINE LEARNING LIFECYCLE & SENSOR CONTRACT
+   * ============================================================= */
+  initMLSystemModule() {
+    const btnDemo = document.getElementById("btn-mode-demo");
+    const btnLive = document.getElementById("btn-mode-live");
+
+    const updateSourceUI = (mode, isStale = false, freshness = "LIVE / RECENT") => {
+      const sourceText = document.getElementById("header-source-text");
+      const freshnessText = document.getElementById("telemetry-status-text");
+      const telemetryBadge = document.getElementById("telemetry-status-badge");
+      const dot = document.getElementById("telemetry-dot");
+
+      if (mode === "LIVE_SENSOR") {
+        if (btnLive) {
+          btnLive.className = "px-2.5 py-1 bg-primary text-white font-label-caps text-[11px] font-bold rounded shadow-xs flex items-center gap-1.5 transition-all cursor-pointer";
+          btnLive.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>LIVE SENSOR';
+        }
+        if (btnDemo) {
+          btnDemo.className = "px-2.5 py-1 text-slate-600 hover:text-slate-900 font-label-caps text-[11px] font-medium transition-all cursor-pointer";
+          btnDemo.innerHTML = 'DEMO DATA';
+        }
+        if (sourceText) sourceText.textContent = "SOURCE: LIVE SENSOR";
+
+        if (isStale || (freshness && freshness.includes("WAITING"))) {
+          if (freshnessText) freshnessText.textContent = "WAITING FOR REAL SENSOR DATA";
+          if (telemetryBadge) telemetryBadge.className = "telemetry-status-badge flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-50 text-amber-700 border border-amber-300 font-label-caps text-[11px] font-bold shadow-xs";
+          if (dot) dot.className = "w-2 h-2 rounded-full bg-amber-500 animate-ping";
+        } else {
+          if (freshnessText) freshnessText.textContent = freshness || "LIVE / RECENT";
+          if (telemetryBadge) telemetryBadge.className = "telemetry-status-badge flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-300 font-label-caps text-[11px] font-bold shadow-xs";
+          if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+        }
+      } else {
+        if (btnDemo) {
+          btnDemo.className = "px-2.5 py-1 bg-primary text-white font-label-caps text-[11px] font-bold rounded shadow-xs flex items-center gap-1.5 transition-all cursor-pointer";
+          btnDemo.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>DEMO DATA';
+        }
+        if (btnLive) {
+          btnLive.className = "px-2.5 py-1 text-slate-600 hover:text-slate-900 font-label-caps text-[11px] font-medium transition-all cursor-pointer";
+          btnLive.innerHTML = 'LIVE SENSOR';
+        }
+        if (sourceText) sourceText.textContent = "SOURCE: DEMO DATA";
+        if (freshnessText) freshnessText.textContent = "LIVE / RECENT";
+        if (telemetryBadge) telemetryBadge.className = "telemetry-status-badge flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-300 font-label-caps text-[11px] font-bold shadow-xs";
+        if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+      }
+    };
+
+    btnDemo?.addEventListener("click", async () => {
+      if (confirm("Switch telemetry pipeline to DEMO DATA mode? This activates synthetic high-fidelity physics generator.")) {
+        try {
+          await window.aeroAPI.setDataSource("DEMO");
+          updateSourceUI("DEMO");
+          this.showToast("Operational mode switched to DEMO DATA", "info");
+        } catch (e) {
+          this.showToast("Failed to switch source mode: " + e.message, "error");
+        }
+      }
+    });
+
+    btnLive?.addEventListener("click", async () => {
+      if (confirm("Switch to LIVE SENSOR mode? The system will wait for authenticated hardware telemetry (ESP32/IoT gateway) and display 'WAITING FOR REAL SENSOR DATA' until packets arrive.")) {
+        try {
+          await window.aeroAPI.setDataSource("LIVE_SENSOR");
+          updateSourceUI("LIVE_SENSOR", true, "WAITING FOR REAL SENSOR DATA");
+          this.showToast("Operational mode switched to LIVE SENSOR — Waiting for hardware packets...", "warning");
+        } catch (e) {
+          this.showToast("Failed to switch source mode: " + e.message, "error");
+        }
+      }
+    });
+
+    // Retrain ML Models Button
+    const btnRetrain = document.getElementById("btn-retrain-models");
+    const jobBanner = document.getElementById("ml-job-banner");
+    const jobText = document.getElementById("ml-job-text");
+    const jobIdSpan = document.getElementById("ml-job-id");
+
+    btnRetrain?.addEventListener("click", async () => {
+      if (!confirm("Start Machine Learning retraining run on latest sensor datasets? This fits Isolation Forest and Gradient Boosting models and evaluates on held-out test data.")) return;
+
+      try {
+        btnRetrain.disabled = true;
+        btnRetrain.classList.add("opacity-60");
+        if (jobBanner) {
+          jobBanner.classList.remove("hidden");
+          jobBanner.className = "p-3 rounded-lg border border-sky-300 bg-sky-50 text-sky-800 text-xs font-mono flex items-center justify-between";
+          if (jobText) jobText.textContent = "Training models on held-out test partitions...";
+        }
+
+        const res = await window.aeroAPI.triggerModelTraining();
+        const jobId = res.job_id;
+        if (jobIdSpan) jobIdSpan.textContent = jobId;
+        this.showToast(`Training Job ${jobId} initiated`, "info");
+
+        // Poll job status
+        const pollTimer = setInterval(async () => {
+          try {
+            const jobStatus = await window.aeroAPI.getTrainingJobStatus(jobId);
+            if (jobStatus.status === "COMPLETED") {
+              clearInterval(pollTimer);
+              btnRetrain.disabled = false;
+              btnRetrain.classList.remove("opacity-60");
+              if (jobBanner) {
+                jobBanner.className = "p-3 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-mono flex items-center justify-between";
+                if (jobText) jobText.textContent = `Training completed successfully. Model version: ${jobStatus.model_version}`;
+              }
+              this.loadMLMetrics();
+              this.showToast(`Model retraining finished: ${jobStatus.model_version}`, "success");
+            } else if (jobStatus.status === "FAILED") {
+              clearInterval(pollTimer);
+              btnRetrain.disabled = false;
+              btnRetrain.classList.remove("opacity-60");
+              if (jobBanner) {
+                jobBanner.className = "p-3 rounded-lg border border-error bg-red-50 text-error text-xs font-mono flex items-center justify-between";
+                if (jobText) jobText.textContent = `Training failed: ${jobStatus.error_details || "Unknown error"}`;
+              }
+              this.showToast(`Training failed: ${jobStatus.error_details}`, "error");
+            }
+          } catch (err) {
+            console.warn("Polling training job error:", err);
+          }
+        }, 2000);
+      } catch (err) {
+        btnRetrain.disabled = false;
+        btnRetrain.classList.remove("opacity-60");
+        this.showToast("Failed to initiate training: " + err.message, "error");
+      }
+    });
+
+    // Generate Demo Benchmark Data Button
+    const btnGenDemo = document.getElementById("btn-generate-demo-data");
+    btnGenDemo?.addEventListener("click", async () => {
+      try {
+        btnGenDemo.disabled = true;
+        btnGenDemo.classList.add("opacity-60");
+        this.showToast("Generating 60m multi-regime demo flight benchmark...", "info");
+        const res = await window.aeroAPI.generateDemoData({ duration_minutes: 60.0, seed: 42 });
+        this.showToast(`Generated ${res.metadata.total_records} benchmark observations`, "success");
+        this.loadMLMetrics();
+        btnGenDemo.disabled = false;
+        btnGenDemo.classList.remove("opacity-60");
+      } catch (e) {
+        btnGenDemo.disabled = false;
+        btnGenDemo.classList.remove("opacity-60");
+        this.showToast("Failed to generate demo data: " + e.message, "error");
+      }
+    });
+
+    // Initial load of ML metrics and system source
+    this.loadMLMetrics();
+  }
+
+  async loadMLMetrics() {
+    try {
+      const [statusRes, metricsRes, sourceRes] = await Promise.all([
+        window.aeroAPI.getMLStatus().catch(() => null),
+        window.aeroAPI.getMLMetrics().catch(() => null),
+        window.aeroAPI.getDataSource().catch(() => null)
+      ]);
+
+      if (statusRes) {
+        const badge = document.getElementById("ml-model-badge");
+        if (badge) {
+          if (statusRes.is_loaded) {
+            badge.className = "px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            badge.textContent = "TRAINED";
+          } else {
+            badge.className = "px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-amber-100 text-amber-800 border border-amber-300";
+            badge.textContent = "MODEL NOT TRAINED";
+          }
+        }
+        const vSpan = document.getElementById("ml-metric-version");
+        if (vSpan && statusRes.model_version) vSpan.textContent = statusRes.model_version;
+      }
+
+      if (metricsRes && metricsRes.supervised_classification) {
+        const sc = metricsRes.supervised_classification;
+        const anom = metricsRes.anomaly_detection;
+        const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+        setVal("ml-metric-accuracy", (sc.accuracy * 100).toFixed(1) + "%");
+        setVal("ml-metric-macro-f1", sc.macro_f1.toFixed(4));
+        setVal("ml-metric-roc-auc", anom.roc_auc.toFixed(4));
+        setVal("ml-metric-anom-f1", anom.f1_score.toFixed(4));
+        setVal("ml-metric-dataset-size", `${metricsRes.test_sample_count * 4} rows`);
+      }
+    } catch (e) {
+      console.warn("Failed to load ML metrics:", e);
+    }
+  }
 }
 
 // Instantiate Master Application on DOM Ready

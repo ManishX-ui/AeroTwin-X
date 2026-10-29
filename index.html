@@ -61,23 +61,29 @@
           <span>ISR CAP &bull; 14,500 FT</span>
         </div>
 
-        <!-- Mode Switcher -->
-        <div class="flex items-center bg-slate-200/80 rounded-md p-[2px] border border-slate-300/60">
-          <button class="px-2.5 py-1 bg-primary text-white font-label-caps text-[11px] font-bold rounded shadow-xs flex items-center gap-1.5 transition-all">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>LIVE
+        <!-- Data Source Mode Switcher -->
+        <div id="mode-switcher-container" class="flex items-center bg-slate-200/80 rounded-md p-[2px] border border-slate-300/60">
+          <button id="btn-mode-demo" class="px-2.5 py-1 bg-primary text-white font-label-caps text-[11px] font-bold rounded shadow-xs flex items-center gap-1.5 transition-all cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>DEMO DATA
           </button>
-          <button class="px-2.5 py-1 text-slate-600 hover:text-slate-900 font-label-caps text-[11px] font-medium transition-all">
-            SIMULATION
+          <button id="btn-mode-live" class="px-2.5 py-1 text-slate-600 hover:text-slate-900 font-label-caps text-[11px] font-medium transition-all cursor-pointer">
+            LIVE SENSOR
           </button>
         </div>
       </div>
 
       <!-- Right: Telemetry Status, Clock & Profile -->
       <div class="flex items-center gap-2">
-        <!-- Telemetry Connection Badge -->
+        <!-- Persistent Data Source Badge -->
+        <div id="header-source-badge" class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 font-label-caps text-[11px] font-bold shadow-xs">
+          <span class="material-symbols-outlined text-[14px] text-indigo-600">hub</span>
+          <span id="header-source-text">SOURCE: DEMO DATA</span>
+        </div>
+
+        <!-- Telemetry Connection & Freshness Badge -->
         <div id="telemetry-status-badge" class="telemetry-status-badge flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-300 font-label-caps text-[11px] font-bold shadow-xs">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="tracking-wide">TELEMETRY: CONNECTED</span>
+          <span id="telemetry-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="telemetry-status-text" class="tracking-wide">LIVE / RECENT</span>
         </div>
 
         <!-- Twin Sync Badge -->
@@ -6673,6 +6679,68 @@
             </div>
             <div id="edge-stage-inspector" class="p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs font-mono space-y-1">
               <span class="font-bold text-slate-800">STAGE DETAIL: Select any pipeline stage above to inspect runtime parameters.</span>
+            </div>
+          </section>
+
+          <!-- Production Machine Learning Lifecycle & Training Panel -->
+          <section id="ml-lifecycle-panel" class="bg-surface-container-lowest border border-slate-200/80 rounded-xl p-5 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="font-headline-md text-base font-bold text-slate-900">Machine Learning Training &amp; Held-Out Verification</h3>
+                  <span id="ml-model-badge" class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    TRAINED
+                  </span>
+                </div>
+                <p class="text-xs text-slate-500 font-mono mt-0.5">Dual-architecture pipeline: Unsupervised Isolation Forest Anomaly Detection + Multi-Class Gradient Boosting Fault Classification</p>
+              </div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <button id="btn-generate-demo-data" type="button" class="px-3 py-1.5 text-xs font-semibold rounded border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 shadow-xs flex items-center gap-1.5 cursor-pointer">
+                  <span class="material-symbols-outlined text-[15px] text-slate-500">database</span>
+                  <span>Generate Demo Benchmark</span>
+                </button>
+                <button id="btn-retrain-models" type="button" class="px-3.5 py-1.5 text-xs font-semibold rounded bg-primary hover:bg-slate-800 text-white shadow-xs flex items-center gap-1.5 cursor-pointer">
+                  <span class="material-symbols-outlined text-[15px]">model_training</span>
+                  <span>Retrain ML Models</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Job Status Notification Banner (hidden by default) -->
+            <div id="ml-job-banner" class="hidden p-3 rounded-lg border text-xs font-mono items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span id="ml-job-spinner" class="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
+                <span id="ml-job-text">Training job executing...</span>
+              </div>
+              <span id="ml-job-id" class="text-slate-500"></span>
+            </div>
+
+            <!-- Metrics & Architecture Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Model Version</span>
+                <span id="ml-metric-version" class="text-sm font-bold font-mono text-slate-900 block mt-1">v2.5-prod</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Classifier Accuracy</span>
+                <span id="ml-metric-accuracy" class="text-sm font-bold font-mono text-emerald-700 block mt-1">85.70%</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Classifier Macro F1</span>
+                <span id="ml-metric-macro-f1" class="text-sm font-bold font-mono text-indigo-700 block mt-1">0.6977</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Anomaly ROC-AUC</span>
+                <span id="ml-metric-roc-auc" class="text-sm font-bold font-mono text-emerald-700 block mt-1">0.8326</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Anomaly F1-Score</span>
+                <span id="ml-metric-anom-f1" class="text-sm font-bold font-mono text-indigo-700 block mt-1">0.8315</span>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-lg border border-slate-200/80">
+                <span class="text-[10px] uppercase font-mono text-slate-500 block">Training Records</span>
+                <span id="ml-metric-dataset-size" class="text-sm font-bold font-mono text-slate-800 block mt-1">7,200 rows</span>
+              </div>
             </div>
           </section>
 

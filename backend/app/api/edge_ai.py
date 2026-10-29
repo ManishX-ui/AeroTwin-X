@@ -61,7 +61,7 @@ class AIModelItem(BaseModel):
     precision: str
     size_mb: float
     latency_ms: float
-    accuracy_pct: float
+    accuracy_pct: Optional[float] = None
     deployed_devices: List[str]
     status: str
 
@@ -93,13 +93,13 @@ AI_MODELS: List[AIModelItem] = [
     ),
     AIModelItem(
         id="MDL-RUL-03",
-        name="Remaining Useful Life (RUL) Weibull Predictor",
-        architecture="Hybrid Physics-Informed Survival Weibull",
-        version="v1.0-certified",
+        name="TBO Maintenance Countdown Estimator",
+        architecture="Configured Interval Countdown with Operational Wear Heuristics",
+        version="v1.0-interval",
         precision="FP16",
         size_mb=8.1,
         latency_ms=3.8,
-        accuracy_pct=94.2,
+        accuracy_pct=None,
         deployed_devices=["EDGE-ORIN-01"],
         status="ACTIVE"
     )

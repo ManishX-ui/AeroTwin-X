@@ -39,18 +39,18 @@ MODEL_REGISTRY = [
     },
     {
         "id": "MOD-RUL-03",
-        "name": "Weibull Degradation & RUL Estimator",
-        "model_type": "Nonlinear Physical Wear Regression",
-        "version": "v1.0-certified",
+        "name": "TBO Maintenance Countdown Estimator",
+        "model_type": "Configured Interval Linear Countdown with Operational Wear Heuristics",
+        "version": "v1.0-interval",
         "training_date": "2026-08-30",
         "metrics": {
-            "rmse_hours": 18.5,
-            "mape": "3.1%",
-            "confidence_band": "90% Interval"
+            "estimate_method": "TBO_COUNTDOWN",
+            "confidence_status": "NOT_CALIBRATED",
+            "calibration_note": "Awaiting fleet statistical survival calibration"
         },
         "features_count": 6,
         "status": "ACTIVE",
-        "description": "Forecasts remaining flight hours to TBO overhaul under cumulative thermomechanical fatigue."
+        "description": "Calculates remaining flight hours to scheduled TBO overhaul under configured limits and operational stress."
     },
     {
         "id": "MOD-TWIN-04",

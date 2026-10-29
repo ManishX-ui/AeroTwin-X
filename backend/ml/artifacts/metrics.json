@@ -1,0 +1,172 @@
+{
+  "evaluation_split": "held_out_test_set",
+  "evaluated_at": "2026-10-22T15:10:28.454660+00:00",
+  "test_sample_count": 3000,
+  "supervised_classification": {
+    "accuracy": 0.857,
+    "macro_precision": 0.6832,
+    "macro_recall": 0.7263,
+    "macro_f1": 0.6977,
+    "confusion_matrix": [
+      [
+        1160,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        40,
+        0
+      ],
+      [
+        0,
+        300,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        300,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        300,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        300,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        39,
+        0,
+        0,
+        0,
+        0,
+        211,
+        0,
+        0,
+        0
+      ],
+      [
+        10,
+        0,
+        0,
+        0,
+        190,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        150,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "per_class": {
+      "NORMAL": {
+        "support": 1200,
+        "precision": 0.8536,
+        "recall": 0.9667,
+        "f1_score": 0.9066
+      },
+      "OVERHEATING": {
+        "support": 300,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "VIBRATION_ANOMALY": {
+        "support": 300,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "LUBRICATION_ISSUE": {
+        "support": 300,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "COMBUSTION_INSTABILITY": {
+        "support": 300,
+        "precision": 0.6122,
+        "recall": 1.0,
+        "f1_score": 0.7595
+      },
+      "SENSOR_DRIFT": {
+        "support": 250,
+        "precision": 1.0,
+        "recall": 0.844,
+        "f1_score": 0.9154
+      },
+      "FROZEN_SENSOR": {
+        "support": 200,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      },
+      "COMMUNICATION_FAILURE": {
+        "support": 150,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0
+      }
+    }
+  },
+  "anomaly_detection": {
+    "algorithm": "Isolation Forest",
+    "roc_auc": 0.8326,
+    "precision": 0.7221,
+    "recall": 0.98,
+    "f1_score": 0.8315,
+    "false_positive_rate": 0.5658,
+    "false_negative_rate": 0.02,
+    "threshold": 0.35
+  }
+}

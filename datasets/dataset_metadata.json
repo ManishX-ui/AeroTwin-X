@@ -1,0 +1,39 @@
+{
+  "dataset_name": "AeroTwin-X Rotax 915 iS Demo Sensor Benchmark",
+  "version": "1.0.0",
+  "generated_at": "2026-10-22T15:10:13.394797+00:00",
+  "sha256_fingerprint": "d673d498d92f63334e45acb01f2101c68aa8016724288b9a36a9c12a7f045f3a",
+  "random_seed": 42,
+  "sampling_rate_hz": 2.0,
+  "duration_minutes": 60.0,
+  "total_records": 12000,
+  "splits": {
+    "train_records": 7200,
+    "val_records": 1800,
+    "test_records": 3000
+  },
+  "fault_label_distribution": {
+    "NORMAL": 6695,
+    "OVERHEATING": 1200,
+    "LUBRICATION_ISSUE": 1100,
+    "VIBRATION_ANOMALY": 800,
+    "COMBUSTION_INSTABILITY": 700,
+    "SENSOR_DRIFT": 650,
+    "FROZEN_SENSOR": 500,
+    "COMMUNICATION_FAILURE": 350,
+    "SENSOR_SPIKE": 5
+  },
+  "data_quality_distribution": {
+    "VALID": 10495,
+    "DRIFT": 650,
+    "FROZEN": 500,
+    "DROPOUT": 350,
+    "SPIKE": 5
+  },
+  "files": {
+    "full_dataset": "C:\\Users\\Manish\\Desktop\\navomesh Projects\\AeroTwin-X\\datasets\\demo_sensor_dataset.csv",
+    "train_split": "C:\\Users\\Manish\\Desktop\\navomesh Projects\\AeroTwin-X\\datasets\\train_split.csv",
+    "val_split": "C:\\Users\\Manish\\Desktop\\navomesh Projects\\AeroTwin-X\\datasets\\val_split.csv",
+    "test_split": "C:\\Users\\Manish\\Desktop\\navomesh Projects\\AeroTwin-X\\datasets\\test_split.csv"
+  }
+}

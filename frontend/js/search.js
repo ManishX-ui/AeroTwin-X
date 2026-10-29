@@ -44,7 +44,7 @@ class AeroSearchEngine {
       // AI Diagnostics & Models
       { title: "Residual Anomaly Detector (Isolation Forest)", category: "MODEL", view: "edge-ai", desc: "Multi-dimensional residual density isolation tree model" },
       { title: "Propulsion Fault Classifier (Gradient Boosted Tree)", category: "MODEL", view: "edge-ai", desc: "Multi-class fault classifier for overheating, misfire, and clog" },
-      { title: "Weibull Degradation & RUL Estimator", category: "MODEL", view: "rul-degradation", desc: "Nonlinear physical wear regression model for TBO overhaul" },
+      { title: "TBO Degradation & Countdown Estimator", category: "MODEL", view: "rul-degradation", desc: "Configured interval countdown with operational wear heuristics" },
       { title: "Aero-Piston Physics-Informed Digital Twin", category: "MODEL", view: "digital-twin", desc: "1st-order lumped parameter aerothermodynamic solver" },
 
       // Missions

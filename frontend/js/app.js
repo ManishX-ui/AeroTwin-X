@@ -490,21 +490,33 @@ class AeroTwinApp {
     if (!prediction) return;
     const { anomaly, fault, health, rul } = prediction;
 
-    // Engine Health
-    this.setAllText(".font-telemetry-hero:first-of-type, [data-kpi='health']", Math.round(health.engine_health));
+    // Engine Health (Concern B: explicit distinction between unobservable vs critical fault vs normal)
+    if (health.is_observable === false || health.observability_status === "UNAVAILABLE") {
+      this.setAllText(".font-telemetry-hero:first-of-type, [data-kpi='health']", "--");
+      const healthBadge = document.querySelector("section.grid > div:first-child span.inline-flex");
+      if (healthBadge) {
+        healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-slate-100 text-slate-700 font-label-caps text-[10px] font-semibold";
+        healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>UNAVAILABLE`;
+      }
+    } else {
+      this.setAllText(".font-telemetry-hero:first-of-type, [data-kpi='health']", Math.round(health.engine_health));
 
-    // Health Status Badge
-    const healthBadge = document.querySelector("section.grid > div:first-child span.inline-flex");
-    if (healthBadge) {
-      if (health.engine_health < 60) {
-        healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-error-container text-error font-label-caps text-[10px] font-semibold";
-        healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>CRITICAL`;
-      } else if (health.engine_health < 85) {
-        healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-amber-100 text-amber-700 font-label-caps text-[10px] font-semibold";
-        healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>WARNING`;
-      } else {
-        healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-tertiary-container/15 text-tertiary font-label-caps text-[10px] font-semibold";
-        healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>NORMAL`;
+      // Health Status Badge
+      const healthBadge = document.querySelector("section.grid > div:first-child span.inline-flex");
+      if (healthBadge) {
+        if (health.health_status === "CRITICAL_FAULT_DETECTED" || health.engine_health < 60) {
+          healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-error-container text-error font-label-caps text-[10px] font-semibold";
+          healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>CRITICAL`;
+        } else if (health.observability_status === "DEGRADED_OBSERVABILITY" || health.health_status === "DEGRADED_PARTIAL_OBSERVABILITY") {
+          healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-amber-100 text-amber-700 font-label-caps text-[10px] font-semibold";
+          healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>DEGRADED`;
+        } else if (health.engine_health < 85) {
+          healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-amber-100 text-amber-700 font-label-caps text-[10px] font-semibold";
+          healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>WARNING`;
+        } else {
+          healthBadge.className = "inline-flex items-center gap-1 px-1.5 py-0.5 rounded-DEFAULT bg-tertiary-container/15 text-tertiary font-label-caps text-[10px] font-semibold";
+          healthBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container animate-pulse"></span>NORMAL`;
+        }
       }
     }
 
@@ -2372,7 +2384,12 @@ ${report.data_content || 'No text data available.'}
         HEALTHY: "bg-emerald-100 text-emerald-800 border-emerald-300",
         DRIFTING: "bg-amber-100 text-amber-800 border-amber-300",
         FLAGGED: "bg-rose-100 text-rose-800 border-rose-300",
-        STALE: "bg-purple-100 text-purple-800 border-purple-300"
+        STALE: "bg-purple-100 text-purple-800 border-purple-300",
+        FROZEN: "bg-cyan-100 text-cyan-800 border-cyan-300",
+        OFFLINE: "bg-slate-100 text-slate-800 border-slate-300",
+        MISSING: "bg-orange-100 text-orange-800 border-orange-300",
+        INVALID: "bg-rose-100 text-rose-800 border-rose-300",
+        PRESENT_AND_VALID: "bg-emerald-100 text-emerald-800 border-emerald-300"
       };
 
       return `

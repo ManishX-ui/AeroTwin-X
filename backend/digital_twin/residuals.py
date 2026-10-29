@@ -1,4 +1,5 @@
 """Residual Analysis and State Comparison Engine."""
+import math
 from typing import Dict, Any, Tuple
 from .performance_map import SENSOR_SCALES
 from ..app.schemas.digital_twin import ChannelResidual, DigitalTwinState
@@ -32,7 +33,15 @@ class ResidualAnalyzer:
 
         for key, scale in self.scales.items():
             if key in actual_telemetry and key in expected_telemetry:
-                act = float(actual_telemetry[key])
+                val = actual_telemetry[key]
+                if val is None:
+                    continue
+                try:
+                    act = float(val)
+                    if math.isnan(act) or math.isinf(act):
+                        continue
+                except (ValueError, TypeError):
+                    continue
                 exp = float(expected_telemetry[key])
                 res = act - exp
                 norm_res = res / scale

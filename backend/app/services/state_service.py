@@ -28,6 +28,7 @@ from ...ml.fault_classifier import FaultClassifier
 from ...ml.health_model import HealthModel
 from ...ml.rul_model import RULModel
 from ...ml.explainability import ExplainabilityEngine
+from ...ml.data_quality import DataQualityAssessor
 from ..schemas.telemetry import TelemetryPacket
 from ..schemas.digital_twin import DigitalTwinState
 from ..schemas.predictions import AIPredictionSummary
@@ -53,6 +54,7 @@ class AeroTwinStateService:
         self.health_model = HealthModel()
         self.rul_model = RULModel()
         self.explainability = ExplainabilityEngine()
+        self.quality_assessor = DataQualityAssessor()
 
         # Telemetry Source Modes: LIVE_SENSOR, DATASET_REPLAY, SIMULATION
         self.current_source_mode: str = "SIMULATION"
@@ -151,7 +153,7 @@ class AeroTwinStateService:
         2. ODE Physics Digital Twin estimation
         3. Residual analysis
         4. Time-series feature extraction
-        5. AI/ML Inference (Isolation Forest, GradientBoosting, Health, Weibull RUL, Explainability)
+        5. AI/ML Inference (Isolation Forest, GradientBoosting, Health, TBO Countdown RUL, Explainability)
         6. Optional PostgreSQL persistence for AI predictions
         7. In-memory caching and real-time WebSocket distribution
         """
@@ -183,36 +185,54 @@ class AeroTwinStateService:
             timestamp=packet.timestamp
         )
 
+        twin_residuals_dict = twin_state.model_dump()
+        quality_assessment = self.quality_assessor.assess_telemetry(
+            telemetry=telemetry_dict,
+            residuals=twin_residuals_dict
+        )
+
         # 3. Feature Extraction
         features = self.feature_extractor.extract_features(
             telemetry=telemetry_dict,
-            residuals=twin_state.model_dump()
+            residuals=twin_residuals_dict,
+            quality_assessment=quality_assessment
         )
 
-        # 4. AI / ML Inference
-        anomaly_pred = self.anomaly_detector.predict(features)
-        fault_pred = self.fault_classifier.predict(features)
-        health_pred = self.health_model.compute_health(features, anomaly_pred.anomaly_score)
-        rul_pred = self.rul_model.estimate_rul(
-            health_score=health_pred.engine_health,
-            fault_type=fault_pred.fault,
-            anomaly_score=anomaly_pred.anomaly_score
-        )
-        evidence, attributions, root_cause = self.explainability.explain(
-            fault_type=fault_pred.fault,
-            features=features
-        )
-
-        prediction_summary = AIPredictionSummary(
-            timestamp=packet.timestamp,
-            anomaly=anomaly_pred,
-            fault=fault_pred,
-            health=health_pred,
-            rul=rul_pred,
-            evidence=evidence,
-            feature_attributions=attributions,
-            root_cause_explanation=root_cause
-        )
+        # 4. AI / ML Inference (Prefer trained production inference_service)
+        from ...ml.inference import inference_service
+        if inference_service.is_loaded:
+            prediction_summary = inference_service.predict(telemetry_dict, source=source)
+            anomaly_pred = prediction_summary.anomaly
+            fault_pred = prediction_summary.fault
+            health_pred = prediction_summary.health
+            rul_pred = prediction_summary.rul
+            evidence = prediction_summary.evidence
+            attributions = prediction_summary.feature_attributions
+            root_cause = prediction_summary.root_cause_explanation
+        else:
+            anomaly_pred = self.anomaly_detector.predict(features)
+            fault_pred = self.fault_classifier.predict(features)
+            health_pred = self.health_model.compute_health(features, anomaly_pred.anomaly_score)
+            rul_pred = self.rul_model.estimate_rul(
+                health_score=health_pred.engine_health,
+                fault_type=fault_pred.fault,
+                anomaly_score=anomaly_pred.anomaly_score
+            )
+            evidence, attributions, root_cause = self.explainability.explain(
+                fault_type=fault_pred.fault,
+                features=features
+            )
+            prediction_summary = AIPredictionSummary(
+                timestamp=packet.timestamp,
+                anomaly=anomaly_pred,
+                fault=fault_pred,
+                health=health_pred,
+                rul=rul_pred,
+                evidence=evidence,
+                feature_attributions=attributions,
+                root_cause_explanation=root_cause,
+                data_quality=quality_assessment
+            )
 
         # 5. Persist Prediction to Neon PostgreSQL when requested
         pred_record_id = None

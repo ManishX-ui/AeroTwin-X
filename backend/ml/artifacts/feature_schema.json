@@ -1,0 +1,34 @@
+{
+  "feature_names": [
+    "res_cht",
+    "res_egt",
+    "res_oil_pressure",
+    "res_oil_temperature",
+    "res_fuel_flow",
+    "res_vibration",
+    "res_manifold_pressure",
+    "trend_cht",
+    "trend_egt",
+    "trend_vibration",
+    "std_cht",
+    "std_vibration",
+    "cross_thermal_ratio",
+    "cross_power_ratio",
+    "cross_lube_factor",
+    "raw_battery_voltage",
+    "raw_alternator_current"
+  ],
+  "feature_count": 17,
+  "supported_classes": [
+    "NORMAL",
+    "OVERHEATING",
+    "VIBRATION_ANOMALY",
+    "LUBRICATION_ISSUE",
+    "COMBUSTION_INSTABILITY",
+    "SENSOR_DRIFT",
+    "FROZEN_SENSOR",
+    "COMMUNICATION_FAILURE",
+    "SENSOR_SPIKE"
+  ],
+  "target_engine": "Rotax 915 iS MALE UAV Aero-Piston"
+}

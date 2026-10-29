@@ -398,6 +398,52 @@ class AeroTwinAPI {
   async listModels() {
     return this.request("/models");
   }
+
+  /* Machine Learning System & Training API */
+  async getMLStatus() {
+    return this.request("/ml/status");
+  }
+
+  async getMLMetrics() {
+    return this.request("/ml/metrics");
+  }
+
+  async triggerModelTraining(payload = { datasets_dir: "datasets" }) {
+    return this.request("/ml/train", {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+  }
+
+  async getTrainingJobStatus(jobId) {
+    return this.request(`/ml/training-jobs/${encodeURIComponent(jobId)}`);
+  }
+
+  async getLatestMLPrediction() {
+    return this.request("/ml/predictions/latest");
+  }
+
+  async getDeviceStatus(deviceId = "ENGINE-001") {
+    return this.request(`/devices/status?device_id=${encodeURIComponent(deviceId)}`);
+  }
+
+  async generateDemoData(payload = { duration_minutes: 20.0, seed: 42 }) {
+    return this.request("/demo/generate", {
+      method: "POST",
+      body: JSON.stringify(payload)
+    });
+  }
+
+  async getDataSource() {
+    return this.request("/system/data-source");
+  }
+
+  async setDataSource(source) {
+    return this.request("/system/data-source", {
+      method: "POST",
+      body: JSON.stringify({ source })
+    });
+  }
 }
 
 // Global API Singleton instance
